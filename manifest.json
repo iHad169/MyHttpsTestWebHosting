@@ -1,0 +1,31 @@
+{
+  "short_name": "HKNBP",
+  "name": "香港網路廣播平臺",
+  "icons": [
+    {
+      "src": "img/logo.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#000",
+  "display": "fullscreen",
+  "scope": "/",
+  "theme_color": "#000",
+  "orientation": "landscape",
+  "description": "A TV app.",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.example.app1",
+      "id": "org.sourcekey.hknbp"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://itunes.apple.com/app/example-app1/id123456789"
+    }
+  ]
+}
+
