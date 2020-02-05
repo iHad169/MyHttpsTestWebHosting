@@ -3300,7 +3300,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.01_10';
+    return 'v2020.01_10-tsst1';
   }
   var coreVersion;
   var appVersion;
@@ -4758,6 +4758,9 @@ var HKNBP_Core = function (_, Kotlin) {
   };
   function RealRemote_init$lambda(event) {
     switch (toIntOrNull(event.which.toString())) {
+      case 13:
+        VirtualRemote_getInstance().centerButton.click();
+        break;
       case 18:
         VirtualRemote_getInstance().menuButton.click();
         break;
@@ -5389,12 +5392,7 @@ var HKNBP_Core = function (_, Kotlin) {
   function UserControlPanel_init$lambda_5(this$UserControlPanel) {
     return function (event) {
       event.preventDefault();
-      if (this$UserControlPanel.panel_0.style.display === 'block') {
-        this$UserControlPanel.hide();
-      }
-       else {
-        this$UserControlPanel.show_s8ev37$(15000);
-      }
+      this$UserControlPanel.showHideAlternately_s8ev37$(15000);
     };
   }
   UserControlPanel.$metadata$ = {
@@ -5889,7 +5887,12 @@ var HKNBP_Core = function (_, Kotlin) {
     window.open('https://datastudio.google.com/reporting/1GKlAWHEsDdryWh2PRdQFmWzQ_ksRQ8BK/page/1M', '_blank');
   }
   function VirtualRemote_init$lambda_45(event) {
-    $(':focus').click();
+    if ($(':focus').html() == null) {
+      $('#userControlPanelShower').focus();
+    }
+     else {
+      $(':focus').click();
+    }
   }
   function VirtualRemote_init$lambda$lambda(element) {
     var tmp$;
@@ -6034,12 +6037,7 @@ var HKNBP_Core = function (_, Kotlin) {
     $.tabNext();
   }
   function VirtualRemote_init$lambda_50(event) {
-    if (UserControlPanel_getInstance().isShow) {
-      UserControlPanel_getInstance().hide();
-    }
-     else {
-      UserControlPanel_getInstance().show_s8ev37$(60000);
-    }
+    UserControlPanel_getInstance().showHideAlternately_s8ev37$(60000);
   }
   function VirtualRemote_init$lambda_51(event) {
     VideoDescription_getInstance().show_s8ev37$(5000);

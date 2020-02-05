@@ -152,11 +152,7 @@ object UserControlPanel: TabbableUI(
             // 因觸控會同時觸發其他EVENT
             // https://medium.com/frochu/touch-and-mouse-together-76fb69114c04
             event.preventDefault()
-            if(panel.style.display==="block"){
-                hide()
-            }else{
-                show(15000)
-            }
+            showHideAlternately(15000)
         }
 
         //如果系統係iOS就開iframePlayer畀人撳Play制播放頻道

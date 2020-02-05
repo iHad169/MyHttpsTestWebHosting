@@ -209,7 +209,13 @@ object VirtualRemote{
                     "_blank" // <- This is what makes it open in a new window.
             )
         }
-        centerButton.onclick                = fun(event){jq(":focus").click()}
+        centerButton.onclick                = fun(event){
+            //當冇Focus任何Element時
+            //按此鍵就Focus到userControlPanelShower實現顯示userControlPanel
+            if(jq(":focus").html() == null){
+                jq("#userControlPanelShower").focus()
+            }
+        }
         upButton.onclick                    = fun(event){
             val selectables = jq(":tabbable")
             val current = jq(":focus")
@@ -312,7 +318,7 @@ object VirtualRemote{
         }
         leftButton.onclick                  = fun(event){jq.tabPrev()}
         rightButton.onclick                 = fun(event){jq.tabNext()}
-        menuButton.onclick                  = fun(event){if(UserControlPanel.isShow){UserControlPanel.hide()}else{UserControlPanel.show(60000)}}
+        menuButton.onclick                  = fun(event){UserControlPanel.showHideAlternately(60000)}
         videoDescriptionButton.onclick      = fun(event){VideoDescription.show(5000)}
         audioDescriptionButton.onclick      = fun(event){AudioDescription.show(5000)}
         subtitleDescriptionButton.onclick   = fun(event){SubtitleDescription.show(5000)}

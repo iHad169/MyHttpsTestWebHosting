@@ -15,6 +15,7 @@
 package org.sourcekey.hknbp.hknbp_core
 
 import jquery.JQuery
+import jquery.jq
 import kotlin.browser.window
 
 object RealRemote {
@@ -79,7 +80,7 @@ object RealRemote {
     init {
         jqWindow().on("keydown", fun(event: dynamic){
             when(event.which.toString().toIntOrNull()){
-                //enter                   -> {VirtualRemote.centerButton.click()}
+                enter                   -> {VirtualRemote.centerButton.click()}
                 alt                     -> {VirtualRemote.menuButton.click()}
                 pageUp                  -> {VirtualRemote.nextChannelButton.click()}
                 pageDown                -> {VirtualRemote.previousChannelButton.click()}
