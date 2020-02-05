@@ -3300,7 +3300,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.01_10-tsst1';
+    return 'v2020.01_10-tsst2';
   }
   var coreVersion;
   var appVersion;
@@ -5889,9 +5889,6 @@ var HKNBP_Core = function (_, Kotlin) {
   function VirtualRemote_init$lambda_45(event) {
     if ($(':focus').html() == null) {
       $('#userControlPanelShower').focus();
-    }
-     else {
-      $(':focus').click();
     }
   }
   function VirtualRemote_init$lambda$lambda(element) {
