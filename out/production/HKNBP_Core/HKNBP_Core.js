@@ -3303,7 +3303,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_1-test4';
+    return 'v2020.02_1-test5';
   }
   var coreVersion;
   var appVersion;
@@ -5890,14 +5890,8 @@ var HKNBP_Core = function (_, Kotlin) {
     window.open('https://datastudio.google.com/reporting/1GKlAWHEsDdryWh2PRdQFmWzQ_ksRQ8BK/page/1M', '_blank');
   }
   function VirtualRemote_init$lambda_45(event) {
-    var tmp$, tmp$_0;
-    println($(':focus').length.toString() + ' ' + $(':focus').html());
+    println($(':focus').length.toString() + ' ' + toString($(':focus').get(0)) + ' ' + toString($(':focus').get()));
     if ($(':focus').length === 0) {
-      var xxx = Kotlin.isType(tmp$ = document.createElement('button'), HTMLButtonElement) ? tmp$ : throwCCE();
-      xxx.innerHTML = '12345a';
-      xxx.style.position = 'absolute';
-      xxx.style.zIndex = '200';
-      (tmp$_0 = $(':focus').get(0)) != null ? tmp$_0.appendChild(xxx) : null;
       $('#userControlPanelShower').focus();
     }
   }
