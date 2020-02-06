@@ -3300,7 +3300,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_1-test1';
+    return 'v2020.02_1-test2';
   }
   var coreVersion;
   var appVersion;
@@ -5887,8 +5887,8 @@ var HKNBP_Core = function (_, Kotlin) {
     window.open('https://datastudio.google.com/reporting/1GKlAWHEsDdryWh2PRdQFmWzQ_ksRQ8BK/page/1M', '_blank');
   }
   function VirtualRemote_init$lambda_45(event) {
-    println(($(':focus').html() == null).toString() + ' ' + $(':focus').html());
-    if ($(':focus').html() == null) {
+    println($(':focus').length.toString() + ' ' + $(':focus').html());
+    if ($(':focus').length === 0) {
       $('#userControlPanelShower').focus();
     }
   }
