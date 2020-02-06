@@ -3303,7 +3303,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_1-test5';
+    return 'v2020.02_1-test6';
   }
   var coreVersion;
   var appVersion;
@@ -5891,6 +5891,10 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   function VirtualRemote_init$lambda_45(event) {
     println($(':focus').length.toString() + ' ' + toString($(':focus').get(0)) + ' ' + toString($(':focus').get()));
+    var x = $(':focus').get(0);
+    console.log(x);
+    var xx = $(':focus').get();
+    console.log(xx);
     if ($(':focus').length === 0) {
       $('#userControlPanelShower').focus();
     }
