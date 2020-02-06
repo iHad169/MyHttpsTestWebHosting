@@ -212,6 +212,7 @@ object VirtualRemote{
         centerButton.onclick                = fun(event){
             //當冇Focus任何Element時
             //按此鍵就Focus到userControlPanelShower實現顯示userControlPanel
+            println("${jq(":focus").html() == null} ${jq(":focus").html()}")
             if(jq(":focus").html() == null){
                 jq("#userControlPanelShower").focus()
             }
