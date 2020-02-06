@@ -3226,7 +3226,10 @@ var HKNBP_Core = function (_, Kotlin) {
   var find_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.find_5kxll9$', function ($receiver, selector) {
     return $receiver.find(selector);
   });
-  var get_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_fjcsf1$', function ($receiver, index) {
+  var get_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_vwohdt$', function ($receiver) {
+    return $receiver.get();
+  });
+  var get_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_fjcsf1$', function ($receiver, index) {
     return $receiver.get(index);
   });
   function toStringBackwardZeroPadding$lambda(this$toStringBackwardZeroPadding, closure$length) {
@@ -3300,7 +3303,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_1-test2';
+    return 'v2020.02_1-test4';
   }
   var coreVersion;
   var appVersion;
@@ -5887,8 +5890,14 @@ var HKNBP_Core = function (_, Kotlin) {
     window.open('https://datastudio.google.com/reporting/1GKlAWHEsDdryWh2PRdQFmWzQ_ksRQ8BK/page/1M', '_blank');
   }
   function VirtualRemote_init$lambda_45(event) {
+    var tmp$, tmp$_0;
     println($(':focus').length.toString() + ' ' + $(':focus').html());
     if ($(':focus').length === 0) {
+      var xxx = Kotlin.isType(tmp$ = document.createElement('button'), HTMLButtonElement) ? tmp$ : throwCCE();
+      xxx.innerHTML = '12345a';
+      xxx.style.position = 'absolute';
+      xxx.style.zIndex = '200';
+      (tmp$_0 = $(':focus').get(0)) != null ? tmp$_0.appendChild(xxx) : null;
       $('#userControlPanelShower').focus();
     }
   }
@@ -7737,7 +7746,8 @@ var HKNBP_Core = function (_, Kotlin) {
   package$hknbp_core.find_v89ba5$ = find;
   package$hknbp_core.find_k8fgrm$ = find_0;
   package$hknbp_core.find_5kxll9$ = find_1;
-  package$hknbp_core.get_fjcsf1$ = get_0;
+  package$hknbp_core.get_vwohdt$ = get_0;
+  package$hknbp_core.get_fjcsf1$ = get_1;
   package$hknbp_core.toStringBackwardZeroPadding_dqglrj$ = toStringBackwardZeroPadding;
   package$hknbp_core.toNegative_s8ev3n$ = toNegative;
   package$hknbp_core.updateURLParameter_puj7f4$ = updateURLParameter;
