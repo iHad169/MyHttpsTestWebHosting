@@ -2673,7 +2673,7 @@ var HKNBP_Core = function (_, Kotlin) {
     this.enteringNumberWaitingTime_0 = 3500;
   }
   EnteringNumberBox.prototype.update = function () {
-    this.text_0.innerHTML = this.enteringMinus_0 + toString(this.enteringNumber_0);
+    this.text_0.innerHTML = this.enteringMinus_0 + toStringBackwardZeroPadding(this.enteringNumber_0, 3);
   };
   EnteringNumberBox.prototype.enteringNumberToDesignatedChannelRun_0 = function () {
     this.hide();
@@ -4729,6 +4729,7 @@ var HKNBP_Core = function (_, Kotlin) {
     switch (toIntOrNull(event.which.toString())) {
       case 13:
         VirtualRemote_getInstance().centerButton.click();
+        event.preventDefault();
         break;
       case 18:
         VirtualRemote_getInstance().menuButton.click();
@@ -4774,15 +4775,19 @@ var HKNBP_Core = function (_, Kotlin) {
         break;
       case 37:
         VirtualRemote_getInstance().leftButton.click();
+        event.preventDefault();
         break;
       case 38:
         VirtualRemote_getInstance().upButton.click();
+        event.preventDefault();
         break;
       case 39:
         VirtualRemote_getInstance().rightButton.click();
+        event.preventDefault();
         break;
       case 40:
         VirtualRemote_getInstance().downButton.click();
+        event.preventDefault();
         break;
       case 403:
         VirtualRemote_getInstance().programmableRedButton.click();
@@ -5876,14 +5881,10 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   function VirtualRemote_init$lambda_45(event) {
     var focusingElement = $(':focus').get(0);
-    console.log(focusingElement);
-    println('focusingElement is HTMLButtonElement  ' + Kotlin.isType(focusingElement, HTMLButtonElement));
-    println('focusingElement is HTMLInputElement  ' + Kotlin.isType(focusingElement, HTMLInputElement));
-    println('focusingElement is HTMLSelectElement  ' + Kotlin.isType(focusingElement, HTMLSelectElement));
-    println('focusingElement is HTMLOptionElement  ' + Kotlin.isType(focusingElement, HTMLOptionElement));
     if (!(Kotlin.isType(focusingElement, HTMLButtonElement) || Kotlin.isType(focusingElement, HTMLInputElement) || Kotlin.isType(focusingElement, HTMLSelectElement) || Kotlin.isType(focusingElement, HTMLOptionElement))) {
       $('#userControlPanelShower').focus();
     }
+    $(':focus').click();
   }
   function VirtualRemote_init$lambda$lambda(element) {
     var tmp$;
