@@ -207,7 +207,7 @@ object EPG: TabbableUI(document.getElementById("epg") as HTMLElement) {
     }
 
     private fun setProgrammeInformationIcon(programme: Programme){
-        programmeInformationIcon.src = programme.icon?.src?: "img/programmeNullIcon.png"
+        programmeInformationIcon.src = programme.icon?.src?: "img/nullIcon.png"
     }
 
     private fun setProgrammeInformationUrl(programme: Programme){

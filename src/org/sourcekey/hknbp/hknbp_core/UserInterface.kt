@@ -69,4 +69,5 @@ abstract class UserInterface(
     fun showHideAlternately(showTime: Int?){
         if(isShow){ hide() }else{ show(showTime) }
     }
+
 }

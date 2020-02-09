@@ -695,7 +695,7 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
                                 ChannelDescription.show(5000)
                             }
                             VirtualRemote.update()
-                            UserControlPanel.cannotTouchIframePlayerMode()
+                            UserControlPanelShower.cannotTouchIframePlayerMode()
 
                             println("Playing 頻道${channel.number}")
                         }

@@ -167,7 +167,9 @@ inline fun JQuery.find(selector: Element): JQuery = asDynamic().find(selector)
 
 inline fun JQuery.find(selector: JQuery): JQuery = asDynamic().find(selector)
 
-inline fun JQuery.get(index: Int): JQuery = asDynamic().get(index)
+inline fun JQuery.get(): Element? = asDynamic().get()
+
+inline fun JQuery.get(index: Int): Element? = asDynamic().get(index)
 
 /*
 inline fun JQuery.iS(selector: String): Boolean = {
@@ -279,7 +281,7 @@ val coreVersion: String = {
     value
     */
 
-    "v2020.02_1-test1"
+    "v2020.02_2-test0"
 }()
 
 /**
@@ -506,9 +508,9 @@ fun reductionTo(w: Int, h: Int): IntArray{
  * ****************************** *
  * */
 fun main(args: Array<String>) {
-    //HKNBPAppLayerBridge
     try {
-        UserControlPanel.show(15000)
+        UserControlPanelShower
+        UserControlPanel
         ConsentPanel
         VirtualRemote
         RealRemote

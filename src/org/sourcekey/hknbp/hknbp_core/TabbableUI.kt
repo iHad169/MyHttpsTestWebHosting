@@ -70,13 +70,6 @@ abstract class TabbableUI(
     }
 
     init {
-        //設置TabbableElement效果
-        jq(mainFrameElement).on("focus", "button,select,option,input", fun(event){if(!js("\$(\"this\").is(\":focus\")")){
-            //記住依家Focus邊粒element為之後再Show呢個介面時Focus返對上個次嘅element
-            firstFocusJqElement = jqThis()
-            //當focus就重新倒數介面顯示時間
-            setHideTimer(transpositionFocusHideTime)
-        }})
         jq(mainFrameElement).on("hover", "button,select,option,input", fun(event){
             var isEquals = false
             for(i in 0 until jqThis().length){
@@ -88,6 +81,20 @@ abstract class TabbableUI(
                 //設 當onhover 就onfocus 同步
                 jqThis().focus()
             }
+        })
+        jq(mainFrameElement).on("focus", "button,select,option,input", fun(event){if(!js("\$(\"this\").is(\":focus\")")){
+            //記住依家Focus邊粒element為之後再Show呢個介面時Focus返對上個次嘅element
+            firstFocusJqElement = jqThis()
+            //當focus就重新倒數介面顯示時間
+            setHideTimer(transpositionFocusHideTime)
+        }})
+        jq(mainFrameElement).on("scroll", fun(event){
+            //當focus就重新倒數介面顯示時間
+            setHideTimer(transpositionFocusHideTime)
+        })
+        jq(mainFrameElement).on("mousemove", fun(event){
+            //當focus就重新倒數介面顯示時間
+            setHideTimer(transpositionFocusHideTime)
         })
 
         /**

@@ -22,12 +22,10 @@ import kotlin.browser.document
 import kotlin.browser.localStorage
 import kotlin.browser.window
 
-object ConsentPanel: TabbableUI(
-        document.getElementById("consentPanel") as HTMLElement,
-        firstFocusJqElement = jq(document.getElementById("consentPanelAgreeConsentButton") as HTMLElement),
-        transpositionFocusHideTime = null
+object ConsentPanel: UserInterface(
+        document.getElementById("consentPanel") as HTMLElement
 ){
-    private val consentPanel       = document.getElementById("consentPanel") as HTMLDivElement
+    private val consentPanel        = document.getElementById("consentPanel") as HTMLDivElement
     private val agreeConsentButton  = document.getElementById("consentPanelAgreeConsentButton") as HTMLButtonElement
 
     fun isAgreeConsent(): Boolean{

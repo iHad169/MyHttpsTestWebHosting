@@ -2285,7 +2285,7 @@ var HKNBP_Core = function (_, Kotlin) {
   };
   EPG.prototype.setProgrammeInformationIcon_0 = function (programme) {
     var tmp$, tmp$_0;
-    this.programmeInformationIcon_0.src = (tmp$_0 = (tmp$ = programme.icon) != null ? tmp$.src : null) != null ? tmp$_0 : 'img/programmeNullIcon.png';
+    this.programmeInformationIcon_0.src = (tmp$_0 = (tmp$ = programme.icon) != null ? tmp$.src : null) != null ? tmp$_0 : 'img/nullIcon.png';
   };
   EPG.prototype.setProgrammeInformationUrl_0 = function (programme) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
@@ -3268,7 +3268,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_1-test8';
+    return 'v2020.02_2-test0';
   }
   var coreVersion;
   var appVersion;
@@ -5091,8 +5091,10 @@ var HKNBP_Core = function (_, Kotlin) {
     this.isFocusTriggerShowEventElement = isFocusTriggerShowEventElement;
     this.isFocusOutHide = isFocusOutHide;
     this.isAddThisToTabbableUIList_elivbw$_0 = false;
-    $(mainFrameElement).on('focus', 'button,select,option,input', TabbableUI_init$lambda(this));
-    $(mainFrameElement).on('hover', 'button,select,option,input', TabbableUI_init$lambda_0(this));
+    $(mainFrameElement).on('hover', 'button,select,option,input', TabbableUI_init$lambda(this));
+    $(mainFrameElement).on('focus', 'button,select,option,input', TabbableUI_init$lambda_0(this));
+    $(mainFrameElement).on('scroll', TabbableUI_init$lambda_1(this));
+    $(mainFrameElement).on('mousemove', TabbableUI_init$lambda_2(this));
     UserInterface$Companion_getInstance().allUserInterfaceList.add_11rb$(this);
   }
   function TabbableUI$Companion() {
@@ -5139,14 +5141,6 @@ var HKNBP_Core = function (_, Kotlin) {
   };
   function TabbableUI_init$lambda(this$TabbableUI) {
     return function (event) {
-      if (!$('this').is(':focus')) {
-        this$TabbableUI.firstFocusJqElement = $(this);
-        this$TabbableUI.setHideTimer_s8ev37$(this$TabbableUI.transpositionFocusHideTime);
-      }
-    };
-  }
-  function TabbableUI_init$lambda_0(this$TabbableUI) {
-    return function (event) {
       var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
       var isEquals = false;
       tmp$ = $(this).length;
@@ -5161,6 +5155,24 @@ var HKNBP_Core = function (_, Kotlin) {
       if (!isEquals) {
         $(this).focus();
       }
+    };
+  }
+  function TabbableUI_init$lambda_0(this$TabbableUI) {
+    return function (event) {
+      if (!$('this').is(':focus')) {
+        this$TabbableUI.firstFocusJqElement = $(this);
+        this$TabbableUI.setHideTimer_s8ev37$(this$TabbableUI.transpositionFocusHideTime);
+      }
+    };
+  }
+  function TabbableUI_init$lambda_1(this$TabbableUI) {
+    return function (event) {
+      this$TabbableUI.setHideTimer_s8ev37$(this$TabbableUI.transpositionFocusHideTime);
+    };
+  }
+  function TabbableUI_init$lambda_2(this$TabbableUI) {
+    return function (event) {
+      this$TabbableUI.setHideTimer_s8ev37$(this$TabbableUI.transpositionFocusHideTime);
     };
   }
   TabbableUI.$metadata$ = {
@@ -5657,7 +5669,6 @@ var HKNBP_Core = function (_, Kotlin) {
     this.subtitleDescriptionButton.onclick = VirtualRemote_init$lambda_53;
     this.volumeDescriptionButton.onclick = VirtualRemote_init$lambda_54;
     this.returnButton.onclick = VirtualRemote_init$lambda_55;
-    this.virtualRemote.onscroll = VirtualRemote_init$lambda_56;
     this.update();
     channels.addOnNodeEventListener_ljxrtv$(new VirtualRemote_init$ObjectLiteral());
     channels.addOnElementsChangedListener_9f6p79$(new VirtualRemote_init$ObjectLiteral_0());
@@ -6045,9 +6056,6 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   function VirtualRemote_init$lambda_55(event) {
     UserInterface$Companion_getInstance().hideAllUserInterface();
-  }
-  function VirtualRemote_init$lambda_56(event) {
-    UserControlPanel_getInstance().show_s8ev37$(30000);
   }
   function VirtualRemote_init$ObjectLiteral() {
   }

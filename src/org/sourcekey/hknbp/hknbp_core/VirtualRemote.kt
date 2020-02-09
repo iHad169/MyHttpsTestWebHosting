@@ -212,10 +212,14 @@ object VirtualRemote{
         centerButton.onclick                = fun(event){
             //當冇Focus任何Element時
             //按此鍵就Focus到userControlPanelShower實現顯示userControlPanel
-            println("${jq(":focus").html() == null} ${jq(":focus").html()}")
-            if(jq(":focus").html() == null){
-                jq("#userControlPanelShower").focus()
-            }
+            var focusingElement = jq(":focus").get(0)
+            if(!(focusingElement is HTMLButtonElement
+                    || focusingElement is HTMLInputElement
+                    || focusingElement is HTMLSelectElement
+                    || focusingElement is HTMLOptionElement
+            )){ jq("#userControlPanelShower").focus() }
+            //click入Focus緊嘅Element
+            jq(":focus").click()
         }
         upButton.onclick                    = fun(event){
             val selectables = jq(":tabbable")
@@ -325,8 +329,6 @@ object VirtualRemote{
         subtitleDescriptionButton.onclick   = fun(event){SubtitleDescription.show(5000)}
         volumeDescriptionButton.onclick     = fun(event){VolumeDescription.show(5000)}
         returnButton.onclick                = fun(event){UserInterface.hideAllUserInterface()}
-
-        virtualRemote.onscroll = fun(event){ UserControlPanel.show(30000) }
 
         update()
         channels.addOnNodeEventListener(object: ArrayLinkList.OnNodeEventListener<Channel>{

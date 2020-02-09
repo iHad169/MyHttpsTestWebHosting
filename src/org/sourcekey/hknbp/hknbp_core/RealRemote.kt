@@ -80,7 +80,7 @@ object RealRemote {
     init {
         jqWindow().on("keydown", fun(event: dynamic){
             when(event.which.toString().toIntOrNull()){
-                enter                   -> {VirtualRemote.centerButton.click()}
+                enter                   -> {VirtualRemote.centerButton.click();event.preventDefault()}
                 alt                     -> {VirtualRemote.menuButton.click()}
                 pageUp                  -> {VirtualRemote.nextChannelButton.click()}
                 pageDown                -> {VirtualRemote.previousChannelButton.click()}
@@ -95,10 +95,10 @@ object RealRemote {
                 digit8                  -> {VirtualRemote.number8Button.click()}
                 digit9                  -> {VirtualRemote.number9Button.click()}
                 minus                   -> {VirtualRemote.minusButton.click()}
-                arrowLeft               -> {VirtualRemote.leftButton.click()}
-                arrowUp                 -> {VirtualRemote.upButton.click()}
-                arrowRight              -> {VirtualRemote.rightButton.click()}
-                arrowDown               -> {VirtualRemote.downButton.click()}
+                arrowLeft               -> {VirtualRemote.leftButton.click();event.preventDefault()}
+                arrowUp                 -> {VirtualRemote.upButton.click();event.preventDefault()}
+                arrowRight              -> {VirtualRemote.rightButton.click();event.preventDefault()}
+                arrowDown               -> {VirtualRemote.downButton.click();event.preventDefault()}
                 tizenColorF0Red         -> {VirtualRemote.programmableRedButton.click()}
                 tizenColorF1Green       -> {VirtualRemote.programmableGreenButton.click()}
                 tizenColorF2Yellow      -> {VirtualRemote.programmableYellowButton.click()}

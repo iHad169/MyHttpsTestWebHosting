@@ -39,7 +39,7 @@ object EnteringNumberBox: UserInterface(document.getElementById("enteringNumberB
 
 
     override fun update(){
-        text.innerHTML = enteringMinus + enteringNumber
+        text.innerHTML = enteringMinus + enteringNumber.toStringBackwardZeroPadding(3)
     }
 
     /**
