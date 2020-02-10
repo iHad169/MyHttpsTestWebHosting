@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <link href="https://vjs.zencdn.net/7.6.5/video-js.css" rel="stylesheet">
+    <link href="https://vjs.zencdn.net/7.4.1/video-js.min.css" rel="stylesheet">
     <style>
         /* 字幕style */
         .video-js .vjs-text-track-display > div > div > div{
@@ -54,7 +54,9 @@
 
 <body>
 <div id="player-display" style="position:absolute; top:0; bottom:0; left:0; right:0; overflow:hidden;"></div>
-<script src="https://vjs.zencdn.net/7.6.5/video.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://vjs.zencdn.net/7.4.1/video.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/videojs-vlc@0.2.0/lib/videojs-vlc.js"></script>
 <script>
     /**
      * 播放器
@@ -333,10 +335,11 @@
             autoplay: true,
             controls: false,
             poster: "../img/nullIcon.png",
-            hls: {
-                overrideNative: true
-            },
+            techOrder: ["html5", "flash", "vlc"],
             html5: {
+                hls: {
+                    overrideNative: true
+                },
                 nativeVideoTracks: false,
                 nativeAudioTracks: false,
                 nativeTextTracks: false
