@@ -21,7 +21,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://vjs.zencdn.net/7.4.1/video-js.min.css" rel="stylesheet">
+    <link href="https://vjs.zencdn.net/7.6.5/video-js.min.css" rel="stylesheet">
     <style>
         /* 字幕style */
         .video-js .vjs-text-track-display > div > div > div{
@@ -343,7 +343,7 @@
         player = videojs('player', {
             autoplay: true,
             controls: false,
-            poster: ''
+            poster: "../img/nullIcon.png"
         });
         player.ready(function(){
             var settings = this.textTrackSettings;

@@ -18,7 +18,7 @@
  * 控制更新cache版本
  * 修改版本名今用戶進行更新新版
  */
-var coreVersion = "v2020.02_2-test0";
+var coreVersion = "v2020.02_2-test1";
 
 /**
  * 檢查依家運行係米ServiceWorker
@@ -56,7 +56,7 @@ if(self.registration){
         "iframePlayer/videojs_hls.html",
         "iframePlayer/youtube_api.html",
         "img/logo.png",
-        "img/programmeNullIcon.png",
+        "img/nullIcon.png",
         "js/jquery.tabbable.js",
         "out/production/HKNBP_Core/HKNBP_Core.js",
 
