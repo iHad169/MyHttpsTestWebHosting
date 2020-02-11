@@ -17,7 +17,8 @@
 <head>
     <meta charset="UTF-8">
 
-    <link href="https://vjs.zencdn.net/7.7.4/video-js.min.css" rel="stylesheet">
+    <!--<link href="https://vjs.zencdn.net/7.7.4/video-js.min.css" rel="stylesheet">-->
+    <link href="https://unpkg.com/video.js@6.7.1/dist/video-js.css" rel="stylesheet">
     <style>
         /* 字幕style */
         .video-js .vjs-text-track-display > div > div > div{
@@ -54,8 +55,10 @@
 
 <body>
 <div id="player-display" style="position:absolute; top:0; bottom:0; left:0; right:0; overflow:hidden;"></div>
-<script type="text/javascript" src="https://vjs.zencdn.net/7.7.4/video.min.js"></script>
-<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/videojs-vlc@0.2.0/lib/videojs-vlc.js"></script>-->
+<script src="https://unpkg.com/video.js@6.7.1/dist/video.js"></script>
+<script src="https://unpkg.com/@videojs/http-streaming@0.9.0/dist/videojs-http-streaming.js"></script>
+<!--<script type="text/javascript" src="https://vjs.zencdn.net/7.7.4/video.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/videojs-vlc@0.2.0/lib/videojs-vlc.js"></script>-->
 <script type="text/javascript">
     /**
      * 播放器
