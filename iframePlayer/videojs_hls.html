@@ -338,11 +338,11 @@
             techOrder: ["html5", "flash", "vlc"],
             html5: {
                 hls: {
-                    overrideNative: true
+                    overrideNative: false
                 },
-                nativeVideoTracks: false,
-                nativeAudioTracks: false,
-                nativeTextTracks: false
+                nativeVideoTracks: true,
+                nativeAudioTracks: true,
+                nativeTextTracks: true
             }
         });
         player.ready(function(){

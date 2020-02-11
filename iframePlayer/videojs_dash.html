@@ -239,7 +239,7 @@
         var subtitleTracks = [];
         //設置所有Track選項
         for(var i=0; i<player.textTracks().length; i++){
-            if(player.textTracks()[i].kind === "subtitles" || player.textTracks()[i].kind === "caption"){
+            if(player.textTracks()[i].kind !== "metadata"){
                 subtitleTracks.push(TrackDescription(i, player.textTracks()[i].label));
             }
         }
