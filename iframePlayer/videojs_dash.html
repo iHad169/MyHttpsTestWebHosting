@@ -21,8 +21,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://vjs.zencdn.net/7.6.5/video-js.min.css" rel="stylesheet">
-    <style>
+    <link href="https://vjs.zencdn.net/7.7.4/video-js.min.css" rel="stylesheet">
+    <!--<style>
         /* 字幕style */
         .video-js .vjs-text-track-display > div > div > div{
             /* font-weight: 1000; */
@@ -53,18 +53,18 @@
                 .18vh -.1vh 0 #000,
                 -.18vh -.1vh 0 #000;
         }
-    </style>
+    </style>-->
 </head>
 
 <body>
 <div id="player-display" style="position:absolute; top:0; bottom:0; left:0; right:0; overflow:hidden;"></div>
-<script src="https://vjs.zencdn.net/7.6.5/video.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.all.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.mediaplayer.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/2.9.3/videojs-dash.min.js"></script>
-<script src="https://unpkg.com/silvermine-videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>
+<script type="text/javascript" src="https://vjs.zencdn.net/7.7.4/video.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.all.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.mediaplayer.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/2.9.3/videojs-dash.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/silvermine-videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>
 
-<script>
+<script type="text/javascript">
     /**
      * video.js播放器
      * */
@@ -338,7 +338,6 @@
             "   style=\"position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; overflow:hidden;\"" +
             "   frameBorder=\"0\"" +
             "   allow=\"autoplay; fullscreen;\" muted playsinline>" +
-            "   <source src=\""+sourceSrc+"\" type=\"application/dash+xml\"\>" +
             "</video>";
         player = videojs('player', {
             autoplay: true,
@@ -353,6 +352,10 @@
                 //"edgeStyle": "none"
             });
             settings.updateDisplay();
+        });
+        player.src({
+            type: "application/dash+xml",
+            src: sourceSrc
         });
         videojs.Html5DashJS.hook('beforeinitialize', function(player, _mediaPlayer) {
             if (videojs && videojs.log) {

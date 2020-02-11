@@ -604,10 +604,10 @@ var HKNBP_Core = function (_, Kotlin) {
     this.videoMuted = {type: 'videoMuted', method: 'video', params: {muted: true}};
     this.videoInline = {type: 'videoInline', method: 'video', params: {inline: true}};
     this.videoInlineMuted = {type: 'videoInlineMuted', method: 'video', params: {inline: true, muted: true}};
-    this.checkCanAutoplay_0(CanAutoplay_init$lambda(this), CanAutoplay_init$lambda_0(this), this.video);
-    this.checkCanAutoplay_0(CanAutoplay_init$lambda_1(this), CanAutoplay_init$lambda_2(this), this.videoMuted);
-    this.checkCanAutoplay_0(CanAutoplay_init$lambda_3(this), CanAutoplay_init$lambda_4(this), this.videoInline);
-    this.checkCanAutoplay_0(CanAutoplay_init$lambda_5(this), CanAutoplay_init$lambda_6(this), this.videoInlineMuted);
+    this.checkCanAutoplay_0(CanAutoplay_init$lambda, CanAutoplay_init$lambda_0(this), this.video);
+    this.checkCanAutoplay_0(CanAutoplay_init$lambda_1, CanAutoplay_init$lambda_2(this), this.videoMuted);
+    this.checkCanAutoplay_0(CanAutoplay_init$lambda_3, CanAutoplay_init$lambda_4(this), this.videoInline);
+    this.checkCanAutoplay_0(CanAutoplay_init$lambda_5, CanAutoplay_init$lambda_6(this), this.videoInlineMuted);
   }
   function CanAutoplay$checkCanAutoplay$lambda(closure$onCanAutoplay, closure$onCanNotAutoplay) {
     return function (obj) {
@@ -632,40 +632,28 @@ var HKNBP_Core = function (_, Kotlin) {
   CanAutoplay.prototype.checkVideoAutoPlayNeedToMute_9dmrm4$ = function (onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay) {
     this.checkCanAutoplay_0(onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay, this.video);
   };
-  function CanAutoplay_init$lambda(this$CanAutoplay) {
-    return function () {
-      println(this$CanAutoplay.video.type + ': \u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
-    };
+  function CanAutoplay_init$lambda() {
   }
   function CanAutoplay_init$lambda_0(this$CanAutoplay) {
     return function () {
       println(this$CanAutoplay.video.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
     };
   }
-  function CanAutoplay_init$lambda_1(this$CanAutoplay) {
-    return function () {
-      println(this$CanAutoplay.videoMuted.type + ': \u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
-    };
+  function CanAutoplay_init$lambda_1() {
   }
   function CanAutoplay_init$lambda_2(this$CanAutoplay) {
     return function () {
       println(this$CanAutoplay.videoMuted.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
     };
   }
-  function CanAutoplay_init$lambda_3(this$CanAutoplay) {
-    return function () {
-      println(this$CanAutoplay.videoInline.type + ': \u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
-    };
+  function CanAutoplay_init$lambda_3() {
   }
   function CanAutoplay_init$lambda_4(this$CanAutoplay) {
     return function () {
       println(this$CanAutoplay.videoInline.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
     };
   }
-  function CanAutoplay_init$lambda_5(this$CanAutoplay) {
-    return function () {
-      println(this$CanAutoplay.videoInlineMuted.type + ': \u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
-    };
+  function CanAutoplay_init$lambda_5() {
   }
   function CanAutoplay_init$lambda_6(this$CanAutoplay) {
     return function () {
@@ -3268,7 +3256,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_2-test2';
+    return 'v2020.02_2-test4';
   }
   var coreVersion;
   var appVersion;
