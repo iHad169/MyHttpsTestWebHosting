@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/mux.js@5.1.3/dist/mux.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.5.9/shaka-player.compiled.js"></script>
 </head>
 <body>
 <div id="player-display"></div>
@@ -176,7 +178,60 @@
    * @param {source: String} source 頻道源
    * */
   function onIframePlayerInit(sourceSrc){
-
+      document.getElementById("player-display").innerHTML = "" +
+          "<video " +
+          "   id=\"player\" " +
+          "   class=\"video-js vjs-default-skin\" " +
+          "   controls preload=\"auto\" " +
+          "   onplaying=\"onIframePlayerPlaying()\" " +
+          "   onpause=\"onIframePlayerNotPlaying()\" " +
+          "   onstop=\"onIframePlayerNotPlaying()\" " +
+          "   onended=\"onIframePlayerNotPlaying()\" " +
+          "   onerror=\"onIframePlayerNotPlaying()\" " +
+          "   onwaiting=\"onIframePlayerNotPlaying()\" " +
+          "   oncanplaythrough=\"this.play()\" " +
+          "   data-setup='{}' " +
+          "   style=\"position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; overflow:hidden;\"" +
+          "   frameBorder=\"0\"" +
+          "   poster=\"../img/nullIcon.png\"" +
+          "   allow=\"autoplay; fullscreen;\" muted playsinline>" +
+          "</video>";
+      function onError(error) {
+          // Log the error.
+          console.error('Error code', error.code, 'object', error);
+      }
+      function onErrorEvent(event) {
+          // Extract the shaka.util.Error object from the event.
+          onError(event.detail);
+      }
+      function initPlayer() {
+          // Create a Player instance.
+          var video = document.getElementById('player');
+          var player = new shaka.Player(video);
+          // Attach player to the window to make it easy to access in the JS console.
+          window.player = player;
+          // Listen for error events.
+          player.addEventListener('error', onErrorEvent);
+          // Try to load a manifest.
+          // This is an asynchronous process.
+          player.load(sourceSrc).then(function() {
+              // This runs if the asynchronous load is successful.
+              console.log('The video has now been loaded!');
+          }).catch(onError);  // onError is executed if the asynchronous load fails.
+      }
+      function initApp() {
+          // Install built-in polyfills to patch browser incompatibilities.
+          shaka.polyfill.installAll();
+          // Check to see if the browser supports the basic APIs Shaka needs.
+          if (shaka.Player.isBrowserSupported()) {
+              // Everything looks good!
+              initPlayer();
+          } else {
+              // This browser does not have the minimum set of APIs we need.
+              console.error('Browser not supported!');
+          }
+      }
+      document.addEventListener('DOMContentLoaded', initApp);
   }
   /**
    * 存底callHKNBPCoreFunction要求

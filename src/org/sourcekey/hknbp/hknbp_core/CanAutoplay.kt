@@ -47,9 +47,9 @@ object CanAutoplay {
     }
 
     init {
-        checkCanAutoplay(fun(){println(video.type+": 可以自動播放")}, fun(){println(video.type+": 唔可以自動播放")}, video)
-        checkCanAutoplay(fun(){println(videoMuted.type+": 可以自動播放")}, fun(){println(videoMuted.type+": 唔可以自動播放")}, videoMuted)
-        checkCanAutoplay(fun(){println(videoInline.type+": 可以自動播放")}, fun(){println(videoInline.type+": 唔可以自動播放")}, videoInline)
-        checkCanAutoplay(fun(){println(videoInlineMuted.type+": 可以自動播放")}, fun(){println(videoInlineMuted.type+": 唔可以自動播放")}, videoInlineMuted)
+        checkCanAutoplay(fun(){}, fun(){println(video.type+": 唔可以自動播放")}, video)
+        checkCanAutoplay(fun(){}, fun(){println(videoMuted.type+": 唔可以自動播放")}, videoMuted)
+        checkCanAutoplay(fun(){}, fun(){println(videoInline.type+": 唔可以自動播放")}, videoInline)
+        checkCanAutoplay(fun(){}, fun(){println(videoInlineMuted.type+": 唔可以自動播放")}, videoInlineMuted)
     }
 }

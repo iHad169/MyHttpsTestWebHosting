@@ -3256,7 +3256,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_2-test5';
+    return 'v2020.02_2-test6';
   }
   var coreVersion;
   var appVersion;
@@ -3900,9 +3900,12 @@ var HKNBP_Core = function (_, Kotlin) {
     this.iframePlayerMutedInit_0 = Player$iframePlayerMutedInit$lambda(this)();
     this.onPlaying_0 = Player$onPlaying$lambda(this);
     this.onNotPlaying_0 = Player$onNotPlaying$lambda(this);
-    var tmp$_0, tmp$_1, tmp$_2, tmp$_3;
-    (tmp$_2 = Player$Companion_getInstance().iframePlayer_0) != null ? (tmp$_2.src = (tmp$_1 = (tmp$_0 = this.channel_0.sources.node) != null ? tmp$_0.iFramePlayerSrc : null) != null ? tmp$_1 : 'iframePlayer/videojs_hls.html') : null;
-    (tmp$_3 = Player$Companion_getInstance().iframePlayer_0) != null ? (tmp$_3.onload = Player_init$lambda(this)) : null;
+    var tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7;
+    tmp$_6 = Player$Companion_getInstance().iframePlayer_0;
+    tmp$_5 = ((tmp$_1 = (tmp$_0 = this.channel_0.sources.node) != null ? tmp$_0.iFramePlayerSrc : null) != null ? tmp$_1 : 'iframePlayer/videojs_hls.html') + '?';
+    tmp$_4 = 'sourceSrc=' + encodeURIComponent((tmp$_3 = (tmp$_2 = this.channel_0.sources.node) != null ? tmp$_2.link : null) != null ? tmp$_3 : '');
+    tmp$_6 != null ? (tmp$_6.src = tmp$_5 + tmp$_4) : null;
+    (tmp$_7 = Player$Companion_getInstance().iframePlayer_0) != null ? (tmp$_7.onload = Player_init$lambda(this)) : null;
   }
   function Player$Companion() {
     Player$Companion_instance = this;
@@ -4566,8 +4569,7 @@ var HKNBP_Core = function (_, Kotlin) {
       }
     };
   }
-  function Player_init$lambda$ObjectLiteral(this$Player) {
-    this.this$Player = this$Player;
+  function Player_init$lambda$ObjectLiteral() {
     this.isPlaying_0 = false;
     this.numberOfPlaying_0 = 0;
     this.isLowSignalShowChannelDescription_0 = false;
@@ -4599,7 +4601,6 @@ var HKNBP_Core = function (_, Kotlin) {
 
         VirtualRemote_getInstance().update();
         UserControlPanelShower_getInstance().cannotTouchIframePlayerMode();
-        println('Playing \u983B\u9053' + this.this$Player.channel_0.number);
         break;
       case 'notPlaying':
         this.isPlaying_0 = false;
@@ -4616,12 +4617,8 @@ var HKNBP_Core = function (_, Kotlin) {
   };
   function Player_init$lambda(this$Player) {
     return function () {
-      var tmp$, tmp$_0, tmp$_1, tmp$_2;
-      this$Player.addOnPlayerEventListener_j8fzjz$(new Player_init$lambda$ObjectLiteral(this$Player));
+      this$Player.addOnPlayerEventListener_j8fzjz$(new Player_init$lambda$ObjectLiteral());
       this$Player.setListenIframePlayerScript_0();
-      tmp$_1 = (tmp$_0 = (tmp$ = this$Player.channel_0.sources.node) != null ? tmp$.link : null) != null ? tmp$_0 : '';
-      tmp$_2 = 'onIframePlayerInit(' + Player$Companion_getInstance().kotlinValueToEvalScriptUseableValue_0(tmp$_1) + ')';
-      Player$Companion_getInstance().callIframePlayerFunction_0(tmp$_2);
     };
   }
   Player.$metadata$ = {

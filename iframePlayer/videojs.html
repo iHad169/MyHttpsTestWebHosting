@@ -17,8 +17,8 @@
 <head>
     <meta charset="UTF-8">
 
-    <!--<link href="https://vjs.zencdn.net/7.7.4/video-js.min.css" rel="stylesheet">-->
-    <link href="https://unpkg.com/video.js@6.7.1/dist/video-js.css" rel="stylesheet">
+    <link href="https://vjs.zencdn.net/7.7.4/video-js.min.css" rel="stylesheet">
+    <!--<link href="https://unpkg.com/video.js@6.7.1/dist/video-js.css" rel="stylesheet">-->
     <style>
         /* 字幕style */
         .video-js .vjs-text-track-display > div > div > div{
@@ -55,10 +55,12 @@
 
 <body>
 <div id="player-display" style="position:absolute; top:0; bottom:0; left:0; right:0; overflow:hidden;"></div>
-<script src="https://unpkg.com/video.js@6.7.1/dist/video.js"></script>
-<script src="https://unpkg.com/@videojs/http-streaming@0.9.0/dist/videojs-http-streaming.js"></script>
-<!--<script type="text/javascript" src="https://vjs.zencdn.net/7.7.4/video.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/videojs-vlc@0.2.0/lib/videojs-vlc.js"></script>-->
+<!--<script src="https://unpkg.com/video.js@6.7.1/dist/video.js"></script>
+<script src="https://unpkg.com/@videojs/http-streaming@0.9.0/dist/videojs-http-streaming.js"></script>-->
+<script type="text/javascript" src="https://vjs.zencdn.net/7.7.4/video.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.mediaplayer.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/2.9.3/videojs-dash.min.js"></script>
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/videojs-vlc@0.2.0/lib/videojs-vlc.js"></script>-->
 <script type="text/javascript">
     /**
      * 播放器
@@ -311,6 +313,21 @@
         callHKNBPCoreFunction("onNotPlaying", "", function(){});
     };
     /**
+     *
+     * */
+    function getSourceType(sourceSrc){
+        switch(sourceSrc.match(/\.(m3u8|mpd)$/g)[0]) {
+            case ".m3u8":
+                return "application/x-mpegURL";
+                break;
+            case ".mpd":
+                return "application/dash+xml";
+                break;
+            default:
+                return "application/x-mpegURL";
+        }
+    }
+    /**
      * 由HKNBP_Core發出初始化IframePlayer
      *
      * @param {source: String} source 頻道源
@@ -331,21 +348,27 @@
             "   data-setup='{}' " +
             "   style=\"position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; overflow:hidden;\"" +
             "   frameBorder=\"0\"" +
+            "   poster=\"../img/nullIcon.png\"" +
             "   allow=\"autoplay; fullscreen;\" muted playsinline>" +
-            "</video>";
+            "</video>" +
+            "<div " +
+            "   id=\"caption\" " +
+            "   style=\"background:rgba(0, 0, 0, 0);\">" +
+            "</div>";
         player = videojs('player', {
             autoplay: true,
             controls: false,
             poster: "../img/nullIcon.png",
-            techOrder: ["html5", "flash", "vlc"],
+            liveui: true,
+            techOrder: ["html5"/*, "flash", "vlc"*/]/*,
             html5: {
                 hls: {
                     overrideNative: true
-                }/*,
+                },
                 nativeVideoTracks: false,
                 nativeAudioTracks: false,
-                nativeTextTracks: false*/
-            }
+                nativeTextTracks: false
+            }*/
         });
         player.ready(function(){
             var settings = this.textTrackSettings;
@@ -356,14 +379,32 @@
             });
             settings.updateDisplay();
         });
-        player.src([
-            {src: sourceSrc},
-            {src: sourceSrc, type: "application/x-mpegURL"},
-            {src: sourceSrc, type: "application/dash+xml"},
-            {src: sourceSrc, type: "video/mp4"},
-            {src: sourceSrc, type: "video/webm"},
-            {src: sourceSrc, type: "video/ogg"}
-        ]);
+        player.src({
+            src: sourceSrc,
+            type: getSourceType(sourceSrc)/*,
+            keySystems: {
+                'com.apple.fps.1_0': {
+                    certificateUri: '<CERTIFICATE_URL>',
+                    certificateHeaders: {
+                        'Some-Header': 'value'
+                    },
+                    licenseUri: '<LICENSE_URL>',
+                    licenseHeaders: {
+                        'Some-Header': 'value'
+                    }
+                }
+            }*/
+        });
+        videojs.Html5DashJS.hook('beforeinitialize', function(player, _mediaPlayer) {
+            if (videojs && videojs.log) {
+                mediaPlayer = _mediaPlayer;
+                mediaPlayer.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, function(event){
+                    /*mediaPlayer.enableForcedTextStreaming(true);
+                    mediaPlayer.enableText(true);*/
+                    mediaPlayer.attachTTMLRenderingDiv(document.querySelector("#caption"));
+                });
+            }
+        });
     }
     /**
      * 存底callHKNBPCoreFunction要求
@@ -418,6 +459,12 @@
         }, 60000);
         window.parent.postMessage(JSON.stringify(caller), "*");
     }
+
+    /**
+     * 在URL參數讀取 片源
+     * 並初始化IframePlayer
+     */
+    onIframePlayerInit(decodeURIComponent(new URL(window.location.href).searchParams.get("sourceSrc")));
 </script>
 </body>
 </html>

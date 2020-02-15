@@ -676,7 +676,9 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
     }
 
     init {
-        iframePlayer?.src = channel.sources.node?.iFramePlayerSrc?: "iframePlayer/videojs_hls.html"
+        iframePlayer?.src =
+                "${channel.sources.node?.iFramePlayerSrc?:"iframePlayer/videojs_hls.html"}?" +
+                "sourceSrc=${encodeURIComponent(channel.sources.node?.link?:"")}"
         iframePlayer?.onload = fun() {
             addOnPlayerEventListener(object : OnPlayerEventListener {
                 private var isPlaying: Boolean = false
@@ -696,8 +698,6 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
                             }
                             VirtualRemote.update()
                             UserControlPanelShower.cannotTouchIframePlayerMode()
-
-                            println("Playing 頻道${channel.number}")
                         }
                         OnPlayerEvent.notPlaying -> {
                             isPlaying = false
@@ -727,9 +727,10 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
                 }
             })
             setListenIframePlayerScript()
+            /*
             callIframePlayerFunction("onIframePlayerInit(${
             kotlinValueToEvalScriptUseableValue(channel.sources.node?.link ?: "")
-            })")
+            })")*/
         }
     }
 }
