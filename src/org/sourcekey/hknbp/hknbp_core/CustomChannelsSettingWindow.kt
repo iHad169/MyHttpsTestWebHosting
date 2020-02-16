@@ -67,8 +67,7 @@ object CustomChannelsSettingWindow: Window(
                 <input id="customChannelsSettingChannelSourceLinkInputText" type="Text" placeholder="頻道源連結" style="font-size:3vh;margin:.2vh;">
                 <form style="margin:.5vh;">
                     頻道源播放器<br>
-                    <input id="customChannelsSettingChannelSourceIframelayerSrcVideoJsHlsInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;" checked>HLS<br>
-                    <input id="customChannelsSettingChannelSourceIframelayerSrcVideoJsDashInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;">DASH<br>
+                    <input id="customChannelsSettingChannelSourceIframelayerSrcVideoJsInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;" checked>VideoJS<br>
                     <input id="customChannelsSettingChannelSourceIframelayerSrcYoutubeApiInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;">YoutubeAPI<br>
                     <input id="customChannelsSettingChannelSourceIframelayerSrcOtherInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;">
                     <input id="customChannelsSettingChannelSourceIframelayerSrcOtherInputText" type="Text" placeholder="其他源播放器連結" style="font-size:3vh;width:25vh;"><br>
@@ -85,8 +84,7 @@ object CustomChannelsSettingWindow: Window(
         private val channelNumberInputNumber                            = document.getElementById("customChannelsSettingChannelNumberInputNumber") as HTMLInputElement
         private val channelNameInputText                                = document.getElementById("customChannelsSettingChannelNameInputText") as HTMLInputElement
         private val channelSourceLinkInputText                          = document.getElementById("customChannelsSettingChannelSourceLinkInputText") as HTMLInputElement
-        private val channelSourceIframelayerSrcVideoJsHlsInputRadio     = document.getElementById("customChannelsSettingChannelSourceIframelayerSrcVideoJsHlsInputRadio") as HTMLInputElement
-        private val channelSourceIframelayerSrcVideoJsDashInputRadio    = document.getElementById("customChannelsSettingChannelSourceIframelayerSrcVideoJsDashInputRadio") as HTMLInputElement
+        private val channelSourceIframelayerSrcVideoJsInputRadio        = document.getElementById("customChannelsSettingChannelSourceIframelayerSrcVideoJsInputRadio") as HTMLInputElement
         private val channelSourceIframelayerSrcYoutubeApiInputRadio     = document.getElementById("customChannelsSettingChannelSourceIframelayerSrcYoutubeApiInputRadio") as HTMLInputElement
         private val channelSourceIframelayerSrcOtherInputRadio          = document.getElementById("customChannelsSettingChannelSourceIframelayerSrcOtherInputRadio") as HTMLInputElement
         private val channelSourceIframelayerSrcOtherInputText           = document.getElementById("customChannelsSettingChannelSourceIframelayerSrcOtherInputText") as HTMLInputElement
@@ -97,8 +95,7 @@ object CustomChannelsSettingWindow: Window(
         fun getEditChannelDialogBoxInformation(): Channel{
             val getIframelayerSrc = fun(): String{
                 return when(true){
-                    channelSourceIframelayerSrcVideoJsHlsInputRadio.checked -> { "iframePlayer/videojs_hls.html" }
-                    channelSourceIframelayerSrcVideoJsDashInputRadio.checked -> { "iframePlayer/videojs_dash.html" }
+                    channelSourceIframelayerSrcVideoJsInputRadio.checked -> { "iframePlayer/videojs.html" }
                     channelSourceIframelayerSrcYoutubeApiInputRadio.checked -> { "iframePlayer/youtube_api.html" }
                     channelSourceIframelayerSrcOtherInputRadio.checked -> { channelSourceIframelayerSrcOtherInputText.value }
                     else -> {""}
@@ -138,8 +135,7 @@ object CustomChannelsSettingWindow: Window(
         }
 
         private fun initChannelSourceIframelayerSrcInputRadio(){
-            channelSourceIframelayerSrcVideoJsHlsInputRadio.onchange = fun(event){ setChannelXmlStringTextArea() }
-            channelSourceIframelayerSrcVideoJsDashInputRadio.onchange = fun(event){ setChannelXmlStringTextArea() }
+            channelSourceIframelayerSrcVideoJsInputRadio.onchange = fun(event){ setChannelXmlStringTextArea() }
             channelSourceIframelayerSrcYoutubeApiInputRadio.onchange = fun(event){ setChannelXmlStringTextArea() }
             channelSourceIframelayerSrcOtherInputRadio.onchange = fun(event){ setChannelXmlStringTextArea() }
             channelSourceIframelayerSrcOtherInputText.onkeyup = fun(event){ setChannelXmlStringTextArea() }
@@ -160,8 +156,7 @@ object CustomChannelsSettingWindow: Window(
                 channelNameInputText.value              = (channel?.name?:"").toString()
                 channelSourceLinkInputText.value        = (channel?.sources?.node?.link?:"").toString()
                 when(channel?.sources?.node?.iFramePlayerSrc){
-                    "iframePlayer/videojs_hls.html" -> { channelSourceIframelayerSrcVideoJsHlsInputRadio.checked = true }
-                    "iframePlayer/videojs_dash.html" -> { channelSourceIframelayerSrcVideoJsDashInputRadio.checked = true }
+                    "iframePlayer/videojs.html" -> { channelSourceIframelayerSrcVideoJsInputRadio.checked = true }
                     "iframePlayer/youtube_api.html" -> { channelSourceIframelayerSrcYoutubeApiInputRadio.checked = true }
                     else -> {
                         channelSourceIframelayerSrcOtherInputRadio.checked = true

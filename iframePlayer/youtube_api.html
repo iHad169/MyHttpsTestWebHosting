@@ -280,24 +280,6 @@
       callHKNBPCoreFunction("onNotPlaying", "", function(){});
     };
     /**
-     * 由HKNBP_Core發出初始化IframePlayer
-     *
-     * @param {source: String} source 頻道源
-     * */
-    function onIframePlayerInit(sourceSrc){
-        youtubeVideoId = sourceSrc;
-        tag.src = "https://www.youtube.com/iframe_api";
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        //防冇PLAY
-        /**
-        var count = 0;
-        var timer = window.setInterval(function(){
-            player.playVideo();
-            count++;
-            if(count >= 60){window.clearInterval(timer)}
-        }, 1000)*/
-    }
-    /**
      * 存底callHKNBPCoreFunction要求
      * 為之後return返來嘅值執行onReturn
      * 實淺CallBackFunction原理
@@ -350,7 +332,24 @@
         }, 60000);
         window.parent.postMessage(JSON.stringify(caller), "*");
     }
-
+    /**
+     * 由HKNBP_Core發出初始化IframePlayer
+     *
+     * @param {source: String} source 頻道源
+     * */
+    function onIframePlayerInit(sourceSrc){
+        youtubeVideoId = sourceSrc;
+        tag.src = "https://www.youtube.com/iframe_api";
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        //防冇PLAY
+        /**
+        var count = 0;
+        var timer = window.setInterval(function(){
+            player.playVideo();
+            count++;
+            if(count >= 60){window.clearInterval(timer)}
+        }, 1000)*/
+    }
     /**
      * 在URL參數讀取 片源
      * 並初始化IframePlayer

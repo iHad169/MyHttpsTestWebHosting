@@ -315,6 +315,59 @@
       callHKNBPCoreFunction("onNotPlaying", "", function(){});
     };
     /**
+     * 存底callHKNBPCoreFunction要求
+     * 為之後return返來嘅值執行onReturn
+     * 實淺CallBackFunction原理
+     */
+    var callHKNBPCoreFunctionList = [];
+    /**
+     * 刪除要刪除嘅caller響callHKNBPCoreFunctionList當中
+     */
+    function removeObjFromcallHKNBPCoreFunctionList(caller){
+      for(var i = 0; i < callHKNBPCoreFunctionList.length; i++){
+         if (callHKNBPCoreFunctionList[i] === caller) {
+           callHKNBPCoreFunctionList.splice(i, 1);
+         }
+      }
+    }
+    /**
+     * 設定被call時要執行嘅野
+     */
+    window.addEventListener("message", function(event){
+        var callMessage = JSON.parse(event.data);
+        if(callMessage.name === "IframePlayer"){
+          for(var i = 0; i < callHKNBPCoreFunctionList.length; i++){
+             if (callHKNBPCoreFunctionList[i].id == callMessage.id) {
+               callHKNBPCoreFunctionList[i].onReturn(callMessage.returnValue)
+               removeObjFromcallHKNBPCoreFunctionList(callHKNBPCoreFunctionList[i]);
+             }
+          }
+        }else if(callMessage.name === "HKNBPCore"){
+          var onReturn = function(returnValue){
+              var obj = callMessage;
+              obj.returnValue = returnValue;
+              window.parent.postMessage(JSON.stringify(obj), "*");
+          }
+          eval(callMessage.evalScript);
+        }
+    }, false);
+    /**
+     * 去call HKNBPCore嘅Function
+     */
+    function callHKNBPCoreFunction(functionName, value, onReturn){
+        var caller = {};
+        caller.functionName = functionName;
+        caller.value = value;
+        caller.name = "IframePlayer";
+        caller.id = new Date().getTime().toString() + Math.random().toString();
+        caller.onReturn = onReturn;
+        callHKNBPCoreFunctionList.push(caller);
+        window.setTimeout(function(){
+          removeObjFromcallHKNBPCoreFunctionList(caller); //如果太耐冇return就響List自動清除免堆垃圾
+        }, 60000);
+        window.parent.postMessage(JSON.stringify(caller), "*");
+    }
+    /**
      * 由HKNBP_Core發出初始化IframePlayer
      *
      * @param {source: String} source 頻道源
@@ -371,60 +424,6 @@
             }
         });
     }
-    /**
-     * 存底callHKNBPCoreFunction要求
-     * 為之後return返來嘅值執行onReturn
-     * 實淺CallBackFunction原理
-     */
-    var callHKNBPCoreFunctionList = [];
-    /**
-     * 刪除要刪除嘅caller響callHKNBPCoreFunctionList當中
-     */
-    function removeObjFromcallHKNBPCoreFunctionList(caller){
-      for(var i = 0; i < callHKNBPCoreFunctionList.length; i++){
-         if (callHKNBPCoreFunctionList[i] === caller) {
-           callHKNBPCoreFunctionList.splice(i, 1);
-         }
-      }
-    }
-    /**
-     * 設定被call時要執行嘅野
-     */
-    window.addEventListener("message", function(event){
-        var callMessage = JSON.parse(event.data);
-        if(callMessage.name === "IframePlayer"){
-          for(var i = 0; i < callHKNBPCoreFunctionList.length; i++){
-             if (callHKNBPCoreFunctionList[i].id == callMessage.id) {
-               callHKNBPCoreFunctionList[i].onReturn(callMessage.returnValue)
-               removeObjFromcallHKNBPCoreFunctionList(callHKNBPCoreFunctionList[i]);
-             }
-          }
-        }else if(callMessage.name === "HKNBPCore"){
-          var onReturn = function(returnValue){
-              var obj = callMessage;
-              obj.returnValue = returnValue;
-              window.parent.postMessage(JSON.stringify(obj), "*");
-          }
-          eval(callMessage.evalScript);
-        }
-    }, false);
-    /**
-     * 去call HKNBPCore嘅Function
-     */
-    function callHKNBPCoreFunction(functionName, value, onReturn){
-        var caller = {};
-        caller.functionName = functionName;
-        caller.value = value;
-        caller.name = "IframePlayer";
-        caller.id = new Date().getTime().toString() + Math.random().toString();
-        caller.onReturn = onReturn;
-        callHKNBPCoreFunctionList.push(caller);
-        window.setTimeout(function(){
-          removeObjFromcallHKNBPCoreFunctionList(caller); //如果太耐冇return就響List自動清除免堆垃圾
-        }, 60000);
-        window.parent.postMessage(JSON.stringify(caller), "*");
-    }
-
     /**
      * 在URL參數讀取 片源
      * 並初始化IframePlayer

@@ -1256,20 +1256,19 @@ var HKNBP_Core = function (_, Kotlin) {
   function CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox(initValueOfChannelXmlString) {
     if (initValueOfChannelXmlString === void 0)
       initValueOfChannelXmlString = '';
-    DialogueBox.call(this, '\u65B0\u589E\u81EA\u8A02\u983B\u9053', '\n        <div style="display:flex;">\n            <div style="text-align:left;font-size:3vh;">\n                <input id="customChannelsSettingChannelNumberInputNumber" type="number" placeholder="\u983B\u9053\u865F\u78BC" style="font-size:3vh;margin:.2vh;width:25vh;" min="-999" max="-1">\n                <input id="customChannelsSettingChannelNameInputText" type="Text" placeholder="\u983B\u9053\u540D\u7A31" style="font-size:3vh;margin:.2vh;">\n                <input id="customChannelsSettingChannelSourceLinkInputText" type="Text" placeholder="\u983B\u9053\u6E90\u9023\u7D50" style="font-size:3vh;margin:.2vh;">\n                <form style="margin:.5vh;">\n                    \u983B\u9053\u6E90\u64AD\u653E\u5668<br>\n                    <input id="customChannelsSettingChannelSourceIframelayerSrcVideoJsHlsInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;" checked>HLS<br>\n                    <input id="customChannelsSettingChannelSourceIframelayerSrcVideoJsDashInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;">DASH<br>\n                    <input id="customChannelsSettingChannelSourceIframelayerSrcYoutubeApiInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;">YoutubeAPI<br>\n                    <input id="customChannelsSettingChannelSourceIframelayerSrcOtherInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;">\n                    <input id="customChannelsSettingChannelSourceIframelayerSrcOtherInputText" type="Text" placeholder="\u5176\u4ED6\u6E90\u64AD\u653E\u5668\u9023\u7D50" style="font-size:3vh;width:25vh;"><br>\n                <\/form>\n                <input id="customChannelsSettingChannelInformationEpgIdInputText" type="Text" placeholder="EPG ID" style="font-size:3vh;margin:.2vh;">\n                <input id="customChannelsSettingChannelInformationSrcInputText" type="Text" placeholder="EPG Src" style="font-size:3vh;margin:.2vh;">\n            <\/div>\n        <\/div>\n        <div>\n            <textarea id="customChannelsSettingChannelXmlStringTextArea" rows="5" style="font-size:1vh;width:100%;white-space:nowrap;" tabindex="-1"><\/textarea>\n        <\/div>\n        ');
+    DialogueBox.call(this, '\u65B0\u589E\u81EA\u8A02\u983B\u9053', '\n        <div style="display:flex;">\n            <div style="text-align:left;font-size:3vh;">\n                <input id="customChannelsSettingChannelNumberInputNumber" type="number" placeholder="\u983B\u9053\u865F\u78BC" style="font-size:3vh;margin:.2vh;width:25vh;" min="-999" max="-1">\n                <input id="customChannelsSettingChannelNameInputText" type="Text" placeholder="\u983B\u9053\u540D\u7A31" style="font-size:3vh;margin:.2vh;">\n                <input id="customChannelsSettingChannelSourceLinkInputText" type="Text" placeholder="\u983B\u9053\u6E90\u9023\u7D50" style="font-size:3vh;margin:.2vh;">\n                <form style="margin:.5vh;">\n                    \u983B\u9053\u6E90\u64AD\u653E\u5668<br>\n                    <input id="customChannelsSettingChannelSourceIframelayerSrcVideoJsInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;" checked>VideoJS<br>\n                    <input id="customChannelsSettingChannelSourceIframelayerSrcYoutubeApiInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;">YoutubeAPI<br>\n                    <input id="customChannelsSettingChannelSourceIframelayerSrcOtherInputRadio" type="radio" name="IframelayerSrc" style="width:3vh;height:3vh;">\n                    <input id="customChannelsSettingChannelSourceIframelayerSrcOtherInputText" type="Text" placeholder="\u5176\u4ED6\u6E90\u64AD\u653E\u5668\u9023\u7D50" style="font-size:3vh;width:25vh;"><br>\n                <\/form>\n                <input id="customChannelsSettingChannelInformationEpgIdInputText" type="Text" placeholder="EPG ID" style="font-size:3vh;margin:.2vh;">\n                <input id="customChannelsSettingChannelInformationSrcInputText" type="Text" placeholder="EPG Src" style="font-size:3vh;margin:.2vh;">\n            <\/div>\n        <\/div>\n        <div>\n            <textarea id="customChannelsSettingChannelXmlStringTextArea" rows="5" style="font-size:1vh;width:100%;white-space:nowrap;" tabindex="-1"><\/textarea>\n        <\/div>\n        ');
     this.initValueOfChannelXmlString = initValueOfChannelXmlString;
-    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7, tmp$_8, tmp$_9;
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7, tmp$_8;
     this.channelNumberInputNumber_0 = Kotlin.isType(tmp$ = document.getElementById('customChannelsSettingChannelNumberInputNumber'), HTMLInputElement) ? tmp$ : throwCCE();
     this.channelNameInputText_0 = Kotlin.isType(tmp$_0 = document.getElementById('customChannelsSettingChannelNameInputText'), HTMLInputElement) ? tmp$_0 : throwCCE();
     this.channelSourceLinkInputText_0 = Kotlin.isType(tmp$_1 = document.getElementById('customChannelsSettingChannelSourceLinkInputText'), HTMLInputElement) ? tmp$_1 : throwCCE();
-    this.channelSourceIframelayerSrcVideoJsHlsInputRadio_0 = Kotlin.isType(tmp$_2 = document.getElementById('customChannelsSettingChannelSourceIframelayerSrcVideoJsHlsInputRadio'), HTMLInputElement) ? tmp$_2 : throwCCE();
-    this.channelSourceIframelayerSrcVideoJsDashInputRadio_0 = Kotlin.isType(tmp$_3 = document.getElementById('customChannelsSettingChannelSourceIframelayerSrcVideoJsDashInputRadio'), HTMLInputElement) ? tmp$_3 : throwCCE();
-    this.channelSourceIframelayerSrcYoutubeApiInputRadio_0 = Kotlin.isType(tmp$_4 = document.getElementById('customChannelsSettingChannelSourceIframelayerSrcYoutubeApiInputRadio'), HTMLInputElement) ? tmp$_4 : throwCCE();
-    this.channelSourceIframelayerSrcOtherInputRadio_0 = Kotlin.isType(tmp$_5 = document.getElementById('customChannelsSettingChannelSourceIframelayerSrcOtherInputRadio'), HTMLInputElement) ? tmp$_5 : throwCCE();
-    this.channelSourceIframelayerSrcOtherInputText_0 = Kotlin.isType(tmp$_6 = document.getElementById('customChannelsSettingChannelSourceIframelayerSrcOtherInputText'), HTMLInputElement) ? tmp$_6 : throwCCE();
-    this.channelInformationEpgIdInputText_0 = Kotlin.isType(tmp$_7 = document.getElementById('customChannelsSettingChannelInformationEpgIdInputText'), HTMLInputElement) ? tmp$_7 : throwCCE();
-    this.channelInformationSrcInputText_0 = Kotlin.isType(tmp$_8 = document.getElementById('customChannelsSettingChannelInformationSrcInputText'), HTMLInputElement) ? tmp$_8 : throwCCE();
-    this.channelXmlStringTextArea_0 = Kotlin.isType(tmp$_9 = document.getElementById('customChannelsSettingChannelXmlStringTextArea'), HTMLTextAreaElement) ? tmp$_9 : throwCCE();
+    this.channelSourceIframelayerSrcVideoJsInputRadio_0 = Kotlin.isType(tmp$_2 = document.getElementById('customChannelsSettingChannelSourceIframelayerSrcVideoJsInputRadio'), HTMLInputElement) ? tmp$_2 : throwCCE();
+    this.channelSourceIframelayerSrcYoutubeApiInputRadio_0 = Kotlin.isType(tmp$_3 = document.getElementById('customChannelsSettingChannelSourceIframelayerSrcYoutubeApiInputRadio'), HTMLInputElement) ? tmp$_3 : throwCCE();
+    this.channelSourceIframelayerSrcOtherInputRadio_0 = Kotlin.isType(tmp$_4 = document.getElementById('customChannelsSettingChannelSourceIframelayerSrcOtherInputRadio'), HTMLInputElement) ? tmp$_4 : throwCCE();
+    this.channelSourceIframelayerSrcOtherInputText_0 = Kotlin.isType(tmp$_5 = document.getElementById('customChannelsSettingChannelSourceIframelayerSrcOtherInputText'), HTMLInputElement) ? tmp$_5 : throwCCE();
+    this.channelInformationEpgIdInputText_0 = Kotlin.isType(tmp$_6 = document.getElementById('customChannelsSettingChannelInformationEpgIdInputText'), HTMLInputElement) ? tmp$_6 : throwCCE();
+    this.channelInformationSrcInputText_0 = Kotlin.isType(tmp$_7 = document.getElementById('customChannelsSettingChannelInformationSrcInputText'), HTMLInputElement) ? tmp$_7 : throwCCE();
+    this.channelXmlStringTextArea_0 = Kotlin.isType(tmp$_8 = document.getElementById('customChannelsSettingChannelXmlStringTextArea'), HTMLTextAreaElement) ? tmp$_8 : throwCCE();
     this.okButtonScript = CustomChannelsSettingWindow$CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox_init$lambda(this);
     this.initChannelNumberInputNumber_0();
     this.initChannelNameInputText_0();
@@ -1282,10 +1281,8 @@ var HKNBP_Core = function (_, Kotlin) {
   function CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$getEditChannelDialogBoxInformation$lambda(this$CustomChannelEditChannelDialogBox) {
     return function () {
       var tmp$;
-      if (true === this$CustomChannelEditChannelDialogBox.channelSourceIframelayerSrcVideoJsHlsInputRadio_0.checked)
-        tmp$ = 'iframePlayer/videojs_hls.html';
-      else if (true === this$CustomChannelEditChannelDialogBox.channelSourceIframelayerSrcVideoJsDashInputRadio_0.checked)
-        tmp$ = 'iframePlayer/videojs_dash.html';
+      if (true === this$CustomChannelEditChannelDialogBox.channelSourceIframelayerSrcVideoJsInputRadio_0.checked)
+        tmp$ = 'iframePlayer/videojs.html';
       else if (true === this$CustomChannelEditChannelDialogBox.channelSourceIframelayerSrcYoutubeApiInputRadio_0.checked)
         tmp$ = 'iframePlayer/youtube_api.html';
       else if (true === this$CustomChannelEditChannelDialogBox.channelSourceIframelayerSrcOtherInputRadio_0.checked)
@@ -1360,17 +1357,11 @@ var HKNBP_Core = function (_, Kotlin) {
       this$CustomChannelEditChannelDialogBox.setChannelXmlStringTextArea_0();
     };
   }
-  function CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelSourceIframelayerSrcInputRadio$lambda_3(this$CustomChannelEditChannelDialogBox) {
-    return function (event) {
-      this$CustomChannelEditChannelDialogBox.setChannelXmlStringTextArea_0();
-    };
-  }
   CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox.prototype.initChannelSourceIframelayerSrcInputRadio_0 = function () {
-    this.channelSourceIframelayerSrcVideoJsHlsInputRadio_0.onchange = CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelSourceIframelayerSrcInputRadio$lambda(this);
-    this.channelSourceIframelayerSrcVideoJsDashInputRadio_0.onchange = CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelSourceIframelayerSrcInputRadio$lambda_0(this);
-    this.channelSourceIframelayerSrcYoutubeApiInputRadio_0.onchange = CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelSourceIframelayerSrcInputRadio$lambda_1(this);
-    this.channelSourceIframelayerSrcOtherInputRadio_0.onchange = CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelSourceIframelayerSrcInputRadio$lambda_2(this);
-    this.channelSourceIframelayerSrcOtherInputText_0.onkeyup = CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelSourceIframelayerSrcInputRadio$lambda_3(this);
+    this.channelSourceIframelayerSrcVideoJsInputRadio_0.onchange = CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelSourceIframelayerSrcInputRadio$lambda(this);
+    this.channelSourceIframelayerSrcYoutubeApiInputRadio_0.onchange = CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelSourceIframelayerSrcInputRadio$lambda_0(this);
+    this.channelSourceIframelayerSrcOtherInputRadio_0.onchange = CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelSourceIframelayerSrcInputRadio$lambda_1(this);
+    this.channelSourceIframelayerSrcOtherInputText_0.onkeyup = CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelSourceIframelayerSrcInputRadio$lambda_2(this);
   };
   function CustomChannelsSettingWindow$CustomChannelEditChannelDialogBox$initChannelInformationEpgIdInputText$lambda(this$CustomChannelEditChannelDialogBox) {
     return function (event) {
@@ -1396,11 +1387,8 @@ var HKNBP_Core = function (_, Kotlin) {
       this$CustomChannelEditChannelDialogBox.channelNameInputText_0.value = ((tmp$_0 = channel != null ? channel.name : null) != null ? tmp$_0 : '').toString();
       this$CustomChannelEditChannelDialogBox.channelSourceLinkInputText_0.value = ((tmp$_3 = (tmp$_2 = (tmp$_1 = channel != null ? channel.sources : null) != null ? tmp$_1.node : null) != null ? tmp$_2.link : null) != null ? tmp$_3 : '').toString();
       switch ((tmp$_5 = (tmp$_4 = channel != null ? channel.sources : null) != null ? tmp$_4.node : null) != null ? tmp$_5.iFramePlayerSrc : null) {
-        case 'iframePlayer/videojs_hls.html':
-          this$CustomChannelEditChannelDialogBox.channelSourceIframelayerSrcVideoJsHlsInputRadio_0.checked = true;
-          break;
-        case 'iframePlayer/videojs_dash.html':
-          this$CustomChannelEditChannelDialogBox.channelSourceIframelayerSrcVideoJsDashInputRadio_0.checked = true;
+        case 'iframePlayer/videojs.html':
+          this$CustomChannelEditChannelDialogBox.channelSourceIframelayerSrcVideoJsInputRadio_0.checked = true;
           break;
         case 'iframePlayer/youtube_api.html':
           this$CustomChannelEditChannelDialogBox.channelSourceIframelayerSrcYoutubeApiInputRadio_0.checked = true;
@@ -3256,7 +3244,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_2-test7';
+    return 'v2020.02_2-test8';
   }
   var coreVersion;
   var appVersion;

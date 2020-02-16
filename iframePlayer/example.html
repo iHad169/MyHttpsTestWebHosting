@@ -171,14 +171,6 @@
       callHKNBPCoreFunction("onNotPlaying", "", function(){});
   };
   /**
-   * 由HKNBP_Core發出初始化IframePlayer
-   *
-   * @param {source: String} source 頻道源
-   * */
-  function onIframePlayerInit(sourceSrc){
-
-  }
-  /**
    * 存底callHKNBPCoreFunction要求
    * 為之後return返來嘅值執行onReturn
    * 實淺CallBackFunction原理
@@ -231,7 +223,14 @@
       }, 60000);
       window.parent.postMessage(JSON.stringify(caller), "*");
   }
+  /**
+   * 由HKNBP_Core發出初始化IframePlayer
+   *
+   * @param {source: String} source 頻道源
+   * */
+  function onIframePlayerInit(sourceSrc){
 
+  }
   /**
    * 在URL參數讀取 片源
    * 並初始化IframePlayer
