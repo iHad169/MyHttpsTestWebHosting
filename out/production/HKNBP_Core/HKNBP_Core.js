@@ -14,6 +14,7 @@ var HKNBP_Core = function (_, Kotlin) {
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var Kind_CLASS = Kotlin.Kind.CLASS;
   var equals = Kotlin.equals;
+  var startsWith = Kotlin.kotlin.text.startsWith_7epoxm$;
   var toString = Kotlin.toString;
   var Unit = Kotlin.kotlin.Unit;
   var replace = Kotlin.kotlin.text.replace_680rmw$;
@@ -28,9 +29,8 @@ var HKNBP_Core = function (_, Kotlin) {
   var numberToInt = Kotlin.numberToInt;
   var addClass = Kotlin.kotlin.dom.addClass_hhb33f$;
   var Math_0 = Math;
-  var toShort = Kotlin.toShort;
-  var startsWith = Kotlin.kotlin.text.startsWith_7epoxm$;
   var defineInlineFunction = Kotlin.defineInlineFunction;
+  var toShort = Kotlin.toShort;
   var split = Kotlin.kotlin.text.split_ip8yn$;
   var ensureNotNull = Kotlin.ensureNotNull;
   var split_0 = Kotlin.kotlin.text.split_o64adg$;
@@ -702,6 +702,13 @@ var HKNBP_Core = function (_, Kotlin) {
       }
     }
     return false;
+  };
+  Channel$Source.prototype.getLinkOfHttpsGetAble = function () {
+    if (startsWith(this.link, 'http://')) {
+      var proxy_url = 'https://netnr-proxy.cloudno.de/';
+      return proxy_url + this.link;
+    }
+    return this.link;
   };
   Channel$Source.$metadata$ = {
     kind: Kind_CLASS,
@@ -2817,6 +2824,132 @@ var HKNBP_Core = function (_, Kotlin) {
     }
     return GithubWebWindow_instance;
   }
+  var get_jq = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_jq', function () {
+    return $;
+  });
+  var jqThis = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.jqThis', function () {
+    return $(this);
+  });
+  var get_length = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_length_vwohdt$', function ($receiver) {
+    return $receiver.length;
+  });
+  var on = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_pdziuy$', function ($receiver, events, handler) {
+    return $receiver.on(events, handler);
+  });
+  var on_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_hpc46g$', function ($receiver, events, selector, handler) {
+    return $receiver.on(events, selector, handler);
+  });
+  var on_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_qwka2j$', function ($receiver, events, selector, data, handler) {
+    return $receiver.on(events, selector, data, handler);
+  });
+  var on_2 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_v89ba5$', function ($receiver, events) {
+    return $receiver.on(events);
+  });
+  var on_3 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_zc05ld$', function ($receiver, events, selector) {
+    return $receiver.on(events, selector);
+  });
+  var on_4 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_drqu84$', function ($receiver, events, selector, data) {
+    return $receiver.on(events, selector, data);
+  });
+  var index = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.index_vwohdt$', function ($receiver) {
+    return $receiver.index();
+  });
+  var index_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.index_v89ba5$', function ($receiver, selector) {
+    return $receiver.index(selector);
+  });
+  var index_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.index_k8fgrm$', function ($receiver, element) {
+    return $receiver.index(element);
+  });
+  var index_2 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.index_5kxll9$', function ($receiver, element) {
+    return $receiver.index(element);
+  });
+  var eq = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.eq_fjcsf1$', function ($receiver, index) {
+    return $receiver.eq(index);
+  });
+  var focus = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.focus_vwohdt$', function ($receiver) {
+    return $receiver.focus();
+  });
+  var focus_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.focus_656v9o$', function ($receiver, handler) {
+    return $receiver.focus(handler);
+  });
+  var focus_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.focus_rgoa8n$', function ($receiver, eventData, handler) {
+    return $receiver.focus(eventData, handler);
+  });
+  var scrollTop = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.scrollTop_vwohdt$', function ($receiver) {
+    return $receiver.scrollTop();
+  });
+  var scrollTop_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.scrollTop_o1vs4d$', function ($receiver, value) {
+    return $receiver.scrollTop(value);
+  });
+  var scrollLeft = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.scrollLeft_vwohdt$', function ($receiver) {
+    return $receiver.scrollLeft();
+  });
+  var scrollLeft_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.scrollLeft_o1vs4d$', function ($receiver, value) {
+    return $receiver.scrollLeft(value);
+  });
+  var mouseleave = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseleave_vwohdt$', function ($receiver) {
+    return $receiver.mouseleave();
+  });
+  var mouseleave_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseleave_656v9o$', function ($receiver, handler) {
+    return $receiver.mouseleave(handler);
+  });
+  var mouseleave_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseleave_rgoa8n$', function ($receiver, eventData, handler) {
+    return $receiver.mouseleave(eventData, handler);
+  });
+  var mouseout = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseout_vwohdt$', function ($receiver) {
+    return $receiver.mouseout();
+  });
+  var mouseout_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseout_656v9o$', function ($receiver, handler) {
+    return $receiver.mouseout(handler);
+  });
+  var mouseout_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseout_rgoa8n$', function ($receiver, eventData, handler) {
+    return $receiver.mouseout(eventData, handler);
+  });
+  var tabPrev = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.tabPrev_vwohdt$', function ($receiver) {
+    return $receiver.tabPrev();
+  });
+  var tabNext = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.tabNext_vwohdt$', function ($receiver) {
+    return $receiver.tabNext();
+  });
+  var css = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_v89ba5$', function ($receiver, propertyName) {
+    return $receiver.css(propertyName);
+  });
+  var css_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_u5828f$', function ($receiver, propertyNames) {
+    return $receiver.css(propertyNames);
+  });
+  var css_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_siqd7z$', function ($receiver, propertyName, value) {
+    return $receiver.css(propertyName, value);
+  });
+  var css_2 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_zc05ld$', function ($receiver, propertyName, value) {
+    return $receiver.css(propertyName, value);
+  });
+  var css_3 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_5msqvn$', function ($receiver, propertyName, function_0) {
+    return $receiver.css(propertyName, function_0);
+  });
+  var css_4 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_pm4xy9$', function ($receiver, properties) {
+    return $receiver.css(properties);
+  });
+  var prev = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.prev_v89ba5$', function ($receiver, selector) {
+    return $receiver.prev(selector);
+  });
+  var children = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.children_v89ba5$', function ($receiver, selector) {
+    return $receiver.children(selector);
+  });
+  var find = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.find_v89ba5$', function ($receiver, selector) {
+    return $receiver.find(selector);
+  });
+  var find_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.find_k8fgrm$', function ($receiver, selector) {
+    return $receiver.find(selector);
+  });
+  var find_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.find_5kxll9$', function ($receiver, selector) {
+    return $receiver.find(selector);
+  });
+  var get_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_vwohdt$', function ($receiver) {
+    return $receiver.get();
+  });
+  var get_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_fjcsf1$', function ($receiver, index) {
+    return $receiver.get(index);
+  });
   function LoadFile() {
     LoadFile_instance = this;
     this.cacheShelfLife = 604800;
@@ -3047,132 +3180,6 @@ var HKNBP_Core = function (_, Kotlin) {
     return '';
   }
   var getConsoleLogs;
-  var get_jq = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_jq', function () {
-    return $;
-  });
-  var jqThis = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.jqThis', function () {
-    return $(this);
-  });
-  var get_length = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_length_vwohdt$', function ($receiver) {
-    return $receiver.length;
-  });
-  var on = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_pdziuy$', function ($receiver, events, handler) {
-    return $receiver.on(events, handler);
-  });
-  var on_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_hpc46g$', function ($receiver, events, selector, handler) {
-    return $receiver.on(events, selector, handler);
-  });
-  var on_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_qwka2j$', function ($receiver, events, selector, data, handler) {
-    return $receiver.on(events, selector, data, handler);
-  });
-  var on_2 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_v89ba5$', function ($receiver, events) {
-    return $receiver.on(events);
-  });
-  var on_3 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_zc05ld$', function ($receiver, events, selector) {
-    return $receiver.on(events, selector);
-  });
-  var on_4 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.on_drqu84$', function ($receiver, events, selector, data) {
-    return $receiver.on(events, selector, data);
-  });
-  var index = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.index_vwohdt$', function ($receiver) {
-    return $receiver.index();
-  });
-  var index_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.index_v89ba5$', function ($receiver, selector) {
-    return $receiver.index(selector);
-  });
-  var index_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.index_k8fgrm$', function ($receiver, element) {
-    return $receiver.index(element);
-  });
-  var index_2 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.index_5kxll9$', function ($receiver, element) {
-    return $receiver.index(element);
-  });
-  var eq = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.eq_fjcsf1$', function ($receiver, index) {
-    return $receiver.eq(index);
-  });
-  var focus = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.focus_vwohdt$', function ($receiver) {
-    return $receiver.focus();
-  });
-  var focus_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.focus_656v9o$', function ($receiver, handler) {
-    return $receiver.focus(handler);
-  });
-  var focus_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.focus_rgoa8n$', function ($receiver, eventData, handler) {
-    return $receiver.focus(eventData, handler);
-  });
-  var scrollTop = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.scrollTop_vwohdt$', function ($receiver) {
-    return $receiver.scrollTop();
-  });
-  var scrollTop_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.scrollTop_o1vs4d$', function ($receiver, value) {
-    return $receiver.scrollTop(value);
-  });
-  var scrollLeft = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.scrollLeft_vwohdt$', function ($receiver) {
-    return $receiver.scrollLeft();
-  });
-  var scrollLeft_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.scrollLeft_o1vs4d$', function ($receiver, value) {
-    return $receiver.scrollLeft(value);
-  });
-  var mouseleave = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseleave_vwohdt$', function ($receiver) {
-    return $receiver.mouseleave();
-  });
-  var mouseleave_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseleave_656v9o$', function ($receiver, handler) {
-    return $receiver.mouseleave(handler);
-  });
-  var mouseleave_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseleave_rgoa8n$', function ($receiver, eventData, handler) {
-    return $receiver.mouseleave(eventData, handler);
-  });
-  var mouseout = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseout_vwohdt$', function ($receiver) {
-    return $receiver.mouseout();
-  });
-  var mouseout_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseout_656v9o$', function ($receiver, handler) {
-    return $receiver.mouseout(handler);
-  });
-  var mouseout_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.mouseout_rgoa8n$', function ($receiver, eventData, handler) {
-    return $receiver.mouseout(eventData, handler);
-  });
-  var tabPrev = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.tabPrev_vwohdt$', function ($receiver) {
-    return $receiver.tabPrev();
-  });
-  var tabNext = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.tabNext_vwohdt$', function ($receiver) {
-    return $receiver.tabNext();
-  });
-  var css = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_v89ba5$', function ($receiver, propertyName) {
-    return $receiver.css(propertyName);
-  });
-  var css_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_u5828f$', function ($receiver, propertyNames) {
-    return $receiver.css(propertyNames);
-  });
-  var css_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_siqd7z$', function ($receiver, propertyName, value) {
-    return $receiver.css(propertyName, value);
-  });
-  var css_2 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_zc05ld$', function ($receiver, propertyName, value) {
-    return $receiver.css(propertyName, value);
-  });
-  var css_3 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_5msqvn$', function ($receiver, propertyName, function_0) {
-    return $receiver.css(propertyName, function_0);
-  });
-  var css_4 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.css_pm4xy9$', function ($receiver, properties) {
-    return $receiver.css(properties);
-  });
-  var prev = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.prev_v89ba5$', function ($receiver, selector) {
-    return $receiver.prev(selector);
-  });
-  var children = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.children_v89ba5$', function ($receiver, selector) {
-    return $receiver.children(selector);
-  });
-  var find = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.find_v89ba5$', function ($receiver, selector) {
-    return $receiver.find(selector);
-  });
-  var find_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.find_k8fgrm$', function ($receiver, selector) {
-    return $receiver.find(selector);
-  });
-  var find_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.find_5kxll9$', function ($receiver, selector) {
-    return $receiver.find(selector);
-  });
-  var get_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_vwohdt$', function ($receiver) {
-    return $receiver.get();
-  });
-  var get_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_fjcsf1$', function ($receiver, index) {
-    return $receiver.get(index);
-  });
   function toStringBackwardZeroPadding$lambda(this$toStringBackwardZeroPadding, closure$length) {
     return function () {
       var tmp$, tmp$_0;
@@ -3244,7 +3251,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_2-test8';
+    return 'v2020.02_2-test9';
   }
   var coreVersion;
   var appVersion;
@@ -3891,7 +3898,7 @@ var HKNBP_Core = function (_, Kotlin) {
     var tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7;
     tmp$_6 = Player$Companion_getInstance().iframePlayer_0;
     tmp$_5 = ((tmp$_1 = (tmp$_0 = this.channel_0.sources.node) != null ? tmp$_0.iFramePlayerSrc : null) != null ? tmp$_1 : 'iframePlayer/videojs_hls.html') + '?';
-    tmp$_4 = 'sourceSrc=' + encodeURIComponent((tmp$_3 = (tmp$_2 = this.channel_0.sources.node) != null ? tmp$_2.link : null) != null ? tmp$_3 : '');
+    tmp$_4 = 'sourceSrc=' + encodeURIComponent((tmp$_3 = (tmp$_2 = this.channel_0.sources.node) != null ? tmp$_2.getLinkOfHttpsGetAble() : null) != null ? tmp$_3 : '');
     tmp$_6 != null ? (tmp$_6.src = tmp$_5 + tmp$_4) : null;
     (tmp$_7 = Player$Companion_getInstance().iframePlayer_0) != null ? (tmp$_7.onload = Player_init$lambda(this)) : null;
   }
@@ -4348,7 +4355,10 @@ var HKNBP_Core = function (_, Kotlin) {
          else if (callMessage.name == 'IframePlayer') {
           var onPlaying = this$Player.onPlaying_0;
           var onNotPlaying = this$Player.onNotPlaying_0;
-          eval(callMessage.functionName + '()');
+          var functionName = callMessage.functionName;
+          if (equals(functionName, 'onPlaying') || equals(functionName, 'onNotPlaying')) {
+            eval(functionName + '()');
+          }
         }
       }
        catch (e) {
@@ -7656,17 +7666,6 @@ var HKNBP_Core = function (_, Kotlin) {
   Object.defineProperty(package$hknbp_core, 'GithubWebWindow', {
     get: GithubWebWindow_getInstance
   });
-  Object.defineProperty(package$hknbp_core, 'LoadFile', {
-    get: LoadFile_getInstance
-  });
-  Object.defineProperty(package$hknbp_core, 'LongClickEvent', {
-    get: LongClickEvent_getInstance
-  });
-  Object.defineProperty(package$hknbp_core, 'getConsoleLogs', {
-    get: function () {
-      return getConsoleLogs;
-    }
-  });
   Object.defineProperty(package$hknbp_core, 'jq', {
     get: get_jq
   });
@@ -7711,6 +7710,17 @@ var HKNBP_Core = function (_, Kotlin) {
   package$hknbp_core.find_5kxll9$ = find_1;
   package$hknbp_core.get_vwohdt$ = get_0;
   package$hknbp_core.get_fjcsf1$ = get_1;
+  Object.defineProperty(package$hknbp_core, 'LoadFile', {
+    get: LoadFile_getInstance
+  });
+  Object.defineProperty(package$hknbp_core, 'LongClickEvent', {
+    get: LongClickEvent_getInstance
+  });
+  Object.defineProperty(package$hknbp_core, 'getConsoleLogs', {
+    get: function () {
+      return getConsoleLogs;
+    }
+  });
   package$hknbp_core.toStringBackwardZeroPadding_dqglrj$ = toStringBackwardZeroPadding;
   package$hknbp_core.toNegative_s8ev3n$ = toNegative;
   package$hknbp_core.updateURLParameter_puj7f4$ = updateURLParameter;
