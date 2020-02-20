@@ -14,18 +14,19 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
-import jquery.jq
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.HTMLElement
 import kotlin.browser.document
 import kotlin.browser.localStorage
 import kotlin.browser.window
 
 object ConsentPanel: UserInterface(
-        document.getElementById("consentPanel") as HTMLElement
+        "consentPanel",
+        firstFocusElementID = "consentPanelAgreeConsentButton",
+        isFocusCountdownHide = false,
+        isHideFocusToUserControlPanelShower = true
 ){
-    private val consentPanel        = document.getElementById("consentPanel") as HTMLDivElement
+    private val consentPanel       = document.getElementById("consentPanel") as HTMLDivElement
     private val agreeConsentButton  = document.getElementById("consentPanelAgreeConsentButton") as HTMLButtonElement
 
     fun isAgreeConsent(): Boolean{
@@ -35,7 +36,7 @@ object ConsentPanel: UserInterface(
     init {
         consentPanel.style.cursor = "auto"
         if(isAgreeConsent() != true){
-            show(null)
+            show()
             agreeConsentButton.focus()
         }
         Dialogue.getDialogues(fun(dialagues){
@@ -45,5 +46,7 @@ object ConsentPanel: UserInterface(
             localStorage.setItem("IsAgreeConsent", true.toString())
             hide()
         }
+
+        println("Init ConsentPanel")
     }
 }

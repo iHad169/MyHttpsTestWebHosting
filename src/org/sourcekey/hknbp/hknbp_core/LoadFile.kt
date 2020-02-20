@@ -90,4 +90,8 @@ object LoadFile {
     fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, vararg filePath: String){
         load(onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath)
     }
+
+    init {
+        println("Init LoadFile")
+    }
 }

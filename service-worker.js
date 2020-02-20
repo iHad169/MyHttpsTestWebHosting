@@ -18,7 +18,7 @@
  * 控制更新cache版本
  * 修改版本名今用戶進行更新新版
  */
-var coreVersion = "v2020.02_2-test9";
+var coreVersion = "v2019.11_4";
 
 /**
  * 檢查依家運行係米ServiceWorker
@@ -47,6 +47,7 @@ if(self.registration){
         "css/fontello-codes.css",
         "css/fontello-embedded.css",
         "data/dialogue.json",
+        "data/official_channels.xml",
         "font/fontello.eot",
         "font/fontello.svg",
         "font/fontello.ttf",
@@ -56,7 +57,7 @@ if(self.registration){
         "iframePlayer/videojs_hls.html",
         "iframePlayer/youtube_api.html",
         "img/logo.png",
-        "img/nullIcon.png",
+        "img/programmeNullIcon.png",
         "js/jquery.tabbable.js",
         "out/production/HKNBP_Core/HKNBP_Core.js",
 
@@ -71,9 +72,9 @@ if(self.registration){
 
     // 檢查Workbox
     if (workbox) {
-        //console.log("Yay! Workbox is loaded 🎉");
+      console.log("Yay! Workbox is loaded 🎉");
     } else {
-        console.log("Boo! Workbox didn't load 😬");
+      console.log("Boo! Workbox didn't load 😬");
     }
 
     // Cache名 設置

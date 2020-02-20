@@ -19,82 +19,17 @@ import kotlin.browser.document
 import kotlin.browser.localStorage
 import kotlin.browser.window
 
-object SettingWindow: Window(
-        title = "設定",
-        contentHTML = """
-            <div style="display:flex;margin-bottom:1vh;margin-up:1vh;"><!--display:flex;-->
-                <div style="flex:1">
-                    自訂頻道:
-                </div>
-                <div style="flex:4">
-                    <button id="customChannelsSettingOpenButton" style="font-size:4vh;width:13vh;">設置</button>
-                </div>
-            </div>
-            <div style="display:none;margin-bottom:1vh;margin-up:1vh;"><!--display:flex;-->
-                <div style="flex:2">
-                    語言:
-                </div>
-                <div style="flex:2">
-                    <button id="settingWindowLanguageSetHonJyutElegantSet" style="font-size:4vh;margin:1vh;width:23vh;">
-                        漢文-粵語雅言
-                    </button>
-                    <button id="settingWindowLanguageSetHonJyutColloquialSet" style="font-size:4vh;margin:1vh;width:23vh;">
-                        漢文-粵語口語
-                    </button>
-                    <button id="settingWindowLanguageSetEnglishSet" style="font-size:4vh;margin:1vh;width:23vh;">
-                        English
-                    </button>
-                    <button id="settingWindowLanguageSetPresetSet" style="font-size:4vh;margin:1vh;width:23vh;">
-                        預設
-                    </button>
-                </div>
-                <div style="flex:3">
-                    <input id="settingWindowLanguageSetLanguageISOCodeInput"
-                           style="font-size:6vh;width:28vh;margin:1vh;" type="text" placeholder="ISO Code">
-                    <select id="settingWindowLanguageSelectSequenceList" size="5"
-                            style="font-size:5vh;width:28vh;margin:1vh;">
-                    </select>
-                </div>
-                <div style="flex:1">
-                    <button id="settingWindowLanguageAddLanguage" style="font-size:6vh;margin:1vh;width:100%;">
-                        <i class="icon-font">&#xe82e;</i>
-                    </button>
-                    <button id="settingWindowLanguageMoveUpLanguage" style="font-size:6vh;margin:1vh;width:100%;">
-                        <i class="icon-font">&#xe821;</i>
-                    </button>
-                    <button id="settingWindowLanguageMoveDownLanguage" style="font-size:6vh;margin:1vh;width:100%;">
-                        <i class="icon-font">&#xe80a;</i>
-                    </button>
-                    <button id="settingWindowLanguageRemoveLanguage" style="font-size:6vh;margin:1vh;width:100%;">
-                        <i class="icon-font">&#xe82f;</i>
-                    </button>
-                </div>
-            </div>
-            <div style="display:flex;margin-bottom:1vh;margin-up:1vh;">
-                <div style="flex:1">
-                    設定移除:
-                </div>
-                <div style="flex:4">
-                    <button id="clearSettingButton" style="font-size:5vh;width:13vh;"><i
-                            class="icon-font">&#xe82b;</i></button>
-                </div>
-            </div>
-            <div style="display:flex;margin-bottom:1vh;margin-up:1vh;">
-                <div style="flex:1">
-                    Dev模式:
-                </div>
-                <div style="flex:4">
-                        <input id="DevModeCheckbox" type="checkbox" style="width:6vh;height:6vh;">
-                </div>
-            </div>
-        """
-) {
+object SettingWindow: Window("settingWindow", firstFocusElementID = "settingWindowHideButton") {
+    private val settingWindow                   = document.getElementById("settingWindow") as HTMLDivElement
+    private val hideButton                      = document.getElementById("settingWindowHideButton") as HTMLButtonElement
+
+    /********************************************/
 
     private val customChannelsSettingOpenButton = document.getElementById("customChannelsSettingOpenButton") as HTMLButtonElement
 
     fun initCustomChannelsSettingOpenButton(){
         customChannelsSettingOpenButton.onclick = fun(event){
-            CustomChannelsSettingWindow.show(null)
+            CustomChannelsSettingWindow.show()
         }
     }
 
@@ -254,7 +189,7 @@ object SettingWindow: Window(
 
     /********************************************/
 
-    val devConsole = document.getElementById("devConsole") as HTMLDivElement
+    private val devConsole = document.getElementById("devConsole") as HTMLDivElement
     private val devModeCheckbox = document.getElementById("DevModeCheckbox") as HTMLInputElement
 
     fun initDevModeCheckbox(){
@@ -266,8 +201,8 @@ object SettingWindow: Window(
                     val _getConsoleLogs: ()->String = getConsoleLogs
                     _devConsole.innerHTML = _getConsoleLogs()
                     js("""
-                        console.log = function(message){
-                            console.logs.push(message);
+                        console.log = function(){
+                            console.logs.push(Array.from(arguments));
                             console.stdlog.apply(console, arguments);
                             _devConsole.innerHTML = _getConsoleLogs();
                             _devConsole.scrollTop = _devConsole.scrollHeight
@@ -283,9 +218,14 @@ object SettingWindow: Window(
     /********************************************/
 
     init {
+        settingWindow.style.cursor = "auto"
+        hideButton.onclick = fun(event){ hide() }
+
         initCustomChannelsSettingOpenButton()
         //initLangugeSetting()
         initClearSetting()
         initDevModeCheckbox()
+
+        println("Init SettingWindow")
     }
 }

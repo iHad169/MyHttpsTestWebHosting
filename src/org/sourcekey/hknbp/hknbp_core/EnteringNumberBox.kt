@@ -14,11 +14,10 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
-import org.w3c.dom.HTMLElement
 import kotlin.browser.document
 import kotlin.browser.window
 
-object EnteringNumberBox: UserInterface(document.getElementById("enteringNumberBox") as HTMLElement) {
+object EnteringNumberBox: UserInterface("enteringNumberBox") {
     private val enteringNumberBox: dynamic  = document.getElementById("enteringNumberBox")
     private val text: dynamic               = document.getElementById("enteringNumberBoxText")
 
@@ -39,7 +38,7 @@ object EnteringNumberBox: UserInterface(document.getElementById("enteringNumberB
 
 
     override fun update(){
-        text.innerHTML = enteringMinus + enteringNumber.toStringBackwardZeroPadding(3)
+        text.innerHTML = enteringMinus + enteringNumber
     }
 
     /**
@@ -83,6 +82,10 @@ object EnteringNumberBox: UserInterface(document.getElementById("enteringNumberB
 
         isEnteringNumber = true
         update()
-        show(null)
+        show()
+    }
+
+    init {
+        println("Init EnteringNumberBox")
     }
 }

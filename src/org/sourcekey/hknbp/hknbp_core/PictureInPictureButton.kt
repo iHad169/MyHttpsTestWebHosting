@@ -18,9 +18,7 @@ import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import kotlin.browser.document
 
-object PictureInPictureButton: UserInterface(
-        mainFrameElement = document.getElementById("pictureInPictureButton") as HTMLElement
-){
+object PictureInPictureButton: UserInterface("pictureInPictureButton"){
     private val pictureInPictureButton = document.getElementById("pictureInPictureButton") as HTMLButtonElement
 
     init {
@@ -28,5 +26,7 @@ object PictureInPictureButton: UserInterface(
         pictureInPictureButton.onclick = fun(event){
             player?.pictureInPictureModeSwitch()
         }
+
+        println("Init PictureInPictureButton")
     }
 }

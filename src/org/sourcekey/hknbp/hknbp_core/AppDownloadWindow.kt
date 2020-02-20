@@ -14,10 +14,18 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
+import org.w3c.dom.HTMLButtonElement
+import org.w3c.dom.HTMLDivElement
+import kotlin.browser.document
+import kotlin.browser.window
 
-object AppDownloadWindow: Window(
-        title = "程式下載",
-        contentHTML = """
-            <iframe style="width:100%;height:100%;" frameBorder="0" src="app-download.html"></iframe>
-        """
-)
+object AppDownloadWindow: Window("appDownloadWindow", firstFocusElementID = "appDownloadWindowHideButton") {
+    private val appDownloadWindow = document.getElementById("appDownloadWindow") as HTMLDivElement
+    private val hideButton = document.getElementById("appDownloadWindowHideButton") as HTMLButtonElement
+
+    init {
+        hideButton.onclick = fun(event){ hide() }
+
+        println("Init AppDownloadWindow")
+    }
+}

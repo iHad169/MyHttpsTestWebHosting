@@ -17,7 +17,6 @@ package org.sourcekey.hknbp.hknbp_core
 import org.sourcekey.hknbp.hknbp_core.MultiLanguageString.LanguageString
 
 
-
 /**
  * 電視頻道
  *
@@ -26,7 +25,7 @@ import org.sourcekey.hknbp.hknbp_core.MultiLanguageString.LanguageString
  * @param sources 頻道嘅頻道源list
  * @param information 頻道資料
  */
-data class Channel(
+class Channel(
         val number: Int,
         val name: MultiLanguageString       = MultiLanguageString(),
         val sources: ArrayLinkList<Source>  = ArrayLinkList(),
@@ -39,40 +38,11 @@ data class Channel(
      * @param iFramePlayerSrc 頻道源需要使用嘅iFramePlayer嘅Src
      * @param link 頻道源條Link
      */
-    data class Source(
+    class Source(
             val description: String         = "",
             val iFramePlayerSrc: String,
             val link: String
-    ){
-        override fun equals(other: Any?): Boolean {
-            if(other is Source){
-                val isDescriptionEqual = this.description == other.description
-                val isIFramePlayerSrcEqual = this.iFramePlayerSrc == other.iFramePlayerSrc
-                val isLinkEqual = this.link == other.link
-                if(isDescriptionEqual&&isIFramePlayerSrcEqual&&isLinkEqual){return true}
-            }
-            return false
-        }
-
-        /**
-         * 獲取https可以請求http資源嘅link
-         *
-         * https因安全問題禁止http方式讀取資源
-         * 但確實無法控制 頻道源 使用https方式
-         * 但因程式需要乎合 PWA Web應用程式 必需使用https設立
-         * 所以解決方法需要透過 代理伺服器
-         * 將 http請求 轉成 https請求
-         *
-         * @return 如果http嘅link就加代理伺服器輸出 原本已經https嘅link就照輸出
-         * */
-        fun getLinkOfHttpsGetAble(): String{
-            if(link.startsWith("http://")){
-                val proxy_url = "https://netnr-proxy.cloudno.de/"
-                return proxy_url + link
-            }
-            return link
-        }
-    }
+    )
 
     /**
      * 頻道節目表
@@ -80,7 +50,7 @@ data class Channel(
      * @param id 響節目表內嘅id 用來獲取此頻道嘅所有節目資訊
      * @param src 頻道節目表源
      */
-    data class Information(
+    class Information(
             val epgID: String               = "",
             val src: String                 = ""
     ){
@@ -107,67 +77,6 @@ data class Channel(
                 onLoadedXMLTVListener(xmltv?:XMLTV())
             }
         }
-
-        override fun equals(other: Any?): Boolean {
-            if(other is Information){
-                val isEpgIdEqual = this.epgID == other.epgID
-                val isSrcEqual = this.src == other.src
-                if(isEpgIdEqual&&isSrcEqual){return true}
-            }
-            return false
-        }
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if(other is Channel){
-            val isNumberEqual = this.number == other.number
-            val isNameEqual = this.name == other.name
-            for(thisSource in this.sources){
-                var isHaveSameSource = false
-                for(otherSource in other.sources){ if(thisSource == otherSource){isHaveSameSource = true} }
-                if(!isHaveSameSource){return false}
-            }
-            val isInformationEqual = this.information == other.information
-            if(isNumberEqual&&isNameEqual&&isInformationEqual){return true}
-        }
-        return false
-    }
-
-    private fun LanguageString.toXMLString(): String {
-        return """<name lang="${this.lang}">${this.string}</name>"""
-    }
-
-    private fun MultiLanguageString.toXMLString(): String {
-        var nameMultiLangString = ""
-        for (name in this) {
-            nameMultiLangString += name.toXMLString()
-        }
-        return nameMultiLangString
-    }
-
-    private fun Source.toXMLString(): String {
-        return """<source description="${this.description}" iframeplayersrc="${this.iFramePlayerSrc}" link="${this.link}"/>"""
-    }
-
-    private fun ArrayLinkList<Source>.toXMLString(): String {
-        var sourcesString = ""
-        for (source in this) {
-            sourcesString += source.toXMLString()
-        }
-        return sourcesString
-    }
-
-    fun toXMLString(): String {
-        return """<channel number="${this.number}">
-    ${this.name.toXMLString()}
-    ${this.sources.toXMLString()}
-    <information epgid="${this.information.epgID}" src="${this.information.src}"/>
-</channel>
-"""
-    }
-
-    companion object{
-
-
     }
 }
+

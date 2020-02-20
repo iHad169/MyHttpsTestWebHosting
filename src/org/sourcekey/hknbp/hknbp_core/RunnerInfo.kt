@@ -66,4 +66,8 @@ object RunnerInfo {
     fun getBrowserName(): String{
         return platform.name.toString() + " " + platform.version.toString()
     }
+
+    init {
+        println("Init RunnerInfo")
+    }
 }

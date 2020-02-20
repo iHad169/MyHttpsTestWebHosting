@@ -14,11 +14,10 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
-import org.w3c.dom.HTMLElement
 import kotlin.browser.document
 import kotlin.browser.window
 
-object PromptBox: UserInterface(document.getElementById("promptBox") as HTMLElement) {
+object PromptBox: UserInterface("promptBox") {
     private val promptBox: dynamic = document.getElementById("promptBox")
 
 
@@ -30,5 +29,9 @@ object PromptBox: UserInterface(document.getElementById("promptBox") as HTMLElem
         promptBox.innerHTML = promptMessage
         show(3500)
         return 0/////////
+    }
+
+    init {
+        println("Init PromptBox")
     }
 }

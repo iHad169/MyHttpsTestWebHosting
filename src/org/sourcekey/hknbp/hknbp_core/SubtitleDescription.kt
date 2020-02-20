@@ -15,18 +15,21 @@
 package org.sourcekey.hknbp.hknbp_core
 
 import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.HTMLElement
 import kotlin.browser.document
 import kotlin.browser.window
 
-object SubtitleDescription: UserInterface(document.getElementById("trackDescription") as HTMLElement) {
+object SubtitleDescription: UserInterface("trackDescription") {
     private val trackDescription: HTMLDivElement = document.getElementById("trackDescription") as HTMLDivElement
     private val subtitleIconHTML = "<i class=\"icon-font nestle-bottom\" style=\"display:inline;\">&#xe81d;</i>"
 
-    override fun show(showTime: Int?) {
-        super.show(showTime)
+    override fun show() {
+        super.show()
         trackDescription.innerHTML = player?.subtitleTracks?.node?.name?:""
         val subtitleNameHTML = "<div style=\"display:inline;\">${player?.subtitleTracks?.node?.name?:""}</div>"
         trackDescription.innerHTML = subtitleIconHTML + "&nbsp" + subtitleNameHTML
+    }
+
+    init {
+        println("Init SubtitleDescription")
     }
 }

@@ -16,11 +16,10 @@ package org.sourcekey.hknbp.hknbp_core
 
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.HTMLElement
 import kotlin.browser.document
 import kotlin.browser.window
 
-object VolumeDescription: UserInterface(document.getElementById("volumeDescription") as HTMLElement) {
+object VolumeDescription: UserInterface("volumeDescription") {
     private val volumeDescription: HTMLDivElement = document.getElementById("volumeDescription") as HTMLDivElement
     private val volumeUpButton: HTMLButtonElement = document.getElementById("volumeDescriptionVolumeUpButton") as HTMLButtonElement
     private val volumeDownButton: HTMLButtonElement = document.getElementById("volumeDescriptionVolumeDownButton") as HTMLButtonElement
@@ -29,8 +28,8 @@ object VolumeDescription: UserInterface(document.getElementById("volumeDescripti
 
     private val volumeIcon = "<i class=\"icon-font\">&#xe82a;</i>"
 
-    override fun show(showTime: Int?) {
-        super.show(showTime)
+    override fun show() {
+        super.show()
         val script = fun(){
             Player.getVolume(fun(volume){
                 VolumeDescription.volumeValue.innerHTML = volume.toInt().toString()
@@ -54,5 +53,7 @@ object VolumeDescription: UserInterface(document.getElementById("volumeDescripti
     init {
         volumeUpButton.onclick = fun(event){Player.volumeUp()}
         volumeDownButton.onclick = fun(event){Player.volumeDown()}
+
+        println("Init VolumeDescription")
     }
 }

@@ -17,18 +17,21 @@ package org.sourcekey.hknbp.hknbp_core
 import kotlinx.serialization.ImplicitReflectionSerializer
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.HTMLElement
 import org.w3c.dom.Window
 import kotlin.browser.document
 import kotlin.browser.window
 
-object AudioDescription: UserInterface(document.getElementById("trackDescription") as HTMLElement) {
+object AudioDescription: UserInterface("trackDescription") {
     private val trackDescription: HTMLDivElement = document.getElementById("trackDescription") as HTMLDivElement
     private val audioIconHTML = "<i class=\"icon-font nestle-bottom\" style=\"display:inline;\">&#xe81c;</i>"
 
-    override fun show(showTime: Int?) {
-        super.show(showTime)
+    override fun show() {
+        super.show()
         val audioNameHTML = "<div style=\"display:inline;\">${player?.audioTracks?.node?.name?:""}</div>"
         trackDescription.innerHTML = audioIconHTML + "&nbsp" + audioNameHTML
+    }
+
+    init {
+        println("Init AudioDescription")
     }
 }

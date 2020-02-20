@@ -15,17 +15,20 @@
 package org.sourcekey.hknbp.hknbp_core
 
 import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.HTMLElement
 import kotlin.browser.document
 import kotlin.browser.window
 
-object VideoDescription: UserInterface(document.getElementById("trackDescription") as HTMLElement) {
+object VideoDescription: UserInterface("trackDescription") {
     private val trackDescription: HTMLDivElement = document.getElementById("trackDescription") as HTMLDivElement
     private val videoIconHTML = "<i class=\"icon-font nestle-bottom\" style=\"display:inline;\">&#xe815;</i>"
 
-    override fun show(showTime: Int?) {
-        super.show(showTime)
+    override fun show() {
+        super.show()
         val videoNameHTML = "<div style=\"display:inline;\">${player?.videoTracks?.node?.name?:""}</div>"
         trackDescription.innerHTML = videoIconHTML + "&nbsp" + videoNameHTML
+    }
+
+    init {
+        println("Init VideoDescription")
     }
 }

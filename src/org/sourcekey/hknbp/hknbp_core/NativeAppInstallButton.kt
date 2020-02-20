@@ -19,9 +19,7 @@ import org.w3c.dom.HTMLElement
 import kotlin.browser.document
 import kotlin.browser.window
 
-object NativeAppInstallButton: UserInterface(
-        mainFrameElement = document.getElementById("nativeAppInstallButton") as HTMLElement
-) {
+object NativeAppInstallButton: UserInterface("nativeAppInstallButton") {
     private val nativeAppInstallButton = document.getElementById("nativeAppInstallButton") as HTMLButtonElement
     private var installPromptEvent: dynamic = null
 
@@ -34,11 +32,13 @@ object NativeAppInstallButton: UserInterface(
             // Stash the event so it can be triggered later.
             installPromptEvent = event
             // 顯示安裝Button
-            show(null)
+            show()
         })
 
         nativeAppInstallButton.onclick = fun(event){
             installPromptEvent.prompt()
         }
+
+        println("Init NativeAppInstallButton")
     }
 }

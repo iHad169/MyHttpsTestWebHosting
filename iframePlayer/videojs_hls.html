@@ -17,8 +17,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <link href="https://vjs.zencdn.net/7.7.4/video-js.min.css" rel="stylesheet">
-    <!--<link href="https://unpkg.com/video.js@6.7.1/dist/video-js.css" rel="stylesheet">-->
+    <link href="https://vjs.zencdn.net/7.4.1/video-js.min.css" rel="stylesheet">
     <style>
         /* 字幕style */
         .video-js .vjs-text-track-display > div > div > div{
@@ -55,23 +54,13 @@
 
 <body>
 <div id="player-display" style="position:absolute; top:0; bottom:0; left:0; right:0; overflow:hidden;"></div>
-<!--<script src="https://unpkg.com/video.js@6.7.1/dist/video.js"></script>
-<script src="https://unpkg.com/@videojs/http-streaming@0.9.0/dist/videojs-http-streaming.js"></script>-->
-<script type="text/javascript" src="https://vjs.zencdn.net/7.7.4/video.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.mediaplayer.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/2.9.3/videojs-dash.min.js"></script>
-<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/videojs-vlc@0.2.0/lib/videojs-vlc.js"></script>-->
-<script type="text/javascript">
+<script src="https://vjs.zencdn.net/7.6.5/video.min.js"></script>
+<script src="https://unpkg.com/@videojs/http-streaming@1.10.1/dist/videojs-http-streaming.min.js"></script>
+<script>
     /**
      * 播放器
      * */
     var player;
-    /**
-     * Dash.js播放器
-     *
-     * http://cdn.dashjs.org/latest/jsdoc/module-MediaPlayer.html
-     * */
-    var mediaPlayer;
     /**
      * Track嘅class
      * @param {String} id Track嘅編號,用來識別
@@ -236,10 +225,11 @@
      * @param {(subtitleTracks: TrackDescription[])=>{})} onReturn 執行此CallBackFunction去return所有subtitleTrack資訊
      * */
     function onGetIframePlayerSubtitleTracks(onReturn) {
+        //console.log(player.textTracks()[0].activeCues);
         var subtitleTracks = [];
         //設置所有Track選項
         for(var i=0; i<player.textTracks().length; i++){
-            if(player.textTracks()[i].kind !== "metadata"){
+            if(player.textTracks()[i].kind === "subtitles" || player.textTracks()[i].kind === "caption"){
                 subtitleTracks.push(TrackDescription(i, player.textTracks()[i].label));
             }
         }
@@ -317,19 +307,43 @@
         callHKNBPCoreFunction("onNotPlaying", "", function(){});
     };
     /**
+     * 由HKNBP_Core發出初始化IframePlayer
      *
+     * @param {source: String} source 頻道源
      * */
-    function getSourceType(sourceSrc){
-        switch(sourceSrc.match(/\.(m3u8|mpd)$/g)[0]) {
-            case ".m3u8":
-                return "application/x-mpegURL";
-                break;
-            case ".mpd":
-                return "application/dash+xml";
-                break;
-            default:
-                return "application/x-mpegURL";
-        }
+    function onIframePlayerInit(sourceSrc){
+        document.getElementById("player-display").innerHTML = "" +
+            "<video " +
+            "   id=\"player\" " +
+            "   class=\"video-js vjs-default-skin\" " +
+            "   controls preload=\"auto\" " +
+            "   onplaying=\"onIframePlayerPlaying()\" " +
+            "   onpause=\"onIframePlayerNotPlaying()\" " +
+            "   onstop=\"onIframePlayerNotPlaying()\" " +
+            "   onended=\"onIframePlayerNotPlaying()\" " +
+            "   onerror=\"onIframePlayerNotPlaying()\" " +
+            "   onwaiting=\"onIframePlayerNotPlaying()\" " +
+            "   oncanplaythrough=\"this.play()\" " +
+            "   data-setup='{}' " +
+            "   style=\"position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; overflow:hidden;\"" +
+            "   frameBorder=\"0\"" +
+            "   allow=\"autoplay; fullscreen;\" muted playsinline>" +
+            "</video>";
+        player = videojs('player', {
+            autoplay: true,
+            controls: false,
+            poster: ''
+        });
+        player.ready(function(){
+            var settings = this.textTrackSettings;
+            settings.setValues({
+                //"backgroundColor": "#000"
+                "backgroundOpacity": "0"
+                //"edgeStyle": "none"
+            });
+            settings.updateDisplay();
+        });
+        player.src(sourceSrc);
     }
     /**
      * 存底callHKNBPCoreFunction要求
@@ -384,92 +398,6 @@
         }, 60000);
         window.parent.postMessage(JSON.stringify(caller), "*");
     }
-    /**
-     * 由HKNBP_Core發出初始化IframePlayer
-     *
-     * @param {source: String} source 頻道源
-     * */
-    function onIframePlayerInit(sourceSrc){
-        document.getElementById("player-display").innerHTML = "" +
-            "<video " +
-            "   id=\"player\" " +
-            "   class=\"video-js vjs-default-skin\" " +
-            "   controls preload=\"auto\" " +
-            "   onplaying=\"onIframePlayerPlaying()\" " +
-            "   onpause=\"onIframePlayerNotPlaying()\" " +
-            "   onstop=\"onIframePlayerNotPlaying()\" " +
-            "   onended=\"onIframePlayerNotPlaying()\" " +
-            "   onerror=\"onIframePlayerNotPlaying()\" " +
-            "   onwaiting=\"onIframePlayerNotPlaying()\" " +
-            "   oncanplaythrough=\"this.play()\" " +
-            "   style=\"position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; overflow:hidden;\"" +
-            "   frameBorder=\"0\"" +
-            "   poster=\"../img/nullIcon.png\"" +
-            "   crossorigin=\"anonymous\"" +
-            "   allow=\"autoplay; fullscreen;\" muted playsinline>" +
-            "</video>" +
-            "<div " +
-            "   id=\"caption\" " +
-            "   style=\"background:rgba(0, 0, 0, 0);\">" +
-            "</div>";
-        player = videojs('player', {
-            autoplay: true,
-            controls: false,
-            poster: "../img/nullIcon.png",
-            liveui: true,
-            techOrder: ["html5"/*, "flash", "vlc"*/],
-            html5: {
-                hls: {
-                    overrideNative: true
-                }/*,
-                nativeVideoTracks: false,
-                nativeAudioTracks: false,
-                nativeTextTracks: false*/
-            }
-        });
-        player.ready(function(){
-            var settings = this.textTrackSettings;
-            settings.setValues({
-                //"backgroundColor": "#000"
-                "backgroundOpacity": "0"
-                //"edgeStyle": "none"
-            });
-            settings.updateDisplay();
-        });
-        player.src({
-            src: sourceSrc,
-            type: getSourceType(sourceSrc)/*,
-            keySystems: {
-                'com.apple.fps.1_0': {
-                    certificateUri: '<CERTIFICATE_URL>',
-                    certificateHeaders: {
-                        'Some-Header': 'value'
-                    },
-                    licenseUri: '<LICENSE_URL>',
-                    licenseHeaders: {
-                        'Some-Header': 'value'
-                    }
-                }
-            }*/
-        });
-        //Dash流訊號播放器監聽
-        videojs.Html5DashJS.hook('beforeinitialize', function(player, _mediaPlayer) {
-            if (videojs && videojs.log) {
-                mediaPlayer = _mediaPlayer;
-                mediaPlayer.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, function(event){
-                    /*mediaPlayer.enableForcedTextStreaming(true);
-                    mediaPlayer.enableText(true);*/
-                    //設定Dash流訊號TTM字幕渲位置
-                    mediaPlayer.attachTTMLRenderingDiv(document.querySelector("#caption"));
-                });
-            }
-        });
-    }
-    /**
-     * 在URL參數讀取 片源
-     * 並初始化IframePlayer
-     */
-    onIframePlayerInit(decodeURIComponent(new URL(window.location.href).searchParams.get("sourceSrc")));
 </script>
 </body>
 </html>
