@@ -40,8 +40,8 @@ data class MultiLanguageString(
                     localStorage.getItem("userSelectLanguageOptionSequence")?:"<option>${currentUserSystemLanguage}</option>"
 
             val sequence = ArrayLinkList<String>()
-            sequence.addOnElementsChangeListener(object: OnElementsChangeListener{
-                override fun onElementsChange() {
+            sequence.addOnElementsChangedListener(object: OnElementsChangedListener{
+                override fun onElementsChanged() {
                     var languageOptionSequence = ""
                     for(lang in sequence){ languageOptionSequence += "<option>${currentUserSystemLanguage}</option>" }
                     localStorage.setItem("userSelectLanguageOptionSequence", languageOptionSequence)
@@ -64,6 +64,24 @@ data class MultiLanguageString(
             open val lang: String?,
             open val string: String
     )
+
+    override fun equals(other: Any?): Boolean {
+        if(other is MultiLanguageString){
+            if(this.size == other.size){
+                for(thisLangString in this){
+                    var isHaveSameLangString = false
+                    for(otherLangString in other){
+                        val isLangEqual = thisLangString.lang == otherLangString.lang
+                        val isStringEqual = thisLangString.string == otherLangString.string
+                        if(isLangEqual&&isStringEqual){isHaveSameLangString = true}
+                    }
+                    if(!isHaveSameLangString){return false}
+                }
+                return true
+            }
+        }
+        return false
+    }
 
     val lang: String?
         get() = node?.lang
@@ -136,8 +154,8 @@ data class MultiLanguageString(
     }
 
     init {
-        addOnElementsChangeListener(object: OnElementsChangeListener{
-            override fun onElementsChange() {
+        addOnElementsChangedListener(object: OnElementsChangedListener{
+            override fun onElementsChanged() {
                 changeToNeedToSelectLanguageOfFirst()
             }
         } )

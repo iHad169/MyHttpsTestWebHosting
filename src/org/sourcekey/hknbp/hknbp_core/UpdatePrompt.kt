@@ -16,7 +16,4 @@ package org.sourcekey.hknbp.hknbp_core
 
 object UpdatePrompt{
 
-    init {
-        println("Init UpdatePrompt")
-    }
 }

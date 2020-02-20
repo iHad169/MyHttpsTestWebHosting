@@ -55,7 +55,6 @@
 <body>
 <div id="player-display" style="position:absolute; top:0; bottom:0; left:0; right:0; overflow:hidden;"></div>
 <script src="https://vjs.zencdn.net/7.6.5/video.min.js"></script>
-<script src="https://unpkg.com/@videojs/http-streaming@1.10.1/dist/videojs-http-streaming.min.js"></script>
 <script>
     /**
      * 播放器
@@ -225,13 +224,13 @@
      * @param {(subtitleTracks: TrackDescription[])=>{})} onReturn 執行此CallBackFunction去return所有subtitleTrack資訊
      * */
     function onGetIframePlayerSubtitleTracks(onReturn) {
-        //console.log(player.textTracks()[0].activeCues);
+        console.log(player.textTracks());
         var subtitleTracks = [];
         //設置所有Track選項
         for(var i=0; i<player.textTracks().length; i++){
-            if(player.textTracks()[i].kind === "subtitles" || player.textTracks()[i].kind === "caption"){
-                subtitleTracks.push(TrackDescription(i, player.textTracks()[i].label));
-            }
+        console.log(player.textTracks()[i]);
+
+            subtitleTracks.push(TrackDescription(i, player.textTracks()[i].label));
         }
         //設置無字幕選項
         subtitleTracks.push(TrackDescription(-10, "無字幕"));

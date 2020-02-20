@@ -20,15 +20,17 @@ import org.w3c.dom.get
 import org.w3c.dom.parsing.DOMParser
 
 
-abstract class ChannelsReader {
-    protected fun getName(element: Element?): MultiLanguageString {
+open class ChannelsReader {
+    protected fun getName(element: Element): MultiLanguageString {
         val multiLangName = MultiLanguageString()
 
         var i = 0
-        val nameTag = element?.getElementsByTagName("name")
-        while(i < nameTag?.length ?: 0) {
-            val lang            = nameTag?.get(i)?.getAttribute("lang")?: ""
-            val name            = nameTag?.get(i)?.innerHTML?: ""
+        val nameTag = element.getElementsByTagName("name")
+        while(i < nameTag.length) {
+            val nameElement     = nameTag.get(i)?:break
+
+            val lang            = nameElement.getAttribute("lang")?: ""
+            val name            = nameElement.innerHTML?: ""
 
             multiLangName.add(MultiLanguageString.LanguageString(lang, name))
             i++
@@ -37,15 +39,17 @@ abstract class ChannelsReader {
         return multiLangName
     }
 
-    protected fun getSources(element: Element?): ArrayLinkList<Channel.Source> {
+    protected fun getSources(element: Element): ArrayLinkList<Channel.Source> {
         val sources = ArrayLinkList<Channel.Source>()
 
         var i = 0
-        val sourceTag = element?.getElementsByTagName("source")
-        while(i < sourceTag?.length ?: 0) {
-            val description     = sourceTag?.get(i)?.getAttribute("description")?: ""
-            val iframeplayersrc = sourceTag?.get(i)?.getAttribute("iframeplayersrc")?: ""
-            val link            = sourceTag?.get(i)?.getAttribute("link")?: ""
+        val sourceTag = element.getElementsByTagName("source")
+        while(i < sourceTag.length) {
+            val sourceElement   = sourceTag.get(i)?:break
+
+            val description     = sourceElement.getAttribute("description")?: ""
+            val iframeplayersrc = sourceElement.getAttribute("iframeplayersrc")?: ""
+            val link            = sourceElement.getAttribute("link")?: ""
 
             sources.add(Channel.Source(description, iframeplayersrc, link))
             i++
@@ -54,11 +58,11 @@ abstract class ChannelsReader {
         return sources
     }
 
-    protected fun getInformation(element: Element?): Channel.Information {
-        val informationTag = element?.getElementsByTagName("information")
+    protected fun getInformation(element: Element): Channel.Information {
+        val informationTag = element.getElementsByTagName("information")
         return Channel.Information(
-                informationTag?.get(0)?.getAttribute("epgid")?: "",
-                informationTag?.get(0)?.getAttribute("src")?: ""
+                informationTag.get(0)?.getAttribute("epgid")?: "",
+                informationTag.get(0)?.getAttribute("src")?: ""
         )
     }
 
@@ -68,10 +72,12 @@ abstract class ChannelsReader {
         var i = 0
         val channelTag = document?.getElementsByTagName("channel")
         while(i < (channelTag?.length ?: 0)) {
-            val number      = channelTag?.get(i)?.getAttribute("number")?.toIntOrNull()?: 0
-            val name       = getName(channelTag?.get(i))
-            val sources     = getSources(channelTag?.get(i))
-            val information = getInformation(channelTag?.get(i))
+            val channelElement = channelTag?.get(i)?:break
+
+            val number      = channelElement.getAttribute("number")?.toIntOrNull()?: 0
+            val name        = getName(channelElement)
+            val sources     = getSources(channelElement)
+            val information = getInformation(channelElement)
 
             channels.add(Channel(number, name, sources, information))
             i++

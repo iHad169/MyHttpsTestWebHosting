@@ -20,7 +20,7 @@ import kotlin.browser.document
 import kotlin.browser.window
 import kotlin.js.Date
 
-object ChannelDescription: UserInterface("channelDescription") {
+object ChannelDescription: UserInterface(document.getElementById("channelDescription") as HTMLElement) {
     private val channelDescription            = document.getElementById("channelDescription") as HTMLDivElement
     private val currentChannelName              = document.getElementById("channelDescriptionCurrentChannelName") as HTMLDivElement
     private val currentChannelNumber            = document.getElementById("channelDescriptionCurrentChannelNumber") as HTMLDivElement
@@ -40,7 +40,7 @@ object ChannelDescription: UserInterface("channelDescription") {
     }
 
     private fun setCurrentChannelNumber(){
-        currentChannelNumber.innerHTML = (channels.node?.number?:"").toString().padStart(3, '0')
+        currentChannelNumber.innerHTML = channels.node?.number?.toStringBackwardZeroPadding(3)?:""
     }
 
     private var currentDateTimer = 0
@@ -127,7 +127,5 @@ object ChannelDescription: UserInterface("channelDescription") {
 
     init {
         setCurrentDate()
-
-        println("Init ChannelDescription")
     }
 }

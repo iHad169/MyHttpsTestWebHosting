@@ -286,6 +286,11 @@
         player.volume(value/100);
     }
 
+    /**
+     * 在URL參數讀取 片源
+     * 並初始化IframePlayer
+     */
+    onIframePlayerInit(decodeURIComponent(new URL(window.location.href).searchParams.get("sourceSrc")));
 </script>
 </body>
 </html>

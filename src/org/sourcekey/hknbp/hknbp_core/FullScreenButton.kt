@@ -20,7 +20,9 @@ import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLElement
 import kotlin.browser.document
 
-object FullScreenButton: UserInterface("fullScreenButton") {
+object FullScreenButton: UserInterface(
+        mainFrameElement = document.getElementById("fullScreenButton") as HTMLElement
+) {
     private val fullScreenButton: HTMLButtonElement = document.getElementById("fullScreenButton") as HTMLButtonElement
     private val enterFullscreenIcon: String = "<i class=\"icon-font\">&#xe80c;</i>"
     private val exitFullscreenIcon: String = "<i class=\"icon-font\">&#xe80b;</i>"
@@ -79,9 +81,7 @@ object FullScreenButton: UserInterface("fullScreenButton") {
     }
 
     init {
-        if(document.fullscreenEnabled){ show() }else{ hide() }
+        if(document.fullscreenEnabled){ show(null) }else{ hide() }
         fullScreenButton.onclick = fun(event){ enterExitFullScreenAlternately() }
-
-        println("Init FullScreenButton")
     }
 }

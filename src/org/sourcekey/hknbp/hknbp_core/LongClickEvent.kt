@@ -14,6 +14,7 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
+import jquery.jq
 import kotlin.browser.window
 
 /**
@@ -61,9 +62,9 @@ object LongClickEvent {
 
     init {
         val leftKey = 1
-        jQuery("button").mousedown(fun(event: dynamic){
+        jq("button").mousedown(fun(event: dynamic){
             if(leftKey == event.which){
-                val button = jQuery(js("this"))
+                val button = jqThis()
                 onLongClick = OnLongClick(fun(){button.click()})
                 onLongClick.mousedown()
             }
@@ -76,7 +77,5 @@ object LongClickEvent {
                 onLongClick.mouseup()
             }
         })
-
-        println("Init LongClickEvent")
     }
 }

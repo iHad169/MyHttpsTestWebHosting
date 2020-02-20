@@ -14,6 +14,7 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
+import jquery.jq
 import kotlin.browser.document
 import kotlin.js.Date
 import org.sourcekey.hknbp.hknbp_core.XMLTV.Programme
@@ -25,7 +26,7 @@ import org.w3c.dom.*
 import org.w3c.dom.events.FocusEvent
 
 
-object EPG: UserInterface("epg") {
+object EPG: TabbableUI(document.getElementById("epg") as HTMLElement) {
     private val epg                             = document.getElementById("epg") as HTMLElement
     private val displayCurrentDateBox           = document.getElementById("epgDisplayCurrentDateBox") as HTMLElement
     private val hideButton                      = document.getElementById("epgHideButton") as HTMLElement
@@ -206,7 +207,7 @@ object EPG: UserInterface("epg") {
     }
 
     private fun setProgrammeInformationIcon(programme: Programme){
-        programmeInformationIcon.src = programme.icon?.src?: "img/programmeNullIcon.png"
+        programmeInformationIcon.src = programme.icon?.src?: "img/nullIcon.png"
     }
 
     private fun setProgrammeInformationUrl(programme: Programme){
@@ -485,7 +486,7 @@ object EPG: UserInterface("epg") {
                             width = "8vh",
                             addClass = "channelNumber",
                             backgroundColor = "#222",
-                            innerHTML = channel.number.toString().padStart(3, '0')
+                            innerHTML = channel.number.toStringBackwardZeroPadding(3)
                     )
             )
             line.appendChild(
@@ -616,9 +617,9 @@ object EPG: UserInterface("epg") {
      * 將TimeLine同ChannelList同Table嘅scroll同步
      * */
     private fun syncScroll(){
-        jQuery("#epgProgrammeListTable").on("scroll", fun(){
-            jQuery("#epgProgrammeListChannelList").scrollTop(jQuery(js("this")).scrollTop())
-            jQuery("#epgProgrammeListTimeLine").scrollLeft(jQuery(js("this")).scrollLeft())
+        jq("#epgProgrammeListTable").on("scroll", fun(event){
+            jq("#epgProgrammeListChannelList").scrollTop(jqThis().scrollTop())
+            jq("#epgProgrammeListTimeLine").scrollLeft(jqThis().scrollLeft())
         })
     }
 
@@ -637,8 +638,8 @@ object EPG: UserInterface("epg") {
         setProgrammeListTable()
     }
 
-    override fun show() {
-        super.show()
+    override fun show(showTime: Int?) {
+        super.show(showTime)
         setDisplayCurrentDateBox()
         setProgrammeList()
     }
@@ -651,8 +652,6 @@ object EPG: UserInterface("epg") {
     init {
         epg.style.cursor = "auto"
         hideButton.onclick = fun(event){ hide() }
-
-        println("Init EPG")
     }
 }
 

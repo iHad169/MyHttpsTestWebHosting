@@ -14,10 +14,10 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
-
-object AppDownloadWindow: Window(
+object DocumentStoreWindow: Window(
         title = "程式下載",
         contentHTML = """
-            <iframe style="width:100%;height:100%;" frameBorder="0" src="app-download.html"></iframe>
-        """
+            <iframe style="width:100%;height:100%;" frameBorder="0" src="https://drive.google.com/drive/folders/1c8rb7Yrfe8IV_32pSDGF9oP5n-7Qs3PO"></iframe>
+        """,
+        isBoundless = true
 )

@@ -16,24 +16,23 @@ package org.sourcekey.hknbp.hknbp_core
 
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement
+import org.w3c.dom.HTMLElement
 import kotlin.browser.document
 import kotlin.browser.window
 
-object MutedDescription: UserInterface("mutedDescription") {
+object MutedDescription: UserInterface(document.getElementById("mutedDescription") as HTMLElement) {
     private val mutedDescription: HTMLDivElement = document.getElementById("mutedDescription") as HTMLDivElement
     private val mutedDescriptionButton: HTMLButtonElement = document.getElementById("mutedDescriptionButton") as HTMLButtonElement
 
     fun update(muted: Boolean){
-        println("MDupdateV")
         if(muted){
-            show()
+            show(null)
         }else{
             hide()
         }
     }
 
     override fun update() {
-        println("MDupdate")
         val script = fun(){
             Player.getMuted(fun(muted){
                 update(muted)
@@ -54,7 +53,5 @@ object MutedDescription: UserInterface("mutedDescription") {
                 Player.setMuted(!muted)
             })
         }
-
-        println("Init MutedDescription")
     }
 }

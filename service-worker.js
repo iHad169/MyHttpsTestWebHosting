@@ -18,7 +18,7 @@
  * 控制更新cache版本
  * 修改版本名今用戶進行更新新版
  */
-var coreVersion = "v2019.11_4";
+var coreVersion = "v2020.02_2";
 
 /**
  * 檢查依家運行係米ServiceWorker
@@ -53,11 +53,10 @@ if(self.registration){
         "font/fontello.ttf",
         "font/fontello.woff",
         "font/fontello.woff2",
-        "iframePlayer/videojs_dash.html",
-        "iframePlayer/videojs_hls.html",
+        "iframePlayer/videojs.html",
         "iframePlayer/youtube_api.html",
         "img/logo.png",
-        "img/programmeNullIcon.png",
+        "img/nullIcon.png",
         "js/jquery.tabbable.js",
         "out/production/HKNBP_Core/HKNBP_Core.js",
 
@@ -65,16 +64,21 @@ if(self.registration){
         "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js",
         "https://video-dev.github.io/can-autoplay/build/can-autoplay.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.5/platform.min.js",
-        "https://cdn.jsdelivr.net/npm/kotlin@1.3.61/kotlin.js"
+        "https://cdn.jsdelivr.net/npm/kotlin@1.3.61/kotlin.js",
+
+        "https://vjs.zencdn.net/7.7.4/video-js.min.css",
+        "https://vjs.zencdn.net/7.7.4/video.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.mediaplayer.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/2.9.3/videojs-dash.min.js"
     ];
 
     importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
     // 檢查Workbox
     if (workbox) {
-      console.log("Yay! Workbox is loaded 🎉");
+        //console.log("Yay! Workbox is loaded 🎉");
     } else {
-      console.log("Boo! Workbox didn't load 😬");
+        console.log("Boo! Workbox didn't load 😬");
     }
 
     // Cache名 設置

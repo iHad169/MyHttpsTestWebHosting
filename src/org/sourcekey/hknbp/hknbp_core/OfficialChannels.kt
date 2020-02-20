@@ -29,10 +29,6 @@ object OfficialChannels: ChannelsReader() {
             onLoadedChannelsListener(channels)
         }, fun(){
             println("未能讀取official_channels.xml")
-        }, "${rootURL}data/official_channels.xml", "data/official_channels.xml")
-    }
-
-    init{
-        println("Init OfficialChannels")
+        }, "https://official_channels.hknbp.org/official_channels.xml", "data/official_channels.xml")
     }
 }

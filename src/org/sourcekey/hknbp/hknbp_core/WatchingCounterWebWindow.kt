@@ -14,10 +14,10 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
-
-object AppDownloadWindow: Window(
-        title = "程式下載",
+object WatchingCounterWebWindow: Window(
+        title = "",
         contentHTML = """
-            <iframe style="width:100%;height:100%;" frameBorder="0" src="app-download.html"></iframe>
-        """
+            <iframe style="width:100%;height:100%;" frameBorder="0" src="https://datastudio.google.com/reporting/1GKlAWHEsDdryWh2PRdQFmWzQ_ksRQ8BK/page/1M"></iframe>
+        """,
+        isBoundless = true
 )

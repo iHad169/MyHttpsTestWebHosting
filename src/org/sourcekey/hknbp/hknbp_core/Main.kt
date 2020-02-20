@@ -14,34 +14,49 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
+import jquery.JQuery
 import jquery.jq
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.stringify
-import org.w3c.dom.HTMLButtonElement
-import org.w3c.dom.HTMLElement
+import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.url.URL
 import kotlin.browser.document
 import kotlin.browser.localStorage
 import kotlin.browser.window
+import kotlin.js.Console
 import kotlin.js.Date
 import kotlin.js.Json
 import kotlin.random.Random
 
 
+/**
+fun dynamicallyLoadScript(url: String) {
+var script = document.createElement("script") as HTMLScriptElement  // create a script DOM node
+script.src = url  // set its src to the provided URL
+script.async = false
+document.head?.appendChild(script)  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+}
 
+private val initLoadScript = {
+dynamicallyLoadScript("https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+dynamicallyLoadScript("js/jquery.tabbable.js")
+dynamicallyLoadScript("https://video-dev.github.io/can-autoplay/build/can-autoplay.min.js")
+dynamicallyLoadScript("https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.5/platform.min.js")
+}()*/
+/**/
 /**
  * 設置ConsoleLog監聽器
  * */
-private val setConsoleLogsListener = {
+private val initConsoleLogsListener = {
     try {
         js("""
             console.stdlog = console.log.bind(console);
             console.logs = [];
-            console.log = function(){
+            console.log = function(message){
                 if(1000<console.logs.length){console.logs.shift();}//防過多Log
-                console.logs.push(Array.from(arguments));
+                console.logs.push(message);
                 console.stdlog.apply(console, arguments);
             }
         """)
@@ -65,14 +80,26 @@ val getConsoleLogs = fun(): String{
     return ""
 }
 
-/**
- * 畀Kotlin使用JQuery
- * */
-val jQuery: dynamic = js("\$")
-
 external fun decodeURIComponent(encodedURI: String): String
 
 external fun encodeURIComponent(encodedURI: String): String
+
+/**
+ * 將Int轉String兼向後補零
+ * 因如直接使用.toString().padStart(length, '0')
+ * 會冇處理負號'-'問題
+ * 如: 而理想係要 -3 轉成 -003 但事實 -3 會轉成 0-3
+ * */
+fun Int.toStringBackwardZeroPadding(length: Int): String = {
+    val isNegativeNumber = this < 0
+    val mustPositiveNumber = if(isNegativeNumber){ -1 * this }else{ this }
+    if(isNegativeNumber){"-"}else{""} + mustPositiveNumber.toString().padStart(length, '0')
+}()
+
+fun Int.toNegative(): Int{
+    if(-1 < this){ return -this }
+    return this
+}
 
 /**
  * 更新URL參數
@@ -125,6 +152,7 @@ val rootURL: String = "https://hknbp.org/"
  * 響service-worker.js度get返個coreVersion
  * */
 val coreVersion: String = {
+    /*
     var value: String = ""
     val savedValue: String = localStorage.getItem("CoreVersion")?: ""
     try {
@@ -134,6 +162,9 @@ val coreVersion: String = {
     }
     localStorage.setItem("CoreVersion", value)//儲底畀離線時讀取
     value
+    */
+
+    "v2020.02_2"
 }()
 
 /**
@@ -146,78 +177,9 @@ val coreVersion: String = {
 var appVersion: String = "${coreVersion}-PWA"
 
 /**
-fun includeScript(vararg files: String) {
-    for(file in files){
-        document.write("<script type=\"text/javascript\" src=\"'+${file}+'\"></script>")
-    }
-}
-val jQueryLib = includeScript("js/jquery-3.4.1.min.js")*/
-
-/**
  * 現在播放頻道嘅播放器
  * */
 var player: Player? = null
-
-/**
- * 更新頻道表
- * 此function畀其他地方可直接更新頻道表(channels值)
- *
- * @return 純水畀channels嘅value直接可攞個頻道表兼可執行更新頻道表程序
- * */
-fun updateChannels(): ArrayLinkList<Channel>{
-    channels = ArrayLinkList<Channel>()
-    channels.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<Channel> {
-        override fun onNodeChanged(
-                preChangeNodeID: Int?, postChangeNodeID: Int?,
-                preChangeNode: Channel?, postChangeNode: Channel?
-        ) {
-            //儲存低返最近睇過嘅頻道
-            localStorage.setItem("RecentlyWatchedChannel", postChangeNodeID.toString())
-            //更新URL嘅channel參數
-            if(postChangeNode?.number?:0 < 0){
-                //自訂頻道參數(用作分享連結)
-                updateURLParameter("channelXmlString", postChangeNode?.number.toString())///////////////////////
-            }else{
-                //官方頻道參數(用作分享連結)
-                updateURLParameter("channel", postChangeNode?.number.toString())
-            }
-
-
-            updateChannel()
-        }
-    })
-
-    OfficialChannels.getOfficialChannels(fun(officialChannels){
-        channels.addAll(officialChannels)//載入官方頻道
-        channels.addAll(CustomChannels.getCustomChannels())//載入自定頻道
-        channels.sortBy { channel -> channel.number }
-        //讀返最近睇過嘅頻道
-        channels.designated(
-                //URL參數指定嘅道
-                {
-                    val channelParam = URL(window.location.href).searchParams.get("channel")?.toIntOrNull()
-                    channels.indexOfOrNull(channels.find{channel -> channel.number == channelParam})
-                }()?:
-                //上次收睇緊嘅頻道
-                {
-                    val recentlyWatchedChannel = localStorage.getItem("RecentlyWatchedChannel")?.toInt()
-                    if(recentlyWatchedChannel != null){
-                        if(recentlyWatchedChannel < channels.size){ recentlyWatchedChannel }else{ channels.lastIndex }
-                    }else{ null }
-                }()?:
-                //隨機一個頻道
-                if(channels.size <= 0){ 0 }else{ Random.nextInt(0, channels.size) }
-        )
-    })
-    updateChannel()
-
-    return channels
-}
-
-/**
- * 頻道表
- * */
-var channels: ArrayLinkList<Channel> = updateChannels()
 
 /**
  * 去特定頻道
@@ -263,10 +225,9 @@ fun updateChannel() {
         }
     })
     player?.play()
-    VirtualRemote.update()
 }
 
-/**
+/*
 private var autoTransformEngineTimerSecond = 12000
 
 private var isLoopAutoTransformEngineTimer = true
@@ -322,6 +283,83 @@ updateChannel()
  */
 
 /**
+ * 頻道表
+ * */
+val channels: ArrayLinkList<Channel> = {
+    val channels = ArrayLinkList<Channel>()
+    channels.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<Channel> {
+        override fun onNodeChanged(
+                preChangeNodeID: Int?, postChangeNodeID: Int?,
+                preChangeNode: Channel?, postChangeNode: Channel?
+        ) {
+            //儲存低返最近睇過嘅頻道
+            localStorage.setItem("RecentlyWatchedChannel", postChangeNodeID.toString())
+            //更新URL嘅channel參數
+            if(postChangeNode != null){
+                if(postChangeNode.number < 0){
+                    //自訂頻道參數(用作分享連結)
+                    updateURLParameter("channel", encodeURIComponent(postChangeNode.toXMLString()))
+                }else{
+                    //官方頻道參數(用作分享連結)
+                    updateURLParameter("channel", postChangeNode.number.toString())
+                }
+            }
+            updateChannel()
+        }
+    })
+    channels.addOnElementsChangedListener(object: ArrayLinkList.OnElementsChangedListener{
+        override fun onElementsChanged() {
+            //以頻道號碼排序
+            channels.sortBy { channel: Channel -> channel.number }
+            /*
+            //儲底自訂頻道
+            val customChannels = channels.filter { channel: Channel -> channel.number < 0 }
+            val list = ArrayLinkList<Channel>()
+            list.addAll(customChannels)
+            CustomChannels.setCustomChannels(list)
+            */
+        }
+    })
+    OfficialChannels.getOfficialChannels(fun(officialChannels){
+        channels.addAll(officialChannels)//載入官方頻道
+        channels.addAll(CustomChannels.get())//載入自定頻道
+        //讀返最近睇過嘅頻道
+        channels.designated(
+                try {
+                    //URL參數指定嘅道
+                    {
+                        val channelParam = URL(window.location.href).searchParams?.get("channel")//個<?.get>嘅問號要留,因試到https://cs.coredump.biz/questions/51961922/urlsearchparams-not-working-in-a-webview
+                        //查個參數係米純ChannelNumber
+                        var goTOChannelNumber = channelParam?.toIntOrNull()
+                        //查個參數係米CustomChannel嘅XmlString
+                        val customChannel = ChannelsReader().parseChannels(decodeURIComponent(channelParam?:"")).getOrNull(0)
+                        if(customChannel != null && channels.find{ channel: Channel -> channel == customChannel } == null) {
+                            //將新嘅自訂頻道儲底
+                            CustomChannels.add(customChannel)
+                            //將新嘅自訂頻道加到現運行頻道表
+                            channels.add(customChannel)
+                            //轉到新自訂頻道
+                            goTOChannelNumber = customChannel.number
+                        }
+                        //轉換成ArrayList Index
+                        channels.indexOfOrNull(channels.find{channel -> channel.number == goTOChannelNumber})
+                    }()?:
+                    //上次收睇緊嘅頻道
+                    {
+                        val recentlyWatchedChannel = localStorage.getItem("RecentlyWatchedChannel")?.toInt()
+                        if(recentlyWatchedChannel != null){
+                            if(recentlyWatchedChannel < channels.size){ recentlyWatchedChannel }else{ channels.lastIndex }
+                        }else{ null }
+                    }()?:
+                    //隨機一個頻道
+                    if(channels.size <= 0){ 0 }else{ Random.nextInt(0, channels.size) }
+                }catch(e:dynamic){0}finally{0}
+        )
+    })
+    channels
+}()
+
+/**
  *  w,h為正整數的分子和分母
  *
  *  @return intArray[0] 為約簡後分子 intArray[1] 為約簡後分母
@@ -353,16 +391,12 @@ fun reductionTo(w: Int, h: Int): IntArray{
  * ****************************** *
  * */
 fun main(args: Array<String>) {
-    //HKNBPAppLayerBridge
     try {
+        UserControlPanelShower
         UserControlPanel
-        VirtualRemote.show()
         ConsentPanel
         VirtualRemote
-        //RealRemote
+        RealRemote
         LongClickEvent
-        println("介面初始化完成")
     } catch (e: dynamic) { println("介面初始化哀左: $e") }
-
-    println("Init Main")
 }

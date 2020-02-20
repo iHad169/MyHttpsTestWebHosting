@@ -18,94 +18,52 @@ import org.w3c.dom.parsing.DOMParser
 import kotlin.browser.localStorage
 
 object CustomChannels: ChannelsReader() {
-
-    private fun setSourceToXMLString(source: Channel.Source): String {
-        return """<source description="${source.description}" iframeplayersrc="${source.iFramePlayerSrc}" link="${source.link}"/>"""
+    private fun Channel.changeMustNegativeNumber(): Channel {
+        return Channel(
+                number = this.number.toNegative(),
+                name = this.name,
+                sources = this.sources,
+                information = this.information
+        )
     }
 
-    private fun setSourcesToXMLString(sources: ArrayLinkList<Channel.Source>): String {
-        var sourcesString = ""
-        for (source in sources) {
-            sourcesString += setSourceToXMLString(source)
-        }
-        return sourcesString
-    }
-
-    fun setChannelToXMLString(channel: Channel): String {
-        return """<channel number="${channel.number}">
-    <name lang="">${channel.name}</name>
-    ${setSourcesToXMLString(channel.sources)}
-    <information epgid="${channel.information.epgID}" src="${channel.information.src}"/>
-</channel>"""
-    }
-
-    fun setChannelsToXMLString(customChannels: ArrayLinkList<Channel>): String {
+    fun toXMLString(customChannels: ArrayLinkList<Channel>): String {
         var channelsString = ""
         for (channel in customChannels) {
-            channelsString += setChannelToXMLString(channel)
+            channelsString += channel.changeMustNegativeNumber().toXMLString()
         }
         return channelsString
     }
 
-    fun getCustomChannels(): ArrayLinkList<Channel> {
-        return parseChannels(localStorage.getItem("customChannels") ?: "")
-    }
-
-    fun setCustomChannels(customChannels: ArrayLinkList<Channel>) {
-        val currentCustomChannels = getCustomChannels()
-        //將CustomChannels加去要Save嘅表
-        for (channel in customChannels) {
-            currentCustomChannels.add(channel)
+    private var customChannelsXMLStringCache = localStorage.getItem("customChannels")?:""
+        private set(value) {
+            //儲存底自訂頻道表
+            localStorage.setItem("customChannels", value)
         }
-        //將依家運行緊嘅表排列返加完嘅Channel
-        currentCustomChannels.sortBy { channel -> channel.number }
-        //儲存底自訂頻道表
-        localStorage.setItem("customChannels", setChannelsToXMLString(currentCustomChannels))
-        //更新頻道表
-        updateChannels()
+
+    fun get(): ArrayLinkList<Channel> {
+        return parseChannels("<customchannel>${customChannelsXMLStringCache}</customchannel>")
     }
 
-    fun setCustomChannels(customChannelsXMLString: String) {
-        setCustomChannels(parseChannels(customChannelsXMLString))
+    fun set(customChannels: ArrayLinkList<Channel>) {
+        customChannelsXMLStringCache = toXMLString(customChannels)
     }
 
-    fun setCustomChannel(customChannel: Channel): Boolean {
-        val currentCustomChannels = getCustomChannels()
-        //搵要add()嘅Channel有冇撞Number
-        val isNumberHaveChannel = currentCustomChannels.find(fun(_channel: Channel): Boolean {
-            return _channel.number == customChannel.number
-        }) != null
-        if (!isNumberHaveChannel) {
-            //將CustomChannel加去要Save嘅表
-            currentCustomChannels.add(customChannel)
-        } else {
-            return false
-        }
-        //將依家運行緊嘅表排列返加完嘅Channel
-        currentCustomChannels.sortBy { channel -> channel.number }
-        //儲存低CustomChannels
-        localStorage.setItem("customChannels", setChannelsToXMLString(currentCustomChannels))
-        //更新頻道表
-        updateChannels()
-        return true
+    fun set(customChannelsXMLString: String) {
+        set(parseChannels(customChannelsXMLString))
     }
 
-    fun addCustomChannel(customChannel: Channel): Boolean {
-        return setCustomChannel(customChannel)
+    fun add(customChannel: Channel){
+        customChannelsXMLStringCache += customChannel.toXMLString()
     }
 
-    fun removeCustomChannel(customChannel: Channel) {
-        val currentCustomChannels = getCustomChannels()
-        //響依家嘅自訂頻道表刪要刪除嘅Channel
-        currentCustomChannels.remove(customChannel)
-        //儲存低CustomChannels
-        localStorage.setItem("customChannels", setChannelsToXMLString(currentCustomChannels))
-        //更新頻道表
-        updateChannels()
+    /*
+    fun set(index: Int, customChannel: Channel){
+
     }
 
-    init {
+    fun remove(customChannel: Channel){
 
-        println("Init CustomChannels")
     }
+    */
 }

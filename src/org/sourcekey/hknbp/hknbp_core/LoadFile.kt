@@ -39,32 +39,30 @@ object LoadFile {
 
     fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, filePaths: ArrayLinkList<String>){
         val xmlhttp = XMLHttpRequest()
-        var isLoaded = false
         val onFailedLoadFileProgram: dynamic = fun(){
             window.setTimeout(fun(){
-                if(!isLoaded){
-                    onFailedLoadFile()
-                    //PromptBox.promptMessage(dialogues.node().canNotReadData)
-                    if(filePaths.nodeID?:return < filePaths.size-1){
-                        filePaths.next()
-                        load(onLoadedFile, onFailedLoadFile, filePaths)
-                    }
+                onFailedLoadFile()
+                //PromptBox.promptMessage(dialogues.node().canNotReadData)
+                if(filePaths.nodeID?:return < filePaths.size-1){
+                    filePaths.next()
+                    load(onLoadedFile, onFailedLoadFile, filePaths)
                 }
             }, 2000)
         }
-        xmlhttp.onreadystatechange = fun(event) {
-            if (xmlhttp.readyState == 4.toShort() && xmlhttp.status == 200.toShort()) {
-                isLoaded = true
-                onLoadedFile(xmlhttp)
-            }else{ onFailedLoadFileProgram() }
-        }
+        xmlhttp.onload = fun(event) { onLoadedFile(xmlhttp) }
         xmlhttp.ontimeout = onFailedLoadFileProgram
         xmlhttp.onerror = onFailedLoadFileProgram
+        xmlhttp.onreadystatechange = fun(event){
+            if (xmlhttp.readyState == 4.toShort() && xmlhttp.status == 404.toShort()) { onFailedLoadFileProgram() }
+        }
 
         var path: String = filePaths.node?:""
         if(path.startsWith("http")){
-            val cors_api_url = "https://cors-anywhere.herokuapp.com/" //實現<跨Domain存取(CORS)>重點
-            path = cors_api_url + path //完全唔明點解做到,要將呢個+文件位置就得
+            //實現<跨Domain存取(CORS)>重點
+            //完全唔明點解做到,要將呢個url+文件位置就得
+            //https://github.com/Rob--W/cors-anywhere
+            val cors_api_url = "https://cors-anywhere.herokuapp.com/"
+            path = cors_api_url + path
         }
         xmlhttp.open("GET", path, true)
         xmlhttp.setRequestHeader("cache-control", "max-age=${cacheShelfLife}")//以秒為單位///////////////////////////////整個可以強制響線上讀取唔用Cache
@@ -89,9 +87,5 @@ object LoadFile {
 
     fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, vararg filePath: String){
         load(onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath)
-    }
-
-    init {
-        println("Init LoadFile")
     }
 }
