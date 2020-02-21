@@ -55,7 +55,6 @@
                 -.18vh -.1vh 0 #000;
         }
     </style>
-    <script type="text/javascript" src="https://unpkg.com/@ungap/url-search-params"></script>
 </head>
 
 <body>
@@ -426,10 +425,27 @@
         });
     }
     /**
+     * 獲取URL參數值
+     *
+     * 因為有啲舊瀏覽器唔支援URL().searchParams.get()
+     *
+     * @param {paramName: String} 要獲取參數名
+     * @return {param: String} 參數值
+     * */
+    function getUrlParams(paramName) {
+        var url = window.location.href
+        var vars = {};
+        var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+        function(m,key,value) {
+            vars[key] = value;
+        });
+        return vars[paramName];
+    }
+    /**
      * 在URL參數讀取 片源
      * 並初始化IframePlayer
      */
-    onIframePlayerInit(decodeURIComponent(new URL(window.location.href).searchParams.get("sourceSrc")));
+    onIframePlayerInit(decodeURIComponent(getUrlParams("sourceSrc")));
 </script>
 
 </body>

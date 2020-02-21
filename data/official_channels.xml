@@ -17,16 +17,16 @@
     <channel number="000">
         <name lang="">HLS測試頻道</name>
         <source description="HLSSource" iframeplayersrc="iframePlayer/videojs.html" link="https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"/>
-        <information epgid="htv2.hr" src="http://tvprofil.net/xmltv/data/htv2.hr/weekly_htv2.hr_tvprofil.net.xml"/>
+        <information epgid="" src=""/>
     </channel>
     <channel number="001">
         <name lang="">Dash測試頻道</name>
         <source description="DashSource" iframeplayersrc="iframePlayer/videojs.html" link="https://vm2.dashif.org/livesim/testpic_2s/cea608_and_segs.mpd"/>
-        <information epgid="vinkovacka-tv.hr" src="http://tvprofil.net/xmltv/data/vinkovacka-tv.hr/weekly_vinkovacka-tv.hr_tvprofil.net.xml"/>
+        <information epgid="" src=""/>
     </channel>
     <channel number="002">
         <name lang="">Youtube測試頻道</name>
         <source description="YoutubeSource" iframeplayersrc="iframePlayer/youtube_api.html" link="ekthcIHDt3I"/>
-        <information epgid="hayat-tv.ba" src="http://tvprofil.net/xmltv/data/hayat-tv.ba/weekly_hayat-tv.ba_tvprofil.net.xml"/>
+        <information epgid="" src=""/>
     </channel>
 </officialchannel>

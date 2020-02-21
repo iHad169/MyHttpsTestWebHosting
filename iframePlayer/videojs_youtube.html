@@ -17,15 +17,14 @@
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="https://vjs.zencdn.net/7.4.1/video-js.min.css" />
-    <script type="text/javascript" src="https://unpkg.com/@ungap/url-search-params"></script>
 </head>
 
 <body>
 <div id="player-display"></div>
-<script src="https://vjs.zencdn.net/7.4.1/video.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.0/Youtube.min.js"></script>
+<script type="text/javascript" src="https://vjs.zencdn.net/7.4.1/video.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.0/Youtube.min.js"></script>
 
-<script>
+<script type="text/javascript">
     /**
      * 播放器
      * */
@@ -288,10 +287,27 @@
     }
 
     /**
+     * 獲取URL參數值
+     *
+     * 因為有啲舊瀏覽器唔支援URL().searchParams.get()
+     *
+     * @param {paramName: String} 要獲取參數名
+     * @return {param: String} 參數值
+     * */
+    function getUrlParams(paramName) {
+        var url = window.location.href
+        var vars = {};
+        var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+        function(m,key,value) {
+            vars[key] = value;
+        });
+        return vars[paramName];
+    }
+    /**
      * 在URL參數讀取 片源
      * 並初始化IframePlayer
      */
-    onIframePlayerInit(decodeURIComponent(new URL(window.location.href).searchParams.get("sourceSrc")));
+    onIframePlayerInit(decodeURIComponent(getUrlParams("sourceSrc")));
 </script>
 </body>
 </html>

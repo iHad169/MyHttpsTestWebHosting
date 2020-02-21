@@ -3488,7 +3488,6 @@ var HKNBP_Core = function (_, Kotlin) {
       UserControlPanel_getInstance();
       ConsentPanel_getInstance();
       VirtualRemote_getInstance();
-      RealRemote_getInstance();
       LongClickEvent_getInstance();
     }
      catch (e) {
