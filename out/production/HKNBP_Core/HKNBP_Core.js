@@ -3031,7 +3031,6 @@ var HKNBP_Core = function (_, Kotlin) {
       path = cors_api_url + path;
     }
     xmlhttp.open('GET', path, true);
-    xmlhttp.setRequestHeader('cache-control', 'max-age=' + cacheShelfLife);
     xmlhttp.send();
   };
   LoadFile.prototype.load_1ihi1i$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath) {
@@ -3272,7 +3271,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_6-test1';
+    return 'v2020.02_6-test2';
   }
   var coreVersion;
   var appVersion;

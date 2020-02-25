@@ -87,7 +87,7 @@ object LoadFile {
             path = cors_api_url + path
         }
         xmlhttp.open("GET", path, true)
-        xmlhttp.setRequestHeader("cache-control", "max-age=${cacheShelfLife}")//以秒為單位///////////////////////////////整個可以強制響線上讀取唔用Cache
+        //xmlhttp.setRequestHeader("cache-control", "max-age=${cacheShelfLife}")//以秒為單位///////////////////////////////整個可以強制響線上讀取唔用Cache
         xmlhttp.send()
     }
 
