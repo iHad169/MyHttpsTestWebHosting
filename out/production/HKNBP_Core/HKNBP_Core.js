@@ -3005,7 +3005,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   function LoadFile$load$lambda_3(closure$xmlhttp, closure$filePath, closure$onLoadedFile) {
     return function (event) {
-      if (!equals(closure$xmlhttp.response, '')) {
+      if (closure$xmlhttp.status === 200) {
         println(closure$xmlhttp.status);
         println('\u6210\u529F\u8B80\u53D6: ' + toString(closure$filePath));
         println(closure$xmlhttp.response);
@@ -3270,7 +3270,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_5';
+    return 'v2020.02_6-test';
   }
   var coreVersion;
   var appVersion;

@@ -69,7 +69,7 @@ object LoadFile {
             }
         }
         xmlhttp.onload = fun(event) {
-            if(xmlhttp.response!=""){
+            if(xmlhttp.status.toInt()==200){
                 println(xmlhttp.status)
                 println("成功讀取: ${filePath}")
                 println(xmlhttp.response)
