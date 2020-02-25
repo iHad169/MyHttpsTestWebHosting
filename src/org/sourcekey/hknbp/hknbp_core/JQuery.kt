@@ -17,6 +17,7 @@ package org.sourcekey.hknbp.hknbp_core
 import jquery.JQuery
 import org.w3c.dom.Element
 import org.w3c.dom.events.Event
+import org.w3c.xhr.XMLHttpRequest
 import kotlin.js.Json
 
 inline val jq: JQuery
@@ -109,6 +110,12 @@ inline fun JQuery.find(selector: JQuery): JQuery = asDynamic().find(selector)
 inline fun JQuery.get(): Element? = asDynamic().get()
 
 inline fun JQuery.get(index: Int): Element? = asDynamic().get(index)
+
+inline fun JQuery.ajax(url: String): XMLHttpRequest = asDynamic().ajax(url)
+
+inline fun JQuery.ajax(url: String, settings: Json): XMLHttpRequest = asDynamic().ajax(url, settings)
+
+inline fun JQuery.ajax(settings: Json): XMLHttpRequest = asDynamic().ajax(settings)
 
 /*
 inline fun JQuery.iS(selector: String): Boolean = {

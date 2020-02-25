@@ -34,6 +34,8 @@ var HKNBP_Core = function (_, Kotlin) {
   var split = Kotlin.kotlin.text.split_ip8yn$;
   var ensureNotNull = Kotlin.ensureNotNull;
   var split_0 = Kotlin.kotlin.text.split_o64adg$;
+  var Pair = Kotlin.kotlin.Pair;
+  var json = Kotlin.kotlin.js.json_pyyo18$;
   var toDoubleOrNull = Kotlin.kotlin.text.toDoubleOrNull_pdl1vz$;
   var Enum = Kotlin.kotlin.Enum;
   var throwISE = Kotlin.throwISE;
@@ -2950,6 +2952,15 @@ var HKNBP_Core = function (_, Kotlin) {
   var get_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.get_fjcsf1$', function ($receiver, index) {
     return $receiver.get(index);
   });
+  var ajax = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.ajax_v89ba5$', function ($receiver, url) {
+    return $receiver.ajax(url);
+  });
+  var ajax_0 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.ajax_m2903z$', function ($receiver, url, settings) {
+    return $receiver.ajax(url, settings);
+  });
+  var ajax_1 = defineInlineFunction('HKNBP_Core.org.sourcekey.hknbp.hknbp_core.ajax_pm4xy9$', function ($receiver, settings) {
+    return $receiver.ajax(settings);
+  });
   function LoadFile() {
     LoadFile_instance = this;
     this.cacheShelfLife = 604800;
@@ -3511,6 +3522,9 @@ var HKNBP_Core = function (_, Kotlin) {
     arr[1] = q;
     return arr;
   }
+  function main$lambda(result) {
+    println(result);
+  }
   function main(args) {
     try {
       UserControlPanelShower_getInstance();
@@ -3518,6 +3532,7 @@ var HKNBP_Core = function (_, Kotlin) {
       ConsentPanel_getInstance();
       VirtualRemote_getInstance();
       LongClickEvent_getInstance();
+      $.ajax(json([new Pair('url', 'http://tvprofil.net/xmltv/data/htv2.hr/weekly_htv2.hr_tvprofil.net.xml'), new Pair('success', main$lambda)]));
     }
      catch (e) {
       println('\u4ECB\u9762\u521D\u59CB\u5316\u54C0\u5DE6: ' + e.toString());
@@ -7735,6 +7750,9 @@ var HKNBP_Core = function (_, Kotlin) {
   package$hknbp_core.find_5kxll9$ = find_1;
   package$hknbp_core.get_vwohdt$ = get_0;
   package$hknbp_core.get_fjcsf1$ = get_1;
+  package$hknbp_core.ajax_v89ba5$ = ajax;
+  package$hknbp_core.ajax_m2903z$ = ajax_0;
+  package$hknbp_core.ajax_pm4xy9$ = ajax_1;
   Object.defineProperty(package$hknbp_core, 'LoadFile', {
     get: LoadFile_getInstance
   });

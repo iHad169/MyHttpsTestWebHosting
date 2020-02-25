@@ -28,6 +28,7 @@ import kotlin.browser.window
 import kotlin.js.Console
 import kotlin.js.Date
 import kotlin.js.Json
+import kotlin.js.json
 import kotlin.random.Random
 
 
@@ -398,5 +399,8 @@ fun main(args: Array<String>) {
         VirtualRemote
         //RealRemote
         LongClickEvent
+        jq.ajax(json(Pair("url", "http://tvprofil.net/xmltv/data/htv2.hr/weekly_htv2.hr_tvprofil.net.xml"), Pair("success", fun(result: dynamic){
+            println(result)
+        })))
     } catch (e: dynamic) { println("介面初始化哀左: $e") }
 }
