@@ -2964,20 +2964,27 @@ var HKNBP_Core = function (_, Kotlin) {
   LoadFile.prototype.load_61zpoe$ = function (filePath) {
     return this.load_19mbxw$(this.cacheShelfLife, filePath);
   };
-  function LoadFile$load$lambda(closure$isFailedLoadFile, closure$filePaths, closure$onFailedLoadFile, closure$onLoadedFile, this$LoadFile) {
+  function LoadFile$load$lambda(closure$isFailedLoadFile, closure$filePath, closure$filePaths, closure$onFailedLoadFile, closure$onLoadedFile, this$LoadFile) {
     return function () {
       var tmp$;
       if (!closure$isFailedLoadFile.v) {
+        println('8F ' + toString(closure$filePath));
         closure$isFailedLoadFile.v = true;
+        println('9F ' + toString(closure$filePath));
         println('\u672A\u80FD\u8B80\u53D6: ' + toString(closure$filePaths.node));
+        println('10F ' + toString(closure$filePath));
         closure$onFailedLoadFile();
+        println('11F ' + toString(closure$filePath));
         tmp$ = closure$filePaths.nodeID;
         if (tmp$ == null) {
           return;
         }
         if (tmp$ < (closure$filePaths.size - 1 | 0)) {
+          println('12F ' + toString(closure$filePath));
           closure$filePaths.next();
+          println('13F ' + toString(closure$filePath));
           this$LoadFile.load_uq4zwc$(closure$onLoadedFile, closure$onFailedLoadFile, closure$filePaths);
+          println('14F ' + toString(closure$filePath));
         }
       }
     };
@@ -2989,13 +2996,19 @@ var HKNBP_Core = function (_, Kotlin) {
       }
     };
   }
-  function LoadFile$load$lambda_1(closure$xmlhttp, closure$filePaths, closure$onLoadedFile, closure$onFailedLoadFileProgram) {
+  function LoadFile$load$lambda_1(closure$filePath, closure$xmlhttp, closure$filePaths, closure$onLoadedFile, closure$onFailedLoadFileProgram) {
     return function (event) {
+      println('8L ' + toString(closure$filePath));
       if (closure$xmlhttp.status === 200) {
+        println('9L ' + toString(closure$filePath));
         println(closure$xmlhttp.status);
+        println('10L ' + toString(closure$filePath));
         println('\u6210\u529F\u8B80\u53D6: ' + toString(closure$filePaths.node));
+        println('11L ' + toString(closure$filePath));
         println(closure$xmlhttp.response);
+        println('12L ' + toString(closure$filePath));
         closure$onLoadedFile(closure$xmlhttp);
+        println('13 ' + toString(closure$filePath));
       }
        else {
         closure$onFailedLoadFileProgram();
@@ -3004,20 +3017,28 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   LoadFile.prototype.load_duo3m8$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePaths) {
     var tmp$;
+    var filePath = filePaths.node;
+    println('0 ' + toString(filePath));
     var xmlhttp = new XMLHttpRequest();
+    println('1 ' + toString(filePath));
     var isFailedLoadFile = {v: false};
-    var onFailedLoadFileProgram = LoadFile$load$lambda(isFailedLoadFile, filePaths, onFailedLoadFile, onLoadedFile, this);
+    println('2 ' + toString(filePath));
+    var onFailedLoadFileProgram = LoadFile$load$lambda(isFailedLoadFile, filePath, filePaths, onFailedLoadFile, onLoadedFile, this);
     xmlhttp.ontimeout = onFailedLoadFileProgram;
     xmlhttp.onerror = onFailedLoadFileProgram;
     xmlhttp.onreadystatechange = LoadFile$load$lambda_0(xmlhttp, onFailedLoadFileProgram);
-    xmlhttp.onload = LoadFile$load$lambda_1(xmlhttp, filePaths, onLoadedFile, onFailedLoadFileProgram);
+    xmlhttp.onload = LoadFile$load$lambda_1(filePath, xmlhttp, filePaths, onLoadedFile, onFailedLoadFileProgram);
+    println('3 ' + toString(filePath));
     var path = (tmp$ = filePaths.node) != null ? tmp$ : '';
     if (startsWith(path, 'http')) {
       var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
       path = cors_api_url + path;
     }
+    println('4 ' + toString(filePath));
     xmlhttp.open('GET', path, true);
+    println('5 ' + toString(filePath));
     xmlhttp.setRequestHeader('cache-control', 'max-age=' + cacheShelfLife);
+    println('6 ' + toString(filePath));
     xmlhttp.send();
   };
   LoadFile.prototype.load_1ihi1i$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath) {
@@ -3258,7 +3279,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_6-test5';
+    return 'v2020.02_6-test6';
   }
   var coreVersion;
   var appVersion;

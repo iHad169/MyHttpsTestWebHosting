@@ -38,17 +38,28 @@ object LoadFile {
     }
 
     fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, filePaths: ArrayLinkList<String>){
+        val filePath = filePaths.node
+        println("0 ${filePath}")
         val xmlhttp = XMLHttpRequest()
+        println("1 ${filePath}")
         var isFailedLoadFile = false //確保FailedLoad後只限一次
+        println("2 ${filePath}")
         val onFailedLoadFileProgram: dynamic = fun(){
             if(!isFailedLoadFile){
+                println("8F ${filePath}")
                 isFailedLoadFile = true
+                println("9F ${filePath}")
                 println("未能讀取: ${filePaths.node}")
+                println("10F ${filePath}")
                 onFailedLoadFile()
+                println("11F ${filePath}")
                 //PromptBox.promptMessage(dialogues.node().canNotReadData)
                 if(filePaths.nodeID?:return < filePaths.size-1){
+                    println("12F ${filePath}")
                     filePaths.next()
+                    println("13F ${filePath}")
                     load(onLoadedFile, onFailedLoadFile, filePaths)
+                    println("14F ${filePath}")
                 }
             }
         }
@@ -58,14 +69,21 @@ object LoadFile {
             if (xmlhttp.readyState == 4.toShort() && xmlhttp.status == 404.toShort()){ onFailedLoadFileProgram() }
         }
         xmlhttp.onload = fun(event) {
+            println("8L ${filePath}")
             if(xmlhttp.status.toInt()==200){
+                println("9L ${filePath}")
                 println(xmlhttp.status)
+                println("10L ${filePath}")
                 println("成功讀取: ${filePaths.node}")
+                println("11L ${filePath}")
                 println(xmlhttp.response)
+                println("12L ${filePath}")
                 onLoadedFile(xmlhttp)
+                println("13 ${filePath}")
             }else{ onFailedLoadFileProgram() }
         }
 
+        println("3 ${filePath}")
         var path: String = filePaths.node?:""
         if(path.startsWith("http")){
             //實現<跨Domain存取(CORS)>重點
@@ -74,8 +92,11 @@ object LoadFile {
             val cors_api_url = "https://cors-anywhere.herokuapp.com/"
             path = cors_api_url + path
         }
+        println("4 ${filePath}")
         xmlhttp.open("GET", path, true)
+        println("5 ${filePath}")
         xmlhttp.setRequestHeader("cache-control", "max-age=${cacheShelfLife}")//以秒為單位///////////////////////////////整個可以強制響線上讀取唔用Cache
+        println("6 ${filePath}")
         xmlhttp.send()
     }
 
