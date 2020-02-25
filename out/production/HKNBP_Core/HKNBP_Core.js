@@ -2964,12 +2964,11 @@ var HKNBP_Core = function (_, Kotlin) {
   LoadFile.prototype.load_61zpoe$ = function (filePath) {
     return this.load_19mbxw$(this.cacheShelfLife, filePath);
   };
-  function LoadFile$load$lambda(closure$isFailedLoadFile, closure$xmlhttp, closure$filePaths, closure$onFailedLoadFile, closure$onLoadedFile, this$LoadFile) {
+  function LoadFile$load$lambda(closure$isFailedLoadFile, closure$filePaths, closure$onFailedLoadFile, closure$onLoadedFile, this$LoadFile) {
     return function () {
       var tmp$;
       if (!closure$isFailedLoadFile.v) {
         closure$isFailedLoadFile.v = true;
-        println(closure$xmlhttp.status);
         println('\u672A\u80FD\u8B80\u53D6: ' + toString(closure$filePaths.node));
         closure$onFailedLoadFile();
         tmp$ = closure$filePaths.nodeID;
@@ -3018,21 +3017,26 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   LoadFile.prototype.load_duo3m8$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePaths) {
     var tmp$;
-    var xmlhttp = new XMLHttpRequest();
     var isFailedLoadFile = {v: false};
-    var onFailedLoadFileProgram = LoadFile$load$lambda(isFailedLoadFile, xmlhttp, filePaths, onFailedLoadFile, onLoadedFile, this);
-    xmlhttp.ontimeout = LoadFile$load$lambda_0(onFailedLoadFileProgram);
-    xmlhttp.onerror = LoadFile$load$lambda_1(onFailedLoadFileProgram);
-    xmlhttp.onreadystatechange = LoadFile$load$lambda_2(xmlhttp, onFailedLoadFileProgram);
-    xmlhttp.onload = LoadFile$load$lambda_3(xmlhttp, filePaths, onLoadedFile, onFailedLoadFileProgram);
-    var path = (tmp$ = filePaths.node) != null ? tmp$ : '';
-    if (startsWith(path, 'http')) {
-      var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
-      path = cors_api_url + path;
+    var onFailedLoadFileProgram = LoadFile$load$lambda(isFailedLoadFile, filePaths, onFailedLoadFile, onLoadedFile, this);
+    try {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.ontimeout = LoadFile$load$lambda_0(onFailedLoadFileProgram);
+      xmlhttp.onerror = LoadFile$load$lambda_1(onFailedLoadFileProgram);
+      xmlhttp.onreadystatechange = LoadFile$load$lambda_2(xmlhttp, onFailedLoadFileProgram);
+      xmlhttp.onload = LoadFile$load$lambda_3(xmlhttp, filePaths, onLoadedFile, onFailedLoadFileProgram);
+      var path = (tmp$ = filePaths.node) != null ? tmp$ : '';
+      if (startsWith(path, 'http')) {
+        var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+        path = cors_api_url + path;
+      }
+      xmlhttp.open('GET', path, true);
+      xmlhttp.setRequestHeader('cache-control', 'max-age=' + cacheShelfLife);
+      xmlhttp.send();
     }
-    xmlhttp.open('GET', path, true);
-    xmlhttp.setRequestHeader('cache-control', 'max-age=' + cacheShelfLife);
-    xmlhttp.send();
+     catch (e) {
+      onFailedLoadFileProgram();
+    }
   };
   LoadFile.prototype.load_1ihi1i$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath) {
     this.load_duo3m8$(onLoadedFile, onFailedLoadFile, cacheShelfLife, ArrayLinkList_init_1(filePath));
@@ -3272,7 +3276,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_6-test3';
+    return 'v2020.02_6-test4';
   }
   var coreVersion;
   var appVersion;
@@ -3861,7 +3865,7 @@ var HKNBP_Core = function (_, Kotlin) {
   function OfficialChannels$getOfficialChannels$lambda_0() {
   }
   OfficialChannels.prototype.getOfficialChannels_u69gef$ = function (onLoadedChannelsListener) {
-    this.parseChannels_d7jqb7$(OfficialChannels$getOfficialChannels$lambda(onLoadedChannelsListener), OfficialChannels$getOfficialChannels$lambda_0, ['data/official_channels.xml']);
+    this.parseChannels_d7jqb7$(OfficialChannels$getOfficialChannels$lambda(onLoadedChannelsListener), OfficialChannels$getOfficialChannels$lambda_0, ['https://official-channels.hknbp.org/official_channels.xml', 'data/official_channels.xml']);
   };
   OfficialChannels.$metadata$ = {
     kind: Kind_OBJECT,

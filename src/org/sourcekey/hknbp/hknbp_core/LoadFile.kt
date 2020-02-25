@@ -38,12 +38,10 @@ object LoadFile {
     }
 
     fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, filePaths: ArrayLinkList<String>){
-        val xmlhttp = XMLHttpRequest()
         var isFailedLoadFile = false //確保FailedLoad後只限一次
         val onFailedLoadFileProgram: dynamic = fun(){
             if(!isFailedLoadFile){
                 isFailedLoadFile = true
-                println(xmlhttp.status)
                 println("未能讀取: ${filePaths.node}")
                 onFailedLoadFile()
                 //PromptBox.promptMessage(dialogues.node().canNotReadData)
@@ -53,42 +51,45 @@ object LoadFile {
                 }
             }
         }
-        xmlhttp.ontimeout = fun(event){
-            println("ontimeout")
-            onFailedLoadFileProgram()
-        }
-        xmlhttp.onerror = fun(event){
-            println("onerror")
-            onFailedLoadFileProgram()
-        }
-        xmlhttp.onreadystatechange = fun(event){
-            if (xmlhttp.readyState == 4.toShort() && xmlhttp.status == 404.toShort()){
-                println("onreadystatechange")
+        try{
+            val xmlhttp = XMLHttpRequest()
+            xmlhttp.ontimeout = fun(event){
+                println("ontimeout")
                 onFailedLoadFileProgram()
             }
-        }
-        xmlhttp.onload = fun(event) {
-            if(xmlhttp.status.toInt()==200||xmlhttp.status.toInt()==400){
-                println(xmlhttp.status)
-                println("成功讀取: ${filePaths.node}")
-                println(xmlhttp.response)
-                onLoadedFile(xmlhttp)
-            }else{
+            xmlhttp.onerror = fun(event){
+                println("onerror")
                 onFailedLoadFileProgram()
             }
-        }
+            xmlhttp.onreadystatechange = fun(event){
+                if (xmlhttp.readyState == 4.toShort() && xmlhttp.status == 404.toShort()){
+                    println("onreadystatechange")
+                    onFailedLoadFileProgram()
+                }
+            }
+            xmlhttp.onload = fun(event) {
+                if(xmlhttp.status.toInt()==200||xmlhttp.status.toInt()==400){
+                    println(xmlhttp.status)
+                    println("成功讀取: ${filePaths.node}")
+                    println(xmlhttp.response)
+                    onLoadedFile(xmlhttp)
+                }else{
+                    onFailedLoadFileProgram()
+                }
+            }
 
-        var path: String = filePaths.node?:""
-        if(path.startsWith("http")){
-            //實現<跨Domain存取(CORS)>重點
-            //完全唔明點解做到,要將呢個url+文件位置就得
-            //https://github.com/Rob--W/cors-anywhere
-            val cors_api_url = "https://cors-anywhere.herokuapp.com/"
-            path = cors_api_url + path
-        }
-        xmlhttp.open("GET", path, true)
-        xmlhttp.setRequestHeader("cache-control", "max-age=${cacheShelfLife}")//以秒為單位///////////////////////////////整個可以強制響線上讀取唔用Cache
-        xmlhttp.send()
+            var path: String = filePaths.node?:""
+            if(path.startsWith("http")){
+                //實現<跨Domain存取(CORS)>重點
+                //完全唔明點解做到,要將呢個url+文件位置就得
+                //https://github.com/Rob--W/cors-anywhere
+                val cors_api_url = "https://cors-anywhere.herokuapp.com/"
+                path = cors_api_url + path
+            }
+            xmlhttp.open("GET", path, true)
+            xmlhttp.setRequestHeader("cache-control", "max-age=${cacheShelfLife}")//以秒為單位///////////////////////////////整個可以強制響線上讀取唔用Cache
+            xmlhttp.send()
+        }catch (e: dynamic){ onFailedLoadFileProgram() }
     }
 
     fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, filePath: Array<out String>){
