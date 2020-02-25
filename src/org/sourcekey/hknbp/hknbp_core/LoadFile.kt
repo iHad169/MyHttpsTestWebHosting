@@ -72,6 +72,7 @@ object LoadFile {
             if(xmlhttp.response!=""){
                 println(xmlhttp.status)
                 println("成功讀取: ${filePath}")
+                println(xmlhttp.response)
                 onLoadedFile(xmlhttp)
             }
             //onFailedLoadFileProgram()

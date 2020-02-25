@@ -3008,6 +3008,7 @@ var HKNBP_Core = function (_, Kotlin) {
       if (!equals(closure$xmlhttp.response, '')) {
         println(closure$xmlhttp.status);
         println('\u6210\u529F\u8B80\u53D6: ' + toString(closure$filePath));
+        println(closure$xmlhttp.response);
         closure$onLoadedFile(closure$xmlhttp);
       }
     };
