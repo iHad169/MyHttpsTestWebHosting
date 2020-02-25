@@ -79,7 +79,7 @@ object LoadFile {
                 println(xmlhttp.response)
                 println("12L ${filePath}")
                 onLoadedFile(xmlhttp)
-                println("13 ${filePath}")
+                println("13L ${filePath}")
             }else{ onFailedLoadFileProgram() }
         }
 
@@ -89,7 +89,7 @@ object LoadFile {
             //實現<跨Domain存取(CORS)>重點
             //完全唔明點解做到,要將呢個url+文件位置就得
             //https://github.com/Rob--W/cors-anywhere
-            val cors_api_url = "https://cors-anywhere.herokuapp.com/"
+            val cors_api_url = ""//"https://cors-anywhere.herokuapp.com/"
             path = cors_api_url + path
         }
         println("4 ${filePath}")

@@ -3008,7 +3008,7 @@ var HKNBP_Core = function (_, Kotlin) {
         println(closure$xmlhttp.response);
         println('12L ' + toString(closure$filePath));
         closure$onLoadedFile(closure$xmlhttp);
-        println('13 ' + toString(closure$filePath));
+        println('13L ' + toString(closure$filePath));
       }
        else {
         closure$onFailedLoadFileProgram();
@@ -3031,7 +3031,7 @@ var HKNBP_Core = function (_, Kotlin) {
     println('3 ' + toString(filePath));
     var path = (tmp$ = filePaths.node) != null ? tmp$ : '';
     if (startsWith(path, 'http')) {
-      var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+      var cors_api_url = '';
       path = cors_api_url + path;
     }
     println('4 ' + toString(filePath));
@@ -3279,7 +3279,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_6-test6';
+    return 'v2020.02_6-test7';
   }
   var coreVersion;
   var appVersion;
