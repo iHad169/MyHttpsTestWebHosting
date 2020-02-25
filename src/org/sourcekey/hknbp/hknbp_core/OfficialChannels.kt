@@ -25,10 +25,8 @@ object OfficialChannels: ChannelsReader() {
     fun getOfficialChannels(onLoadedChannelsListener: (channels: ArrayLinkList<Channel>)->Unit){
         parseChannels(fun(channels){
             channels.sortBy { channel -> channel.number }
-            println("成功讀取official_channels.xml\n此OfficialChannels有${channels.size}條頻道")
+            //println("成功讀取official_channels.xml\n此OfficialChannels有${channels.size}條頻道")
             onLoadedChannelsListener(channels)
-        }, fun(){
-            println("未能讀取official_channels.xml")
-        }, "https://official_channels.hknbp.org/official_channels.xml", "data/official_channels.xml")
+        }, fun(){}, "https://official-channels.hknbp.org/official_channels.xml", "data/official_channels.xml")
     }
 }
