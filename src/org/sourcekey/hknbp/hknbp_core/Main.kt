@@ -164,7 +164,7 @@ val coreVersion: String = {
     value
     */
 
-    "v2020.02_6-test2"
+    "v2020.02_6-test3"
 }()
 
 /**
