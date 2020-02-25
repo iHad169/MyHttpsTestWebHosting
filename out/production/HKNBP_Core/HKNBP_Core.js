@@ -2964,13 +2964,13 @@ var HKNBP_Core = function (_, Kotlin) {
   LoadFile.prototype.load_61zpoe$ = function (filePath) {
     return this.load_19mbxw$(this.cacheShelfLife, filePath);
   };
-  function LoadFile$load$lambda(closure$isFailedLoadFile, closure$xmlhttp, closure$filePath, closure$onFailedLoadFile, closure$filePaths, closure$onLoadedFile, this$LoadFile) {
+  function LoadFile$load$lambda(closure$isFailedLoadFile, closure$xmlhttp, closure$filePaths, closure$onFailedLoadFile, closure$onLoadedFile, this$LoadFile) {
     return function () {
       var tmp$;
       if (!closure$isFailedLoadFile.v) {
         closure$isFailedLoadFile.v = true;
         println(closure$xmlhttp.status);
-        println('\u672A\u80FD\u8B80\u53D6: ' + toString(closure$filePath));
+        println('\u672A\u80FD\u8B80\u53D6: ' + toString(closure$filePaths.node));
         closure$onFailedLoadFile();
         tmp$ = closure$filePaths.nodeID;
         if (tmp$ == null) {
@@ -3003,26 +3003,28 @@ var HKNBP_Core = function (_, Kotlin) {
       }
     };
   }
-  function LoadFile$load$lambda_3(closure$xmlhttp, closure$filePath, closure$onLoadedFile) {
+  function LoadFile$load$lambda_3(closure$xmlhttp, closure$filePaths, closure$onLoadedFile, closure$onFailedLoadFileProgram) {
     return function (event) {
-      if (closure$xmlhttp.status === 200) {
+      if (closure$xmlhttp.status === 200 || closure$xmlhttp.status === 400) {
         println(closure$xmlhttp.status);
-        println('\u6210\u529F\u8B80\u53D6: ' + toString(closure$filePath));
+        println('\u6210\u529F\u8B80\u53D6: ' + toString(closure$filePaths.node));
         println(closure$xmlhttp.response);
         closure$onLoadedFile(closure$xmlhttp);
+      }
+       else {
+        closure$onFailedLoadFileProgram();
       }
     };
   }
   LoadFile.prototype.load_duo3m8$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePaths) {
     var tmp$;
-    var filePath = filePaths.node;
     var xmlhttp = new XMLHttpRequest();
     var isFailedLoadFile = {v: false};
-    var onFailedLoadFileProgram = LoadFile$load$lambda(isFailedLoadFile, xmlhttp, filePath, onFailedLoadFile, filePaths, onLoadedFile, this);
+    var onFailedLoadFileProgram = LoadFile$load$lambda(isFailedLoadFile, xmlhttp, filePaths, onFailedLoadFile, onLoadedFile, this);
     xmlhttp.ontimeout = LoadFile$load$lambda_0(onFailedLoadFileProgram);
     xmlhttp.onerror = LoadFile$load$lambda_1(onFailedLoadFileProgram);
     xmlhttp.onreadystatechange = LoadFile$load$lambda_2(xmlhttp, onFailedLoadFileProgram);
-    xmlhttp.onload = LoadFile$load$lambda_3(xmlhttp, filePath, onLoadedFile);
+    xmlhttp.onload = LoadFile$load$lambda_3(xmlhttp, filePaths, onLoadedFile, onFailedLoadFileProgram);
     var path = (tmp$ = filePaths.node) != null ? tmp$ : '';
     if (startsWith(path, 'http')) {
       var cors_api_url = 'https://cors-anywhere.herokuapp.com/';

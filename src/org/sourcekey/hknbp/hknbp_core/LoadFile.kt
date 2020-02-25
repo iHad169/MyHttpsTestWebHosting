@@ -38,14 +38,13 @@ object LoadFile {
     }
 
     fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, filePaths: ArrayLinkList<String>){
-        val filePath = filePaths.node
         val xmlhttp = XMLHttpRequest()
         var isFailedLoadFile = false //確保FailedLoad後只限一次
         val onFailedLoadFileProgram: dynamic = fun(){
             if(!isFailedLoadFile){
                 isFailedLoadFile = true
                 println(xmlhttp.status)
-                println("未能讀取: ${filePath}")
+                println("未能讀取: ${filePaths.node}")
                 onFailedLoadFile()
                 //PromptBox.promptMessage(dialogues.node().canNotReadData)
                 if(filePaths.nodeID?:return < filePaths.size-1){
@@ -69,13 +68,14 @@ object LoadFile {
             }
         }
         xmlhttp.onload = fun(event) {
-            if(xmlhttp.status.toInt()==200){
+            if(xmlhttp.status.toInt()==200||xmlhttp.status.toInt()==400){
                 println(xmlhttp.status)
-                println("成功讀取: ${filePath}")
+                println("成功讀取: ${filePaths.node}")
                 println(xmlhttp.response)
                 onLoadedFile(xmlhttp)
+            }else{
+                onFailedLoadFileProgram()
             }
-            //onFailedLoadFileProgram()
         }
 
         var path: String = filePaths.node?:""
