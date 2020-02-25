@@ -3031,6 +3031,7 @@ var HKNBP_Core = function (_, Kotlin) {
       path = cors_api_url + path;
     }
     xmlhttp.open('GET', path, true);
+    xmlhttp.setRequestHeader('cache-control', 'max-age=' + cacheShelfLife);
     xmlhttp.send();
   };
   LoadFile.prototype.load_1ihi1i$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath) {
@@ -3860,7 +3861,7 @@ var HKNBP_Core = function (_, Kotlin) {
   function OfficialChannels$getOfficialChannels$lambda_0() {
   }
   OfficialChannels.prototype.getOfficialChannels_u69gef$ = function (onLoadedChannelsListener) {
-    this.parseChannels_d7jqb7$(OfficialChannels$getOfficialChannels$lambda(onLoadedChannelsListener), OfficialChannels$getOfficialChannels$lambda_0, ['https://official-channels.hknbp.org/official_channels.xml', 'data/official_channels.xml']);
+    this.parseChannels_d7jqb7$(OfficialChannels$getOfficialChannels$lambda(onLoadedChannelsListener), OfficialChannels$getOfficialChannels$lambda_0, ['data/official_channels.xml']);
   };
   OfficialChannels.$metadata$ = {
     kind: Kind_OBJECT,

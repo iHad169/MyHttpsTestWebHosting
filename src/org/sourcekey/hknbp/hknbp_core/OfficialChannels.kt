@@ -27,6 +27,6 @@ object OfficialChannels: ChannelsReader() {
             channels.sortBy { channel -> channel.number }
             //println("成功讀取official_channels.xml\n此OfficialChannels有${channels.size}條頻道")
             onLoadedChannelsListener(channels)
-        }, fun(){}, "https://official-channels.hknbp.org/official_channels.xml", "data/official_channels.xml")
+        }, fun(){}, "data/official_channels.xml")
     }
 }
