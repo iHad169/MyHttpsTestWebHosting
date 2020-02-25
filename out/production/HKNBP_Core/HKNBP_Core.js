@@ -2982,29 +2982,16 @@ var HKNBP_Core = function (_, Kotlin) {
       }
     };
   }
-  function LoadFile$load$lambda_0(closure$onFailedLoadFileProgram) {
-    return function (event) {
-      println('ontimeout');
-      closure$onFailedLoadFileProgram();
-    };
-  }
-  function LoadFile$load$lambda_1(closure$onFailedLoadFileProgram) {
-    return function (event) {
-      println('onerror');
-      closure$onFailedLoadFileProgram();
-    };
-  }
-  function LoadFile$load$lambda_2(closure$xmlhttp, closure$onFailedLoadFileProgram) {
+  function LoadFile$load$lambda_0(closure$xmlhttp, closure$onFailedLoadFileProgram) {
     return function (event) {
       if (closure$xmlhttp.readyState === toShort(4) && closure$xmlhttp.status === toShort(404)) {
-        println('onreadystatechange');
         closure$onFailedLoadFileProgram();
       }
     };
   }
-  function LoadFile$load$lambda_3(closure$xmlhttp, closure$filePaths, closure$onLoadedFile, closure$onFailedLoadFileProgram) {
+  function LoadFile$load$lambda_1(closure$xmlhttp, closure$filePaths, closure$onLoadedFile, closure$onFailedLoadFileProgram) {
     return function (event) {
-      if (closure$xmlhttp.status === 200 || closure$xmlhttp.status === 400) {
+      if (closure$xmlhttp.status === 200) {
         println(closure$xmlhttp.status);
         println('\u6210\u529F\u8B80\u53D6: ' + toString(closure$filePaths.node));
         println(closure$xmlhttp.response);
@@ -3017,26 +3004,21 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   LoadFile.prototype.load_duo3m8$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePaths) {
     var tmp$;
+    var xmlhttp = new XMLHttpRequest();
     var isFailedLoadFile = {v: false};
     var onFailedLoadFileProgram = LoadFile$load$lambda(isFailedLoadFile, filePaths, onFailedLoadFile, onLoadedFile, this);
-    try {
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.ontimeout = LoadFile$load$lambda_0(onFailedLoadFileProgram);
-      xmlhttp.onerror = LoadFile$load$lambda_1(onFailedLoadFileProgram);
-      xmlhttp.onreadystatechange = LoadFile$load$lambda_2(xmlhttp, onFailedLoadFileProgram);
-      xmlhttp.onload = LoadFile$load$lambda_3(xmlhttp, filePaths, onLoadedFile, onFailedLoadFileProgram);
-      var path = (tmp$ = filePaths.node) != null ? tmp$ : '';
-      if (startsWith(path, 'http')) {
-        var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
-        path = cors_api_url + path;
-      }
-      xmlhttp.open('GET', path, true);
-      xmlhttp.setRequestHeader('cache-control', 'max-age=' + cacheShelfLife);
-      xmlhttp.send();
+    xmlhttp.ontimeout = onFailedLoadFileProgram;
+    xmlhttp.onerror = onFailedLoadFileProgram;
+    xmlhttp.onreadystatechange = LoadFile$load$lambda_0(xmlhttp, onFailedLoadFileProgram);
+    xmlhttp.onload = LoadFile$load$lambda_1(xmlhttp, filePaths, onLoadedFile, onFailedLoadFileProgram);
+    var path = (tmp$ = filePaths.node) != null ? tmp$ : '';
+    if (startsWith(path, 'http')) {
+      var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+      path = cors_api_url + path;
     }
-     catch (e) {
-      onFailedLoadFileProgram();
-    }
+    xmlhttp.open('GET', path, true);
+    xmlhttp.setRequestHeader('cache-control', 'max-age=' + cacheShelfLife);
+    xmlhttp.send();
   };
   LoadFile.prototype.load_1ihi1i$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath) {
     this.load_duo3m8$(onLoadedFile, onFailedLoadFile, cacheShelfLife, ArrayLinkList_init_1(filePath));
@@ -3276,7 +3258,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_6-test4';
+    return 'v2020.02_6-test5';
   }
   var coreVersion;
   var appVersion;
