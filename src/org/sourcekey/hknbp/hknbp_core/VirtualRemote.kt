@@ -120,6 +120,7 @@ object VirtualRemote{
     fun updateSubtitleInformation(){
         //顯示依家字幕Track選項
         var subtitleOptionHTMLString = ""
+        println(player?.subtitleTracks?.size)
         for(subtitleTracks in player?.subtitleTracks?:ArrayLinkList<TrackDescription>()){
             subtitleOptionHTMLString += "<option value=${subtitleTracks.id}>${subtitleTracks.name}</option>"
         }
@@ -152,8 +153,8 @@ object VirtualRemote{
         epgButton.onclick                   = fun(event){EPG.showHideAlternately(null)}
         nextChannelButton.onclick           = fun(event){channels.next()}
         previousChannelButton.onclick       = fun(event){channels.previous()}
-        designateChannelSelect.onchange     = fun(event){designatedChannel(designateChannelSelect.value.toInt())}
-        designateChannelButton.onclick      = fun(event){designatedChannel(designateChannelInputText.value.toInt())}
+        designateChannelSelect.onchange     = fun(event){channels.designatedOfChannelNumber(designateChannelSelect.value.toInt())}
+        designateChannelButton.onclick      = fun(event){channels.designatedOfChannelNumber(designateChannelInputText.value.toInt())}
         lastTimeChannelButton.onclick       = fun(event){channels.lastTime()}
         nextVideoButton.onclick             = fun(event){player?.nextVideoTrack();VideoDescription.show(3000);window.history.pushState("12134","","")}
         previousVideoButton.onclick         = fun(event){player?.previousVideoTrack();VideoDescription.show(3000);window.history.back()}
@@ -184,7 +185,7 @@ object VirtualRemote{
         number8Button.onclick               = fun(event){EnteringNumberBox.enter("8")}
         number9Button.onclick               = fun(event){EnteringNumberBox.enter("9")}
         minusButton.onclick                 = fun(event){EnteringNumberBox.enter("-")}
-        refreshButton.onclick               = fun(event){updateChannel()}
+        refreshButton.onclick               = fun(event){channels.updatePlayer()}
         channelDescriptionButton.onclick    = fun(event){if(ChannelDescription.isShow){ChannelDescription.hide()}else{ChannelDescription.show(60000)}}
         aboutWindowButton.onclick           = fun(event){AboutWindow.showHideAlternately(null)}
         feedbackWebWindowButton.onclick     = fun(event){FeedbackWebWindow.showHideAlternately(null)}
@@ -329,13 +330,13 @@ object VirtualRemote{
         subtitleDescriptionButton.onclick   = fun(event){SubtitleDescription.show(5000)}
         volumeDescriptionButton.onclick     = fun(event){VolumeDescription.show(5000)}
         returnButton.onclick                = fun(event){UserInterface.hideAllUserInterface()}
-
+        println("vvv")
         update()
         channels.addOnNodeEventListener(object: ArrayLinkList.OnNodeEventListener<Channel>{
             override fun onNodeChanged(
                     preChangeNodeID: Int?, postChangeNodeID: Int?,
                     preChangeNode: Channel?, postChangeNode: Channel?
-            ) { update() }
+            ) { update();println("uuuuu") }
         })
         channels.addOnElementsChangedListener(object: ArrayLinkList.OnElementsChangedListener{
             override fun onElementsChanged() { update() }

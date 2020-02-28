@@ -21,7 +21,7 @@ import org.w3c.dom.HTMLElement
 abstract class TabbableUI(
         mainFrameElement: HTMLElement,
         protected var firstFocusJqElement: JQuery? = null,              //當顯示用戶介面最先Focus嘅Element
-        protected var transpositionFocusHideTime: Int? = 15000,         //Focus换位後用戶介面倒數隱藏時間,如null就唔會倒數隱藏
+        protected var transpositionFocusHideTime: Int? = 120000,         //Focus换位後用戶介面倒數隱藏時間,如null就唔會倒數隱藏
         protected val isFocusTriggerShowEventElement: Boolean = true,   //係米Focus返觸發顯示呢個用戶介面嘅Element
         protected var isFocusOutHide: Boolean = false                   //////////////////
 ): UserInterface(mainFrameElement = mainFrameElement) {

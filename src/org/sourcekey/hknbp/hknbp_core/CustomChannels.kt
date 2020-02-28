@@ -17,53 +17,25 @@ package org.sourcekey.hknbp.hknbp_core
 import org.w3c.dom.parsing.DOMParser
 import kotlin.browser.localStorage
 
-object CustomChannels: ChannelsReader() {
-    private fun Channel.changeMustNegativeNumber(): Channel {
-        return Channel(
-                number = this.number.toNegative(),
-                name = this.name,
-                sources = this.sources,
-                information = this.information
-        )
-    }
+object CustomChannels {
 
-    fun toXMLString(customChannels: ArrayLinkList<Channel>): String {
-        var channelsString = ""
-        for (channel in customChannels) {
-            channelsString += channel.changeMustNegativeNumber().toXMLString()
+    fun get(): ArrayList<Channel> {
+        val customChannels = ArrayList<Channel>()
+        for(channel in channels){
+            if(channel.number < 0){customChannels.add(channel)}
         }
-        return channelsString
+        return customChannels
     }
 
-    private var customChannelsXMLStringCache = localStorage.getItem("customChannels")?:""
-        private set(value) {
-            //儲存底自訂頻道表
-            localStorage.setItem("customChannels", value)
-        }
-
-    fun get(): ArrayLinkList<Channel> {
-        return parseChannels("<customchannel>${customChannelsXMLStringCache}</customchannel>")
-    }
-
-    fun set(customChannels: ArrayLinkList<Channel>) {
-        customChannelsXMLStringCache = toXMLString(customChannels)
-    }
-
-    fun set(customChannelsXMLString: String) {
-        set(parseChannels(customChannelsXMLString))
+    fun set(index: Int, customChannel: Channel){
+        channels.set(index, customChannel)
     }
 
     fun add(customChannel: Channel){
-        customChannelsXMLStringCache += customChannel.toXMLString()
-    }
-
-    /*
-    fun set(index: Int, customChannel: Channel){
-
+        channels.add(customChannel)
     }
 
     fun remove(customChannel: Channel){
-
+        channels.remove(customChannel)
     }
-    */
 }

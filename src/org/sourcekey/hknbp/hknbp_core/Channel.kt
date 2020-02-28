@@ -15,7 +15,14 @@
 package org.sourcekey.hknbp.hknbp_core
 
 import org.sourcekey.hknbp.hknbp_core.MultiLanguageString.LanguageString
-
+import org.w3c.dom.Document
+import org.w3c.dom.Element
+import org.w3c.dom.get
+import org.w3c.dom.parsing.DOMParser
+import org.w3c.dom.url.URL
+import kotlin.browser.localStorage
+import kotlin.browser.window
+import kotlin.random.Random
 
 
 /**
@@ -68,7 +75,7 @@ data class Channel(
          * */
         fun getLinkOfHttpsGetAble(): String{
             if(link.startsWith("http://")){
-                val proxy_url = "https://netnr-proxy.cloudno.de/"
+                val proxy_url = "https://hknbp-proxy.herokuapp.com/"
                 return proxy_url + link
             }
             return link
@@ -166,9 +173,276 @@ data class Channel(
 </channel>
 """
     }
+}
 
-    companion object{
-
-
+/**
+ * 去特定頻道
+ * @param channelNumber 要轉去頻道冧把
+ */
+fun ArrayLinkList<Channel>.designatedOfChannelNumber(channelNumber: Int): Boolean {
+    val channelNumberNodeID = this.indexOfOrNull(this.find{ channel -> channel.number == channelNumber })
+    if (channelNumberNodeID != null) {
+        this.designated(channelNumberNodeID)
+        return true
+    } else {
+        Dialogue.getDialogues(fun(dialogues) {
+            PromptBox.promptMessage(dialogues.node?.canNotFind ?: "")
+        })
+        return false
     }
+}
+
+/**
+ * 轉到最近睇過嘅頻道
+ * */
+fun ArrayLinkList<Channel>.changeToRecentlyWatchedChannel(){
+    this.designated(
+            try {
+                //URL參數指定嘅道
+                {
+                    val channelParam = URL(window.location.href).searchParams?.get("channel")//個<?.get>嘅問號要留,因試到https://cs.coredump.biz/questions/51961922/urlsearchparams-not-working-in-a-webview
+                    //查個參數係米純ChannelNumber
+                    var goTOChannelNumber = channelParam?.toIntOrNull()
+                    //查個參數係米CustomChannel嘅XmlString
+                    val customChannel = decodeURIComponent(channelParam?:"").parseChannels().getOrNull(0)
+                    if(customChannel != null && this.find{ channel: Channel -> channel == customChannel } == null) {
+                        //將新嘅自訂頻道儲底
+                        CustomChannels.add(customChannel)
+                        //將新嘅自訂頻道加到現運行頻道表
+                        this.add(customChannel)
+                        //轉到新自訂頻道
+                        goTOChannelNumber = customChannel.number
+                    }
+                    //轉換成ArrayList Index
+                    this.indexOfOrNull(this.find{channel -> channel.number == goTOChannelNumber})
+                }()?:
+                //上次收睇緊嘅頻道
+                {
+                    val recentlyWatchedChannel = localStorage.getItem("RecentlyWatchedChannel")?.toInt()
+                    if(recentlyWatchedChannel != null){
+                        if(recentlyWatchedChannel < this.size){ recentlyWatchedChannel }else{ this.lastIndex }
+                    }else{ null }
+                }()?:
+                //隨機一個頻道
+                if(this.size <= 0){ 0 }else{ Random.nextInt(0, this.size) }
+            }catch(e:dynamic){0}
+    )
+}
+
+/**
+ * 刷新頻道
+ */
+fun ArrayLinkList<Channel>.updatePlayer() {
+    player = Player(this.node?: Channel(0))
+    player?.addOnPlayerEventListener(object : Player.OnPlayerEventListener {
+        private var currentPlayer: Player? = null
+        private var isPlaying: Boolean = false
+        override fun on(onPlayerEvent: Player.OnPlayerEvent) {
+            when (onPlayerEvent) {
+                Player.OnPlayerEvent.playing -> {
+                    currentPlayer = player
+                    isPlaying = true
+                }
+                Player.OnPlayerEvent.notPlaying -> {
+                    isPlaying = false
+                    //檢查呢15秒內Player有冇再繼續正常播放,若冇就刷新Player
+                    window.setTimeout(fun() {
+                        if ((!isPlaying) && (player == currentPlayer)) {
+                            updatePlayer()
+                        }
+                    }, 15000)
+                }
+            }
+        }
+    })
+    player?.play()
+}
+
+/**
+ * 頻道表
+ * */
+val channels: ArrayLinkList<Channel> = {
+    val channels = localStorage.getItem("allChannels")?.parseChannels()?:ArrayLinkList<Channel>()
+    channels.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<Channel> {
+        override fun onNodeChanged(
+                preChangeNodeID: Int?, postChangeNodeID: Int?,
+                preChangeNode: Channel?, postChangeNode: Channel?
+        ) {
+            println("cN")
+            //儲存低返最近睇過嘅頻道
+            localStorage.setItem("RecentlyWatchedChannel", postChangeNodeID.toString())
+            //更新URL嘅channel參數
+            if(postChangeNode != null){
+                if(postChangeNode.number < 0){
+                    //自訂頻道參數(用作分享連結)
+                    updateURLParameter("channel", encodeURIComponent(postChangeNode.toXMLString()))
+                }else{
+                    //官方頻道參數(用作分享連結)
+                    updateURLParameter("channel", postChangeNode.number.toString())
+                }
+            }
+            channels.updatePlayer()
+        }
+    })
+    channels.addOnElementsChangedListener(object: ArrayLinkList.OnElementsChangedListener{
+        override fun onElementsChanged() {
+            //以頻道號碼排序
+            channels.sortBy { channel: Channel -> channel.number }
+            //儲存所有頻道
+            localStorage.setItem("allChannels", "<channels>${channels.toXMLString()}</channels>")
+        }
+    })
+    println("ccc")
+    channels.changeToRecentlyWatchedChannel()
+    channels
+}()
+
+/*
+private var autoTransformEngineTimerSecond = 12000
+
+private var isLoopAutoTransformEngineTimer = true
+
+/**
+ * 開或熄自動換引擎功能
+ * 用來當某一方引擎嘅Source出現問題
+ * 轉換至其他Source
+ * 重複輛扭換引擎
+ * ///////////////////寫法有待修改(至Listeners)////////////////////
+*/
+fun setAutoTransformEngine(onOff: Boolean) {
+if (onOff) {
+isLoopAutoTransformEngineTimer = true
+autoTransformEngineTimer()
+} else {
+isLoopAutoTransformEngineTimer = false
+}
+}
+
+/**
+ * 自動換引擎嘅倒時器
+ * 用來定時檢查引擎嘅Source有冇出現問題
+*/
+private fun autoTransformEngineTimer(){
+if(isLoopAutoTransformEngineTimer){
+//用JavaScript嘅Timer來做Timer功能
+val timer: dynamic = js("""
+function timer(second){
+setTimeout(
+function(){
+//去Call Kotlin嘅function
+HKNBP.UIFeatures.prototype.autoTransformEngineRun(); //倒數後行要行嘅Code
+HKNBP.UIFeatures.prototype.autoTransformEngineTimer(); //設置Timer倒數再行多次
+}, second
+);
+}
+""")
+timer(autoTransformEngineTimerSecond)
+}
+}
+
+/**
+ * 畀autoTransformEngineTimer()當倒時完之後
+ * 檢查引擎嘅Source有冇出現問題
+*/
+private fun autoTransformEngineRun() {
+if (!p]layer.isPlaying()) {
+channels.node.getSources().next()
+updateChannel()
+}
+}
+ */
+
+private fun getName(element: Element): MultiLanguageString {
+    val multiLangName = MultiLanguageString()
+
+    var i = 0
+    val nameTag = element.getElementsByTagName("name")
+    while(i < nameTag.length) {
+        val nameElement     = nameTag.get(i)?:break
+
+        val lang            = nameElement.getAttribute("lang")?: ""
+        val name            = nameElement.innerHTML?: ""
+
+        multiLangName.add(MultiLanguageString.LanguageString(lang, name))
+        i++
+    }
+
+    return multiLangName
+}
+
+private fun getSources(element: Element): ArrayLinkList<Channel.Source> {
+    val sources = ArrayLinkList<Channel.Source>()
+
+    var i = 0
+    val sourceTag = element.getElementsByTagName("source")
+    while(i < sourceTag.length) {
+        val sourceElement   = sourceTag.get(i)?:break
+
+        val description     = sourceElement.getAttribute("description")?: ""
+        val iframeplayersrc = sourceElement.getAttribute("iframeplayersrc")?: ""
+        val link            = sourceElement.getAttribute("link")?: ""
+
+        sources.add(Channel.Source(description, iframeplayersrc, link))
+        i++
+    }
+
+    return sources
+}
+
+private fun getInformation(element: Element): Channel.Information {
+    val informationTag = element.getElementsByTagName("information")
+    return Channel.Information(
+            informationTag.get(0)?.getAttribute("epgid")?: "",
+            informationTag.get(0)?.getAttribute("src")?: ""
+    )
+}
+
+private fun getChannels(document: Document?): ArrayLinkList<Channel>{
+    val channels = ArrayLinkList<Channel>()
+
+    var i = 0
+    val channelTag = document?.getElementsByTagName("channel")
+    while(i < (channelTag?.length ?: 0)) {
+        val channelElement = channelTag?.get(i)?:break
+
+        val number      = channelElement.getAttribute("number")?.toIntOrNull()?: 0
+        val name        = getName(channelElement)
+        val sources     = getSources(channelElement)
+        val information = getInformation(channelElement)
+
+        channels.add(Channel(number, name, sources, information))
+        i++
+    }
+
+    return channels
+}
+
+/**
+ * 分析已讀取返來嘅電視頻道表資料
+ * */
+fun parseChannels(
+        onParsedChannelsListener: (channels: ArrayLinkList<Channel>) -> Unit,
+        onFailedParseChannelsListener: ()->Unit,
+        vararg xmlSrc: String
+){
+    LoadFile.load(fun(xmlHttp){
+        onParsedChannelsListener(getChannels(xmlHttp.responseXML))
+    }, fun(){
+        onFailedParseChannelsListener()
+    }, xmlSrc)
+}
+
+/**
+ * 分析已讀取返來嘅電視頻道表資料
+ * */
+fun String.parseChannels(): ArrayLinkList<Channel>{
+    return getChannels(DOMParser().parseFromString(this, "text/xml"))
+}
+
+fun ArrayList<Channel>.toXMLString(): String {
+    var channelsString = ""
+    for (channel in this) {
+        channelsString += channel.toXMLString()
+    }
+    return channelsString
 }

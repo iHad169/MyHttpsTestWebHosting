@@ -92,6 +92,15 @@ object CustomChannelsSettingWindow: Window(
         private val channelInformationSrcInputText                      = document.getElementById("customChannelsSettingChannelInformationSrcInputText") as HTMLInputElement
         private val channelXmlStringTextArea                            = document.getElementById("customChannelsSettingChannelXmlStringTextArea") as HTMLTextAreaElement
 
+        private fun Channel.changeMustNegativeNumber(): Channel {
+            return Channel(
+                    number = this.number.toNegative(),
+                    name = this.name,
+                    sources = this.sources,
+                    information = this.information
+            )
+        }
+
         fun getEditChannelDialogBoxInformation(): Channel{
             val getIframelayerSrc = fun(): String{
                 return when(true){
@@ -151,7 +160,7 @@ object CustomChannelsSettingWindow: Window(
 
         private fun initChannelXmlStringTextArea(){
             fun update(){
-                val channel = CustomChannels.parseChannels(channelXmlStringTextArea.value).getOrNull(0)
+                val channel = channelXmlStringTextArea.value.parseChannels().getOrNull(0)
                 channelNumberInputNumber.value          = (channel?.number?:"").toString()
                 channelNameInputText.value              = (channel?.name?:"").toString()
                 channelSourceLinkInputText.value        = (channel?.sources?.node?.link?:"").toString()
@@ -173,7 +182,7 @@ object CustomChannelsSettingWindow: Window(
 
         init {
             okButtonScript = fun(){
-                CustomChannels.set(ArrayLinkList(getEditChannelDialogBoxInformation()))
+                //CustomChannels.set(ArrayLinkList(getEditChannelDialogBoxInformation()))
             }
 
             initChannelNumberInputNumber()
@@ -196,6 +205,8 @@ object CustomChannelsSettingWindow: Window(
     private val channelEditButton       = document.getElementById("customChannelsSettingChannelEditButton") as HTMLButtonElement
     private val channelsImportButton    = document.getElementById("customChannelsSettingChannelsImportButton") as HTMLButtonElement
     private val channelsExportButton    = document.getElementById("customChannelsSettingChannelsExportButton") as HTMLButtonElement
+
+    private val channelOptionList = ArrayLinkList<ChannelOption>()
 
     private fun createChannelOption(channel: Channel): HTMLOptionElement{
         val option = document.createElement("option") as HTMLOptionElement
@@ -222,10 +233,8 @@ object CustomChannelsSettingWindow: Window(
         for(channelOption in channelOptionList){
             list.add(channelOption.channel)
         }
-        CustomChannels.set(list)
+        //CustomChannels.set(list)
     }
-
-    private val channelOptionList = ArrayLinkList<ChannelOption>()
 
     private fun Channel.getChannelOption(): ChannelOption?{
         for(channelOption in channelOptionList){
@@ -297,7 +306,7 @@ object CustomChannelsSettingWindow: Window(
                 //新增自訂頻道從ChannelOptionList
                 channelOptionList.add(ChannelOption(goToSetChannel, goToSetOption))
                 //新增自訂頻道從現運行嘅channel表
-                channels.add(goToSetChannel)
+                CustomChannels.add(goToSetChannel)
                 //新增自訂頻道從自訂頻道設定嘅Select
                 channelsSelect.add(goToSetOption)
                 //按Number排序
@@ -315,7 +324,7 @@ object CustomChannelsSettingWindow: Window(
                 //移除自訂頻道從ChannelOptionList
                 channelOptionList.remove(goToRemoveChannelOption)
                 //移除自訂頻道從現運行嘅channel表
-                channels.remove(goToRemoveChannelOption.channel)
+                CustomChannels.remove(goToRemoveChannelOption.channel)
                 //移除自訂頻道從自訂頻道設定嘅Select
                 channelsSelect.remove(goToRemoveChannelOption.option)
                 //儲存自訂頻道
@@ -337,7 +346,7 @@ object CustomChannelsSettingWindow: Window(
             //修改自訂頻道從現運行嘅channel表
             val goToSetChannelOnChannelsIndex = channels.indexOfOrNull(currentChannelOption.channel)
             if(goToSetChannelOnChannelsIndex != null){
-                channels.set(goToSetChannelOnChannelsIndex, goToSetChannelOption.channel)
+                CustomChannels.set(goToSetChannelOnChannelsIndex, goToSetChannelOption.channel)
             }
             //修改自訂頻道從自訂頻道設定嘅Select
             val goToSetChannelOnChannelsSelectIndex = channelsSelect.indexOfOrNull(currentChannelOption.option)
@@ -363,7 +372,7 @@ object CustomChannelsSettingWindow: Window(
             //修改自訂頻道從現運行嘅channel表
             val goToSetChannelOnChannelsIndex = channels.indexOfOrNull(currentChannelOption.channel)
             if(goToSetChannelOnChannelsIndex != null){
-                channels.set(goToSetChannelOnChannelsIndex, goToSetChannelOption.channel)
+                CustomChannels.set(goToSetChannelOnChannelsIndex, goToSetChannelOption.channel)
             }
             //修改自訂頻道從自訂頻道設定嘅Select
             val goToSetChannelOnChannelsSelectIndex = channelsSelect.indexOfOrNull(currentChannelOption.option)
@@ -394,7 +403,7 @@ object CustomChannelsSettingWindow: Window(
                 //修改自訂頻道從現運行嘅channel表
                 val goToSetChannelOnChannelsIndex = channels.indexOfOrNull(currentChannelOption.channel)
                 if(goToSetChannelOnChannelsIndex != null){
-                    channels.set(goToSetChannelOnChannelsIndex, goToSetChannelOption.channel)
+                    CustomChannels.set(goToSetChannelOnChannelsIndex, goToSetChannelOption.channel)
                 }
                 //修改自訂頻道從自訂頻道設定嘅Select
                 val goToSetChannelOnChannelsSelectIndex = channelsSelect.indexOfOrNull(currentChannelOption.option)
