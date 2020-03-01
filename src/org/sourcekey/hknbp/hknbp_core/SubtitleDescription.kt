@@ -25,8 +25,7 @@ object SubtitleDescription: UserInterface(document.getElementById("trackDescript
 
     override fun show(showTime: Int?) {
         super.show(showTime)
-        trackDescription.innerHTML = player?.subtitleTracks?.node?.name?:""
-        val subtitleNameHTML = "<div style=\"display:inline;\">${player?.subtitleTracks?.node?.name?:""}</div>"
+        val subtitleNameHTML = "<div style=\"display:inline;\">${Player.subtitleTracks?.node?.name?:""}</div>"
         trackDescription.innerHTML = subtitleIconHTML + "&nbsp" + subtitleNameHTML
     }
 }

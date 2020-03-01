@@ -28,7 +28,7 @@ object AudioDescription: UserInterface(document.getElementById("trackDescription
 
     override fun show(showTime: Int?) {
         super.show(showTime)
-        val audioNameHTML = "<div style=\"display:inline;\">${player?.audioTracks?.node?.name?:""}</div>"
+        val audioNameHTML = "<div style=\"display:inline;\">${Player.audioTracks.node?.name?:""}</div>"
         trackDescription.innerHTML = audioIconHTML + "&nbsp" + audioNameHTML
     }
 }

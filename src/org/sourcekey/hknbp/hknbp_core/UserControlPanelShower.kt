@@ -99,7 +99,7 @@ object UserControlPanelShower: TabbableUI(
         //設定使用者控制界面顯示方法
         shower.onclick = fun(event){
             UserControlPanel.showHideAlternately(30000)
-            player?.play()
+            Player.play()
         }
         shower.onmousemove = fun(event){
             shower.style.cursor = "auto"
@@ -125,5 +125,15 @@ object UserControlPanelShower: TabbableUI(
         if(RunnerInfo.getOsFamily() == "iOS"){ canTouchIframePlayerMode() }
 
         //setIframeOnClick("iframePlayer", fun(){ showHideAlternately() })
+
+        Player.addOnPlayerEventListener(object : Player.OnPlayerEventListener {
+            override fun on(onPlayerEvent: Player.OnPlayerEvent) {
+                when (onPlayerEvent) {
+                    Player.OnPlayerEvent.playing -> {
+                        cannotTouchIframePlayerMode()
+                    }
+                }
+            }
+        })
     }
 }

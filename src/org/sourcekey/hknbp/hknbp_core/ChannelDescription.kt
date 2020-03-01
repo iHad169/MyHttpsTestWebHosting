@@ -17,6 +17,7 @@ package org.sourcekey.hknbp.hknbp_core
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 import kotlin.browser.document
+import kotlin.browser.localStorage
 import kotlin.browser.window
 import kotlin.js.Date
 
@@ -36,7 +37,7 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
     private val currentProgrammeCategory        = document.getElementById("channelDescriptionCurrentProgrammeCategory") as HTMLDivElement
 
     private fun setCurrentChannelName(){
-        currentChannelName.innerHTML = channels.node?.name.toString()
+        currentChannelName.innerHTML = (channels.node?.name?:"").toString()
     }
 
     private fun setCurrentChannelNumber(){
@@ -127,5 +128,39 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
 
     init {
         setCurrentDate()
+        channels.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<Channel> {
+            override fun onNodeChanged(
+                    preChangeNodeID: Int?, postChangeNodeID: Int?,
+                    preChangeNode: Channel?, postChangeNode: Channel?
+            ) {
+                update()
+                show(null)
+            }
+        })
+        Player.addOnPlayerEventListener(object : Player.OnPlayerEventListener {
+            private var isPlaying: Boolean = false
+            override fun on(onPlayerEvent: Player.OnPlayerEvent) {
+                when (onPlayerEvent) {
+                    Player.OnPlayerEvent.playing -> {
+                        isPlaying = true
+                        update()
+                        show(5000)
+                    }
+                    Player.OnPlayerEvent.notPlaying -> {
+                        isPlaying = false
+                        window.setTimeout(fun(){
+                            if(!isPlaying){
+                                update()
+                                show(null)
+                            }
+                        }, 5000)
+                    }
+                }
+            }
+            init {
+                update()
+                show(null)
+            }
+        })
     }
 }

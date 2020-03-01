@@ -25,221 +25,10 @@ import kotlin.js.Date
 import kotlin.js.Math
 import kotlin.random.Random
 
-class Player(private val channel: Channel): UserInterface(document.getElementById("player") as HTMLElement) {
-    companion object{
-        private val iframePlayer: dynamic = document.getElementById("iframePlayer")
-
-
-        private val callIframePlayerFunctionList = ArrayList<dynamic>()
-
-        private fun callIframePlayerFunction(
-                evalScript: String, onReturn: (returnValue: dynamic)->Unit = fun(returnValue){}
-        ){
-            val caller = js("{}")
-            caller.evalScript = evalScript
-            caller.name = "HKNBPCore"
-            caller.id = Date().getTime().toString() + Random.nextInt(0, 99999999)
-            caller.onReturn = onReturn
-            callIframePlayerFunctionList.add(caller)
-            window.setTimeout(fun(){
-                callIframePlayerFunctionList.remove(caller) //如果太耐冇return就響List自動清除免堆垃圾
-            }, 60000)
-            try {
-                iframePlayer.contentWindow.postMessage(JSON.stringify(caller), "*")
-            } catch (e: dynamic){ println("iframePlayer有啲Function搵唔到或發生問題: $e") }
-        }
-
-        private fun kotlinValueToEvalScriptUseableValue(kotlinValue: dynamic): String{
-            val obj = js("{}")
-            obj.value = kotlinValue
-            return "JSON.parse(\'${JSON.stringify(obj)}\').value"
-        }
-
-        private var listenIframePlayerScript = fun(event: dynamic){}
-
-        private fun setListenIframePlayerMessage(){
-            window.addEventListener("message", fun(event: dynamic){
-                listenIframePlayerScript(event)
-            }, false)
-        }
-
-
-        /**
-         * 全局音量值
-         *
-         * 此值使所有Player使用同一音量
-         * */
-        private var volume: Double = localStorage.getItem("RecentlyVolume")?.toDoubleOrNull()?:100.0
-            set(value) {
-                localStorage.setItem("RecentlyVolume", volume.toString())//儲存低返最近設定音量
-                field = value
-            }
-
-        /**
-         * 設定iframePlayer嘅音量資訊
-         *
-         * 注:音量值用Double原因係因為有啲IframePlayer嘅音量值有小數
-         * 小數中有取捨使到有機會調教唔到音量值
-         * */
-        fun setVolume(volume: Double) {
-            var volumeChecked = volume
-            if(100 < volumeChecked){volumeChecked = 100.0}
-            if(volumeChecked < 0){volumeChecked = 0.0}
-            callIframePlayerFunction("onSetIframePlayerVolume(${kotlinValueToEvalScriptUseableValue(volumeChecked)})")
-            Companion.volume = volumeChecked
-            VolumeDescription.show(3000)
-        }
-
-        /**
-         * 獲取iframePlayer嘅音量資訊
-         *
-         * 注:音量值用Double原因係因為有啲IframePlayer嘅音量值有小數
-         * 小數中有取捨使到有機會調教唔到音量值
-         * */
-        fun getVolume(onReturn: (volume: Double)->Unit) {
-            callIframePlayerFunction("onGetIframePlayerVolume(onReturn)", fun(returnValue){
-                onReturn(returnValue?.toString()?.toDoubleOrNull()?:100.0)
-            })
-        }
-
-        /**
-         * 提升音量
-         *
-         * 由於其他平台需要其他位置設置提升音量
-         * 因此此值可被修改成學合其他平台嘅程序
-         * */
-        var volumeUp = fun(){
-            getVolume(fun(volume){
-                setVolume(volume + 1.0)
-            })
-        }
-
-        /**
-         * 降底音量
-         *
-         * 由於其他平台需要其他位置設置降底音量
-         * 因此此值可被修改成學合其他平台嘅程序
-         * */
-        var volumeDown = fun(){
-            getVolume(fun(volume){
-                setVolume(volume - 1.0)
-            })
-        }
-
-
-        /**
-         * 全局音量值
-         *
-         * 此值使所有Player使用同一音量
-         * */
-        private var muted: Boolean = localStorage.getItem("RecentlyMuted")?.toBoolean()?:false
-            set(value) {
-                localStorage.setItem("RecentlyMuted", muted.toString())//儲存低返最近設定音量
-                field = value
-            }
-
-        /**
-         * 設定iframePlayer嘅靜音資訊
-         * */
-        fun setMuted(muted: Boolean) {
-            //因依家大部分 <瀏覽器> 唔畀自動播放, 如果要自動播放一定要將Player設為 <靜音>
-            val setScript = fun(muted: Boolean){
-                callIframePlayerFunction(
-                        "onSetIframePlayerMuted(${kotlinValueToEvalScriptUseableValue(muted)})"
-                )
-                MutedDescription.update(muted)
-            }
-
-            if(isCheckVideoAutoPlayNeedToMute){
-                CanAutoplay.checkVideoAutoPlayNeedToMute(fun(){
-                    Companion.muted = muted
-                    setScript(muted)
-                }, fun(){
-                    setScript(true)
-                })
-            }else{
-                Companion.muted = muted
-                setScript(muted)
-            }
-        }
-
-        /**
-         * 獲取iframePlayer嘅靜音資訊
-         * */
-        fun getMuted(onReturn: (muted: Boolean)->Unit) {
-            callIframePlayerFunction("onGetIframePlayerMuted(onReturn)", fun(returnValue){
-                MutedDescription.update(muted)
-                onReturn(returnValue?.toString()?.toBoolean()?:true)
-            })
-        }
-
-        /**
-         * 設換靜音
-         *
-         * Call一次靜音,再Call取消靜音
-         * 由於其他平台需要其他位置設置設換靜音
-         * 因此此值可被修改成學合其他平台嘅程序
-         * */
-        var volumeMute = fun(){
-            getMuted(fun(muted){
-                setMuted(!muted)
-            })
-        }
-            set(value) {
-                field = fun(){
-                    //其他平台設置自己靜音方式後
-                    getMuted(fun(muted){
-                        if(muted){
-                            //取消因要Mute左iframePlayer先可自動播放嘅靜音
-                            setMuted(false)
-                        }else{
-                            //行其他平台設置自己靜音方式
-                            setMuted(false)
-                            value()
-                        }
-                    })
-                }
-            }
-
-
-        /**
-         * 係米檢查自動播放需要靜音
-         * */
-        private var isCheckVideoAutoPlayNeedToMute = true
-
-        /**
-         * 檢查需唔需要可直接點擊IframePlayer模式嘅Timer
-         *
-         * 此值為清除之前Player嘅Timer
-         * 因當觀眾轉台後
-         * 上一台Player嘅Timer仍在計時
-         * */
-        private var checkNeedCanTouchIframePlayerModeTimer = 0
-            set(value) {
-                window.clearTimeout(checkNeedCanTouchIframePlayerModeTimer)
-                field = value
-            }
-
-        /**
-         * 檢查係米低訊號而去顯示ChannelDescription嘅Timer
-         *
-         * 此值為清除之前Player嘅Timer
-         * 因當觀眾轉台後
-         * 上一台Player嘅Timer仍在計時
-         * */
-        private var checkIsLowSignalShowChannelDescriptionTimer = 0
-            set(value) {
-                window.clearTimeout(checkIsLowSignalShowChannelDescriptionTimer)
-                field = value
-            }
-
-
-        init {
-            setListenIframePlayerMessage()
-        }
-    }
-
-    private val watchingCounter: WatchingCounter = WatchingCounter(channel)
+object Player: UserInterface(document.getElementById("player") as HTMLElement) {
+    private var playingChannel: Channel? = null
+    private val iframePlayer: dynamic = document.getElementById("iframePlayer")
+    private var watchingCounter: WatchingCounter? = null
 
 
     enum class OnPlayerEvent{
@@ -258,6 +47,51 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
     }
 
 
+    private val callIframePlayerFunctionList = ArrayList<dynamic>()
+
+    private fun callIframePlayerFunction(
+            evalScript: String, onReturn: (returnValue: dynamic)->Unit = fun(returnValue){}
+    ){
+        val caller = js("{}")
+        caller.evalScript = evalScript
+        caller.name = "HKNBPCore"
+        caller.id = Date().getTime().toString() + Random.nextInt(0, 99999999)
+        caller.onReturn = onReturn
+        callIframePlayerFunctionList.add(caller)
+        window.setTimeout(fun(){
+            callIframePlayerFunctionList.remove(caller) //如果太耐冇return就響List自動清除免堆垃圾
+        }, 60000)
+        try {
+            iframePlayer.contentWindow.postMessage(JSON.stringify(caller), "*")
+        } catch (e: dynamic){ println("iframePlayer有啲Function搵唔到或發生問題: $e") }
+    }
+
+    private fun kotlinValueToEvalScriptUseableValue(kotlinValue: dynamic): String{
+        val obj = js("{}")
+        obj.value = kotlinValue
+        return "JSON.parse(\'${JSON.stringify(obj)}\').value"
+    }
+
+
+    /**
+     * 係米檢查自動播放需要靜音
+     * */
+    private var isCheckVideoAutoPlayNeedToMute = true
+
+    /**
+     * 檢查需唔需要可直接點擊IframePlayer模式嘅Timer
+     *
+     * 此值為清除之前Player嘅Timer
+     * 因當觀眾轉台後
+     * 上一台Player嘅Timer仍在計時
+     * */
+    private var checkNeedCanTouchIframePlayerModeTimer = 0
+        set(value) {
+            window.clearTimeout(checkNeedCanTouchIframePlayerModeTimer)
+            field = value
+        }
+
+
     /**
      * 片源表
      *
@@ -267,36 +101,32 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
      * */
     var videoTracks: ArrayLinkList<TrackDescription> = {
         addOnPlayerEventListener(object : OnPlayerEventListener {
-            var isInit: Boolean = false
             override fun on(onPlayerEvent: OnPlayerEvent) {
                 when (onPlayerEvent) {
                     OnPlayerEvent.playing -> {
-                        if(!isInit){
-                            //設定VideoTracks值
-                            callIframePlayerFunction("onGetIframePlayerVideoTracks(onReturn)", fun(tracks){
-                                callIframePlayerFunction("onGetIframePlayerVideoTrack(onReturn)", fun(track){
-                                    videoTracks = TrackDescription.fromIframePlayerReturnTrackDescriptionsToKotilnUseableTrackDescriptions(
-                                            tracks, track
-                                    )
-                                    videoTracks.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<TrackDescription> {
-                                        override fun onNodeChanged(
-                                                preChangeNodeID: Int?, postChangeNodeID: Int?,
-                                                preChangeNode: TrackDescription?, postChangeNode: TrackDescription?
-                                        ) {
-                                            callIframePlayerFunction("onSetIframePlayerVideoTrack(${
-                                                    kotlinValueToEvalScriptUseableValue(postChangeNode)
-                                            })")
-                                            localStorage.setItem("RecentlyChannel${channel.number}VideoTrackID", postChangeNodeID.toString())
-                                            VirtualRemote.updateVideoInformation()
-                                        }
-                                    })
-                                    videoTracks.designated(
-                                            localStorage.getItem("RecentlyChannel${channel.number}VideoTrackID")?.toIntOrNull()?:0
-                                    )
+                        //設定VideoTracks值
+                        callIframePlayerFunction("onGetIframePlayerVideoTracks(onReturn)", fun(tracks){
+                            callIframePlayerFunction("onGetIframePlayerVideoTrack(onReturn)", fun(track){
+                                videoTracks = TrackDescription.fromIframePlayerReturnTrackDescriptionsToKotilnUseableTrackDescriptions(
+                                        tracks, track
+                                )
+                                videoTracks.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<TrackDescription> {
+                                    override fun onNodeChanged(
+                                            preChangeNodeID: Int?, postChangeNodeID: Int?,
+                                            preChangeNode: TrackDescription?, postChangeNode: TrackDescription?
+                                    ) {
+                                        callIframePlayerFunction("onSetIframePlayerVideoTrack(${
+                                                kotlinValueToEvalScriptUseableValue(postChangeNode)
+                                        })")
+                                        localStorage.setItem("RecentlyChannel${playingChannel?.number}VideoTrackID", postChangeNodeID.toString())
+                                        VirtualRemote.updateVideoInformation()
+                                    }
                                 })
+                                videoTracks.designated(
+                                        localStorage.getItem("RecentlyChannel${playingChannel?.number}VideoTrackID")?.toIntOrNull()?:0
+                                )
                             })
-                            isInit = true
-                        }
+                        })
                     }
                 }
             }
@@ -348,36 +178,32 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
      * */
     var audioTracks: ArrayLinkList<TrackDescription> = {
         addOnPlayerEventListener(object : OnPlayerEventListener {
-            var isInit: Boolean = false
             override fun on(onPlayerEvent: OnPlayerEvent) {
                 when (onPlayerEvent) {
                     OnPlayerEvent.playing -> {
-                        if(!isInit){
-                            //設定AudioTracks值
-                            callIframePlayerFunction("onGetIframePlayerAudioTracks(onReturn)", fun(tracks){
-                                callIframePlayerFunction("onGetIframePlayerAudioTrack(onReturn)", fun(track){
-                                    audioTracks = TrackDescription.fromIframePlayerReturnTrackDescriptionsToKotilnUseableTrackDescriptions(
-                                            tracks, track
-                                    )
-                                    audioTracks.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<TrackDescription> {
-                                        override fun onNodeChanged(
-                                                preChangeNodeID: Int?, postChangeNodeID: Int?,
-                                                preChangeNode: TrackDescription?, postChangeNode: TrackDescription?
-                                        ) {
-                                            callIframePlayerFunction("onSetIframePlayerAudioTrack(${
-                                            kotlinValueToEvalScriptUseableValue(postChangeNode)
-                                            })")
-                                            localStorage.setItem("RecentlyChannel${channel.number}AudioTrackID", postChangeNodeID.toString())
-                                            VirtualRemote.updateAudioInformation()
-                                        }
-                                    })
-                                    audioTracks.designated(
-                                            localStorage.getItem("RecentlyChannel${channel.number}AudioTrackID")?.toIntOrNull()?:0
-                                    )
+                        //設定AudioTracks值
+                        callIframePlayerFunction("onGetIframePlayerAudioTracks(onReturn)", fun(tracks){
+                            callIframePlayerFunction("onGetIframePlayerAudioTrack(onReturn)", fun(track){
+                                audioTracks = TrackDescription.fromIframePlayerReturnTrackDescriptionsToKotilnUseableTrackDescriptions(
+                                        tracks, track
+                                )
+                                audioTracks.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<TrackDescription> {
+                                    override fun onNodeChanged(
+                                            preChangeNodeID: Int?, postChangeNodeID: Int?,
+                                            preChangeNode: TrackDescription?, postChangeNode: TrackDescription?
+                                    ) {
+                                        callIframePlayerFunction("onSetIframePlayerAudioTrack(${
+                                        kotlinValueToEvalScriptUseableValue(postChangeNode)
+                                        })")
+                                        localStorage.setItem("RecentlyChannel${playingChannel?.number}AudioTrackID", postChangeNodeID.toString())
+                                        VirtualRemote.updateAudioInformation()
+                                    }
                                 })
+                                audioTracks.designated(
+                                        localStorage.getItem("RecentlyChannel${playingChannel?.number}AudioTrackID")?.toIntOrNull()?:0
+                                )
                             })
-                            isInit = true
-                        }
+                        })
                     }
                 }
             }
@@ -429,36 +255,32 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
      * */
     var subtitleTracks: ArrayLinkList<TrackDescription> = {
         addOnPlayerEventListener(object : OnPlayerEventListener {
-            var isInit: Boolean = false
             override fun on(onPlayerEvent: OnPlayerEvent) {
                 when (onPlayerEvent) {
                     OnPlayerEvent.playing -> {
-                        if(!isInit){
-                            //設定SubtitleTracks值
-                            callIframePlayerFunction("onGetIframePlayerSubtitleTracks(onReturn)", fun(tracks){
-                                callIframePlayerFunction("onGetIframePlayerSubtitleTrack(onReturn)", fun(track){
-                                    subtitleTracks = TrackDescription.fromIframePlayerReturnTrackDescriptionsToKotilnUseableTrackDescriptions(
-                                            tracks, track
-                                    )
-                                    subtitleTracks.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<TrackDescription> {
-                                        override fun onNodeChanged(
-                                                preChangeNodeID: Int?, postChangeNodeID: Int?,
-                                                preChangeNode: TrackDescription?, postChangeNode: TrackDescription?
-                                        ) {
-                                            callIframePlayerFunction("onSetIframePlayerSubtitleTrack(${
-                                                    kotlinValueToEvalScriptUseableValue(postChangeNode)
-                                            })")
-                                            localStorage.setItem("RecentlyChannel${channel.number}SubtitleTrackID", postChangeNodeID.toString())
-                                            VirtualRemote.updateSubtitleInformation()
-                                        }
-                                    })
-                                    subtitleTracks.designated(
-                                            localStorage.getItem("RecentlyChannel${channel.number}SubtitleTrackID")?.toIntOrNull()?:0
-                                    )
+                        //設定SubtitleTracks值
+                        callIframePlayerFunction("onGetIframePlayerSubtitleTracks(onReturn)", fun(tracks){
+                            callIframePlayerFunction("onGetIframePlayerSubtitleTrack(onReturn)", fun(track){
+                                subtitleTracks = TrackDescription.fromIframePlayerReturnTrackDescriptionsToKotilnUseableTrackDescriptions(
+                                        tracks, track
+                                )
+                                subtitleTracks.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<TrackDescription> {
+                                    override fun onNodeChanged(
+                                            preChangeNodeID: Int?, postChangeNodeID: Int?,
+                                            preChangeNode: TrackDescription?, postChangeNode: TrackDescription?
+                                    ) {
+                                        callIframePlayerFunction("onSetIframePlayerSubtitleTrack(${
+                                                kotlinValueToEvalScriptUseableValue(postChangeNode)
+                                        })")
+                                        localStorage.setItem("RecentlyChannel${playingChannel?.number}SubtitleTrackID", postChangeNodeID.toString())
+                                        VirtualRemote.updateSubtitleInformation()
+                                    }
                                 })
+                                subtitleTracks.designated(
+                                        localStorage.getItem("RecentlyChannel${playingChannel?.number}SubtitleTrackID")?.toIntOrNull()?:0
+                                )
                             })
-                            isInit = true
-                        }
+                        })
                     }
                 }
             }
@@ -502,21 +324,28 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
 
 
     /**
+     * 全局音量值
+     *
+     * 此值使所有Player使用同一音量
+     * */
+    private var volume: Double = localStorage.getItem("RecentlyVolume")?.toDoubleOrNull()?:100.0
+        set(value) {
+            localStorage.setItem("RecentlyVolume", volume.toString())//儲存低返最近設定音量
+            field = value
+        }
+
+    /**
      * 對IframePlayer音量值初始化
      * */
     private val iframePlayerVolumeInit = {
         addOnPlayerEventListener(object : OnPlayerEventListener {
-            var isInit: Boolean = false
             override fun on(onPlayerEvent: OnPlayerEvent) {
                 when (onPlayerEvent) {
                     OnPlayerEvent.playing -> {
-                        if(!isInit){
-                            //讀取最近設定音量再去設定IframePlayer音量,呢度唔直接用setMuted()係因為唔想每次轉頻道都顯示音量值
-                            callIframePlayerFunction("onSetIframePlayerVolume(${
-                            kotlinValueToEvalScriptUseableValue(volume)
-                            })")
-                            isInit = true
-                        }
+                        //讀取最近設定音量再去設定IframePlayer音量,呢度唔直接用setMuted()係因為唔想每次轉頻道都顯示音量值
+                        callIframePlayerFunction("onSetIframePlayerVolume(${
+                        kotlinValueToEvalScriptUseableValue(volume)
+                        })")
                     }
                 }
             }
@@ -524,23 +353,145 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
     }()
 
     /**
+     * 設定iframePlayer嘅音量資訊
+     *
+     * 注:音量值用Double原因係因為有啲IframePlayer嘅音量值有小數
+     * 小數中有取捨使到有機會調教唔到音量值
+     * */
+    fun setVolume(volume: Double) {
+        var volumeChecked = volume
+        if(100 < volumeChecked){volumeChecked = 100.0}
+        if(volumeChecked < 0){volumeChecked = 0.0}
+        callIframePlayerFunction("onSetIframePlayerVolume(${kotlinValueToEvalScriptUseableValue(volumeChecked)})")
+        this.volume = volumeChecked
+        VolumeDescription.show(3000)
+    }
+
+    /**
+     * 獲取iframePlayer嘅音量資訊
+     *
+     * 注:音量值用Double原因係因為有啲IframePlayer嘅音量值有小數
+     * 小數中有取捨使到有機會調教唔到音量值
+     * */
+    fun getVolume(onReturn: (volume: Double)->Unit) {
+        callIframePlayerFunction("onGetIframePlayerVolume(onReturn)", fun(returnValue){
+            onReturn(returnValue?.toString()?.toDoubleOrNull()?:100.0)
+        })
+    }
+
+    /**
+     * 提升音量
+     *
+     * 由於其他平台需要其他位置設置提升音量
+     * 因此此值可被修改成學合其他平台嘅程序
+     * */
+    var volumeUp = fun(){
+        getVolume(fun(volume){
+            setVolume(volume + 1.0)
+        })
+    }
+
+    /**
+     * 降底音量
+     *
+     * 由於其他平台需要其他位置設置降底音量
+     * 因此此值可被修改成學合其他平台嘅程序
+     * */
+    var volumeDown = fun(){
+        getVolume(fun(volume){
+            setVolume(volume - 1.0)
+        })
+    }
+
+
+    /**
+     * 全局音量值
+     *
+     * 此值使所有Player使用同一音量
+     * */
+    private var muted: Boolean = localStorage.getItem("RecentlyMuted")?.toBoolean()?:false
+        set(value) {
+            localStorage.setItem("RecentlyMuted", muted.toString())//儲存低返最近設定音量
+            field = value
+        }
+
+    /**
      * 對IframePlayer靜音值初始化
      * */
     private val iframePlayerMutedInit = {
         addOnPlayerEventListener(object : OnPlayerEventListener {
-            var isInit: Boolean = false
             override fun on(onPlayerEvent: OnPlayerEvent) {
                 when (onPlayerEvent) {
                     OnPlayerEvent.playing -> {
-                        if(!isInit){
-                            setMuted(muted)
-                            isInit = true
-                        }
+                        setMuted(muted)
                     }
                 }
             }
         })
     }()
+
+    /**
+     * 設定iframePlayer嘅靜音資訊
+     * */
+    fun setMuted(muted: Boolean) {
+        //因依家大部分 <瀏覽器> 唔畀自動播放, 如果要自動播放一定要將Player設為 <靜音>
+        val setScript = fun(muted: Boolean){
+            callIframePlayerFunction(
+                    "onSetIframePlayerMuted(${kotlinValueToEvalScriptUseableValue(muted)})"
+            )
+            MutedDescription.update(muted)
+        }
+
+        if(isCheckVideoAutoPlayNeedToMute){
+            CanAutoplay.checkVideoAutoPlayNeedToMute(fun(){
+                this.muted = muted
+                setScript(muted)
+            }, fun(){
+                setScript(true)
+            })
+        }else{
+            this.muted = muted
+            setScript(muted)
+        }
+    }
+
+    /**
+     * 獲取iframePlayer嘅靜音資訊
+     * */
+    fun getMuted(onReturn: (muted: Boolean)->Unit) {
+        callIframePlayerFunction("onGetIframePlayerMuted(onReturn)", fun(returnValue){
+            MutedDescription.update(muted)
+            onReturn(returnValue?.toString()?.toBoolean()?:true)
+        })
+    }
+
+    /**
+     * 設換靜音
+     *
+     * Call一次靜音,再Call取消靜音
+     * 由於其他平台需要其他位置設置設換靜音
+     * 因此此值可被修改成學合其他平台嘅程序
+     * */
+    var volumeMute = fun(){
+        getMuted(fun(muted){
+            setMuted(!muted)
+        })
+    }
+        set(value) {
+            field = fun(){
+                //其他平台設置自己靜音方式後
+                getMuted(fun(muted){
+                    if(muted){
+                        //取消因要Mute左iframePlayer先可自動播放嘅靜音
+                        setMuted(false)
+                    }else{
+                        //行其他平台設置自己靜音方式
+                        setMuted(false)
+                        value()
+                    }
+                })
+            }
+        }
 
 
     /**
@@ -640,6 +591,23 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
      */
 
 
+    fun playChannel(channel: Channel){
+        playingChannel = channel
+        iframePlayer?.src =
+                "${playingChannel?.sources?.node?.iFramePlayerSrc?:"iframePlayer/videojs.html"}?" +
+                        "sourceSrc=${encodeURIComponent(playingChannel?.sources?.node?.getLinkOfHttpsGetAble()?:"")}"
+        watchingCounter = WatchingCounter(channel)
+    }
+
+
+    private var listenIframePlayerScript = fun(event: dynamic){}
+
+    private fun setListenIframePlayerMessage(){
+        window.addEventListener("message", fun(event: dynamic){
+            listenIframePlayerScript(event)
+        }, false)
+    }
+
     private fun setListenIframePlayerScript(){
         listenIframePlayerScript = fun(event: dynamic){
             try{
@@ -679,62 +647,43 @@ class Player(private val channel: Channel): UserInterface(document.getElementByI
     }
 
     init {
-        iframePlayer?.src =
-                "${channel.sources.node?.iFramePlayerSrc?:"iframePlayer/videojs.html"}?" +
-                "sourceSrc=${encodeURIComponent(channel.sources.node?.getLinkOfHttpsGetAble()?:"")}"
-        iframePlayer?.onload = fun() {
-            addOnPlayerEventListener(object : OnPlayerEventListener {
-                private var isPlaying: Boolean = false
-                private var numberOfPlaying: Int = 0
-                private var isLowSignalShowChannelDescription = false
-                override fun on(onPlayerEvent: OnPlayerEvent) {
-                    when (onPlayerEvent) {
-                        OnPlayerEvent.playing -> {
-                            isPlaying = true
-                            numberOfPlaying++
-                            if(isLowSignalShowChannelDescription){
-                                isLowSignalShowChannelDescription = false
-                                ChannelDescription.hide()
+        addOnPlayerEventListener(object : OnPlayerEventListener {
+            private var isPlaying: Boolean = false
+            override fun on(onPlayerEvent: OnPlayerEvent) {
+                when (onPlayerEvent) {
+                    OnPlayerEvent.playing -> {
+                        isPlaying = true
+                    }
+                    OnPlayerEvent.notPlaying -> {
+                        isPlaying = false
+                        //當播放器停止左5秒就顯示訊號差嘅提示
+                        window.setTimeout(fun() {
+                            if (!isPlaying) {
+                                PromptBox.promptMessage("訊號接收不良")
                             }
-                            if(numberOfPlaying <= 1){
-                                ChannelDescription.show(5000)
+                        }, 5000)
+                        //檢查呢15秒內Player有冇再繼續正常播放,若冇就刷新Player
+                        window.setTimeout(fun() {
+                            if (!isPlaying) {
+                                playChannel(playingChannel?:Channel(0))
                             }
-                            VirtualRemote.update()
-                            UserControlPanelShower.cannotTouchIframePlayerMode()
-                        }
-                        OnPlayerEvent.notPlaying -> {
-                            isPlaying = false
-                            if(0 < numberOfPlaying){
-                                checkIsLowSignalShowChannelDescriptionTimer = window.setTimeout(fun(){
-                                    if(!isPlaying){
-                                        isLowSignalShowChannelDescription = true
-                                        ChannelDescription.show(null)
-                                        PromptBox.promptMessage("訊號接收不良")
-                                    }
-                                }, 5000)
-                            }
-                        }
+                        }, 15000)
                     }
                 }
-                init {
-                    ChannelDescription.show(null)
-                    ChannelDescription.update()
-                    /**
-                    //如果冇自動播放就換到手動播放模式
-                    checkNeedCanTouchIframePlayerModeTimer = window.setTimeout(fun() {
-                    if (!isPlaying && numberOfPlaying == 0) {
-                    UserControlPanel.canTouchIframePlayerMode()
-                    PromptBox.promptMessage("已切換到手動播放模式")
-                    }
-                    }, 30000)*/
+            }
+            init {
+                /**
+                //如果冇自動播放就換到手動播放模式
+                checkNeedCanTouchIframePlayerModeTimer = window.setTimeout(fun() {
+                if (!isPlaying && numberOfPlaying == 0) {
+                UserControlPanel.canTouchIframePlayerMode()
+                PromptBox.promptMessage("已切換到手動播放模式")
                 }
-            })
-            setListenIframePlayerScript()
-            /*
-            callIframePlayerFunction("onIframePlayerInit(${
-            kotlinValueToEvalScriptUseableValue(channel.sources.node?.link ?: "")
-            })")*/
-        }
+                }, 30000)*/
+            }
+        })
+        setListenIframePlayerScript()
+        setListenIframePlayerMessage()
     }
 }
 

@@ -165,7 +165,7 @@ val coreVersion: String = {
     value
     */
 
-    "v2020.02_6-test8"
+    "v2020.02_6-test9"
 }()
 
 /**
@@ -176,11 +176,6 @@ val coreVersion: String = {
  * 此值會畀其他框架所改至該框架嘅Version
  * */
 var appVersion: String = "${coreVersion}-PWA"
-
-/**
- * 現在播放頻道嘅播放器
- * */
-var player: Player? = null
 
 /**
  *  w,h為正整數的分子和分母
@@ -221,6 +216,7 @@ fun main(args: Array<String>) {
         VirtualRemote
         //RealRemote
         LongClickEvent
+        ChannelDescription
         OfficialChannels
         /**
         jq.ajax(json(Pair("url", "http://tvprofil.net/xmltv/data/htv2.hr/weekly_htv2.hr_tvprofil.net.xml"), Pair("success", fun(result: dynamic){

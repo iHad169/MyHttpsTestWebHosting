@@ -25,7 +25,7 @@ object VideoDescription: UserInterface(document.getElementById("trackDescription
 
     override fun show(showTime: Int?) {
         super.show(showTime)
-        val videoNameHTML = "<div style=\"display:inline;\">${player?.videoTracks?.node?.name?:""}</div>"
+        val videoNameHTML = "<div style=\"display:inline;\">${Player.videoTracks.node?.name?:""}</div>"
         trackDescription.innerHTML = videoIconHTML + "&nbsp" + videoNameHTML
     }
 }

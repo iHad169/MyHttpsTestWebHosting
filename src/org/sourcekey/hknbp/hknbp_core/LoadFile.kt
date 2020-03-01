@@ -37,14 +37,47 @@ object LoadFile {
         return load(cacheShelfLife, filePath)
     }
 
+    /**
+     * Proxy嘅URL表
+     *
+     * 以倒序作先後嘗試proxy次序
+     * */
+    private val proxyUrlList: ArrayList<String> = {
+        val proxyUrlList = ArrayList<String>()
+        proxyUrlList.add("https://hknbp-proxy.herokuapp.com/")
+        proxyUrlList.add("https://cors-anywhere.herokuapp.com/")
+        proxyUrlList
+    }()
+
     fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, filePaths: ArrayLinkList<String>){
         val xmlhttp = XMLHttpRequest()
+        val useProxy = fun(){
+            val path: String = filePaths.node?:return
+            val isAddedProxy: Boolean = {
+                var isAddedProxy = false
+                for(url in proxyUrlList){
+                    if(path.startsWith(url)){isAddedProxy = true}
+                }
+                isAddedProxy
+            }()
+            if(path.startsWith("http") && !isAddedProxy){
+                //要加使用Proxy嘅URL嘅位置,作下一個去讀取嘅filePath
+                val addTagetIndex = (filePaths.nodeID?:return) + 1
+                //實現<跨Domain存取(CORS)>重點
+                //完全唔明點解做到,要將呢個url+文件位置就得
+                //https://github.com/Rob--W/cors-anywhere
+                for(proxyUrl in proxyUrlList){
+                    filePaths.add(addTagetIndex, proxyUrl + path)
+                }
+            }
+        }
         var isFailedLoadFile = false //確保FailedLoad後只限一次
         val onFailedLoadFileProgram: dynamic = fun(){
             if(!isFailedLoadFile){
                 isFailedLoadFile = true
                 println("未能讀取: ${filePaths.node}")
                 //PromptBox.promptMessage(dialogues.node().canNotReadData)
+                useProxy()
                 if(filePaths.nodeID?:{onFailedLoadFile();null}()?:return < filePaths.size-1){
                     filePaths.next()
                     load(onLoadedFile, onFailedLoadFile, filePaths)
@@ -58,22 +91,11 @@ object LoadFile {
         }
         xmlhttp.onload = fun(event) {
             if(xmlhttp.status.toInt()==200){
-               // println(xmlhttp.status)
                 //println("成功讀取: ${filePaths.node}")
-                //println(xmlhttp.response)
                 onLoadedFile(xmlhttp)
             }else{ onFailedLoadFileProgram() }
         }
-
-        var path: String = filePaths.node?:""
-        if(path.startsWith("http")){
-            //實現<跨Domain存取(CORS)>重點
-            //完全唔明點解做到,要將呢個url+文件位置就得
-            //https://github.com/Rob--W/cors-anywhere
-            val cors_api_url = "https://hknbp-proxy.herokuapp.com/"
-            path = cors_api_url + path
-        }
-        xmlhttp.open("GET", path, true)
+        xmlhttp.open("GET", filePaths.node?:"", true)
         xmlhttp.setRequestHeader("cache-control", "max-age=${cacheShelfLife}")//以秒為單位///////////////////////////////整個可以強制響線上讀取唔用Cache
         xmlhttp.send()
     }

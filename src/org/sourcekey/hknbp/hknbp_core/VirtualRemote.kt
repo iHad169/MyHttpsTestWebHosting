@@ -100,32 +100,31 @@ object VirtualRemote{
     fun updateVideoInformation(){
         //顯示依家影片Track選項
         var videoOptionHTMLString = ""
-        for(videoTracks in player?.videoTracks?: ArrayLinkList<TrackDescription>()){
-            videoOptionHTMLString += "<option value=${videoTracks.id}>${videoTracks.name}</option>"
+        for(videoTracks in Player.videoTracks){
+            videoOptionHTMLString = "<option value=${videoTracks.id}>${videoTracks.name}</option>" + videoOptionHTMLString
         }
         designateVideoSelect.innerHTML = videoOptionHTMLString
-        designateVideoSelect.value = (player?.videoTracks?.node?.id ?: 0).toString()
+        designateVideoSelect.value = (Player.videoTracks.node?.id ?: 0).toString()
     }
 
     fun updateAudioInformation(){
         //顯示依家聲音Track選項
         var audioOptionHTMLString = ""
-        for(audioTracks in player?.audioTracks?:ArrayLinkList<TrackDescription>()){
-            audioOptionHTMLString += "<option value=${audioTracks.id}>${audioTracks.name}</option>"
+        for(audioTracks in Player.audioTracks){
+            audioOptionHTMLString = "<option value=${audioTracks.id}>${audioTracks.name}</option>" + audioOptionHTMLString
         }
         designateAudioSelect.innerHTML = audioOptionHTMLString
-        designateAudioSelect.value = (player?.audioTracks?.node?.id ?: 0).toString()
+        designateAudioSelect.value = (Player.audioTracks.node?.id ?: 0).toString()
     }
 
     fun updateSubtitleInformation(){
         //顯示依家字幕Track選項
         var subtitleOptionHTMLString = ""
-        println(player?.subtitleTracks?.size)
-        for(subtitleTracks in player?.subtitleTracks?:ArrayLinkList<TrackDescription>()){
-            subtitleOptionHTMLString += "<option value=${subtitleTracks.id}>${subtitleTracks.name}</option>"
+        for(subtitleTracks in Player.subtitleTracks){
+            subtitleOptionHTMLString = "<option value=${subtitleTracks.id}>${subtitleTracks.name}</option>" + subtitleOptionHTMLString
         }
         designateSubtitleSelect.innerHTML = subtitleOptionHTMLString
-        designateSubtitleSelect.value = (player?.subtitleTracks?.node?.id ?: 0).toString()
+        designateSubtitleSelect.value = (Player.subtitleTracks.node?.id ?: 0).toString()
     }
 
     fun update(){
@@ -156,24 +155,24 @@ object VirtualRemote{
         designateChannelSelect.onchange     = fun(event){channels.designatedOfChannelNumber(designateChannelSelect.value.toInt())}
         designateChannelButton.onclick      = fun(event){channels.designatedOfChannelNumber(designateChannelInputText.value.toInt())}
         lastTimeChannelButton.onclick       = fun(event){channels.lastTime()}
-        nextVideoButton.onclick             = fun(event){player?.nextVideoTrack();VideoDescription.show(3000);window.history.pushState("12134","","")}
-        previousVideoButton.onclick         = fun(event){player?.previousVideoTrack();VideoDescription.show(3000);window.history.back()}
-        designateVideoSelect.onchange       = fun(event){player?.designatedVideoTrack(designateVideoSelect.value.toInt());VideoDescription.show(3000)}
-        nextAudioButton.onclick             = fun(event){player?.nextAudioTrack();AudioDescription.show(3000)}
-        previousAudioButton.onclick         = fun(event){player?.previousAudioTrack();AudioDescription.show(3000)}
-        designateAudioSelect.onchange       = fun(event){player?.designatedAudioTrack(designateAudioSelect.value.toInt());AudioDescription.show(3000)}
-        onHeadNextAudioButton.onclick       = fun(event){player?.nextAudioTrack();AudioDescription.show(3000)}
-        nextSubtitleButton.onclick          = fun(event){player?.nextSubtitleTrack();SubtitleDescription.show(3000)}
-        previousSubtitleButton.onclick      = fun(event){player?.previousSubtitleTrack();SubtitleDescription.show(3000)}
-        designateSubtitleSelect.onchange    = fun(event){player?.designatedSubtitleTrack(designateSubtitleSelect.value.toInt());SubtitleDescription.show(3000)}
-        onHeadNextSubtitleButton.onclick    = fun(event){player?.nextSubtitleTrack();SubtitleDescription.show(3000)}
+        nextVideoButton.onclick             = fun(event){Player.nextVideoTrack();VideoDescription.show(3000);window.history.pushState("12134","","")}
+        previousVideoButton.onclick         = fun(event){Player.previousVideoTrack();VideoDescription.show(3000);window.history.back()}
+        designateVideoSelect.onchange       = fun(event){Player.designatedVideoTrack(designateVideoSelect.value.toInt());VideoDescription.show(3000)}
+        nextAudioButton.onclick             = fun(event){Player.nextAudioTrack();AudioDescription.show(3000)}
+        previousAudioButton.onclick         = fun(event){Player.previousAudioTrack();AudioDescription.show(3000)}
+        designateAudioSelect.onchange       = fun(event){Player.designatedAudioTrack(designateAudioSelect.value.toInt());AudioDescription.show(3000)}
+        onHeadNextAudioButton.onclick       = fun(event){Player.nextAudioTrack();AudioDescription.show(3000)}
+        nextSubtitleButton.onclick          = fun(event){Player.nextSubtitleTrack();SubtitleDescription.show(3000)}
+        previousSubtitleButton.onclick      = fun(event){Player.previousSubtitleTrack();SubtitleDescription.show(3000)}
+        designateSubtitleSelect.onchange    = fun(event){Player.designatedSubtitleTrack(designateSubtitleSelect.value.toInt());SubtitleDescription.show(3000)}
+        onHeadNextSubtitleButton.onclick    = fun(event){Player.nextSubtitleTrack();SubtitleDescription.show(3000)}
         volumeMuteButton.onclick            = fun(event){Player.volumeMute.invoke()}
         volumeUpButton.onclick              = fun(event){Player.volumeUp.invoke()}
         volumeDownButton.onclick            = fun(event){Player.volumeDown.invoke()}
-        programmableRedButton.onclick       = fun(event){player?.programmable(Player.ProgrammableColor.red)}
-        programmableGreenButton.onclick     = fun(event){player?.programmable(Player.ProgrammableColor.green)}
-        programmableYellowButton.onclick    = fun(event){player?.programmable(Player.ProgrammableColor.yellow)}
-        programmableBlueButton.onclick      = fun(event){player?.programmable(Player.ProgrammableColor.blue)}
+        programmableRedButton.onclick       = fun(event){Player.programmable(Player.ProgrammableColor.red)}
+        programmableGreenButton.onclick     = fun(event){Player.programmable(Player.ProgrammableColor.green)}
+        programmableYellowButton.onclick    = fun(event){Player.programmable(Player.ProgrammableColor.yellow)}
+        programmableBlueButton.onclick      = fun(event){Player.programmable(Player.ProgrammableColor.blue)}
         number0Button.onclick               = fun(event){EnteringNumberBox.enter("0")}
         number1Button.onclick               = fun(event){EnteringNumberBox.enter("1")}
         number2Button.onclick               = fun(event){EnteringNumberBox.enter("2")}
@@ -185,7 +184,7 @@ object VirtualRemote{
         number8Button.onclick               = fun(event){EnteringNumberBox.enter("8")}
         number9Button.onclick               = fun(event){EnteringNumberBox.enter("9")}
         minusButton.onclick                 = fun(event){EnteringNumberBox.enter("-")}
-        refreshButton.onclick               = fun(event){channels.updatePlayer()}
+        refreshButton.onclick               = fun(event){Player.playChannel(channels.node?:Channel(0))}
         channelDescriptionButton.onclick    = fun(event){if(ChannelDescription.isShow){ChannelDescription.hide()}else{ChannelDescription.show(60000)}}
         aboutWindowButton.onclick           = fun(event){AboutWindow.showHideAlternately(null)}
         feedbackWebWindowButton.onclick     = fun(event){FeedbackWebWindow.showHideAlternately(null)}
@@ -330,16 +329,14 @@ object VirtualRemote{
         subtitleDescriptionButton.onclick   = fun(event){SubtitleDescription.show(5000)}
         volumeDescriptionButton.onclick     = fun(event){VolumeDescription.show(5000)}
         returnButton.onclick                = fun(event){UserInterface.hideAllUserInterface()}
-        println("vvv")
+
         update()
-        channels.addOnNodeEventListener(object: ArrayLinkList.OnNodeEventListener<Channel>{
-            override fun onNodeChanged(
-                    preChangeNodeID: Int?, postChangeNodeID: Int?,
-                    preChangeNode: Channel?, postChangeNode: Channel?
-            ) { update();println("uuuuu") }
-        })
-        channels.addOnElementsChangedListener(object: ArrayLinkList.OnElementsChangedListener{
-            override fun onElementsChanged() { update() }
+        Player.addOnPlayerEventListener(object : Player.OnPlayerEventListener {
+            override fun on(onPlayerEvent: Player.OnPlayerEvent) {
+                when (onPlayerEvent) {
+                    Player.OnPlayerEvent.playing -> { update() }
+                }
+            }
         })
     }
 }

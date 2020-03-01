@@ -230,35 +230,6 @@ fun ArrayLinkList<Channel>.changeToRecentlyWatchedChannel(){
 }
 
 /**
- * 刷新頻道
- */
-fun ArrayLinkList<Channel>.updatePlayer() {
-    player = Player(this.node?: Channel(0))
-    player?.addOnPlayerEventListener(object : Player.OnPlayerEventListener {
-        private var currentPlayer: Player? = null
-        private var isPlaying: Boolean = false
-        override fun on(onPlayerEvent: Player.OnPlayerEvent) {
-            when (onPlayerEvent) {
-                Player.OnPlayerEvent.playing -> {
-                    currentPlayer = player
-                    isPlaying = true
-                }
-                Player.OnPlayerEvent.notPlaying -> {
-                    isPlaying = false
-                    //檢查呢15秒內Player有冇再繼續正常播放,若冇就刷新Player
-                    window.setTimeout(fun() {
-                        if ((!isPlaying) && (player == currentPlayer)) {
-                            updatePlayer()
-                        }
-                    }, 15000)
-                }
-            }
-        }
-    })
-    player?.play()
-}
-
-/**
  * 頻道表
  * */
 val channels: ArrayLinkList<Channel> = {
@@ -268,7 +239,6 @@ val channels: ArrayLinkList<Channel> = {
                 preChangeNodeID: Int?, postChangeNodeID: Int?,
                 preChangeNode: Channel?, postChangeNode: Channel?
         ) {
-            println("cN")
             //儲存低返最近睇過嘅頻道
             localStorage.setItem("RecentlyWatchedChannel", postChangeNodeID.toString())
             //更新URL嘅channel參數
@@ -281,7 +251,8 @@ val channels: ArrayLinkList<Channel> = {
                     updateURLParameter("channel", postChangeNode.number.toString())
                 }
             }
-            channels.updatePlayer()
+            //將頻道播放
+            Player.playChannel(channels.node?: Channel(0))
         }
     })
     channels.addOnElementsChangedListener(object: ArrayLinkList.OnElementsChangedListener{
@@ -292,7 +263,6 @@ val channels: ArrayLinkList<Channel> = {
             localStorage.setItem("allChannels", "<channels>${channels.toXMLString()}</channels>")
         }
     })
-    println("ccc")
     channels.changeToRecentlyWatchedChannel()
     channels
 }()
