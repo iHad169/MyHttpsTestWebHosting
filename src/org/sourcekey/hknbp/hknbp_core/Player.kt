@@ -591,15 +591,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
      */
 
 
-    fun playChannel(channel: Channel){
-        playingChannel = channel
-        iframePlayer?.src =
-                "${playingChannel?.sources?.node?.iFramePlayerSrc?:"iframePlayer/videojs.html"}?" +
-                        "sourceSrc=${encodeURIComponent(playingChannel?.sources?.node?.getLinkOfHttpsGetAble()?:"")}"
-        watchingCounter = WatchingCounter(channel)
-    }
-
-
     private var listenIframePlayerScript = fun(event: dynamic){}
 
     private fun setListenIframePlayerMessage(){
@@ -644,6 +635,14 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                 )
             }
         }
+    }
+
+    fun playChannel(channel: Channel){
+        playingChannel = channel
+        iframePlayer?.src =
+                "${playingChannel?.sources?.node?.iFramePlayerSrc?:"iframePlayer/videojs.html"}?" +
+                        "sourceSrc=${encodeURIComponent(playingChannel?.sources?.node?.getLinkOfHttpsGetAble()?:"")}"
+        watchingCounter = WatchingCounter(channel)
     }
 
     init {

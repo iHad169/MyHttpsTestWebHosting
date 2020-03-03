@@ -2724,7 +2724,7 @@ var HKNBP_Core = function (_, Kotlin) {
     this.hide();
     var channelNumber = toIntOrNull(this.enteringMinus_0 + toString(this.enteringNumber_0));
     if (channelNumber != null) {
-      designatedChannel(channelNumber);
+      designatedOfChannelNumber(channels, channelNumber);
     }
     this.enteringNumber_0 = 0;
     this.enteringMinus_0 = '';
@@ -3359,7 +3359,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_6-test9';
+    return 'v2020.02_6-test10';
   }
   var coreVersion;
   var appVersion;
@@ -4172,15 +4172,6 @@ var HKNBP_Core = function (_, Kotlin) {
   Player.prototype.play = function () {
     this.callIframePlayerFunction_0('onSetIframePlayerPlay()');
   };
-  Player.prototype.playChannel_e3jjlp$ = function (channel) {
-    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7, tmp$_8, tmp$_9;
-    this.playingChannel_0 = channel;
-    tmp$_9 = this.iframePlayer_0;
-    tmp$_8 = ((tmp$_2 = (tmp$_1 = (tmp$_0 = (tmp$ = this.playingChannel_0) != null ? tmp$.sources : null) != null ? tmp$_0.node : null) != null ? tmp$_1.iFramePlayerSrc : null) != null ? tmp$_2 : 'iframePlayer/videojs.html') + '?';
-    tmp$_7 = 'sourceSrc=' + encodeURIComponent((tmp$_6 = (tmp$_5 = (tmp$_4 = (tmp$_3 = this.playingChannel_0) != null ? tmp$_3.sources : null) != null ? tmp$_4.node : null) != null ? tmp$_5.getLinkOfHttpsGetAble() : null) != null ? tmp$_6 : '');
-    tmp$_9 != null ? (tmp$_9.src = tmp$_8 + tmp$_7) : null;
-    this.watchingCounter_0 = new WatchingCounter(channel);
-  };
   function Player$setListenIframePlayerMessage$lambda(this$Player) {
     return function (event) {
       this$Player.listenIframePlayerScript_0(event);
@@ -4223,6 +4214,15 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   Player.prototype.setListenIframePlayerScript_0 = function () {
     this.listenIframePlayerScript_0 = Player$setListenIframePlayerScript$lambda(this);
+  };
+  Player.prototype.playChannel_e3jjlp$ = function (channel) {
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7, tmp$_8, tmp$_9;
+    this.playingChannel_0 = channel;
+    tmp$_9 = this.iframePlayer_0;
+    tmp$_8 = ((tmp$_2 = (tmp$_1 = (tmp$_0 = (tmp$ = this.playingChannel_0) != null ? tmp$.sources : null) != null ? tmp$_0.node : null) != null ? tmp$_1.iFramePlayerSrc : null) != null ? tmp$_2 : 'iframePlayer/videojs.html') + '?';
+    tmp$_7 = 'sourceSrc=' + encodeURIComponent((tmp$_6 = (tmp$_5 = (tmp$_4 = (tmp$_3 = this.playingChannel_0) != null ? tmp$_3.sources : null) != null ? tmp$_4.node : null) != null ? tmp$_5.getLinkOfHttpsGetAble() : null) != null ? tmp$_6 : '');
+    tmp$_9 != null ? (tmp$_9.src = tmp$_8 + tmp$_7) : null;
+    this.watchingCounter_0 = new WatchingCounter(channel);
   };
   function Player$videoTracks$lambda$ObjectLiteral() {
   }
