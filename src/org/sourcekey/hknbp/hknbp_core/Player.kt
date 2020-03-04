@@ -335,24 +335,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
         }
 
     /**
-     * 對IframePlayer音量值初始化
-     * */
-    private val iframePlayerVolumeInit = {
-        addOnPlayerEventListener(object : OnPlayerEventListener {
-            override fun on(onPlayerEvent: OnPlayerEvent) {
-                when (onPlayerEvent) {
-                    OnPlayerEvent.playing -> {
-                        //讀取最近設定音量再去設定IframePlayer音量,呢度唔直接用setMuted()係因為唔想每次轉頻道都顯示音量值
-                        callIframePlayerFunction("onSetIframePlayerVolume(${
-                        kotlinValueToEvalScriptUseableValue(volume)
-                        })")
-                    }
-                }
-            }
-        })
-    }()
-
-    /**
      * 設定iframePlayer嘅音量資訊
      *
      * 注:音量值用Double原因係因為有啲IframePlayer嘅音量值有小數
@@ -403,6 +385,24 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
         })
     }
 
+    /**
+     * 對IframePlayer音量值初始化
+     * */
+    private val iframePlayerVolumeInit = {
+        addOnPlayerEventListener(object : OnPlayerEventListener {
+            override fun on(onPlayerEvent: OnPlayerEvent) {
+                when (onPlayerEvent) {
+                    OnPlayerEvent.playing -> {
+                        //讀取最近設定音量再去設定IframePlayer音量,呢度唔直接用setMuted()係因為唔想每次轉頻道都顯示音量值
+                        callIframePlayerFunction("onSetIframePlayerVolume(${
+                        kotlinValueToEvalScriptUseableValue(volume)
+                        })")
+                    }
+                }
+            }
+        })
+    }()
+
 
     /**
      * 全局音量值
@@ -414,21 +414,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             localStorage.setItem("RecentlyMuted", muted.toString())//儲存低返最近設定音量
             field = value
         }
-
-    /**
-     * 對IframePlayer靜音值初始化
-     * */
-    private val iframePlayerMutedInit = {
-        addOnPlayerEventListener(object : OnPlayerEventListener {
-            override fun on(onPlayerEvent: OnPlayerEvent) {
-                when (onPlayerEvent) {
-                    OnPlayerEvent.playing -> {
-                        setMuted(muted)
-                    }
-                }
-            }
-        })
-    }()
 
     /**
      * 設定iframePlayer嘅靜音資訊
@@ -492,6 +477,21 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                 })
             }
         }
+
+    /**
+     * 對IframePlayer靜音值初始化
+     * */
+    private val iframePlayerMutedInit = {
+        addOnPlayerEventListener(object : OnPlayerEventListener {
+            override fun on(onPlayerEvent: OnPlayerEvent) {
+                when (onPlayerEvent) {
+                    OnPlayerEvent.playing -> {
+                        setMuted(muted)
+                    }
+                }
+            }
+        })
+    }()
 
 
     /**

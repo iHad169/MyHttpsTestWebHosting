@@ -3359,7 +3359,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.02_6-test10';
+    return 'v2020.03_0';
   }
   var coreVersion;
   var appVersion;
@@ -3730,13 +3730,16 @@ var HKNBP_Core = function (_, Kotlin) {
   };
   OfficialChannels.prototype.set_0 = function (needSetOfficialChannels) {
     var tmp$;
+    var needRemoveOfficialChannels = ArrayList_init();
     tmp$ = channels.iterator();
     while (tmp$.hasNext()) {
       var channel = tmp$.next();
+      println(channel.number.toString() + ' ' + (-1 < channel.number));
       if (-1 < channel.number) {
-        channels.remove_11rb$(channel);
+        needRemoveOfficialChannels.add_11rb$(channel);
       }
     }
+    channels.removeAll_brywnq$(needRemoveOfficialChannels);
     channels.addAll_brywnq$(needSetOfficialChannels);
   };
   function OfficialChannels$updateChannels$lambda(this$OfficialChannels) {
@@ -3804,12 +3807,12 @@ var HKNBP_Core = function (_, Kotlin) {
     this.subtitleTracks_my27pv$_0 = Player$subtitleTracks$lambda(this)();
     var tmp$_0, tmp$_1, tmp$_2, tmp$_3;
     this.volume_qn3165$_0 = (tmp$_1 = (tmp$_0 = localStorage.getItem('RecentlyVolume')) != null ? toDoubleOrNull(tmp$_0) : null) != null ? tmp$_1 : 100.0;
-    this.iframePlayerVolumeInit_0 = Player$iframePlayerVolumeInit$lambda(this)();
     this.volumeUp = Player$volumeUp$lambda(this);
     this.volumeDown = Player$volumeDown$lambda(this);
+    this.iframePlayerVolumeInit_0 = Player$iframePlayerVolumeInit$lambda(this)();
     this.muted_u89vz8$_0 = (tmp$_3 = (tmp$_2 = localStorage.getItem('RecentlyMuted')) != null ? toBoolean(tmp$_2) : null) != null ? tmp$_3 : false;
-    this.iframePlayerMutedInit_0 = Player$iframePlayerMutedInit$lambda(this)();
     this.volumeMute_mj46gq$_0 = Player$volumeMute$lambda(this);
+    this.iframePlayerMutedInit_0 = Player$iframePlayerMutedInit$lambda(this)();
     this.onPlaying_0 = Player$onPlaying$lambda(this);
     this.onNotPlaying_0 = Player$onNotPlaying$lambda(this);
     this.listenIframePlayerScript_0 = Player$listenIframePlayerScript$lambda;
@@ -4353,22 +4356,6 @@ var HKNBP_Core = function (_, Kotlin) {
       return ArrayLinkList_init([new TrackDescription(-5, '-------')]);
     };
   }
-  function Player$iframePlayerVolumeInit$lambda$ObjectLiteral() {
-  }
-  Player$iframePlayerVolumeInit$lambda$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
-    if (equals(onPlayerEvent, Player$OnPlayerEvent$playing_getInstance()))
-      Player_getInstance().callIframePlayerFunction_0('onSetIframePlayerVolume(' + Player_getInstance().kotlinValueToEvalScriptUseableValue_0(Player_getInstance().volume_0) + ')');
-  };
-  Player$iframePlayerVolumeInit$lambda$ObjectLiteral.$metadata$ = {
-    kind: Kind_CLASS,
-    interfaces: [Player$OnPlayerEventListener]
-  };
-  function Player$iframePlayerVolumeInit$lambda(this$Player) {
-    return function () {
-      this$Player.addOnPlayerEventListener_j8fzjz$(new Player$iframePlayerVolumeInit$lambda$ObjectLiteral());
-      return Unit;
-    };
-  }
   function Player$volumeUp$lambda$lambda(this$Player) {
     return function (volume) {
       this$Player.setVolume_14dthe$(volume + 1.0);
@@ -4389,6 +4376,32 @@ var HKNBP_Core = function (_, Kotlin) {
       this$Player.getVolume_huw4wd$(Player$volumeDown$lambda$lambda(this$Player));
     };
   }
+  function Player$iframePlayerVolumeInit$lambda$ObjectLiteral() {
+  }
+  Player$iframePlayerVolumeInit$lambda$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
+    if (equals(onPlayerEvent, Player$OnPlayerEvent$playing_getInstance()))
+      Player_getInstance().callIframePlayerFunction_0('onSetIframePlayerVolume(' + Player_getInstance().kotlinValueToEvalScriptUseableValue_0(Player_getInstance().volume_0) + ')');
+  };
+  Player$iframePlayerVolumeInit$lambda$ObjectLiteral.$metadata$ = {
+    kind: Kind_CLASS,
+    interfaces: [Player$OnPlayerEventListener]
+  };
+  function Player$iframePlayerVolumeInit$lambda(this$Player) {
+    return function () {
+      this$Player.addOnPlayerEventListener_j8fzjz$(new Player$iframePlayerVolumeInit$lambda$ObjectLiteral());
+      return Unit;
+    };
+  }
+  function Player$volumeMute$lambda$lambda(this$Player) {
+    return function (muted) {
+      this$Player.setMuted_6taknv$(!muted);
+    };
+  }
+  function Player$volumeMute$lambda(this$Player) {
+    return function () {
+      this$Player.getMuted_y8twos$(Player$volumeMute$lambda$lambda(this$Player));
+    };
+  }
   function Player$iframePlayerMutedInit$lambda$ObjectLiteral() {
   }
   Player$iframePlayerMutedInit$lambda$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
@@ -4403,16 +4416,6 @@ var HKNBP_Core = function (_, Kotlin) {
     return function () {
       this$Player.addOnPlayerEventListener_j8fzjz$(new Player$iframePlayerMutedInit$lambda$ObjectLiteral());
       return Unit;
-    };
-  }
-  function Player$volumeMute$lambda$lambda(this$Player) {
-    return function (muted) {
-      this$Player.setMuted_6taknv$(!muted);
-    };
-  }
-  function Player$volumeMute$lambda(this$Player) {
-    return function () {
-      this$Player.getMuted_y8twos$(Player$volumeMute$lambda$lambda(this$Player));
     };
   }
   function Player$onPlaying$lambda(this$Player) {
@@ -5606,12 +5609,10 @@ var HKNBP_Core = function (_, Kotlin) {
   function VirtualRemote_init$lambda_6(event) {
     Player_getInstance().nextVideoTrack();
     VideoDescription_getInstance().show_s8ev37$(3000);
-    window.history.pushState('12134', '', '');
   }
   function VirtualRemote_init$lambda_7(event) {
     Player_getInstance().previousVideoTrack();
     VideoDescription_getInstance().show_s8ev37$(3000);
-    window.history.back();
   }
   function VirtualRemote_init$lambda_8(this$VirtualRemote) {
     return function (event) {

@@ -29,11 +29,14 @@ object OfficialChannels {
     }
 
     private fun set(needSetOfficialChannels: ArrayList<Channel>) {
+        //刪除舊有OfficialChannels
+        val needRemoveOfficialChannels = ArrayList<Channel>()
         for(channel in channels){
-            if(-1 < channel.number){
-                channels.remove(channel)
-            }
+            println("${channel.number} ${-1 < channel.number}")
+            if(-1 < channel.number){ needRemoveOfficialChannels.add(channel) }
         }
+        channels.removeAll(needRemoveOfficialChannels)
+        //加入最新OfficialChannels
         channels.addAll(needSetOfficialChannels)
     }
 
