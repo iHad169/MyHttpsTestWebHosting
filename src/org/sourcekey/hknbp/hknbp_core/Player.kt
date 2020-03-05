@@ -655,16 +655,13 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                     }
                     OnPlayerEvent.notPlaying -> {
                         isPlaying = false
-                        //當播放器停止左5秒就顯示訊號差嘅提示
+                        //檢查呢15秒內Player有冇再繼續正常播放,若冇就ReLoad
                         window.setTimeout(fun() {
                             if (!isPlaying) {
-                                PromptBox.promptMessage("訊號接收不良")
-                            }
-                        }, 5000)
-                        //檢查呢15秒內Player有冇再繼續正常播放,若冇就刷新Player
-                        window.setTimeout(fun() {
-                            if (!isPlaying) {
+                                //ReLoad
                                 playChannel(playingChannel?:Channel(0))
+                                //顯示訊號差嘅提示
+                                PromptBox.promptMessage("訊號接收不良")
                             }
                         }, 15000)
                     }

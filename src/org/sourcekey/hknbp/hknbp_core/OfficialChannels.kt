@@ -32,7 +32,6 @@ object OfficialChannels {
         //刪除舊有OfficialChannels
         val needRemoveOfficialChannels = ArrayList<Channel>()
         for(channel in channels){
-            println("${channel.number} ${-1 < channel.number}")
             if(-1 < channel.number){ needRemoveOfficialChannels.add(channel) }
         }
         channels.removeAll(needRemoveOfficialChannels)
