@@ -445,7 +445,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang        = getLang(subElement)
-                val displayName = subElement?.innerHTML
+                val displayName = subElement?.textContent
 
                 if(displayName != null){multiLangDisplayName.add(LanguageString(lang?:"", displayName))}
                 i++
@@ -491,7 +491,7 @@ open class XMLTV(
             while(i < subElements.length) {
                 val subElement = subElements.get(i)
 
-                val url = subElement?.innerHTML
+                val url = subElement?.textContent
 
                 if(url != null){ urls.add(url) }
                 i++
@@ -597,7 +597,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang  = getLang(subElement)
-                val title = subElement?.innerHTML
+                val title = subElement?.textContent
 
                 if(title != null){multiLangTitle.add(LanguageString(lang?:"", title))}
                 i++
@@ -617,7 +617,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang        = getLang(subElement)
-                val subTitle    = subElement?.innerHTML
+                val subTitle    = subElement?.textContent
 
                 if(subTitle != null){multiLangSubTitle.add(LanguageString(lang?:"", subTitle))}
                 i++
@@ -637,7 +637,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang    = getLang(subElement)
-                val desc    = subElement?.innerHTML
+                val desc    = subElement?.textContent
 
                 if(desc != null){multiLangDesc.add(LanguageString(lang?:"", desc))}
                 i++
@@ -674,7 +674,7 @@ open class XMLTV(
             while(i < subElements.length) {
                 val subElement = subElements.get(i)
 
-                val director = subElement?.innerHTML
+                val director = subElement?.textContent
 
                 if(director != null){ directors.add(director) }
                 i++
@@ -694,7 +694,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val role = getRole(subElement)
-                val actor = subElement?.innerHTML
+                val actor = subElement?.textContent
 
                 actors.add(Programme.Credits.Actor(role, actor))
                 i++
@@ -717,7 +717,7 @@ open class XMLTV(
             while(i < subElements.length) {
                 val subElement = subElements.get(i)
 
-                val writer = subElement?.innerHTML
+                val writer = subElement?.textContent
 
                 if(writer != null){ writers.add(writer) }
                 i++
@@ -736,7 +736,7 @@ open class XMLTV(
             while(i < subElements.length) {
                 val subElement = subElements.get(i)
 
-                val adapter = subElement?.innerHTML
+                val adapter = subElement?.textContent
 
                 if(adapter != null){ adapters.add(adapter) }
                 i++
@@ -755,7 +755,7 @@ open class XMLTV(
             while(i < subElements.length) {
                 val subElement = subElements.get(i)
 
-                val producer = subElement?.innerHTML
+                val producer = subElement?.textContent
 
                 if(producer != null){ producers.add(producer) }
                 i++
@@ -774,7 +774,7 @@ open class XMLTV(
             while(i < subElements.length) {
                 val subElement = subElements.get(i)
 
-                val composer = subElement?.innerHTML
+                val composer = subElement?.textContent
 
                 if(composer != null){ composers.add(composer) }
                 i++
@@ -793,7 +793,7 @@ open class XMLTV(
             while(i < subElements.length) {
                 val subElement = subElements.get(i)
 
-                val editor = subElement?.innerHTML
+                val editor = subElement?.textContent
 
                 if(editor != null){ editors.add(editor) }
                 i++
@@ -812,7 +812,7 @@ open class XMLTV(
             while(i < subElements.length) {
                 val subElement = subElements.get(i)
 
-                val presenter = subElement?.innerHTML
+                val presenter = subElement?.textContent
 
                 if(presenter != null){ presenters.add(presenter) }
                 i++
@@ -831,7 +831,7 @@ open class XMLTV(
             while(i < subElements.length) {
                 val subElement = subElements.get(i)
 
-                val commentator = subElement?.innerHTML
+                val commentator = subElement?.textContent
 
                 if(commentator != null){ commentators.add(commentator) }
                 i++
@@ -850,7 +850,7 @@ open class XMLTV(
             while(i < subElements.length) {
                 val subElement = subElements.get(i)
 
-                val guest = subElement?.innerHTML
+                val guest = subElement?.textContent
 
                 if(guest != null){ guests.add(guest) }
                 i++
@@ -860,7 +860,7 @@ open class XMLTV(
         }
 
         private fun getDate(element: Element?): String?{
-            return element?.getElementsByTagName("date")?.get(0)?.innerHTML
+            return element?.getElementsByTagName("date")?.get(0)?.textContent
         }
 
         private fun getCategory(element: Element?): MultiLanguageString?{
@@ -874,7 +874,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang = getLang(subElement)
-                val category = subElement?.innerHTML
+                val category = subElement?.textContent
 
                 if(category != null){multiLangCategory.add(LanguageString(lang?:"", category))}
                 i++
@@ -894,7 +894,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang = getLang(subElement)
-                val keyword = subElement?.innerHTML
+                val keyword = subElement?.textContent
 
                 if(keyword != null){multiLangKeyword.add(LanguageString(lang?:"", keyword))}
                 i++
@@ -914,7 +914,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang = getLang(subElement)
-                val language = subElement?.innerHTML
+                val language = subElement?.textContent
 
                 if(language != null){multiLangLanguage.add(LanguageString(lang?:"", language))}
                 i++
@@ -934,7 +934,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang = getLang(subElement)
-                val origLanguage = subElement?.innerHTML
+                val origLanguage = subElement?.textContent
 
                 if(origLanguage != null){multiLangOrigLanguage.add(LanguageString(lang?:"", origLanguage))}
                 i++
@@ -949,7 +949,7 @@ open class XMLTV(
 
             return Programme.Length(
                     getUnits(subElements.get(0)),
-                    subElements.get(0)?.innerHTML
+                    subElements.get(0)?.textContent
             )
         }
 
@@ -968,7 +968,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang = getLang(subElement)
-                val country = element?.getElementsByTagName("wcountry").get(i)?.innerHTML
+                val country = element?.getElementsByTagName("wcountry").get(i)?.textContent
 
                 if(country != null){multiLangCountry.add(LanguageString(lang?:"", country))}
                 i++
@@ -983,7 +983,7 @@ open class XMLTV(
 
             return Programme.EpisodeNum(
                     getSystem(subElements.get(0)),
-                    subElements.get(0)?.innerHTML
+                    subElements.get(0)?.textContent
             )
         }
 
@@ -1004,19 +1004,19 @@ open class XMLTV(
         }
 
         private fun getPresent(element: Element?): String?{
-            return element?.getElementsByTagName("present")?.get(0)?.innerHTML
+            return element?.getElementsByTagName("present")?.get(0)?.textContent
         }
 
         private fun getColour(element: Element?): String?{
-            return element?.getElementsByTagName("colour")?.get(0)?.innerHTML
+            return element?.getElementsByTagName("colour")?.get(0)?.textContent
         }
 
         private fun getAspect(element: Element?): String?{
-            return element?.getElementsByTagName("aspect")?.get(0)?.innerHTML
+            return element?.getElementsByTagName("aspect")?.get(0)?.textContent
         }
 
         private fun getQuality(element: Element?): String?{
-            return element?.getElementsByTagName("quality")?.get(0)?.innerHTML
+            return element?.getElementsByTagName("quality")?.get(0)?.textContent
         }
 
         private fun getAudio(element: Element?): Programme.Audio?{
@@ -1030,7 +1030,7 @@ open class XMLTV(
         }
 
         private fun getStereo(element: Element?): String?{
-            return element?.getElementsByTagName("stereo")?.get(0)?.innerHTML
+            return element?.getElementsByTagName("stereo")?.get(0)?.textContent
         }
 
         private fun getPreviouslyShown(element: Element?): Programme.PreviouslyShown?{
@@ -1044,7 +1044,7 @@ open class XMLTV(
         }
 
         private fun getChannel(element: Element?): String?{
-            return element?.getElementsByTagName("channel")?.get(0)?.innerHTML
+            return element?.getElementsByTagName("channel")?.get(0)?.textContent
         }
 
         private fun getPremiere(element: Element?): MultiLanguageString?{
@@ -1058,7 +1058,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang = getLang(subElement)
-                val premiere = subElement?.innerHTML
+                val premiere = subElement?.textContent
 
                 if(premiere != null){multiLangPremiere.add(LanguageString(lang?:"", premiere))}
                 i++
@@ -1078,7 +1078,7 @@ open class XMLTV(
                 val subElement = subElements.get(i)
 
                 val lang = getLang(subElement)
-                val lastChance = subElement?.innerHTML
+                val lastChance = subElement?.textContent
 
                 if(lastChance != null){multiLangLastChance.add(LanguageString(lang?:"", lastChance))}
                 i++
@@ -1148,7 +1148,7 @@ open class XMLTV(
                 val source = getSource(subElement)
                 val reviewer = getReviewer(subElement)
                 val lang = getLang(subElement)
-                val review = subElement?.innerHTML
+                val review = subElement?.textContent
 
                 if(type != null){multiLangType.add(LanguageString(lang?:"", type))}
                 if(source != null){multiLangSource.add(LanguageString(lang?:"", source))}

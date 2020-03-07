@@ -892,8 +892,12 @@ if (typeof kotlin === 'undefined') {
       if (tmp$ == null) {
         break;
       }var nameElement = tmp$;
+      println('nameElement ' + nameElement);
+      println('nameElement.innerHTML ' + nameElement.innerHTML);
+      println('nameElement.textContent ' + toString(nameElement.textContent));
+      println('nameElement.nodeValue ' + toString(nameElement.nodeValue));
       var lang = (tmp$_0 = nameElement.getAttribute('lang')) != null ? tmp$_0 : '';
-      var name = (tmp$_1 = nameElement.innerHTML) != null ? tmp$_1 : '';
+      var name = (tmp$_1 = nameElement.textContent) != null ? tmp$_1 : '';
       multiLangName.add_11rb$(new MultiLanguageString$LanguageString(lang, name));
       i = i + 1 | 0;
     }
@@ -988,13 +992,8 @@ if (typeof kotlin === 'undefined') {
     Player_getInstance().addOnPlayerEventListener_j8fzjz$(new ChannelDescription_init$ObjectLiteral_0());
   }
   ChannelDescription.prototype.setCurrentChannelName_0 = function () {
-    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5;
-    println('channels ' + channels);
-    println('channels.node ' + toString(channels.node));
-    println('channels.node?.name ' + toString((tmp$ = channels.node) != null ? tmp$.name : null));
-    println('(channels.node?.name?:' + '"' + '"' + ') ' + ((tmp$_1 = (tmp$_0 = channels.node) != null ? tmp$_0.name : null) != null ? tmp$_1 : '').toString());
-    println('(channels.node?.name?:' + '"' + '"' + ').toString() ' + ((tmp$_3 = (tmp$_2 = channels.node) != null ? tmp$_2.name : null) != null ? tmp$_3 : '').toString());
-    this.currentChannelName_0.innerHTML = ((tmp$_5 = (tmp$_4 = channels.node) != null ? tmp$_4.name : null) != null ? tmp$_5 : '').toString();
+    var tmp$, tmp$_0;
+    this.currentChannelName_0.innerHTML = ((tmp$_0 = (tmp$ = channels.node) != null ? tmp$.name : null) != null ? tmp$_0 : '').toString();
   };
   ChannelDescription.prototype.setCurrentChannelNumber_0 = function () {
     var tmp$, tmp$_0, tmp$_1;
@@ -3188,7 +3187,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_3-test4';
+    return 'v2020.03_3-test5';
   }
   var coreVersion;
   var appVersion;
@@ -6522,7 +6521,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var displayName = subElement != null ? subElement.innerHTML : null;
+      var displayName = subElement != null ? subElement.textContent : null;
       if (displayName != null) {
         multiLangDisplayName.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', displayName));
       }i = i + 1 | 0;
@@ -6557,7 +6556,7 @@ if (typeof kotlin === 'undefined') {
     var i = 0;
     while (i < subElements.length) {
       var subElement = subElements[i];
-      var url = subElement != null ? subElement.innerHTML : null;
+      var url = subElement != null ? subElement.textContent : null;
       if (url != null) {
         urls.add_11rb$(url);
       }i = i + 1 | 0;
@@ -6647,7 +6646,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var title = subElement != null ? subElement.innerHTML : null;
+      var title = subElement != null ? subElement.textContent : null;
       if (title != null) {
         multiLangTitle.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', title));
       }i = i + 1 | 0;
@@ -6663,7 +6662,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var subTitle = subElement != null ? subElement.innerHTML : null;
+      var subTitle = subElement != null ? subElement.textContent : null;
       if (subTitle != null) {
         multiLangSubTitle.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', subTitle));
       }i = i + 1 | 0;
@@ -6679,7 +6678,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var desc = subElement != null ? subElement.innerHTML : null;
+      var desc = subElement != null ? subElement.textContent : null;
       if (desc != null) {
         multiLangDesc.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', desc));
       }i = i + 1 | 0;
@@ -6700,7 +6699,7 @@ if (typeof kotlin === 'undefined') {
     var i = 0;
     while (i < subElements.length) {
       var subElement = subElements[i];
-      var director = subElement != null ? subElement.innerHTML : null;
+      var director = subElement != null ? subElement.textContent : null;
       if (director != null) {
         directors.add_11rb$(director);
       }i = i + 1 | 0;
@@ -6716,7 +6715,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var role = this.getRole_0(subElement);
-      var actor = subElement != null ? subElement.innerHTML : null;
+      var actor = subElement != null ? subElement.textContent : null;
       actors.add_11rb$(new XMLTV$Programme$Credits$Actor(role, actor));
       i = i + 1 | 0;
     }
@@ -6733,7 +6732,7 @@ if (typeof kotlin === 'undefined') {
     var i = 0;
     while (i < subElements.length) {
       var subElement = subElements[i];
-      var writer = subElement != null ? subElement.innerHTML : null;
+      var writer = subElement != null ? subElement.textContent : null;
       if (writer != null) {
         writers.add_11rb$(writer);
       }i = i + 1 | 0;
@@ -6748,7 +6747,7 @@ if (typeof kotlin === 'undefined') {
     var i = 0;
     while (i < subElements.length) {
       var subElement = subElements[i];
-      var adapter = subElement != null ? subElement.innerHTML : null;
+      var adapter = subElement != null ? subElement.textContent : null;
       if (adapter != null) {
         adapters.add_11rb$(adapter);
       }i = i + 1 | 0;
@@ -6763,7 +6762,7 @@ if (typeof kotlin === 'undefined') {
     var i = 0;
     while (i < subElements.length) {
       var subElement = subElements[i];
-      var producer = subElement != null ? subElement.innerHTML : null;
+      var producer = subElement != null ? subElement.textContent : null;
       if (producer != null) {
         producers.add_11rb$(producer);
       }i = i + 1 | 0;
@@ -6778,7 +6777,7 @@ if (typeof kotlin === 'undefined') {
     var i = 0;
     while (i < subElements.length) {
       var subElement = subElements[i];
-      var composer = subElement != null ? subElement.innerHTML : null;
+      var composer = subElement != null ? subElement.textContent : null;
       if (composer != null) {
         composers.add_11rb$(composer);
       }i = i + 1 | 0;
@@ -6793,7 +6792,7 @@ if (typeof kotlin === 'undefined') {
     var i = 0;
     while (i < subElements.length) {
       var subElement = subElements[i];
-      var editor = subElement != null ? subElement.innerHTML : null;
+      var editor = subElement != null ? subElement.textContent : null;
       if (editor != null) {
         editors.add_11rb$(editor);
       }i = i + 1 | 0;
@@ -6808,7 +6807,7 @@ if (typeof kotlin === 'undefined') {
     var i = 0;
     while (i < subElements.length) {
       var subElement = subElements[i];
-      var presenter = subElement != null ? subElement.innerHTML : null;
+      var presenter = subElement != null ? subElement.textContent : null;
       if (presenter != null) {
         presenters.add_11rb$(presenter);
       }i = i + 1 | 0;
@@ -6823,7 +6822,7 @@ if (typeof kotlin === 'undefined') {
     var i = 0;
     while (i < subElements.length) {
       var subElement = subElements[i];
-      var commentator = subElement != null ? subElement.innerHTML : null;
+      var commentator = subElement != null ? subElement.textContent : null;
       if (commentator != null) {
         commentators.add_11rb$(commentator);
       }i = i + 1 | 0;
@@ -6838,7 +6837,7 @@ if (typeof kotlin === 'undefined') {
     var i = 0;
     while (i < subElements.length) {
       var subElement = subElements[i];
-      var guest = subElement != null ? subElement.innerHTML : null;
+      var guest = subElement != null ? subElement.textContent : null;
       if (guest != null) {
         guests.add_11rb$(guest);
       }i = i + 1 | 0;
@@ -6847,7 +6846,7 @@ if (typeof kotlin === 'undefined') {
   };
   XMLTV$Companion.prototype.getDate_0 = function (element) {
     var tmp$, tmp$_0;
-    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('date') : null) != null ? tmp$[0] : null) != null ? tmp$_0.innerHTML : null;
+    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('date') : null) != null ? tmp$[0] : null) != null ? tmp$_0.textContent : null;
   };
   XMLTV$Companion.prototype.getCategory_0 = function (element) {
     var subElements = element != null ? element.getElementsByTagName('category') : null;
@@ -6858,7 +6857,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var category = subElement != null ? subElement.innerHTML : null;
+      var category = subElement != null ? subElement.textContent : null;
       if (category != null) {
         multiLangCategory.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', category));
       }i = i + 1 | 0;
@@ -6874,7 +6873,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var keyword = subElement != null ? subElement.innerHTML : null;
+      var keyword = subElement != null ? subElement.textContent : null;
       if (keyword != null) {
         multiLangKeyword.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', keyword));
       }i = i + 1 | 0;
@@ -6890,7 +6889,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var language = subElement != null ? subElement.innerHTML : null;
+      var language = subElement != null ? subElement.textContent : null;
       if (language != null) {
         multiLangLanguage.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', language));
       }i = i + 1 | 0;
@@ -6906,7 +6905,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var origLanguage = subElement != null ? subElement.innerHTML : null;
+      var origLanguage = subElement != null ? subElement.textContent : null;
       if (origLanguage != null) {
         multiLangOrigLanguage.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', origLanguage));
       }i = i + 1 | 0;
@@ -6918,7 +6917,7 @@ if (typeof kotlin === 'undefined') {
     var subElements = element != null ? element.getElementsByTagName('length') : null;
     if (subElements == null || subElements.length < 1) {
       return null;
-    }return new XMLTV$Programme$Length(this.getUnits_0(subElements[0]), (tmp$ = subElements[0]) != null ? tmp$.innerHTML : null);
+    }return new XMLTV$Programme$Length(this.getUnits_0(subElements[0]), (tmp$ = subElements[0]) != null ? tmp$.textContent : null);
   };
   XMLTV$Companion.prototype.getUnits_0 = function (element) {
     return element != null ? element.getAttribute('units') : null;
@@ -6933,7 +6932,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var country = (tmp$ = (element != null ? element.getElementsByTagName('wcountry') : null)[i]) != null ? tmp$.innerHTML : null;
+      var country = (tmp$ = (element != null ? element.getElementsByTagName('wcountry') : null)[i]) != null ? tmp$.textContent : null;
       if (country != null) {
         multiLangCountry.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', country));
       }i = i + 1 | 0;
@@ -6945,7 +6944,7 @@ if (typeof kotlin === 'undefined') {
     var subElements = element != null ? element.getElementsByTagName('episode-num') : null;
     if (subElements == null || subElements.length < 1) {
       return null;
-    }return new XMLTV$Programme$EpisodeNum(this.getSystem_0(subElements[0]), (tmp$ = subElements[0]) != null ? tmp$.innerHTML : null);
+    }return new XMLTV$Programme$EpisodeNum(this.getSystem_0(subElements[0]), (tmp$ = subElements[0]) != null ? tmp$.textContent : null);
   };
   XMLTV$Companion.prototype.getSystem_0 = function (element) {
     return element != null ? element.getAttribute('system') : null;
@@ -6958,19 +6957,19 @@ if (typeof kotlin === 'undefined') {
   };
   XMLTV$Companion.prototype.getPresent_0 = function (element) {
     var tmp$, tmp$_0;
-    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('present') : null) != null ? tmp$[0] : null) != null ? tmp$_0.innerHTML : null;
+    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('present') : null) != null ? tmp$[0] : null) != null ? tmp$_0.textContent : null;
   };
   XMLTV$Companion.prototype.getColour_0 = function (element) {
     var tmp$, tmp$_0;
-    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('colour') : null) != null ? tmp$[0] : null) != null ? tmp$_0.innerHTML : null;
+    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('colour') : null) != null ? tmp$[0] : null) != null ? tmp$_0.textContent : null;
   };
   XMLTV$Companion.prototype.getAspect_0 = function (element) {
     var tmp$, tmp$_0;
-    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('aspect') : null) != null ? tmp$[0] : null) != null ? tmp$_0.innerHTML : null;
+    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('aspect') : null) != null ? tmp$[0] : null) != null ? tmp$_0.textContent : null;
   };
   XMLTV$Companion.prototype.getQuality_0 = function (element) {
     var tmp$, tmp$_0;
-    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('quality') : null) != null ? tmp$[0] : null) != null ? tmp$_0.innerHTML : null;
+    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('quality') : null) != null ? tmp$[0] : null) != null ? tmp$_0.textContent : null;
   };
   XMLTV$Companion.prototype.getAudio_0 = function (element) {
     var subElements = element != null ? element.getElementsByTagName('audio') : null;
@@ -6980,7 +6979,7 @@ if (typeof kotlin === 'undefined') {
   };
   XMLTV$Companion.prototype.getStereo_0 = function (element) {
     var tmp$, tmp$_0;
-    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('stereo') : null) != null ? tmp$[0] : null) != null ? tmp$_0.innerHTML : null;
+    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('stereo') : null) != null ? tmp$[0] : null) != null ? tmp$_0.textContent : null;
   };
   XMLTV$Companion.prototype.getPreviouslyShown_0 = function (element) {
     var subElements = element != null ? element.getElementsByTagName('previously-shown') : null;
@@ -6990,7 +6989,7 @@ if (typeof kotlin === 'undefined') {
   };
   XMLTV$Companion.prototype.getChannel_0 = function (element) {
     var tmp$, tmp$_0;
-    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('channel') : null) != null ? tmp$[0] : null) != null ? tmp$_0.innerHTML : null;
+    return (tmp$_0 = (tmp$ = element != null ? element.getElementsByTagName('channel') : null) != null ? tmp$[0] : null) != null ? tmp$_0.textContent : null;
   };
   XMLTV$Companion.prototype.getPremiere_0 = function (element) {
     var subElements = element != null ? element.getElementsByTagName('premiere') : null;
@@ -7001,7 +7000,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var premiere = subElement != null ? subElement.innerHTML : null;
+      var premiere = subElement != null ? subElement.textContent : null;
       if (premiere != null) {
         multiLangPremiere.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', premiere));
       }i = i + 1 | 0;
@@ -7017,7 +7016,7 @@ if (typeof kotlin === 'undefined') {
     while (i < subElements.length) {
       var subElement = subElements[i];
       var lang = this.getLang_0(subElement);
-      var lastChance = subElement != null ? subElement.innerHTML : null;
+      var lastChance = subElement != null ? subElement.textContent : null;
       if (lastChance != null) {
         multiLangLastChance.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', lastChance));
       }i = i + 1 | 0;
@@ -7067,7 +7066,7 @@ if (typeof kotlin === 'undefined') {
       var source = this.getSource_0(subElement);
       var reviewer = this.getReviewer_0(subElement);
       var lang = this.getLang_0(subElement);
-      var review = subElement != null ? subElement.innerHTML : null;
+      var review = subElement != null ? subElement.textContent : null;
       if (type != null) {
         multiLangType.add_11rb$(new MultiLanguageString$LanguageString(lang != null ? lang : '', type));
       }if (source != null) {
