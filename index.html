@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <!--
-  ~ HKNBP_Core is free software: you can redistribute it and/or modify
+  ~ HKNBP_Core is free software:you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
@@ -60,169 +60,169 @@
 
     <style type="text/css">
     ::cue{
-      background: rgba(0, 0, 0, 0);
+      background:rgba(0, 0, 0, 0);
     }
     #epg div{
-      text-align: left;
+      text-align:left;
     }
     #shareWindowShareButtonList a{
-        padding: 0vh;
-        margin: 0vh;
+        padding:0vh;
+        margin:0vh;
     }
     #shareWindowShareButtonList a img{
         width:10vh; height:10vh;
     }
     #virtualRemote div{
       //display:inline;
-      //border: 1vh solid red;
-      margin: auto;
-      padding: 0.7vh;
-      text-align: center;
-      vertical-align: middle;
+      //border:1vh solid red;
+      margin:auto;
+      padding:0.7vh;
+      text-align:center;
+      vertical-align:middle;
     }
     .nestle-bottom{
-      margin-bottom: 0vh;
-      padding-bottom: 0vh;
+      margin-bottom:0vh;
+      padding-bottom:0vh;
     }
     .nestle-top{
-      margin-top: 0vh;
-      padding-top: 0vh;
+      margin-top:0vh;
+      padding-top:0vh;
     }
     button.normal{
-      font-size: 6vh;
+      font-size:6vh;
     }
     button.small{
-      font-size: 4vh;
-      margin: 1vh;
-      padding: 1vh;
-      width: auto;
+      font-size:4vh;
+      margin:1vh;
+      padding:1vh;
+      width:auto;
     }
     button.fourRow{
-      font-size: 3.5vh;
+      font-size:3.5vh;
       height:5vh;
     }
     a{
-        color: #FFF;
+        color:#FFF;
     }
 
     div{
-      text-align: center;
-      vertical-align: middle;
-      overflow: hidden;
+      text-align:center;
+      vertical-align:middle;
+      overflow:hidden;
     }
     .center{
       min-width:0vh;
-      display: table-cell;
-      text-align: center;
-      vertical-align: middle;
-      white-space: nowrap;
+      display:table-cell;
+      text-align:center;
+      vertical-align:middle;
+      white-space:nowrap;
     }
     .absoluteTopLeft{
-        position: absolute;
+        position:absolute;
         top:0; left:0;
     }
     .absoluteTop{
-        position: absolute;
+        position:absolute;
         top:0; left:50%;
-        transform: translate(-50%, 0);
+        transform:translate(-50%, 0);
     }
     .absoluteTopRight{
-        position: absolute;
+        position:absolute;
         top:0; right:0;
     }
     .absoluteLeft{
-        position: absolute;
+        position:absolute;
         top:50%; left:0;
-        transform: translate(0, -50%);
+        transform:translate(0, -50%);
     }
     .contentCenter{
-        //position: absolute;
+        //position:absolute;
         //top:50%; left:50%;
-        //transform: translate(-50%, -50%);
-        display:flex;
+        //transform:translate(-50%, -50%);
+        display:flex;display:-webkit-box;
         align-items:center;
         justify-content:center;
     }
     .absoluteRight{
-        position: absolute;
+        position:absolute;
         top:50%; right:0;
-        transform: translate(0, -50%);
+        transform:translate(0, -50%);
     }
     .absoluteBottomLeft{
-        position: absolute;
+        position:absolute;
         Bottom:0; left:0;
     }
     .absoluteBottom{
-        position: absolute;
+        position:absolute;
         Bottom:0; left:50%;
-        transform: translate(-50%, 0);
+        transform:translate(-50%, 0);
     }
     .absoluteBottomRight{
-        position: absolute;
+        position:absolute;
         Bottom:0; right:0;
     }
     .contentPenetrateY{
       min-heigh:0vh;
-      overflow: hidden;
-      white-space: pre-line;
+      overflow:hidden;
+      white-space:pre-line;
     }
     .contentPenetrateX{
       min-width:0vh;
-      overflow: hidden;
-      white-space: nowrap;
+      overflow:hidden;
+      white-space:nowrap;
     }
     .contentPenetrateX div{
-      width: max-content;
+      width:max-content;
     }
     .displayFlexCenter{
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        height:100%;
+        display:flex;display:-webkit-box;
+        align-items:center;
+        justify-content:center;
     }
     button{
-        background: #292929;
-        border: 0.4vh solid rgba(0,0,0,0);
-        color: #FFF;
-        width: 100%;
+        background:#292929;
+        border:0.4vh solid rgba(0,0,0,0);
+        color:#FFF;
+        width:100%;
     }
     select{
-        background-color: rgba(35,35,35,1);
-        border: 0.4vh solid rgba(0,0,0,0);
-        color: #FFF;
-        //padding: .5vh;
+        background-color:rgba(35,35,35,1);
+        border:0.4vh solid rgba(0,0,0,0);
+        color:#FFF;
+        //padding:.5vh;
     }
     option{
-        background-color: rgba(20,20,20,1);
-        border: 0.4vh solid rgba(0,0,0,0);
-        color: #FFF;
+        background-color:rgba(20,20,20,1);
+        border:0.4vh solid rgba(0,0,0,0);
+        color:#FFF;
     }
     input{
-        background: #444;
-        border: 0.4vh solid rgba(0,0,0,0);
-        color: #FFF;
+        background:#444;
+        border:0.4vh solid rgba(0,0,0,0);
+        color:#FFF;
     }
     button:hover, select:hover, option:hover, input:hover,
     button:focus, select:focus, option:focus, input:focus{
-        border: 0.4vh solid #5599ff;
+        border:0.4vh solid #5599ff;
     }
     ::-moz-focus-inner {
-        border: 0;
+        border:0;
     }
 
     button.notice{
         font-size:4vh;
-        background: rgba(0, 0, 0, 0);
-        border: 0vh;
+        background:rgba(0, 0, 0, 0);
+        border:0vh;
         outline:none;
-        text-shadow: black 0em 0em 0.2em;
-        overflow: hidden;
+        text-shadow:black 0em 0em 0.2em;
+        overflow:hidden;
         position:absolute;
-        width: 7vh; height: 7vh;
-        z-index: 50;
+        width:7vh; height:7vh;
+        z-index:50;
     }
     button.notice:hover{
-        filter: drop-shadow(0vh 0vh .3vh #2196F3) drop-shadow(0vh 0vh .3vh #2196F3) drop-shadow(0vh 0vh .3vh #2196F3);
+        filter:drop-shadow(0vh 0vh .3vh #2196F3) drop-shadow(0vh 0vh .3vh #2196F3) drop-shadow(0vh 0vh .3vh #2196F3);
     }
     .display_none{
         display:none;
@@ -232,61 +232,61 @@
     }
 
     @font-face {
-        font-family: 'fontello';
-        src: url('./font/fontello.eot?23602108');
-        src: url('./font/fontello.eot?23602108#iefix') format('embedded-opentype'),
+        font-family:'fontello';
+        src:url('./font/fontello.eot?23602108');
+        src:url('./font/fontello.eot?23602108#iefix') format('embedded-opentype'),
         url('./font/fontello.woff?23602108') format('woff'),
         url('./font/fontello.ttf?23602108') format('truetype'),
         url('./font/fontello.svg?23602108#fontello') format('svg');
-        font-weight: normal;
-        font-style: normal;
+        font-weight:normal;
+        font-style:normal;
     }
     i.icon-font{
-        font-family: "fontello";
-        font-style: normal;
-        font-weight: normal;
-        speak: none;
+        font-family:"fontello";
+        font-style:normal;
+        font-weight:normal;
+        speak:none;
 
-        display: inline-block;
-        text-decoration: inherit;
-        width: 1em;
-        text-align: center;
-        /* opacity: .8; */
+        display:inline-block;
+        text-decoration:inherit;
+        width:1em;
+        text-align:center;
+        /* opacity:.8; */
 
         /* For safety - reset parent styles, that can break glyph codes*/
-        font-variant: normal;
-        text-transform: none;
+        font-variant:normal;
+        text-transform:none;
 
         /* fix buttons height, for twitter bootstrap */
-        //line-height: 1em;
+        //line-height:1em;
 
         /* You can be more comfortable with increased icons size */
-        font-size: 100%;
+        font-size:100%;
 
         /* Font smoothing. That was taken from TWBS */
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
 
         /* Uncomment for 3D effect */
-        /* text-shadow: .1vh .1vh .1vh rgba(127, 127, 127, 0.3); */
+        /* text-shadow:.1vh .1vh .1vh rgba(127, 127, 127, 0.3); */
     }
 
     /* Scroll Bar 效果*/
     /* width & height */
     ::-webkit-scrollbar {
-        width: .7vh; height: .7vh;
+        width:.7vh; height:.7vh;
     }
     /* Track */
     ::-webkit-scrollbar-track {
-        background: #303030;
+        background:#303030;
     }
     /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: #777777;
+        background:#777777;
     }
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-        background: #DDDDDD;
+        background:#DDDDDD;
     }
     </style>
 </head>
@@ -294,28 +294,28 @@
 <body id="body"
       style="
         background-color:#000;
-        color: #FFF;
-        //font-weight: bold;
-        font-size: 4vh;
-        font-family: FreeSans;
+        color:#FFF;
+        //font-weight:bold;
+        font-size:4vh;
+        font-family:FreeSans;
         margin:0vh;
-        overflow: hidden;
-        position: absolute;
+        overflow:hidden;
+        position:absolute;
         top:0; bottom:0; left:0; right:0;
-        //text-transform: full-size-kana;
+        //text-transform:full-size-kana;
         /* disable text selection highlighting */
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select  : none; /* Safari */
-        -khtml-user-select   : none; /* Konqueror HTML */
-        -moz-user-select     : none; /* Firefox */
-        -ms-user-select      : none; /* Internet Explorer/Edge */
-        user-select          : none; /* Non-prefixed version, currently supported by Chrome and Opera */
+        -webkit-touch-callout:none; /* iOS Safari */
+        -webkit-user-select  :none; /* Safari */
+        -khtml-user-select   :none; /* Konqueror HTML */
+        -moz-user-select     :none; /* Firefox */
+        -ms-user-select      :none; /* Internet Explorer/Edge */
+        user-select          :none; /* Non-prefixed version, currently supported by Chrome and Opera */
        "
 >
 
 <div id="player" style="
-         overflow: hidden;
-         position: absolute;
+         overflow:hidden;
+         position:absolute;
          top:0; bottom:0; left:0; right:0;
          z-index:20;
        ">
@@ -329,242 +329,242 @@
 </div>
 <div id="userInterface">
     <div id="devConsole" style="
-            background-color: rgba(0,0,0,0);
-            font-size: 1vh;
-            display: none;
-            white-space: pre-line;
-            position: absolute;
+            background-color:rgba(0,0,0,0);
+            font-size:1vh;
+            display:none;
+            white-space:pre-line;
+            position:absolute;
             top:0; bottom:0; left:0; right:0;
-            z-index: 29;
+            z-index:29;
     "></div>
     <button id="userControlPanelShower"
             autofocus
             tabindex="-1"
             style="
-              //display: none;
-              background: rgba(0, 0, 0, 0);
-              border-style: none;
-              outline: 0;
-              //pointer-events: none;
-              position: absolute;
+              //display:none;
+              background:rgba(0, 0, 0, 0);
+              border-style:none;
+              outline:0;
+              //pointer-events:none;
+              position:absolute;
               top:0; bottom:0; left:0; right:0;
               width:100%; height:100vh;
-              z-index: 30;
+              z-index:30;
             ">
     </button>
-    <div id="userControlPanel" style="display: none;">
+    <div id="userControlPanel" style="display:none;">
         <div id="virtualRemote" style="
-                  background: #303030;
-                  display: block;
+                  background:#303030;
+                  display:block;
                   top:0; left:0;
-                  overflow: scroll;
+                  overflow:scroll;
                   position:absolute;
-                  width: 45vh; height: 100%;
-                  z-index: 50;
+                  width:45vh; height:100%;
+                  z-index:50;
             ">
-            <div style="display:flex;">
-                <div style="flex:1;">
-                    <button tabindex="100000000" class="fourRow" style="background: #1C1C1C; height: 5.5vh" id="hideVirtualRemoteButton"><i
+            <div style="display:flex;display:-webkit-box;">
+                <div style="flex:1;-webkit-box-flex:1;">
+                    <button tabindex="100000000" class="fourRow" style="background:#1C1C1C; height:5.5vh" id="hideVirtualRemoteButton"><i
                             class="icon-font">&#xe81f;</i></button>
                 </div>
-                <div style="flex:1;">
-                    <button tabindex="100000001" class="fourRow" id="epgButton" style="height: 5.5vh"><i class="icon-font">&#xe808;</i>
+                <div style="flex:1;-webkit-box-flex:1;">
+                    <button tabindex="100000001" class="fourRow" id="epgButton" style="height:5.5vh"><i class="icon-font">&#xe808;</i>
                     </button>
                 </div>
-                <div style="flex:1;">
-                    <button tabindex="100000002" class="fourRow" id="onHeadNextSubtitleButton" style="height: 5.5vh"><i class="icon-font">&#xe81d;</i>
+                <div style="flex:1;-webkit-box-flex:1;">
+                    <button tabindex="100000002" class="fourRow" id="onHeadNextSubtitleButton" style="height:5.5vh"><i class="icon-font">&#xe81d;</i>
                     </button>
                 </div>
-                <div style="flex:1;">
-                    <button tabindex="100000003" class="fourRow" id="onHeadNextAudioButton" style="height: 5.5vh"><i class="icon-font">&#xe81c;</i>
+                <div style="flex:1;-webkit-box-flex:1;">
+                    <button tabindex="100000003" class="fourRow" id="onHeadNextAudioButton" style="height:5.5vh"><i class="icon-font">&#xe81c;</i>
                     </button>
                 </div>
             </div>
-            <div style="display:flex;">
-                <div style="flex:1;">
+            <div style="display:flex;display:-webkit-box;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100010000" class="normal" id="volumeUpButton" style="padding-top:5vh; padding-bottom:5vh;"><i
                             class="icon-font">&#xe804;</i></button>
-                    <button tabindex="100020000" class="normal" id="volumeDownButton" style="padding-top: 5vh; padding-bottom: 5vh;"><i
+                    <button tabindex="100020000" class="normal" id="volumeDownButton" style="padding-top:5vh; padding-bottom:5vh;"><i
                             class="icon-font">&#xe803;</i></button>
                 </div>
-                <div style="flex:1; width:12vh">
+                <div style="flex:1;-webkit-box-flex:1; width:12vh">
                     <button tabindex="100010001" class="small" id="lastTimeChannelButton"><i class="icon-font">&#xe81e;</i></button>
                     <button tabindex="100020001" class="small" id="channelDescriptionButton"><i class="icon-font">&#xf129;</i></button>
                     <button tabindex="100020001" class="small" id="volumeMuteButton"><i class="icon-font">&#xe809;</i></button>
                 </div>
-                <div style="flex:1;">
-                    <button tabindex="100010002" class="normal" id="nextChannelButton" style="padding-top: 5vh; padding-bottom: 5vh;"><i
+                <div style="flex:1;-webkit-box-flex:1;">
+                    <button tabindex="100010002" class="normal" id="nextChannelButton" style="padding-top:5vh; padding-bottom:5vh;"><i
                             class="icon-font">&#xe806;</i></button>
-                    <button tabindex="100020002" class="normal" id="previousChannelButton" style="padding-top: 5vh; padding-bottom: 5vh;"><i
+                    <button tabindex="100020002" class="normal" id="previousChannelButton" style="padding-top:5vh; padding-bottom:5vh;"><i
                             class="icon-font">&#xe805;</i></button>
                 </div>
             </div>
-            <div style="display:flex;">
-                <div style="flex:1;">
-                    <button tabindex="100030000" class="fourRow" id="programmableRedButton" style="background: #AA1111;"></button>
+            <div style="display:flex;display:-webkit-box;">
+                <div style="flex:1;-webkit-box-flex:1;">
+                    <button tabindex="100030000" class="fourRow" id="programmableRedButton" style="background:#AA1111;"></button>
                 </div>
-                <div style="flex:1;">
-                    <button tabindex="100030001" class="fourRow" id="programmableGreenButton" style="background: #11AA11;"></button>
+                <div style="flex:1;-webkit-box-flex:1;">
+                    <button tabindex="100030001" class="fourRow" id="programmableGreenButton" style="background:#11AA11;"></button>
                 </div>
-                <div style="flex:1;">
-                    <button tabindex="100030002" class="fourRow" id="programmableYellowButton" style="background: #DDB000;"></button>
+                <div style="flex:1;-webkit-box-flex:1;">
+                    <button tabindex="100030002" class="fourRow" id="programmableYellowButton" style="background:#DDB000;"></button>
                 </div>
-                <div style="flex:1;">
-                    <button tabindex="100030003" class="fourRow" id="programmableBlueButton" style="background: #4444DD;"></button>
+                <div style="flex:1;-webkit-box-flex:1;">
+                    <button tabindex="100030003" class="fourRow" id="programmableBlueButton" style="background:#4444DD;"></button>
                 </div>
             </div>
-            <div style="display:flex;">
-                <div style="flex:1;">
+            <div style="display:flex;display:-webkit-box;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100040000" class="normal" id="number1Button">1</button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100040001" class="normal" id="number2Button">2</button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100040002" class="normal" id="number3Button">3</button>
                 </div>
             </div>
-            <div style="display:flex;">
-                <div style="flex:1;">
+            <div style="display:flex;display:-webkit-box;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100050000" class="normal" id="number4Button">4</button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100050001" class="normal" id="number5Button">5</button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100050002" class="normal" id="number6Button">6</button>
                 </div>
             </div>
-            <div style="display:flex;">
-                <div style="flex:1;">
+            <div style="display:flex;display:-webkit-box;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100060000" class="normal" id="number7Button">7</button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100060001" class="normal" id="number8Button">8</button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100060002" class="normal" id="number9Button">9</button>
                 </div>
             </div>
-            <div style="display:flex;">
-                <div style="flex:1; width: 33%; height:100%">
-                    <button tabindex="100070000" id="minusButton" style="font-size: 4.5vh; padding: 0.9vh;">
+            <div style="display:flex;display:-webkit-box;">
+                <div style="flex:1;-webkit-box-flex:1; width:33%; height:100%">
+                    <button tabindex="100070000" id="minusButton" style="font-size:4.5vh; padding:0.9vh;">
                         <i class="icon-font">&#xe82f;</i>
                     </button>
                 </div>
-                <div style="flex:1; width: 33%; height:100%">
+                <div style="flex:1;-webkit-box-flex:1; width:33%; height:100%">
                     <button tabindex="100070001" class="normal" id="number0Button">0</button>
                 </div>
-                <div style="flex:1; width: 33%; height:100%">
-                    <button tabindex="100070002" style="font-size: 4.5vh; padding: 0.9vh;" id="refreshButton"><i class="icon-font">&#xe80d;</i>
+                <div style="flex:1;-webkit-box-flex:1; width:33%; height:100%">
+                    <button tabindex="100070002" style="font-size:4.5vh; padding:0.9vh;" id="refreshButton"><i class="icon-font">&#xe80d;</i>
                     </button>
                 </div>
             </div>
-            <div style="display:flex;">
-                <div style="flex:1;">
+            <div style="display:flex;display:-webkit-box;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <select tabindex="100080000" id="designateChannelSelect" style="font-size:4vh;height:8vh;width:100%;">
                         <option>-------</option>
                     </select>
                 </div>
             </div>
-            <div style="display:none;"><!--style="display:flex;"-->
-                <div style="flex:5; height:100%; margin-right: 0vh; padding-right: 0vh;">
+            <div style="display:none;"><!--style="display:flex;display:-webkit-box;"-->
+                <div style="flex:5;-webkit-box-flex:5; height:100%; margin-right:0vh; padding-right:0vh;">
                     <input tabindex="100090000" id="designateChannelInputText" type="number" placeholder="頻道"
                            style="font-size:6vh;width:100%;">
                 </div>
-                <div style="flex:1; height:100%; margin-left: 0vh; padding-left: 0vh;">
-                    <button tabindex="100090001" class="normal" id="designateChannelButton"><i class="icon-font" style="padding: 0.3vh;">&#xe800;</i>
+                <div style="flex:1;-webkit-box-flex:1; height:100%; margin-left:0vh; padding-left:0vh;">
+                    <button tabindex="100090001" class="normal" id="designateChannelButton"><i class="icon-font" style="padding:0.3vh;">&#xe800;</i>
                     </button>
                 </div>
             </div>
-            <div style="display:flex;" class="nestle-bottom">
-                <div style="flex:1;" class="nestle-bottom">
-                    <i class="icon-font nestle-bottom" style="font-size: 3.5vh;">&#xe81d;</i>
+            <div style="display:flex;display:-webkit-box;" class="nestle-bottom">
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-bottom">
+                    <i class="icon-font nestle-bottom" style="font-size:3.5vh;">&#xe81d;</i>
                 </div>
-                <div style="flex:1;" class="nestle-bottom">
-                    <i class="icon-font nestle-bottom" style="font-size: 3.5vh;">&#xe81c;</i>
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-bottom">
+                    <i class="icon-font nestle-bottom" style="font-size:3.5vh;">&#xe81c;</i>
                 </div>
-                <div style="flex:1;" class="nestle-bottom">
-                    <i class="icon-font nestle-bottom" style="font-size: 3.5vh;">&#xe815;</i>
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-bottom">
+                    <i class="icon-font nestle-bottom" style="font-size:3.5vh;">&#xe815;</i>
                 </div>
             </div>
-            <div style="display:flex;" class="nestle-bottom">
-                <div style="flex:1;" class="nestle-bottom">
+            <div style="display:flex;display:-webkit-box;" class="nestle-bottom">
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-bottom">
                     <button tabindex="100100000" class="normal" id="nextSubtitleButton"><i class="icon-font nestle-bottom">&#xe806;</i>
                     </button>
                 </div>
-                <div style="flex:1;" class="nestle-bottom">
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-bottom">
                     <button tabindex="100100001" class="normal" id="nextAudioButton"><i class="icon-font nestle-bottom">&#xe806;</i>
                     </button>
                 </div>
-                <div style="flex:1;" class="nestle-bottom">
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-bottom">
                     <button tabindex="100100002" class="normal" id="nextVideoButton"><i class="icon-font nestle-bottom">&#xe806;</i>
                     </button>
                 </div>
             </div>
-            <div style="display:flex;" class="nestle-bottom nestle-top">
-                <div style="flex:1;" class="nestle-bottom nestle-top">
+            <div style="display:flex;display:-webkit-box;" class="nestle-bottom nestle-top">
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-bottom nestle-top">
                     <select tabindex="100110000" id="designateSubtitleSelect" style="font-size:4vh;width:100%;">
                         <option>-------</option>
                     </select>
                 </div>
-                <div style="flex:1;" class="nestle-bottom nestle-top">
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-bottom nestle-top">
                     <select tabindex="100110001" id="designateAudioSelect" style="font-size:4vh;width:100%;">
                         <option>-------</option>
                     </select>
                 </div>
-                <div style="flex:1;" class="nestle-bottom nestle-top">
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-bottom nestle-top">
                     <select tabindex="100110002" id="designateVideoSelect" style="font-size:4vh;width:100%;">
                         <option>-------</option>
                     </select>
                 </div>
             </div>
-            <div style="display:flex;" class="nestle-top">
-                <div style="flex:1;" class="nestle-top">
+            <div style="display:flex;display:-webkit-box;" class="nestle-top">
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-top">
                     <button tabindex="100120000" class="normal" id="previousSubtitleButton"><i class="icon-font nestle-top">&#xe805;</i>
                     </button>
                 </div>
-                <div style="flex:1;" class="nestle-top">
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-top">
                     <button tabindex="100120001" class="normal" id="previousAudioButton"><i class="icon-font nestle-top">&#xe805;</i>
                     </button>
                 </div>
-                <div style="flex:1;" class="nestle-top">
+                <div style="flex:1;-webkit-box-flex:1;" class="nestle-top">
                     <button tabindex="100120002" class="normal" id="previousVideoButton"><i class="icon-font nestle-top">&#xe805;</i>
                     </button>
                 </div>
             </div>
-            <div style="display:flex;">
-                <div style="flex:1;">
+            <div style="display:flex;display:-webkit-box;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100130000" id="aboutWindowButton" class="fourRow"><i
                             class="icon-font">&#xf128;</i></button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100130001" id="feedbackWebButton" class="fourRow"><i
                             class="icon-font">&#xe82c;</i></button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100130002" id="shareWindowButton" class="fourRow"><i
                             class="icon-font">&#xf1e0;</i></button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100130003" id="settingWindowButton" class="fourRow"><i
                             class="icon-font">&#xe802;</i></button>
                 </div>
             </div>
-            <div style="display:flex;">
-                <div style="flex:1;">
+            <div style="display:flex;display:-webkit-box;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100140000" id="appDownloadWindowButton" class="fourRow"><i
                             class="icon-font">&#xe830;</i></button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100140001" id="githubWebButton" class="fourRow"><i
                             class="icon-font">&#xf09b;</i></button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100140002" id="documentStoreButton" class="fourRow"><i
                             class="icon-font">&#xf0f6;</i></button>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-box-flex:1;">
                     <button tabindex="100140003" id="watchingCounterWebButton" class="fourRow">
                         <i class="icon-font">&#xf526;</i></button>
                 </div>
@@ -585,19 +585,19 @@
             </div>
         </div>
         <button id="nativeAppInstallButton" class="notice" tabindex="-1" style="
-                display: block;
+                display:block;
                 top:0vh; right:14vh;
                 ">
             <i class="icon-font">&#xe826;</i>
         </button>
         <button id="pictureInPictureButton" class="notice" tabindex="-1" style="
-                display: block;
+                display:block;
                 top:0vh; right:7vh;
                 ">
             <i class="icon-font">&#xe829;</i>
         </button>
         <button id="fullScreenButton" class="notice" tabindex="-1" style="
-                display: block;
+                display:block;
                 top:0vh; right:0vh;
                 ">
             <i class="icon-font">&#xe80c;</i>
@@ -616,91 +616,91 @@
         </div>
     </div>
     <div id="mutedDescription" style="
-              display: none;
-              position: absolute;
+              display:none;
+              position:absolute;
               bottom:12vh; right:5vh;
-              //width: max-content;
+              //width:max-content;
               z-index:40;
             ">
         <button id="mutedDescriptionButton" class="notice" style="
-            background-color: rgba(0, 0, 0, 0);
-            text-shadow: black 0em 0em 0.2em;
-            font-size: 6vh;
-            position: initial;
+            background-color:rgba(0, 0, 0, 0);
+            text-shadow:black 0em 0em 0.2em;
+            font-size:6vh;
+            position:initial;
             top:0; bottom:0; left:0; right:0;
         " tabindex="-1">
             <i class="icon-font">&#xe809;</i>
         </button>
     </div>
     <div id="volumeDescription" style="
-           display: none;
-           position: absolute;
+           display:none;
+           position:absolute;
            bottom:5vh; right:5vh;
-           width: 85vh; height: 6vh;
+           width:85vh; height:6vh;
            z-index:40;
          ">
         <button id="volumeDescriptionVolumeDownButton" class="notice"
                 style="
-                  background-color: rgba(0, 0, 0, 0);
-                  text-shadow: black 0em 0em 0.2em;
-                  font-size: 5vh;
-                  position: absolute;
+                  background-color:rgba(0, 0, 0, 0);
+                  text-shadow:black 0em 0em 0.2em;
+                  font-size:5vh;
+                  position:absolute;
                   top:0; bottom:0; left:0;
-                  width: 6vh;
+                  width:6vh;
                 " tabindex="-1"
         ><i class="icon-font">&#xe803;</i></button>
         <div id="volumeDescriptionVolumeValue"
              style="
-                background-color: rgba(0, 0, 0, 0);
-              text-shadow: black 0em 0em 0.2em;
-              font-size: 6vh;
-              position: absolute;
+                background-color:rgba(0, 0, 0, 0);
+              text-shadow:black 0em 0em 0.2em;
+              font-size:6vh;
+              position:absolute;
               top:0; bottom:0; left:7vh;
-              width: 10vh;
+              width:10vh;
             "
         ></div>
         <div id="volumeDescriptionVolumeIconList"
              style="
-              background-color: rgba(0, 0, 0, 0);
-              text-shadow: black 0em 0em 0.2em;
-              font-size: 6vh;
-              position: absolute;
+              background-color:rgba(0, 0, 0, 0);
+              text-shadow:black 0em 0em 0.2em;
+              font-size:6vh;
+              position:absolute;
               top:0; bottom:0; left:18vh;
             "
         ></div>
         <button id="volumeDescriptionVolumeUpButton" class="notice"
                 style="
-                    background-color: rgba(0, 0, 0, 0);
-                    text-shadow: black 0em 0em 0.2em;
-                    font-size: 5vh;
-                    position: absolute;
+                    background-color:rgba(0, 0, 0, 0);
+                    text-shadow:black 0em 0em 0.2em;
+                    font-size:5vh;
+                    position:absolute;
                     top:0; bottom:0; right:0;
-                    width: 7vh;
+                    width:7vh;
                 " tabindex="-1"
         ><i class="icon-font">&#xe804;</i></button>
     </div>
     <div id="trackDescription" style="
-           display: none;
-           text-shadow: black 0em 0em 0.2em;
-           position: absolute;
+           display:none;
+           text-shadow:black 0em 0em 0.2em;
+           position:absolute;
            top:5vh; right:5vh;
            z-index:40;
          ">
     </div>
     <div id="channelDescription" style="
-              background: rgba(30, 30, 30, 0.9);
-              display: none;
-              font-size: 5vh;
+              background:rgba(30, 30, 30, 0.9);
+              display:none;
+              font-size:5vh;
               position:absolute;
               top:0; bottom:0; right:0;
-              width: 60vh;
-              z-index: 29;
+              width:60vh;
+              z-index:29;
             ">
         <div style="position:absolute;top:5vh;bottom:5vh;left:5vh;right:5vh;">
-            <div style="display:flex;position:absolute;top:0;left:0;right:0;height:6vh;">
-                <div id="channelDescriptionCurrentChannelName" style="flex:4; text-align:left; font-size:4vh; width:30vh;height:6vh;">
+            <div style="display:flex;display:-webkit-box;position:absolute;top:0;left:0;right:0;height:6vh;">
+                <div id="channelDescriptionCurrentChannelName" style="flex:4;-webkit-box-flex:4; text-align:left; font-size:4vh; width:30vh;height:6vh;">
                 </div>
-                <div id="channelDescriptionCurrentChannelNumber" style="flex:1; width:12vh;height:6vh;">
+                <div id="channelDescriptionCurrentChannelNumber" style="flex:1;-webkit-box-flex:1; width:12vh;height:6vh;">
                 </div>
             </div>
             <div id="channelDescriptionCurrentDate"
@@ -738,13 +738,13 @@
         <hr style="border-color:#888;color:#888;background-color:#888;position:absolute;top:8.5vh;left:0;right:0;">
     </div>
     <div id="epg" style="
-          background-color: rgba(0, 0, 0, 0.6);
-          display: none;
-          border-style: none;
-          position: absolute;
+          background-color:rgba(0, 0, 0, 0.6);
+          display:none;
+          border-style:none;
+          position:absolute;
           top:0; bottom:0; left:0; right:0;
-          width: 100%; height: 100vh;
-          z-index: 90;
+          width:100%; height:100vh;
+          z-index:90;
          ">
         <div class="center" style="position:absolute; top:0; left:0; right:0; height:6vh; white-space:nowrap;">
             <div style="position:absolute; top:0; bottom:0; left:0; width:min-content;">
@@ -768,10 +768,10 @@
                 <div class="center">
                     <button tabindex="999999999" id="epgHideButton"
                             style="
-                      background-color: rgba(0, 0, 0, 0);
-                      color: #FFF;
-                      font-weight: bold;
-                      font-size: 4vh;
+                      background-color:rgba(0, 0, 0, 0);
+                      color:#FFF;
+                      font-weight:bold;
+                      font-size:4vh;
                     "
                     ><i class="icon-font" style="font-size:6vh;">&#xe801;</i></button>
                 </div>
@@ -820,39 +820,39 @@
                 </div>
             </div>
         </div>
-        <div style="display:flex; position:absolute; bottom:0vh; width:100%; height:52.5vh;">
+        <div style="display:flex;display:-webkit-box; position:absolute; bottom:0vh; width:100%; height:52.5vh;">
             <div style="position:absolute; left:0vh; right:0vh; height:52.5vh;">
                 <div style="position:absolute; left:0vh; right:0vh; height:5.5vh;">
-                    <div style="flex:1; position:absolute; top:0vh; bottom:0vh; left:0vh;">
+                    <div style="flex:1;-webkit-box-flex:1; position:absolute; top:0vh; bottom:0vh; left:0vh;">
                         <div id="epgProgrammeListCurrentDisplayDate" style="
-                     vertical-align: center;
-                     width: 30vh; height: 5.5vh;
+                     vertical-align:center;
+                     width:30vh; height:5.5vh;
                    ">
                         </div>
                     </div>
-                    <div style="flex:1; position:absolute; top:0vh; bottom:0vh; left:30vh; right:0vh;">
+                    <div style="flex:1;-webkit-box-flex:1; position:absolute; top:0vh; bottom:0vh; left:30vh; right:0vh;">
                         <div id="epgProgrammeListTimeLine" style="
                      position:absolute;
                      top:0vh; bottom:0vh; left:0vh; right:0vh;
-                     width: 100%; height: 5.5vh;
+                     width:100%; height:5.5vh;
                    ">
                         </div>
                     </div>
                 </div>
                 <div style="position:absolute; top:5.5vh; left:0vh; right:0vh; height:47vh;">
-                    <div style="flex:1; position:absolute; top:0vh; bottom:0vh; left:0vh;">
+                    <div style="flex:1;-webkit-box-flex:1; position:absolute; top:0vh; bottom:0vh; left:0vh;">
                         <div id="epgProgrammeListChannelList" style="
-                         vertical-align: top;
-                         width: 100%; height: 47vh;
+                         vertical-align:top;
+                         width:100%; height:47vh;
                        ">
                         </div>
                     </div>
-                    <div style="flex:1; position:absolute; top:0vh; bottom:0vh; left:30vh; right:0vh;">
+                    <div style="flex:1;-webkit-box-flex:1; position:absolute; top:0vh; bottom:0vh; left:30vh; right:0vh;">
                         <div id="epgProgrammeListTable" style="
                      position:absolute;
                      top:0vh; bottom:0vh; left:0vh; right:0vh;
-                     overflow: scroll;
-                     vertical-align: top;
+                     overflow:scroll;
+                     vertical-align:top;
                    ">
                         </div>
                     </div>
@@ -861,28 +861,28 @@
         </div>
     </div>
     <div id="enteringNumberBox" style="
-              background: #171717;
-              display: none;
+              background:#171717;
+              display:none;
               position:absolute;
-              top: 5vh; right:5vh;
-              width: 12vh; height: 6vh;
-              z-index: 80;
+              top:5vh; right:5vh;
+              width:12vh; height:6vh;
+              z-index:80;
          ">
         <div id="enteringNumberBoxText" class="contentCenter" style="font-size:5vh;"></div>
     </div>
     <div id="promptBox" style="
-              background: #111111;
-              display: none;
-              float: right;
-              font-size: 5vh;
-              margin: auto;
-              padding-left: 1.5vh;
-              padding-right: 1.5vh;
+              background:#111111;
+              display:none;
+              float:right;
+              font-size:5vh;
+              margin:auto;
+              padding-left:1.5vh;
+              padding-right:1.5vh;
               position:absolute;
-              bottom: 0vh; right:0vh;
-              text-align: center;
-              vertical-align: middle;
-              z-index: 100;
+              bottom:0vh; right:0vh;
+              text-align:center;
+              vertical-align:middle;
+              z-index:100;
         ">
     </div>
     <div id="dynamicUserInterfaceArea">
@@ -943,11 +943,11 @@
         </div>
     </div>
     <div id="watchingCounter" style="
-            //background: #FFF;
-            display: none;
-            position: absolute;
-            width: 0vh; height: 0vh;
-            z-index: 0;
+            //background:#FFF;
+            display:none;
+            position:absolute;
+            width:0vh; height:0vh;
+            z-index:0;
          ">
         <iframe id="iframeWatchingCounter">你嘅瀏覽器唔支援iframe</iframe>
     </div>
@@ -975,10 +975,10 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('service-worker.js').then(function(registration) {
       // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      console.log('ServiceWorker registration successful with scope:', registration.scope);
     }).catch(function(err) {
       // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
+      console.log('ServiceWorker registration failed:', err);
     });
   });
 }
@@ -998,7 +998,6 @@ if ('serviceWorker' in navigator) {
 <!--<script type="text/javascript" src="out/production/HKNBP_Core/lib/kotlinx-serialization-kotlinx-serialization-runtime.js"></script>-->
 <script type="text/javascript" src="out/production/HKNBP_Core/HKNBP_Core.js"></script>
 <script type="text/javascript">var hknbpCore = HKNBP_Core.org.sourcekey.hknbp.hknbp_core;</script><!--畀其他地方方便Call-->
-<script type="text/javascript" src="https://cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js"></script>
 </body>
 
 </html>
