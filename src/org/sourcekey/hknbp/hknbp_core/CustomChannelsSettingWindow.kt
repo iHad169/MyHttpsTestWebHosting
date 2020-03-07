@@ -25,19 +25,19 @@ import kotlin.dom.createElement
 object CustomChannelsSettingWindow: Window(
         title = "自訂頻道設定",
         contentHTML = """
-            <div style="display:flex;">
-                <div style="flex:3;">
+            <div style="display:flex;display:-webkit-flex;">
+                <div style="flex:3;-webkit-flex:1;">
                     <select id="customChannelsSettingChannelsSelect" size="7" style="font-size:5vh;width:100%;"></select>
-                    <div style="display:flex;">
-                        <div style="flex:1;">
+                    <div style="display:flex;display:-webkit-flex;">
+                        <div style="flex:1;-webkit-flex:1;">
                             <button id="customChannelsSettingChannelsImportButton" style="display:none;font-size:5vh;margin:.2vh;">匯入</button>
                         </div>
-                        <div style="flex:1;">
+                        <div style="flex:1;-webkit-flex:1;">
                             <button id="customChannelsSettingChannelsExportButton" style="display:none;font-size:5vh;margin:.2vh;">匯出</button>
                         </div>
                     </div>
                 </div>
-                <div style="flex:1;">
+                <div style="flex:1;-webkit-flex:1;">
                     <button id="customChannelsSettingChannelAddButton" style="font-size:5vh;margin:.2vh;">
                         <i class="icon-font">&#xe82e;</i>
                     </button>
@@ -60,7 +60,7 @@ object CustomChannelsSettingWindow: Window(
     private class CustomChannelEditChannelDialogBox(val initValueOfChannelXmlString: String = ""): DialogueBox(
             "新增自訂頻道",
             """
-        <div style="display:flex;">
+        <div style="display:flex;display:-webkit-flex;">
             <div style="text-align:left;font-size:3vh;">
                 <input id="customChannelsSettingChannelNumberInputNumber" type="number" placeholder="頻道號碼" style="font-size:3vh;margin:.2vh;width:25vh;" min="-999" max="-1">
                 <input id="customChannelsSettingChannelNameInputText" type="Text" placeholder="頻道名稱" style="font-size:3vh;margin:.2vh;">

@@ -37,8 +37,10 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
     private val currentProgrammeCategory        = document.getElementById("channelDescriptionCurrentProgrammeCategory") as HTMLDivElement
 
     private fun setCurrentChannelName(){
+        println("channels ${channels}")
+        println("channels.node ${channels.node}")
         println("channels.node?.name ${channels.node?.name}")
-        println("(channels.node?.name?:\"\")${(channels.node?.name?:"")}")
+        println("(channels.node?.name?:\"\") ${(channels.node?.name?:"")}")
         println("(channels.node?.name?:\"\").toString() ${(channels.node?.name?:"").toString()}")
         currentChannelName.innerHTML = (channels.node?.name?:"").toString()
     }
