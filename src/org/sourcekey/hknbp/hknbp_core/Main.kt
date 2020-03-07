@@ -214,7 +214,7 @@ fun main(args: Array<String>) {
         UserControlPanel
         ConsentPanel
         VirtualRemote
-        //RealRemote
+        RealRemote
         LongClickEvent
         ChannelDescription
         OfficialChannels

@@ -47,7 +47,7 @@ object OfficialChannels {
             //設置OfficialChannels
             set(officialChannels)
             //因第一次運行程式未有channel響表入面,當load到OfficialChannels資料時
-            if(localStorage.getItem("isFirstLoadedOfficialChannelsInfoToSet")?.toBoolean()?:true){
+            if(localStorage.getItem("isFirstLoadedOfficialChannelsInfoToSet")?.toBoolean()?:true||channels.size<1){
                 localStorage.setItem("isFirstLoadedOfficialChannelsInfoToSet", false.toString())
                 channels.changeToRecentlyWatchedChannel()
             }

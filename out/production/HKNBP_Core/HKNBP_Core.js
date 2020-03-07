@@ -2948,9 +2948,10 @@ if (typeof kotlin === 'undefined') {
         closure$onFailedLoadFileProgram();
       }};
   }
-  function LoadFile$load$lambda_2(closure$xmlhttp, closure$onLoadedFile, closure$onFailedLoadFileProgram) {
+  function LoadFile$load$lambda_2(closure$xmlhttp, closure$filePaths, closure$onLoadedFile, closure$onFailedLoadFileProgram) {
     return function (event) {
       if (closure$xmlhttp.status === 200) {
+        println('\u6210\u529F\u8B80\u53D6: ' + toString(closure$filePaths.node));
         closure$onLoadedFile(closure$xmlhttp);
       } else {
         closure$onFailedLoadFileProgram();
@@ -2966,7 +2967,7 @@ if (typeof kotlin === 'undefined') {
     xmlhttp.ontimeout = onFailedLoadFileProgram;
     xmlhttp.onerror = onFailedLoadFileProgram;
     xmlhttp.onreadystatechange = LoadFile$load$lambda_1(xmlhttp, onFailedLoadFileProgram);
-    xmlhttp.onload = LoadFile$load$lambda_2(xmlhttp, onLoadedFile, onFailedLoadFileProgram);
+    xmlhttp.onload = LoadFile$load$lambda_2(xmlhttp, filePaths, onLoadedFile, onFailedLoadFileProgram);
     xmlhttp.open('GET', (tmp$ = filePaths.node) != null ? tmp$ : '', true);
     xmlhttp.setRequestHeader('cache-control', 'max-age=' + cacheShelfLife);
     xmlhttp.send();
@@ -3215,6 +3216,7 @@ if (typeof kotlin === 'undefined') {
       UserControlPanel_getInstance();
       ConsentPanel_getInstance();
       VirtualRemote_getInstance();
+      RealRemote_getInstance();
       LongClickEvent_getInstance();
       ChannelDescription_getInstance();
       OfficialChannels_getInstance();
@@ -3550,7 +3552,7 @@ if (typeof kotlin === 'undefined') {
     return function (officialChannels) {
       var tmp$, tmp$_0;
       this$OfficialChannels.set_0(officialChannels);
-      if ((tmp$_0 = (tmp$ = localStorage.getItem('isFirstLoadedOfficialChannelsInfoToSet')) != null ? toBoolean(tmp$) : null) != null ? tmp$_0 : true) {
+      if (((tmp$_0 = (tmp$ = localStorage.getItem('isFirstLoadedOfficialChannelsInfoToSet')) != null ? toBoolean(tmp$) : null) != null ? tmp$_0 : true) || channels.size < 1) {
         localStorage.setItem('isFirstLoadedOfficialChannelsInfoToSet', false.toString());
         changeToRecentlyWatchedChannel(channels);
       }};
