@@ -988,8 +988,11 @@ if (typeof kotlin === 'undefined') {
     Player_getInstance().addOnPlayerEventListener_j8fzjz$(new ChannelDescription_init$ObjectLiteral_0());
   }
   ChannelDescription.prototype.setCurrentChannelName_0 = function () {
-    var tmp$, tmp$_0;
-    this.currentChannelName_0.innerHTML = ((tmp$_0 = (tmp$ = channels.node) != null ? tmp$.name : null) != null ? tmp$_0 : '').toString();
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5;
+    println('channels.node?.name ' + toString((tmp$ = channels.node) != null ? tmp$.name : null));
+    println('(channels.node?.name?:' + '"' + '"' + ')' + ((tmp$_1 = (tmp$_0 = channels.node) != null ? tmp$_0.name : null) != null ? tmp$_1 : '').toString());
+    println('(channels.node?.name?:' + '"' + '"' + ').toString() ' + ((tmp$_3 = (tmp$_2 = channels.node) != null ? tmp$_2.name : null) != null ? tmp$_3 : '').toString());
+    this.currentChannelName_0.innerHTML = ((tmp$_5 = (tmp$_4 = channels.node) != null ? tmp$_4.name : null) != null ? tmp$_5 : '').toString();
   };
   ChannelDescription.prototype.setCurrentChannelNumber_0 = function () {
     var tmp$, tmp$_0, tmp$_1;
@@ -3183,7 +3186,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_3-test1';
+    return 'v2020.03_3-test2';
   }
   var coreVersion;
   var appVersion;
@@ -3216,7 +3219,6 @@ if (typeof kotlin === 'undefined') {
       UserControlPanel_getInstance();
       ConsentPanel_getInstance();
       VirtualRemote_getInstance();
-      RealRemote_getInstance();
       LongClickEvent_getInstance();
       ChannelDescription_getInstance();
       OfficialChannels_getInstance();
@@ -5770,7 +5772,7 @@ if (typeof kotlin === 'undefined') {
   }
   function WatchingCounter_init$lambda(this$WatchingCounter) {
     return function () {
-      this$WatchingCounter.iframeWatchingCounter_0.src = 'https://hknbp.org//watching-counter.html?' + ('channel=' + this$WatchingCounter.channel_0.number) + '&' + ('coreVersion=' + coreVersion) + '&' + ('appVersion=' + appVersion);
+      this$WatchingCounter.iframeWatchingCounter_0.src = 'https://hknbp.org/watching-counter.html?' + ('channel=' + this$WatchingCounter.channel_0.number) + '&' + ('coreVersion=' + coreVersion) + '&' + ('appVersion=' + appVersion);
     };
   }
   WatchingCounter.$metadata$ = {

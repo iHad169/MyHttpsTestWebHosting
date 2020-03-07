@@ -165,7 +165,7 @@ val coreVersion: String = {
     value
     */
 
-    "v2020.03_3-test1"
+    "v2020.03_3-test2"
 }()
 
 /**
@@ -214,7 +214,7 @@ fun main(args: Array<String>) {
         UserControlPanel
         ConsentPanel
         VirtualRemote
-        RealRemote
+        //RealRemote
         LongClickEvent
         ChannelDescription
         OfficialChannels

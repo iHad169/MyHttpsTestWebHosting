@@ -34,7 +34,7 @@ class WatchingCounter(private val channel: Channel) {
 
     init {
         timer = window.setTimeout(fun(){
-            iframeWatchingCounter.src = "${rootURL}/watching-counter.html?" +
+            iframeWatchingCounter.src = "${rootURL}watching-counter.html?" +
                     "channel=${channel.number}" + "&" +
                     "coreVersion=${coreVersion}" + "&" +
                     "appVersion=${appVersion}"
