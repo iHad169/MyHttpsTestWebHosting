@@ -3182,7 +3182,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_4-test0';
+    return 'v2020.03_4-test1';
   }
   var coreVersion;
   var appVersion;
@@ -4725,6 +4725,7 @@ if (typeof kotlin === 'undefined') {
   }
   TabbableUI.prototype.show_s8ev37$ = function (showTime) {
     var tmp$, tmp$_0;
+    println('show');
     if (!this.isAddThisToTabbableUIList_elivbw$_0) {
       this.isAddThisToTabbableUIList_elivbw$_0 = true;
       tmp$ = TabbableUI$Companion_getInstance().tabbableUIList_0.iterator();
