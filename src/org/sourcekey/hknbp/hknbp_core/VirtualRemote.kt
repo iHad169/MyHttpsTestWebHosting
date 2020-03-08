@@ -331,6 +331,15 @@ object VirtualRemote{
         returnButton.onclick                = fun(event){UserInterface.hideAllUserInterface()}
 
         update()
+        channels.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<Channel> {
+            override fun onNodeChanged(
+                    preChangeNodeID: Int?, postChangeNodeID: Int?,
+                    preChangeNode: Channel?, postChangeNode: Channel?
+            ) { update() }
+        })
+        channels.addOnElementsChangedListener(object: ArrayLinkList.OnElementsChangedListener{
+            override fun onElementsChanged() { update() }
+        })
         Player.addOnPlayerEventListener(object : Player.OnPlayerEventListener {
             override fun on(onPlayerEvent: Player.OnPlayerEvent) {
                 when (onPlayerEvent) {

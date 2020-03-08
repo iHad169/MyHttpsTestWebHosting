@@ -36,7 +36,6 @@ abstract class TabbableUI(
     private var isAddThisToTabbableUIList: Boolean = false
 
     override fun show(showTime: Int?) {
-        println("show")
         //如果未響表度就加到表度,如果響表度即是呢個介面係因有新介面顯示而被隱藏
         if(!isAddThisToTabbableUIList){
             //記低呢個 可Tab用戶介面 係已經響個表度
@@ -50,6 +49,9 @@ abstract class TabbableUI(
         super.show(showTime)
         //Focus去當用戶介面顯示時最先Focus嘅Element
         firstFocusJqElement?.focus()
+
+        println("show")
+        println("tabbableUIList.size ${tabbableUIList.size}")
     }
 
     /**

@@ -3182,7 +3182,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_4-test1';
+    return 'v2020.03_4-test2';
   }
   var coreVersion;
   var appVersion;
@@ -4725,7 +4725,6 @@ if (typeof kotlin === 'undefined') {
   }
   TabbableUI.prototype.show_s8ev37$ = function (showTime) {
     var tmp$, tmp$_0;
-    println('show');
     if (!this.isAddThisToTabbableUIList_elivbw$_0) {
       this.isAddThisToTabbableUIList_elivbw$_0 = true;
       tmp$ = TabbableUI$Companion_getInstance().tabbableUIList_0.iterator();
@@ -4737,7 +4736,9 @@ if (typeof kotlin === 'undefined') {
     }UserInterface.prototype.show_s8ev37$.call(this, showTime);
     if ((tmp$_0 = this.firstFocusJqElement) != null) {
       tmp$_0.focus();
-    }};
+    }println('show');
+    println('tabbableUIList.size ' + TabbableUI$Companion_getInstance().tabbableUIList_0.size);
+  };
   TabbableUI.prototype.pushEventHide = function () {
     UserInterface.prototype.hide.call(this);
   };
@@ -4923,7 +4924,9 @@ if (typeof kotlin === 'undefined') {
     var tmp$_1;
     this.shower_0 = Kotlin.isType(tmp$_1 = document.getElementById('userControlPanelShower'), HTMLButtonElement) ? tmp$_1 : throwCCE();
     this.hideMouseTimer_fjcaw6$_0 = 0;
+    println('UserControlPanelShower init');
     this.show_s8ev37$(null);
+    println('UserControlPanelShower init F');
     this.shower_0.onclick = UserControlPanelShower_init$lambda;
     this.shower_0.onmousemove = UserControlPanelShower_init$lambda_0(this);
     this.shower_0.ondblclick = UserControlPanelShower_init$lambda_1;
@@ -5272,7 +5275,9 @@ if (typeof kotlin === 'undefined') {
     this.volumeDescriptionButton.onclick = VirtualRemote_init$lambda_54;
     this.returnButton.onclick = VirtualRemote_init$lambda_55;
     this.update();
-    Player_getInstance().addOnPlayerEventListener_j8fzjz$(new VirtualRemote_init$ObjectLiteral());
+    channels.addOnNodeEventListener_ljxrtv$(new VirtualRemote_init$ObjectLiteral());
+    channels.addOnElementsChangedListener_9f6p79$(new VirtualRemote_init$ObjectLiteral_0());
+    Player_getInstance().addOnPlayerEventListener_j8fzjz$(new VirtualRemote_init$ObjectLiteral_1());
   }
   VirtualRemote.prototype.updateChannelDescription = function () {
     var tmp$, tmp$_0;
@@ -5641,11 +5646,29 @@ if (typeof kotlin === 'undefined') {
   }
   function VirtualRemote_init$ObjectLiteral() {
   }
-  VirtualRemote_init$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
+  VirtualRemote_init$ObjectLiteral.prototype.onNodeChanged_t4rudg$ = function (preChangeNodeID, postChangeNodeID, preChangeNode, postChangeNode) {
+    VirtualRemote_getInstance().update();
+  };
+  VirtualRemote_init$ObjectLiteral.$metadata$ = {
+    kind: Kind_CLASS,
+    interfaces: [ArrayLinkList$OnNodeEventListener]
+  };
+  function VirtualRemote_init$ObjectLiteral_0() {
+  }
+  VirtualRemote_init$ObjectLiteral_0.prototype.onElementsChanged = function () {
+    VirtualRemote_getInstance().update();
+  };
+  VirtualRemote_init$ObjectLiteral_0.$metadata$ = {
+    kind: Kind_CLASS,
+    interfaces: [ArrayLinkList$OnElementsChangedListener]
+  };
+  function VirtualRemote_init$ObjectLiteral_1() {
+  }
+  VirtualRemote_init$ObjectLiteral_1.prototype.on_mdxcb7$ = function (onPlayerEvent) {
     if (equals(onPlayerEvent, Player$OnPlayerEvent$playing_getInstance()))
       VirtualRemote_getInstance().update();
   };
-  VirtualRemote_init$ObjectLiteral.$metadata$ = {
+  VirtualRemote_init$ObjectLiteral_1.$metadata$ = {
     kind: Kind_CLASS,
     interfaces: [Player$OnPlayerEventListener]
   };

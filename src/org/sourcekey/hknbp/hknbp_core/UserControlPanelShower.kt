@@ -94,9 +94,10 @@ object UserControlPanelShower: TabbableUI(
     }
 
     init {
+        println("UserControlPanelShower init")
         //保持顯示
         show(null)
-
+        println("UserControlPanelShower init F")
         //設定使用者控制界面顯示方法
         shower.onclick = fun(event){
             UserControlPanel.showHideAlternately(30000)
