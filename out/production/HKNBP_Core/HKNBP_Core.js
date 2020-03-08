@@ -892,10 +892,6 @@ if (typeof kotlin === 'undefined') {
       if (tmp$ == null) {
         break;
       }var nameElement = tmp$;
-      println('nameElement ' + nameElement);
-      println('nameElement.innerHTML ' + nameElement.innerHTML);
-      println('nameElement.textContent ' + toString(nameElement.textContent));
-      println('nameElement.nodeValue ' + toString(nameElement.nodeValue));
       var lang = (tmp$_0 = nameElement.getAttribute('lang')) != null ? tmp$_0 : '';
       var name = (tmp$_1 = nameElement.textContent) != null ? tmp$_1 : '';
       multiLangName.add_11rb$(new MultiLanguageString$LanguageString(lang, name));
@@ -2952,10 +2948,9 @@ if (typeof kotlin === 'undefined') {
         closure$onFailedLoadFileProgram();
       }};
   }
-  function LoadFile$load$lambda_2(closure$xmlhttp, closure$filePaths, closure$onLoadedFile, closure$onFailedLoadFileProgram) {
+  function LoadFile$load$lambda_2(closure$xmlhttp, closure$onLoadedFile, closure$onFailedLoadFileProgram) {
     return function (event) {
       if (closure$xmlhttp.status === 200) {
-        println('\u6210\u529F\u8B80\u53D6: ' + toString(closure$filePaths.node));
         closure$onLoadedFile(closure$xmlhttp);
       } else {
         closure$onFailedLoadFileProgram();
@@ -2971,7 +2966,7 @@ if (typeof kotlin === 'undefined') {
     xmlhttp.ontimeout = onFailedLoadFileProgram;
     xmlhttp.onerror = onFailedLoadFileProgram;
     xmlhttp.onreadystatechange = LoadFile$load$lambda_1(xmlhttp, onFailedLoadFileProgram);
-    xmlhttp.onload = LoadFile$load$lambda_2(xmlhttp, filePaths, onLoadedFile, onFailedLoadFileProgram);
+    xmlhttp.onload = LoadFile$load$lambda_2(xmlhttp, onLoadedFile, onFailedLoadFileProgram);
     xmlhttp.open('GET', (tmp$ = filePaths.node) != null ? tmp$ : '', true);
     xmlhttp.setRequestHeader('cache-control', 'max-age=' + cacheShelfLife);
     xmlhttp.send();
@@ -3187,7 +3182,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_3-test5';
+    return 'v2020.03_4-test0';
   }
   var coreVersion;
   var appVersion;
@@ -4951,6 +4946,7 @@ if (typeof kotlin === 'undefined') {
     }
   });
   UserControlPanelShower.prototype.show_s8ev37$ = function (showTime) {
+    println('show UserControlPanelShower');
     TabbableUI.prototype.show_s8ev37$.call(this, showTime);
     this.shower_0.style.cursor = 'auto';
   };

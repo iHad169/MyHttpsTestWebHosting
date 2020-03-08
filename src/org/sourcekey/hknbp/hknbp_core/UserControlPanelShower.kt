@@ -42,6 +42,7 @@ object UserControlPanelShower: TabbableUI(
         }
 
     override fun show(showTime: Int?) {
+        println("show UserControlPanelShower")
         super.show(showTime)
         shower.style.cursor = "auto"
     }

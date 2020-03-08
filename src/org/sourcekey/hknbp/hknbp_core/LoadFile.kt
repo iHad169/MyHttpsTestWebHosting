@@ -91,7 +91,7 @@ object LoadFile {
         }
         xmlhttp.onload = fun(event) {
             if(xmlhttp.status.toInt()==200){
-                println("成功讀取: ${filePaths.node}")
+                //println("成功讀取: ${filePaths.node}")
                 onLoadedFile(xmlhttp)
             }else{ onFailedLoadFileProgram() }
         }
