@@ -48,6 +48,7 @@ object UserControlPanelShower: TabbableUI(
     }
 
     override fun hide() {
+        println("hide UserControlPanelShower")
         super.hide()
         hideMouseTimer = window.setTimeout(fun(){
             shower.style.cursor = "none"

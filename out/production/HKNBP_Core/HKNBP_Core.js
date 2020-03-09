@@ -3182,7 +3182,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_4-test3';
+    return 'v2020.03_4-test4';
   }
   var coreVersion;
   var appVersion;
@@ -4962,6 +4962,7 @@ if (typeof kotlin === 'undefined') {
     };
   }
   UserControlPanelShower.prototype.hide = function () {
+    println('hide UserControlPanelShower');
     TabbableUI.prototype.hide.call(this);
     this.hideMouseTimer_0 = window.setTimeout(UserControlPanelShower$hide$lambda(this), 2000);
   };
