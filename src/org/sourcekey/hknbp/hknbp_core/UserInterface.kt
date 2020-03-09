@@ -50,7 +50,7 @@ abstract class UserInterface(
      * */
     protected fun setHideTimer(showTime: Int?){
         hideTimer = if(showTime != null){
-            window.setTimeout(fun(){ hide() }, showTime)
+            window.setTimeout(fun(){ println("timeOut hide");hide() }, showTime)
         }else{ 0 }
     }
 

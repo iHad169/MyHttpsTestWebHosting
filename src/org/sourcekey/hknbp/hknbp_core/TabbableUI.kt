@@ -58,10 +58,12 @@ abstract class TabbableUI(
      * 因有其他新介面去顯示而隱藏呢個介面
      * */
     fun pushEventHide(){
+        println("pushEventHide()")
         super.hide()
     }
 
     override fun hide() {
+        println("hide()")
         //隱藏呢個可Tab用戶介面
         super.hide()
         //響可Tab用戶介面表中移除呢個介面

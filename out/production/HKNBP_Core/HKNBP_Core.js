@@ -3182,7 +3182,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_4-test4';
+    return 'v2020.03_4-test5';
   }
   var coreVersion;
   var appVersion;
@@ -4740,10 +4740,12 @@ if (typeof kotlin === 'undefined') {
     println('tabbableUIList.size ' + TabbableUI$Companion_getInstance().tabbableUIList_0.size);
   };
   TabbableUI.prototype.pushEventHide = function () {
+    println('pushEventHide()');
     UserInterface.prototype.hide.call(this);
   };
   TabbableUI.prototype.hide = function () {
     var tmp$;
+    println('hide()');
     UserInterface.prototype.hide.call(this);
     TabbableUI$Companion_getInstance().tabbableUIList_0.remove_11rb$(this);
     this.isAddThisToTabbableUIList_elivbw$_0 = false;
@@ -4953,7 +4955,7 @@ if (typeof kotlin === 'undefined') {
   });
   UserControlPanelShower.prototype.show_s8ev37$ = function (showTime) {
     println('show UserControlPanelShower');
-    TabbableUI.prototype.show_s8ev37$.call(this, showTime);
+    TabbableUI.prototype.show_s8ev37$.call(this, null);
     this.shower_0.style.cursor = 'auto';
   };
   function UserControlPanelShower$hide$lambda(this$UserControlPanelShower) {
@@ -4963,7 +4965,6 @@ if (typeof kotlin === 'undefined') {
   }
   UserControlPanelShower.prototype.hide = function () {
     println('hide UserControlPanelShower');
-    TabbableUI.prototype.hide.call(this);
     this.hideMouseTimer_0 = window.setTimeout(UserControlPanelShower$hide$lambda(this), 2000);
   };
   UserControlPanelShower.prototype.setIframeOnClick_a4mwiz$ = function (iframeId, onClick) {
@@ -5070,6 +5071,7 @@ if (typeof kotlin === 'undefined') {
   });
   function UserInterface$setHideTimer$lambda(this$UserInterface) {
     return function () {
+      println('timeOut hide');
       this$UserInterface.hide();
     };
   }
