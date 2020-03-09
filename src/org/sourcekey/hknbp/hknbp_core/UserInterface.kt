@@ -34,7 +34,7 @@ abstract class UserInterface(
     open fun update(){}
 
     /**
-     * 隱藏頻道訊息計時器
+     * 隱藏用戶界面倒時器
      * */
     protected var hideTimer = 0
         set(value) {
@@ -46,7 +46,7 @@ abstract class UserInterface(
         get() = mainFrameElement.style.display != "none"
 
     /**
-     * 隱藏用戶界面倒數器
+     * 設置隱藏用戶界面倒數器
      * */
     protected fun setHideTimer(showTime: Int?){
         hideTimer = if(showTime != null){
@@ -62,6 +62,8 @@ abstract class UserInterface(
     }
 
     open fun hide(){
+        //取消隱藏倒時
+        hideTimer = 0
         //隱藏呢個用戶界面
         mainFrameElement.style.display = "none"
     }

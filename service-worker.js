@@ -18,7 +18,7 @@
  * 控制更新cache版本
  * 修改版本名今用戶進行更新新版
  */
-var coreVersion = "v2020.03_3-test2";
+var coreVersion = "v2020.03_3-test3";
 
 /**
  * 檢查依家運行係米ServiceWorker

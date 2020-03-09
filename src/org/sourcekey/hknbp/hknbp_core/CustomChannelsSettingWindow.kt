@@ -26,7 +26,7 @@ object CustomChannelsSettingWindow: Window(
         title = "自訂頻道設定",
         contentHTML = """
             <div style="display:flex;display:-webkit-flex;">
-                <div style="flex:3;-webkit-flex:1;">
+                <div style="flex:3;-webkit-flex:3;">
                     <select id="customChannelsSettingChannelsSelect" size="7" style="font-size:5vh;width:100%;"></select>
                     <div style="display:flex;display:-webkit-flex;">
                         <div style="flex:1;-webkit-flex:1;">

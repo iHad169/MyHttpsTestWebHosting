@@ -1245,7 +1245,7 @@ if (typeof kotlin === 'undefined') {
   });
   function CustomChannelsSettingWindow() {
     CustomChannelsSettingWindow_instance = this;
-    Window.call(this, '\u81EA\u8A02\u983B\u9053\u8A2D\u5B9A', '\n            <div style="display:flex;display:-webkit-flex;">\n                <div style="flex:3;-webkit-flex:1;">\n                    <select id="customChannelsSettingChannelsSelect" size="7" style="font-size:5vh;width:100%;"><\/select>\n                    <div style="display:flex;display:-webkit-flex;">\n                        <div style="flex:1;-webkit-flex:1;">\n                            <button id="customChannelsSettingChannelsImportButton" style="display:none;font-size:5vh;margin:.2vh;">\u532F\u5165<\/button>\n                        <\/div>\n                        <div style="flex:1;-webkit-flex:1;">\n                            <button id="customChannelsSettingChannelsExportButton" style="display:none;font-size:5vh;margin:.2vh;">\u532F\u51FA<\/button>\n                        <\/div>\n                    <\/div>\n                <\/div>\n                <div style="flex:1;-webkit-flex:1;">\n                    <button id="customChannelsSettingChannelAddButton" style="font-size:5vh;margin:.2vh;">\n                        <i class="icon-font">&#xe82e;<\/i>\n                    <\/button>\n                    <button id="customChannelsSettingChannelMoveUpButton" style="font-size:5vh;margin:.2vh;">\n                        <i class="icon-font">&#xe821;<\/i>\n                    <\/button>\n                    <button id="customChannelsSettingChannelMoveDownButton" style="font-size:5vh;margin:.2vh;">\n                        <i class="icon-font">&#xe80a;<\/i>\n                    <\/button>\n                    <button id="customChannelsSettingChannelRemoveButton" style="font-size:5vh;margin:.2vh;">\n                        <i class="icon-font">&#xe82f;<\/i>\n                    <\/button>\n                    <button id="customChannelsSettingChannelEditButton" style="font-size:5vh;margin:.2vh;">\n                        <i class="icon-font">&#xe810;<\/i>\n                    <\/button>\n                <\/div>\n            <\/div>\n        ');
+    Window.call(this, '\u81EA\u8A02\u983B\u9053\u8A2D\u5B9A', '\n            <div style="display:flex;display:-webkit-flex;">\n                <div style="flex:3;-webkit-flex:3;">\n                    <select id="customChannelsSettingChannelsSelect" size="7" style="font-size:5vh;width:100%;"><\/select>\n                    <div style="display:flex;display:-webkit-flex;">\n                        <div style="flex:1;-webkit-flex:1;">\n                            <button id="customChannelsSettingChannelsImportButton" style="display:none;font-size:5vh;margin:.2vh;">\u532F\u5165<\/button>\n                        <\/div>\n                        <div style="flex:1;-webkit-flex:1;">\n                            <button id="customChannelsSettingChannelsExportButton" style="display:none;font-size:5vh;margin:.2vh;">\u532F\u51FA<\/button>\n                        <\/div>\n                    <\/div>\n                <\/div>\n                <div style="flex:1;-webkit-flex:1;">\n                    <button id="customChannelsSettingChannelAddButton" style="font-size:5vh;margin:.2vh;">\n                        <i class="icon-font">&#xe82e;<\/i>\n                    <\/button>\n                    <button id="customChannelsSettingChannelMoveUpButton" style="font-size:5vh;margin:.2vh;">\n                        <i class="icon-font">&#xe821;<\/i>\n                    <\/button>\n                    <button id="customChannelsSettingChannelMoveDownButton" style="font-size:5vh;margin:.2vh;">\n                        <i class="icon-font">&#xe80a;<\/i>\n                    <\/button>\n                    <button id="customChannelsSettingChannelRemoveButton" style="font-size:5vh;margin:.2vh;">\n                        <i class="icon-font">&#xe82f;<\/i>\n                    <\/button>\n                    <button id="customChannelsSettingChannelEditButton" style="font-size:5vh;margin:.2vh;">\n                        <i class="icon-font">&#xe810;<\/i>\n                    <\/button>\n                <\/div>\n            <\/div>\n        ');
     var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6;
     this.channelsSelect_0 = Kotlin.isType(tmp$ = document.getElementById('customChannelsSettingChannelsSelect'), HTMLSelectElement) ? tmp$ : throwCCE();
     this.channelAddButton_0 = Kotlin.isType(tmp$_0 = document.getElementById('customChannelsSettingChannelAddButton'), HTMLButtonElement) ? tmp$_0 : throwCCE();
@@ -3182,7 +3182,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_4-test2';
+    return 'v2020.03_4-test3';
   }
   var coreVersion;
   var appVersion;
@@ -4748,6 +4748,8 @@ if (typeof kotlin === 'undefined') {
     TabbableUI$Companion_getInstance().tabbableUIList_0.remove_11rb$(this);
     this.isAddThisToTabbableUIList_elivbw$_0 = false;
     (tmp$ = lastOrNull(TabbableUI$Companion_getInstance().tabbableUIList_0)) != null ? (tmp$.show_s8ev37$(this.transpositionFocusHideTime), Unit) : null;
+    println('hide');
+    println('tabbableUIList.size ' + TabbableUI$Companion_getInstance().tabbableUIList_0.size);
   };
   function TabbableUI_init$lambda(this$TabbableUI) {
     return function (event) {
@@ -5084,6 +5086,7 @@ if (typeof kotlin === 'undefined') {
     this.setHideTimer_s8ev37$(showTime);
   };
   UserInterface.prototype.hide = function () {
+    this.hideTimer = 0;
     this.mainFrameElement.style.display = 'none';
   };
   UserInterface.prototype.showHideAlternately_s8ev37$ = function (showTime) {

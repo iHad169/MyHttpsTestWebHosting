@@ -70,6 +70,9 @@ abstract class TabbableUI(
         isAddThisToTabbableUIList = false
         //顯示最新嘅 可Tab用戶介面
         tabbableUIList.lastOrNull()?.show(transpositionFocusHideTime)
+
+        println("hide")
+        println("tabbableUIList.size ${tabbableUIList.size}")
     }
 
     init {
