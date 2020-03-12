@@ -165,7 +165,7 @@ val coreVersion: String = {
     value
     */
 
-    "v2020.03_6"
+    "v2020.03_6-test"
 }()
 
 /**
@@ -210,6 +210,7 @@ fun reductionTo(w: Int, h: Int): IntArray{
  * */
 fun main(args: Array<String>) {
     try {
+        OfficialChannels
         UserControlPanelShower
         UserControlPanel
         ConsentPanel
@@ -217,7 +218,6 @@ fun main(args: Array<String>) {
         //RealRemote
         LongClickEvent
         ChannelDescription
-        OfficialChannels
         /**
         jq.ajax(json(Pair("url", "http://tvprofil.net/xmltv/data/htv2.hr/weekly_htv2.hr_tvprofil.net.xml"), Pair("success", fun(result: dynamic){
             println(result)

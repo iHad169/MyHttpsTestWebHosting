@@ -3182,7 +3182,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_6';
+    return 'v2020.03_6-test';
   }
   var coreVersion;
   var appVersion;
@@ -3211,13 +3211,13 @@ if (typeof kotlin === 'undefined') {
   }
   function main(args) {
     try {
+      OfficialChannels_getInstance();
       UserControlPanelShower_getInstance();
       UserControlPanel_getInstance();
       ConsentPanel_getInstance();
       VirtualRemote_getInstance();
       LongClickEvent_getInstance();
       ChannelDescription_getInstance();
-      OfficialChannels_getInstance();
       println('RunnerInfo.getIOSVersion() ' + toString(RunnerInfo_getInstance().getIOSVersion()));
     } catch (e) {
       println('\u4ECB\u9762\u521D\u59CB\u5316\u54C0\u5DE6: ' + e.toString());
@@ -4513,10 +4513,14 @@ if (typeof kotlin === 'undefined') {
   RunnerInfo.prototype.getIOSVersion = function () {
     var tmp$;
     var iOSVersion = typeof (tmp$ = function () {
-      if (/iP(hone|od|ad)/.test(navigator.platform)) {
-        var v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
-        return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)][0];
-      }return null;
+      try {
+        if (/iP(hone|od|ad)/.test(navigator.platform)) {
+          var v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+          return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)][0];
+        }} catch (e) {
+        return null;
+      }
+      return null;
     }) === 'function' ? tmp$ : throwCCE();
     return iOSVersion();
   };
