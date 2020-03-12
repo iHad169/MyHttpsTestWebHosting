@@ -82,5 +82,16 @@ object UserControlPanel: TabbableUI(
 
         //當滑鼠離開瀏覽器就隱藏
         //jq("body").mouseleave(fun(event){ hide() })  ///////////////Bug: Firefox嘅Select同Option Element一展開就隱藏
+
+        //如果系統係iOS10以下就保持顯示UserControlPanel
+        //由於iOS10以下唔允唔網頁內播放Video
+        //所以要將UserControlPanelShower縮細
+        //供使用者可向IframePlayer操作
+        //方便使用者使用UserControlPanel
+        if(RunnerInfo.getOsFamily() == "iOS" && RunnerInfo.getIOSVersion()?:0 < 10){
+            window.setInterval(fun(){
+                show(null)
+            }, 1000)
+        }
     }
 }

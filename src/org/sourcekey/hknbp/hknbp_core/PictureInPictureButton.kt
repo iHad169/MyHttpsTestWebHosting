@@ -26,7 +26,7 @@ object PictureInPictureButton: UserInterface(
     init {
         pictureInPictureButton.style.display = "none"//youtube嘅iframeplayer唔WORK,所以推出呢個功能住
         pictureInPictureButton.onclick = fun(event){
-            player?.pictureInPictureModeSwitch()
+            Player.pictureInPictureModeSwitch()
         }
     }
 }

@@ -21,7 +21,7 @@ import org.w3c.dom.HTMLElement
 abstract class TabbableUI(
         mainFrameElement: HTMLElement,
         protected var firstFocusJqElement: JQuery? = null,              //當顯示用戶介面最先Focus嘅Element
-        protected var transpositionFocusHideTime: Int? = 120000,         //Focus换位後用戶介面倒數隱藏時間,如null就唔會倒數隱藏
+        protected var transpositionFocusHideTime: Int? = 120000,        //Focus换位後用戶介面倒數隱藏時間,如null就唔會倒數隱藏
         protected val isFocusTriggerShowEventElement: Boolean = true,   //係米Focus返觸發顯示呢個用戶介面嘅Element
         protected var isFocusOutHide: Boolean = false                   //////////////////
 ): UserInterface(mainFrameElement = mainFrameElement) {
@@ -49,21 +49,16 @@ abstract class TabbableUI(
         super.show(showTime)
         //Focus去當用戶介面顯示時最先Focus嘅Element
         firstFocusJqElement?.focus()
-
-        println("show")
-        println("tabbableUIList.size ${tabbableUIList.size}")
     }
 
     /**
      * 因有其他新介面去顯示而隱藏呢個介面
      * */
     fun pushEventHide(){
-        println("pushEventHide()")
         super.hide()
     }
 
     override fun hide() {
-        println("hide()")
         //隱藏呢個可Tab用戶介面
         super.hide()
         //響可Tab用戶介面表中移除呢個介面
@@ -72,9 +67,6 @@ abstract class TabbableUI(
         isAddThisToTabbableUIList = false
         //顯示最新嘅 可Tab用戶介面
         tabbableUIList.lastOrNull()?.show(transpositionFocusHideTime)
-
-        println("hide")
-        println("tabbableUIList.size ${tabbableUIList.size}")
     }
 
     init {

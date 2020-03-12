@@ -3182,7 +3182,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_4-test5';
+    return 'v2020.03_6';
   }
   var coreVersion;
   var appVersion;
@@ -3218,6 +3218,7 @@ if (typeof kotlin === 'undefined') {
       LongClickEvent_getInstance();
       ChannelDescription_getInstance();
       OfficialChannels_getInstance();
+      println('RunnerInfo.getIOSVersion() ' + toString(RunnerInfo_getInstance().getIOSVersion()));
     } catch (e) {
       println('\u4ECB\u9762\u521D\u59CB\u5316\u54C0\u5DE6: ' + e.toString());
     }
@@ -3438,7 +3439,7 @@ if (typeof kotlin === 'undefined') {
   }
   function MutedDescription$update$lambda(this$MutedDescription) {
     return function () {
-      Player$Companion_getInstance().getMuted_y8twos$(MutedDescription$update$lambda$lambda(this$MutedDescription));
+      Player_getInstance().getMuted_y8twos$(MutedDescription$update$lambda$lambda(this$MutedDescription));
     };
   }
   function MutedDescription$update$lambda_0(closure$script) {
@@ -3464,10 +3465,10 @@ if (typeof kotlin === 'undefined') {
     window.setTimeout(MutedDescription$update$lambda_2(script), 60000);
   };
   function MutedDescription_init$lambda$lambda(muted) {
-    Player$Companion_getInstance().setMuted_6taknv$(!muted);
+    Player_getInstance().setMuted_6taknv$(!muted);
   }
   function MutedDescription_init$lambda(event) {
-    Player$Companion_getInstance().getMuted_y8twos$(MutedDescription_init$lambda$lambda);
+    Player_getInstance().getMuted_y8twos$(MutedDescription_init$lambda$lambda);
   }
   MutedDescription.$metadata$ = {
     kind: Kind_OBJECT,
@@ -3579,7 +3580,7 @@ if (typeof kotlin === 'undefined') {
     this.pictureInPictureButton_0.onclick = PictureInPictureButton_init$lambda;
   }
   function PictureInPictureButton_init$lambda(event) {
-    player != null ? (player.pictureInPictureModeSwitch(), Unit) : null;
+    Player_getInstance().pictureInPictureModeSwitch();
   }
   PictureInPictureButton.$metadata$ = {
     kind: Kind_OBJECT,
@@ -4509,6 +4510,16 @@ if (typeof kotlin === 'undefined') {
   RunnerInfo.prototype.getBrowserName = function () {
     return this.platform.name.toString() + ' ' + this.platform.version.toString();
   };
+  RunnerInfo.prototype.getIOSVersion = function () {
+    var tmp$;
+    var iOSVersion = typeof (tmp$ = function () {
+      if (/iP(hone|od|ad)/.test(navigator.platform)) {
+        var v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+        return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)][0];
+      }return null;
+    }) === 'function' ? tmp$ : throwCCE();
+    return iOSVersion();
+  };
   RunnerInfo.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'RunnerInfo',
@@ -4736,22 +4747,16 @@ if (typeof kotlin === 'undefined') {
     }UserInterface.prototype.show_s8ev37$.call(this, showTime);
     if ((tmp$_0 = this.firstFocusJqElement) != null) {
       tmp$_0.focus();
-    }println('show');
-    println('tabbableUIList.size ' + TabbableUI$Companion_getInstance().tabbableUIList_0.size);
-  };
+    }};
   TabbableUI.prototype.pushEventHide = function () {
-    println('pushEventHide()');
     UserInterface.prototype.hide.call(this);
   };
   TabbableUI.prototype.hide = function () {
     var tmp$;
-    println('hide()');
     UserInterface.prototype.hide.call(this);
     TabbableUI$Companion_getInstance().tabbableUIList_0.remove_11rb$(this);
     this.isAddThisToTabbableUIList_elivbw$_0 = false;
     (tmp$ = lastOrNull(TabbableUI$Companion_getInstance().tabbableUIList_0)) != null ? (tmp$.show_s8ev37$(this.transpositionFocusHideTime), Unit) : null;
-    println('hide');
-    println('tabbableUIList.size ' + TabbableUI$Companion_getInstance().tabbableUIList_0.size);
   };
   function TabbableUI_init$lambda(this$TabbableUI) {
     return function (event) {
@@ -4876,7 +4881,7 @@ if (typeof kotlin === 'undefined') {
     UserControlPanel_instance = this;
     var tmp$, tmp$_0;
     TabbableUI.call(this, Kotlin.isType(tmp$ = document.getElementById('userControlPanel'), HTMLElement) ? tmp$ : throwCCE(), $(Kotlin.isType(tmp$_0 = document.getElementById('onHeadNextAudioButton'), HTMLElement) ? tmp$_0 : throwCCE()));
-    var tmp$_1;
+    var tmp$_1, tmp$_2;
     this.panel_0 = Kotlin.isType(tmp$_1 = document.getElementById('userControlPanel'), HTMLDivElement) ? tmp$_1 : throwCCE();
     this.onShowUserControlPanel = UserControlPanel$onShowUserControlPanel$lambda;
     this.onHideUserControlPanel = UserControlPanel$onHideUserControlPanel$lambda;
@@ -4886,7 +4891,9 @@ if (typeof kotlin === 'undefined') {
     FullScreenButton_getInstance();
     this.panel_0.onmousemove = UserControlPanel_init$lambda(this);
     this.panel_0.onscroll = UserControlPanel_init$lambda_0(this);
-  }
+    if (equals(RunnerInfo_getInstance().getOsFamily(), 'iOS') && ((tmp$_2 = RunnerInfo_getInstance().getIOSVersion()) != null ? tmp$_2 : 0) < 10) {
+      window.setInterval(UserControlPanel_init$lambda_1(this), 1000);
+    }}
   UserControlPanel.prototype.show_s8ev37$ = function (showTime) {
     TabbableUI.prototype.show_s8ev37$.call(this, showTime);
     this.onShowUserControlPanel();
@@ -4910,6 +4917,11 @@ if (typeof kotlin === 'undefined') {
       this$UserControlPanel.show_s8ev37$(30000);
     };
   }
+  function UserControlPanel_init$lambda_1(this$UserControlPanel) {
+    return function () {
+      this$UserControlPanel.show_s8ev37$(null);
+    };
+  }
   UserControlPanel.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'UserControlPanel',
@@ -4925,20 +4937,17 @@ if (typeof kotlin === 'undefined') {
     UserControlPanelShower_instance = this;
     var tmp$, tmp$_0;
     TabbableUI.call(this, Kotlin.isType(tmp$ = document.createElement('div'), HTMLElement) ? tmp$ : throwCCE(), $(Kotlin.isType(tmp$_0 = document.getElementById('userControlPanelShower'), HTMLElement) ? tmp$_0 : throwCCE()), null);
-    var tmp$_1;
+    var tmp$_1, tmp$_2;
     this.shower_0 = Kotlin.isType(tmp$_1 = document.getElementById('userControlPanelShower'), HTMLButtonElement) ? tmp$_1 : throwCCE();
     this.hideMouseTimer_fjcaw6$_0 = 0;
-    println('UserControlPanelShower init');
     this.show_s8ev37$(null);
-    println('UserControlPanelShower init F');
     this.shower_0.onclick = UserControlPanelShower_init$lambda;
     this.shower_0.onmousemove = UserControlPanelShower_init$lambda_0(this);
     this.shower_0.ondblclick = UserControlPanelShower_init$lambda_1;
     this.set_ontouchstart_0(this.shower_0, UserControlPanelShower_init$lambda_2);
-    if (equals(RunnerInfo_getInstance().getOsFamily(), 'iOS')) {
+    if (equals(RunnerInfo_getInstance().getOsFamily(), 'iOS') && ((tmp$_2 = RunnerInfo_getInstance().getIOSVersion()) != null ? tmp$_2 : 0) < 10) {
       this.canTouchIframePlayerMode();
-    }Player_getInstance().addOnPlayerEventListener_j8fzjz$(new UserControlPanelShower_init$ObjectLiteral());
-  }
+    }}
   UserControlPanelShower.prototype.get_ontouchstart_0 = function ($receiver) {
     return this.get_ontouchstart_0($receiver);
   };
@@ -4954,7 +4963,6 @@ if (typeof kotlin === 'undefined') {
     }
   });
   UserControlPanelShower.prototype.show_s8ev37$ = function (showTime) {
-    println('show UserControlPanelShower');
     TabbableUI.prototype.show_s8ev37$.call(this, null);
     this.shower_0.style.cursor = 'auto';
   };
@@ -4964,22 +4972,19 @@ if (typeof kotlin === 'undefined') {
     };
   }
   UserControlPanelShower.prototype.hide = function () {
-    println('hide UserControlPanelShower');
     this.hideMouseTimer_0 = window.setTimeout(UserControlPanelShower$hide$lambda(this), 2000);
   };
   UserControlPanelShower.prototype.setIframeOnClick_a4mwiz$ = function (iframeId, onClick) {
   };
   UserControlPanelShower.prototype.canTouchIframePlayerMode = function () {
-    this.shower_0.style.right = 'auto';
-    this.shower_0.style.width = '10vh';
-    this.shower_0.style.backgroundColor = '#303030';
-    this.shower_0.innerHTML = '<i class="icon-font" style="font-size: 5vh;">&#xe825;<\/i>';
+    this.shower_0.style.top = 'auto';
+    this.shower_0.style.height = '10vh';
+    this.shower_0.innerHTML = '<i class="icon-font" style="font-size: 10vh;">&#xe831;<\/i>';
   };
   UserControlPanelShower.prototype.cannotTouchIframePlayerMode = function () {
     if (!equals(RunnerInfo_getInstance().getOsFamily(), 'iOS')) {
-      this.shower_0.style.right = '0';
-      this.shower_0.style.width = '100%';
-      this.shower_0.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+      this.shower_0.style.top = '0';
+      this.shower_0.style.height = '100%';
       this.shower_0.innerHTML = '';
     }};
   function UserControlPanelShower_init$lambda(event) {
@@ -5004,16 +5009,6 @@ if (typeof kotlin === 'undefined') {
     event.preventDefault();
     UserControlPanel_getInstance().showHideAlternately_s8ev37$(15000);
   }
-  function UserControlPanelShower_init$ObjectLiteral() {
-  }
-  UserControlPanelShower_init$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
-    if (equals(onPlayerEvent, Player$OnPlayerEvent$playing_getInstance()))
-      UserControlPanelShower_getInstance().cannotTouchIframePlayerMode();
-  };
-  UserControlPanelShower_init$ObjectLiteral.$metadata$ = {
-    kind: Kind_CLASS,
-    interfaces: [Player$OnPlayerEventListener]
-  };
   UserControlPanelShower.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'UserControlPanelShower',
@@ -5071,7 +5066,6 @@ if (typeof kotlin === 'undefined') {
   });
   function UserInterface$setHideTimer$lambda(this$UserInterface) {
     return function () {
-      println('timeOut hide');
       this$UserInterface.hide();
     };
   }
@@ -5713,7 +5707,7 @@ if (typeof kotlin === 'undefined') {
     }
   }
   function VolumeDescription$show$lambda() {
-    Player$Companion_getInstance().getVolume_huw4wd$(VolumeDescription$show$lambda$lambda);
+    Player_getInstance().getVolume_huw4wd$(VolumeDescription$show$lambda$lambda);
   }
   function VolumeDescription$show$lambda_0(closure$script) {
     return function () {
@@ -5751,10 +5745,10 @@ if (typeof kotlin === 'undefined') {
     window.setTimeout(VolumeDescription$show$lambda_4(script), 60000);
   };
   function VolumeDescription_init$lambda(event) {
-    Player$Companion_getInstance().volumeUp();
+    Player_getInstance().volumeUp();
   }
   function VolumeDescription_init$lambda_0(event) {
-    Player$Companion_getInstance().volumeDown();
+    Player_getInstance().volumeDown();
   }
   VolumeDescription.$metadata$ = {
     kind: Kind_OBJECT,
