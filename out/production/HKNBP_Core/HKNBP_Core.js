@@ -3182,7 +3182,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_6-test';
+    return 'v2020.03_7';
   }
   var coreVersion;
   var appVersion;
@@ -3218,7 +3218,7 @@ if (typeof kotlin === 'undefined') {
       VirtualRemote_getInstance();
       LongClickEvent_getInstance();
       ChannelDescription_getInstance();
-      println('RunnerInfo.getIOSVersion() ' + toString(RunnerInfo_getInstance().getIOSVersion()));
+      appVersion = toString(RunnerInfo_getInstance().getIOSVersion());
     } catch (e) {
       println('\u4ECB\u9762\u521D\u59CB\u5316\u54C0\u5DE6: ' + e.toString());
     }
@@ -3618,8 +3618,9 @@ if (typeof kotlin === 'undefined') {
     this.onPlaying_0 = Player$onPlaying$lambda(this);
     this.onNotPlaying_0 = Player$onNotPlaying$lambda(this);
     this.listenIframePlayerScript_0 = Player$listenIframePlayerScript$lambda;
-    this.addOnPlayerEventListener_j8fzjz$(new Player_init$ObjectLiteral());
-    this.setListenIframePlayerScript_0();
+    if (!RunnerInfo_getInstance().isBelowIOS10()) {
+      this.addOnPlayerEventListener_j8fzjz$(new Player_init$ObjectLiteral());
+    }this.setListenIframePlayerScript_0();
     this.setListenIframePlayerMessage_0();
   }
   function Player$OnPlayerEvent(name, ordinal) {
@@ -4229,15 +4230,26 @@ if (typeof kotlin === 'undefined') {
   function Player$listenIframePlayerScript$lambda(event) {
   }
   function Player_init$ObjectLiteral() {
+    this.currentChannelNumber_0 = 0;
+    this.currentChannelNotPlayingCount_0 = 0;
     this.isPlaying_0 = false;
   }
   function Player_init$ObjectLiteral$on$lambda(this$) {
     return function () {
-      var tmp$, tmp$_0;
+      var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
       if (!this$.isPlaying_0) {
         tmp$_0 = (tmp$ = Player_getInstance().playingChannel_0) != null ? tmp$ : new Channel(0);
         Player_getInstance().playChannel_e3jjlp$(tmp$_0);
         PromptBox_getInstance().promptMessage('\u8A0A\u865F\u63A5\u6536\u4E0D\u826F');
+        if (3 < this$.currentChannelNotPlayingCount_0) {
+          window.location.reload();
+        }if (((tmp$_1 = Player_getInstance().playingChannel_0) != null ? tmp$_1.number : null) == this$.currentChannelNumber_0) {
+          tmp$_2 = this$.currentChannelNotPlayingCount_0;
+          this$.currentChannelNotPlayingCount_0 = tmp$_2 + 1 | 0;
+        } else {
+          this$.currentChannelNotPlayingCount_0 = 0;
+          this$.currentChannelNumber_0 = (tmp$_3 = Player_getInstance().playingChannel_0) != null ? tmp$_3.number : null;
+        }
       }};
   }
   Player_init$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
@@ -4523,6 +4535,12 @@ if (typeof kotlin === 'undefined') {
       return null;
     }) === 'function' ? tmp$ : throwCCE();
     return iOSVersion();
+  };
+  RunnerInfo.prototype.isBelowIOS10 = function () {
+    var tmp$;
+    if (equals(this.getOsFamily(), 'iOS') && ((tmp$ = this.getIOSVersion()) != null ? tmp$ : 0) < 10) {
+      return true;
+    }return false;
   };
   RunnerInfo.$metadata$ = {
     kind: Kind_OBJECT,
@@ -4885,7 +4903,7 @@ if (typeof kotlin === 'undefined') {
     UserControlPanel_instance = this;
     var tmp$, tmp$_0;
     TabbableUI.call(this, Kotlin.isType(tmp$ = document.getElementById('userControlPanel'), HTMLElement) ? tmp$ : throwCCE(), $(Kotlin.isType(tmp$_0 = document.getElementById('onHeadNextAudioButton'), HTMLElement) ? tmp$_0 : throwCCE()));
-    var tmp$_1, tmp$_2;
+    var tmp$_1;
     this.panel_0 = Kotlin.isType(tmp$_1 = document.getElementById('userControlPanel'), HTMLDivElement) ? tmp$_1 : throwCCE();
     this.onShowUserControlPanel = UserControlPanel$onShowUserControlPanel$lambda;
     this.onHideUserControlPanel = UserControlPanel$onHideUserControlPanel$lambda;
@@ -4895,7 +4913,7 @@ if (typeof kotlin === 'undefined') {
     FullScreenButton_getInstance();
     this.panel_0.onmousemove = UserControlPanel_init$lambda(this);
     this.panel_0.onscroll = UserControlPanel_init$lambda_0(this);
-    if (equals(RunnerInfo_getInstance().getOsFamily(), 'iOS') && ((tmp$_2 = RunnerInfo_getInstance().getIOSVersion()) != null ? tmp$_2 : 0) < 10) {
+    if (RunnerInfo_getInstance().isBelowIOS10()) {
       window.setInterval(UserControlPanel_init$lambda_1(this), 1000);
     }}
   UserControlPanel.prototype.show_s8ev37$ = function (showTime) {
@@ -4923,8 +4941,9 @@ if (typeof kotlin === 'undefined') {
   }
   function UserControlPanel_init$lambda_1(this$UserControlPanel) {
     return function () {
-      this$UserControlPanel.show_s8ev37$(null);
-    };
+      if (!this$UserControlPanel.isShow) {
+        this$UserControlPanel.show_s8ev37$(null);
+      }};
   }
   UserControlPanel.$metadata$ = {
     kind: Kind_OBJECT,
@@ -4941,7 +4960,7 @@ if (typeof kotlin === 'undefined') {
     UserControlPanelShower_instance = this;
     var tmp$, tmp$_0;
     TabbableUI.call(this, Kotlin.isType(tmp$ = document.createElement('div'), HTMLElement) ? tmp$ : throwCCE(), $(Kotlin.isType(tmp$_0 = document.getElementById('userControlPanelShower'), HTMLElement) ? tmp$_0 : throwCCE()), null);
-    var tmp$_1, tmp$_2;
+    var tmp$_1;
     this.shower_0 = Kotlin.isType(tmp$_1 = document.getElementById('userControlPanelShower'), HTMLButtonElement) ? tmp$_1 : throwCCE();
     this.hideMouseTimer_fjcaw6$_0 = 0;
     this.show_s8ev37$(null);
@@ -4949,7 +4968,7 @@ if (typeof kotlin === 'undefined') {
     this.shower_0.onmousemove = UserControlPanelShower_init$lambda_0(this);
     this.shower_0.ondblclick = UserControlPanelShower_init$lambda_1;
     this.set_ontouchstart_0(this.shower_0, UserControlPanelShower_init$lambda_2);
-    if (equals(RunnerInfo_getInstance().getOsFamily(), 'iOS') && ((tmp$_2 = RunnerInfo_getInstance().getIOSVersion()) != null ? tmp$_2 : 0) < 10) {
+    if (RunnerInfo_getInstance().isBelowIOS10()) {
       this.canTouchIframePlayerMode();
     }}
   UserControlPanelShower.prototype.get_ontouchstart_0 = function ($receiver) {

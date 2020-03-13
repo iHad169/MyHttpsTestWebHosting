@@ -88,9 +88,9 @@ object UserControlPanel: TabbableUI(
         //所以要將UserControlPanelShower縮細
         //供使用者可向IframePlayer操作
         //方便使用者使用UserControlPanel
-        if(RunnerInfo.getOsFamily() == "iOS" && RunnerInfo.getIOSVersion()?:0 < 10){
+        if(RunnerInfo.isBelowIOS10()){
             window.setInterval(fun(){
-                show(null)
+                if(!isShow){show(null)}
             }, 1000)
         }
     }
