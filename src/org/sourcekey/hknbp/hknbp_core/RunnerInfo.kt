@@ -74,11 +74,18 @@ object RunnerInfo {
         val iOSVersion = js("""
             function(){
                 try{
+                    var d, v;
                     if (/iP(hone|od|ad)/.test(navigator.platform)) {
-                        // supports iOS 2.0 and later: <http://bit.ly/TJjs1V>
-                        var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
-                        return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)][0];
+                        v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+                        d = {
+                            status: true,
+                            version: parseInt(v[1], 10) , 
+                            info: parseInt(v[1], 10)+'.'+parseInt(v[2], 10)+'.'+parseInt(v[3] || 0, 10)
+                        };
+                    }else{
+                        d = {status:false, version: null, info:''}
                     }
+                    return d.version;
                 }catch(e){return null;}
                 return null;
             }
@@ -87,7 +94,7 @@ object RunnerInfo {
     }
 
     fun isBelowIOS10(): Boolean{
-        if(getOsFamily() == "iOS" && getIOSVersion()?:0 < 10){ return true }
+        if(getOsFamily() == "iOS" && getIOSVersion()?:10 <= 10){ return true }
         return false
     }
 }

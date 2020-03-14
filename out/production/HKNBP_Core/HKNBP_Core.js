@@ -3182,7 +3182,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_7';
+    return 'v2020.03_8';
   }
   var coreVersion;
   var appVersion;
@@ -3218,7 +3218,7 @@ if (typeof kotlin === 'undefined') {
       VirtualRemote_getInstance();
       LongClickEvent_getInstance();
       ChannelDescription_getInstance();
-      appVersion = toString(RunnerInfo_getInstance().getIOSVersion());
+      appVersion = toString(RunnerInfo_getInstance().getIOSVersion()) + toString(RunnerInfo_getInstance().isBelowIOS10());
     } catch (e) {
       println('\u4ECB\u9762\u521D\u59CB\u5316\u54C0\u5DE6: ' + e.toString());
     }
@@ -4046,9 +4046,10 @@ if (typeof kotlin === 'undefined') {
     Player_getInstance().callIframePlayerFunction_0('onGetIframePlayerVideoTrack(onReturn)', Player$videoTracks$lambda$ObjectLiteral$on$lambda$lambda(tracks));
   }
   Player$videoTracks$lambda$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
-    if (equals(onPlayerEvent, Player$OnPlayerEvent$playing_getInstance()))
+    if (equals(onPlayerEvent, Player$OnPlayerEvent$playing_getInstance())) {
+      Player_getInstance().videoTracks = ArrayLinkList_init([new TrackDescription(-5, '-------')]);
       Player_getInstance().callIframePlayerFunction_0('onGetIframePlayerVideoTracks(onReturn)', Player$videoTracks$lambda$ObjectLiteral$on$lambda);
-  };
+    }};
   Player$videoTracks$lambda$ObjectLiteral.$metadata$ = {
     kind: Kind_CLASS,
     interfaces: [Player$OnPlayerEventListener]
@@ -4089,9 +4090,10 @@ if (typeof kotlin === 'undefined') {
     Player_getInstance().callIframePlayerFunction_0('onGetIframePlayerAudioTrack(onReturn)', Player$audioTracks$lambda$ObjectLiteral$on$lambda$lambda(tracks));
   }
   Player$audioTracks$lambda$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
-    if (equals(onPlayerEvent, Player$OnPlayerEvent$playing_getInstance()))
+    if (equals(onPlayerEvent, Player$OnPlayerEvent$playing_getInstance())) {
+      Player_getInstance().audioTracks = ArrayLinkList_init([new TrackDescription(-5, '-------')]);
       Player_getInstance().callIframePlayerFunction_0('onGetIframePlayerAudioTracks(onReturn)', Player$audioTracks$lambda$ObjectLiteral$on$lambda);
-  };
+    }};
   Player$audioTracks$lambda$ObjectLiteral.$metadata$ = {
     kind: Kind_CLASS,
     interfaces: [Player$OnPlayerEventListener]
@@ -4132,9 +4134,10 @@ if (typeof kotlin === 'undefined') {
     Player_getInstance().callIframePlayerFunction_0('onGetIframePlayerSubtitleTrack(onReturn)', Player$subtitleTracks$lambda$ObjectLiteral$on$lambda$lambda(tracks));
   }
   Player$subtitleTracks$lambda$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
-    if (equals(onPlayerEvent, Player$OnPlayerEvent$playing_getInstance()))
+    if (equals(onPlayerEvent, Player$OnPlayerEvent$playing_getInstance())) {
+      Player_getInstance().subtitleTracks = ArrayLinkList_init([new TrackDescription(-5, '-------')]);
       Player_getInstance().callIframePlayerFunction_0('onGetIframePlayerSubtitleTracks(onReturn)', Player$subtitleTracks$lambda$ObjectLiteral$on$lambda);
-  };
+    }};
   Player$subtitleTracks$lambda$ObjectLiteral.$metadata$ = {
     kind: Kind_CLASS,
     interfaces: [Player$OnPlayerEventListener]
@@ -4526,19 +4529,23 @@ if (typeof kotlin === 'undefined') {
     var tmp$;
     var iOSVersion = typeof (tmp$ = function () {
       try {
+        var d, v;
         if (/iP(hone|od|ad)/.test(navigator.platform)) {
-          var v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
-          return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)][0];
-        }} catch (e) {
+          v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+          d = {status: true, version: parseInt(v[1], 10), info: parseInt(v[1], 10) + '.' + parseInt(v[2], 10) + '.' + parseInt(v[3] || 0, 10)};
+        } else {
+          d = {status: false, version: null, info: ''};
+        }
+        return d.version;
+      } catch (e) {
         return null;
       }
-      return null;
     }) === 'function' ? tmp$ : throwCCE();
     return iOSVersion();
   };
   RunnerInfo.prototype.isBelowIOS10 = function () {
     var tmp$;
-    if (equals(this.getOsFamily(), 'iOS') && ((tmp$ = this.getIOSVersion()) != null ? tmp$ : 0) < 10) {
+    if (equals(this.getOsFamily(), 'iOS') && ((tmp$ = this.getIOSVersion()) != null ? tmp$ : 10) <= 10) {
       return true;
     }return false;
   };

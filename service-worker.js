@@ -18,7 +18,7 @@
  * 控制更新cache版本
  * 修改版本名今用戶進行更新新版
  */
-var coreVersion = "v2020.03_7";
+var coreVersion = "v2020.03_8";
 
 /**
  * 檢查依家運行係米ServiceWorker
@@ -53,6 +53,7 @@ if(self.registration){
         "font/fontello.ttf",
         "font/fontello.woff",
         "font/fontello.woff2",
+        "iframePlayer/hknbp-iframeplayer-bridge.js",
         "iframePlayer/videojs.html",
         "iframePlayer/youtube_api.html",
         "img/logo.png",

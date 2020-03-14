@@ -120,3 +120,8 @@ object LoadFile {
         load(onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath)
     }
 }
+
+/**
+jq.ajax(json(Pair("url", "http://tvprofil.net/xmltv/data/htv2.hr/weekly_htv2.hr_tvprofil.net.xml"), Pair("success", fun(result: dynamic){
+println(result)
+})))*/

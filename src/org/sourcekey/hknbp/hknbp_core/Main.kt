@@ -165,7 +165,7 @@ val coreVersion: String = {
     value
     */
 
-    "v2020.03_7"
+    "v2020.03_8"
 }()
 
 /**
@@ -218,10 +218,6 @@ fun main(args: Array<String>) {
         //RealRemote
         LongClickEvent
         ChannelDescription
-        /**
-        jq.ajax(json(Pair("url", "http://tvprofil.net/xmltv/data/htv2.hr/weekly_htv2.hr_tvprofil.net.xml"), Pair("success", fun(result: dynamic){
-            println(result)
-        })))*/
-        appVersion = RunnerInfo.getIOSVersion().toString()
+        appVersion = RunnerInfo.getIOSVersion().toString() + RunnerInfo.isBelowIOS10()
     } catch (e: dynamic) { println("介面初始化哀左: $e") }
 }

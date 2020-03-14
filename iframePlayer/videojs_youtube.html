@@ -30,18 +30,6 @@
      * */
     var player;
 
-    /**
-     * Track嘅class
-     * @param {String} id Track嘅編號,用來識別
-     * @param {String} name Track嘅名
-     * */
-    function TrackDescription(id, name){
-        var obj = {};
-        obj.id = id;
-        obj.name = name;
-
-        return obj;
-    }
 
     /**
      * 呢個value係個function()
@@ -286,29 +274,8 @@
         player.volume(value/100);
     }
 
-    /**
-     * 獲取URL參數值
-     *
-     * 因為有啲舊瀏覽器唔支援URL().searchParams.get()
-     *
-     * @param {paramName: String} 要獲取參數名
-     * @return {param: String} 參數值
-     * */
-    function getUrlParams(paramName) {
-        var url = window.location.href
-        var vars = {};
-        var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-        function(m,key,value) {
-            vars[key] = value;
-        });
-        return vars[paramName];
-    }
-    /**
-     * 在URL參數讀取 片源
-     * 並初始化IframePlayer
-     */
-    onIframePlayerInit(decodeURIComponent(getUrlParams("sourceSrc")));
 </script>
+<script type="text/javascript" src="hknbp-iframeplayer-bridge.js"></script>
 </body>
 </html>
 

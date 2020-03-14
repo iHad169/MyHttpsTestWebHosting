@@ -104,6 +104,8 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             override fun on(onPlayerEvent: OnPlayerEvent) {
                 when (onPlayerEvent) {
                     OnPlayerEvent.playing -> {
+                        //清空VideoTracks值
+                        videoTracks = ArrayLinkList(TrackDescription(-5, "-------"))
                         //設定VideoTracks值
                         callIframePlayerFunction("onGetIframePlayerVideoTracks(onReturn)", fun(tracks){
                             callIframePlayerFunction("onGetIframePlayerVideoTrack(onReturn)", fun(track){
@@ -181,6 +183,8 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             override fun on(onPlayerEvent: OnPlayerEvent) {
                 when (onPlayerEvent) {
                     OnPlayerEvent.playing -> {
+                        //清空AudioTracks值
+                        audioTracks = ArrayLinkList(TrackDescription(-5, "-------"))
                         //設定AudioTracks值
                         callIframePlayerFunction("onGetIframePlayerAudioTracks(onReturn)", fun(tracks){
                             callIframePlayerFunction("onGetIframePlayerAudioTrack(onReturn)", fun(track){
@@ -258,6 +262,8 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             override fun on(onPlayerEvent: OnPlayerEvent) {
                 when (onPlayerEvent) {
                     OnPlayerEvent.playing -> {
+                        //清空SubtitleTracks值
+                        subtitleTracks = ArrayLinkList(TrackDescription(-5, "-------"))
                         //設定SubtitleTracks值
                         callIframePlayerFunction("onGetIframePlayerSubtitleTracks(onReturn)", fun(tracks){
                             callIframePlayerFunction("onGetIframePlayerSubtitleTrack(onReturn)", fun(track){
