@@ -9,8 +9,8 @@
       "purpose": "maskable any"
     }
   ],
-  "start_url": "/",
-  "background_color": "#000",
+  "start_url": "https://hknbp.org",
+  "background_color": "#FFF",
   "display": "fullscreen",
   "scope": "/",
   "theme_color": "#000",
