@@ -22,28 +22,38 @@ package org.sourcekey.hknbp.hknbp_core
  * 因依家啲瀏覽器唔準(出聲)自動播放
  * */
 object CanAutoplay {
-    val video               = js("{type: 'video', method: 'video', params: null}")
-    val videoMuted          = js("{type: 'videoMuted', method: 'video', params: {muted: true}}")
-    val videoInline         = js("{type: 'videoInline', method: 'video', params: {inline: true}}")
-    val videoInlineMuted    = js("{type: 'videoInlineMuted', method: 'video', params: {inline: true, muted: true}}")
+    private val video               = js("{type: 'video', method: 'video', params: null}")
+    private val videoMuted          = js("{type: 'videoMuted', method: 'video', params: {muted: true}}")
+    private val videoInline         = js("{type: 'videoInline', method: 'video', params: {inline: true}}")
+    private val videoInlineMuted    = js("{type: 'videoInlineMuted', method: 'video', params: {inline: true, muted: true}}")
 
     private fun checkCanAutoplay(onCanAutoplay: ()->Unit, onCanNotAutoplay: ()->Unit, autoplayType: dynamic){
-        val _canAutoplay: dynamic = js("canAutoplay")
-        _canAutoplay[autoplayType.method](autoplayType.params).then(fun(obj: dynamic){
-            var result: Boolean = false
-            try{result = obj.result}catch(e: dynamic){}
-            if (result == true) {
-                //可以自動播放
-                onCanAutoplay()
-            } else {
-                //唔可以自動播放
-                onCanNotAutoplay()
-            }
-        })
+        try{
+            val _canAutoplay: dynamic = js("canAutoplay")
+            _canAutoplay[autoplayType.method](autoplayType.params).then(fun(obj: dynamic){
+                var result: Boolean = false
+                try{result = obj.result}catch(e: dynamic){}
+                if (result == true) {
+                    //可以自動播放
+                    onCanAutoplay()
+                } else {
+                    //唔可以自動播放
+                    onCanNotAutoplay()
+                }
+            })
+        }catch(e:dynamic){ onCanAutoplay() }
     }
 
     fun checkVideoAutoPlayNeedToMute(onNotNeedToMuteCanAutoplay: ()->Unit, onNeedToMuteCanAutoplay: ()->Unit){
         checkCanAutoplay(onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay, video)
+    }
+
+    fun canInlinePlay(onIsCanInlinePlay: (isCanInlinePlay: Boolean)->Unit){
+        checkCanAutoplay(
+                fun(){onIsCanInlinePlay(true)},
+                fun(){onIsCanInlinePlay(false)},
+                videoInlineMuted
+        )
     }
 
     init {

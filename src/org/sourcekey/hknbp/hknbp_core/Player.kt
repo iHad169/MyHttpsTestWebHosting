@@ -656,51 +656,53 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
         //因播放頻道必需全由使用者操作
         //如自動Reload會跳出iOS10以下專屬播放介面
         //導致使用者再要點擊打開iOS10以下專屬播放介面播放頻道
-        if(!RunnerInfo.isBelowIOS10()){
-            addOnPlayerEventListener(object : OnPlayerEventListener {
-                private var currentChannelNumber: Int? = 0
-                private var currentChannelNotPlayingCount = 0
-                private var isPlaying: Boolean = false
-                override fun on(onPlayerEvent: OnPlayerEvent) {
-                    when (onPlayerEvent) {
-                        OnPlayerEvent.playing -> {
-                            isPlaying = true
-                        }
-                        OnPlayerEvent.notPlaying -> {
-                            isPlaying = false
-                            //檢查呢15秒內Player有冇再繼續正常播放,若冇就ReLoad
-                            window.setTimeout(fun() {
-                                if (!isPlaying) {
-                                    //ReLoad
-                                    playChannel(playingChannel?:Channel(0))
-                                    //顯示訊號差嘅提示
-                                    PromptBox.promptMessage("訊號接收不良")
+        CanAutoplay.canInlinePlay { isCanInlinePlay: Boolean ->
+            if(isCanInlinePlay){
+                addOnPlayerEventListener(object : OnPlayerEventListener {
+                    private var currentChannelNumber: Int? = 0
+                    private var currentChannelNotPlayingCount = 0
+                    private var isPlaying: Boolean = false
+                    override fun on(onPlayerEvent: OnPlayerEvent) {
+                        when (onPlayerEvent) {
+                            OnPlayerEvent.playing -> {
+                                isPlaying = true
+                            }
+                            OnPlayerEvent.notPlaying -> {
+                                isPlaying = false
+                                //檢查呢15秒內Player有冇再繼續正常播放,若冇就ReLoad
+                                window.setTimeout(fun() {
+                                    if (!isPlaying) {
+                                        //ReLoad
+                                        playChannel(playingChannel?:Channel(0))
+                                        //顯示訊號差嘅提示
+                                        PromptBox.promptMessage("訊號接收不良")
 
-                                    //停止太多次就直接Reload個網頁
-                                    if(3 < currentChannelNotPlayingCount){ window.location.reload() }
-                                    //計算已停止次數
-                                    if(playingChannel?.number == currentChannelNumber){
-                                        currentChannelNotPlayingCount++
-                                    }else{
-                                        currentChannelNotPlayingCount = 0
-                                        currentChannelNumber = playingChannel?.number
+                                        //停止太多次就直接Reload個網頁
+                                        if(3 < currentChannelNotPlayingCount){ window.location.reload() }
+                                        //計算已停止次數
+                                        if(playingChannel?.number == currentChannelNumber){
+                                            currentChannelNotPlayingCount++
+                                        }else{
+                                            currentChannelNotPlayingCount = 0
+                                            currentChannelNumber = playingChannel?.number
+                                        }
                                     }
-                                }
-                            }, 15000)
+                                }, 15000)
+                            }
                         }
                     }
-                }
-                init {
-                    /**
-                    //如果冇自動播放就換到手動播放模式
-                    checkNeedCanTouchIframePlayerModeTimer = window.setTimeout(fun() {
-                    if (!isPlaying && numberOfPlaying == 0) {
-                    UserControlPanel.canTouchIframePlayerMode()
-                    PromptBox.promptMessage("已切換到手動播放模式")
+                    init {
+                        /**
+                        //如果冇自動播放就換到手動播放模式
+                        checkNeedCanTouchIframePlayerModeTimer = window.setTimeout(fun() {
+                        if (!isPlaying && numberOfPlaying == 0) {
+                        UserControlPanel.canTouchIframePlayerMode()
+                        PromptBox.promptMessage("已切換到手動播放模式")
+                        }
+                        }, 30000)*/
                     }
-                    }, 30000)*/
-                }
-            })
+                })
+            }
         }
         setListenIframePlayerScript()
         setListenIframePlayerMessage()
