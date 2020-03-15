@@ -48,13 +48,14 @@ object CanAutoplay {
         checkCanAutoplay(onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay, video)
     }
 
+    /**
     fun canInlinePlay(onIsCanInlinePlay: (isCanInlinePlay: Boolean)->Unit){
         checkCanAutoplay(
                 fun(){onIsCanInlinePlay(true)},
                 fun(){onIsCanInlinePlay(false)},
                 videoInlineMuted
         )
-    }
+    }*/
 
     init {
         checkCanAutoplay(fun(){}, fun(){println(video.type+": 唔可以自動播放")}, video)

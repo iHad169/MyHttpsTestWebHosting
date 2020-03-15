@@ -88,12 +88,10 @@ object UserControlPanel: TabbableUI(
         //所以要將UserControlPanelShower縮細
         //供使用者可向IframePlayer操作
         //方便使用者使用UserControlPanel
-        CanAutoplay.canInlinePlay { isCanInlinePlay: Boolean ->
-            if(!isCanInlinePlay){
-                window.setInterval(fun(){
-                    if(!isShow){show(null)}
-                }, 1000)
-            }
+        if(RunnerInfo.isBelowIOS10()){
+            window.setInterval(fun(){
+                if(!isShow){show(null)}
+            }, 1000)
         }
     }
 }

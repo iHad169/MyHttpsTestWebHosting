@@ -483,19 +483,6 @@ if (typeof kotlin === 'undefined') {
   CanAutoplay.prototype.checkVideoAutoPlayNeedToMute_9dmrm4$ = function (onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay) {
     this.checkCanAutoplay_0(onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay, this.video_0);
   };
-  function CanAutoplay$canInlinePlay$lambda(closure$onIsCanInlinePlay) {
-    return function () {
-      closure$onIsCanInlinePlay(true);
-    };
-  }
-  function CanAutoplay$canInlinePlay$lambda_0(closure$onIsCanInlinePlay) {
-    return function () {
-      closure$onIsCanInlinePlay(false);
-    };
-  }
-  CanAutoplay.prototype.canInlinePlay_y8twos$ = function (onIsCanInlinePlay) {
-    this.checkCanAutoplay_0(CanAutoplay$canInlinePlay$lambda(onIsCanInlinePlay), CanAutoplay$canInlinePlay$lambda_0(onIsCanInlinePlay), this.videoInlineMuted_0);
-  };
   function CanAutoplay_init$lambda() {
   }
   function CanAutoplay_init$lambda_0(this$CanAutoplay) {
@@ -3199,7 +3186,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_8_test';
+    return 'v2020.03_8';
   }
   var coreVersion;
   var appVersion;
@@ -3226,10 +3213,6 @@ if (typeof kotlin === 'undefined') {
     arr[1] = q;
     return arr;
   }
-  function main$lambda(isCanInlinePlay) {
-    appVersion = isCanInlinePlay.toString();
-    return Unit;
-  }
   function main(args) {
     try {
       OfficialChannels_getInstance();
@@ -3239,7 +3222,6 @@ if (typeof kotlin === 'undefined') {
       VirtualRemote_getInstance();
       LongClickEvent_getInstance();
       ChannelDescription_getInstance();
-      CanAutoplay_getInstance().canInlinePlay_y8twos$(main$lambda);
     } catch (e) {
       println('\u4ECB\u9762\u521D\u59CB\u5316\u54C0\u5DE6: ' + e.toString());
     }
@@ -3639,8 +3621,9 @@ if (typeof kotlin === 'undefined') {
     this.onPlaying_0 = Player$onPlaying$lambda(this);
     this.onNotPlaying_0 = Player$onNotPlaying$lambda(this);
     this.listenIframePlayerScript_0 = Player$listenIframePlayerScript$lambda;
-    CanAutoplay_getInstance().canInlinePlay_y8twos$(Player_init$lambda(this));
-    this.setListenIframePlayerScript_0();
+    if (!RunnerInfo_getInstance().isBelowIOS10()) {
+      this.addOnPlayerEventListener_j8fzjz$(new Player_init$ObjectLiteral());
+    }this.setListenIframePlayerScript_0();
     this.setListenIframePlayerMessage_0();
   }
   function Player$OnPlayerEvent(name, ordinal) {
@@ -4252,12 +4235,12 @@ if (typeof kotlin === 'undefined') {
   }
   function Player$listenIframePlayerScript$lambda(event) {
   }
-  function Player_init$lambda$ObjectLiteral() {
+  function Player_init$ObjectLiteral() {
     this.currentChannelNumber_0 = 0;
     this.currentChannelNotPlayingCount_0 = 0;
     this.isPlaying_0 = false;
   }
-  function Player_init$lambda$ObjectLiteral$on$lambda(this$) {
+  function Player_init$ObjectLiteral$on$lambda(this$) {
     return function () {
       var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
       if (!this$.isPlaying_0) {
@@ -4275,30 +4258,23 @@ if (typeof kotlin === 'undefined') {
         }
       }};
   }
-  Player_init$lambda$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
+  Player_init$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
     switch (onPlayerEvent.name) {
       case 'playing':
         this.isPlaying_0 = true;
         break;
       case 'notPlaying':
         this.isPlaying_0 = false;
-        window.setTimeout(Player_init$lambda$ObjectLiteral$on$lambda(this), 15000);
+        window.setTimeout(Player_init$ObjectLiteral$on$lambda(this), 15000);
         break;
       default:Kotlin.noWhenBranchMatched();
         break;
     }
   };
-  Player_init$lambda$ObjectLiteral.$metadata$ = {
+  Player_init$ObjectLiteral.$metadata$ = {
     kind: Kind_CLASS,
     interfaces: [Player$OnPlayerEventListener]
   };
-  function Player_init$lambda(this$Player) {
-    return function (isCanInlinePlay) {
-      if (isCanInlinePlay) {
-        this$Player.addOnPlayerEventListener_j8fzjz$(new Player_init$lambda$ObjectLiteral());
-      }return Unit;
-    };
-  }
   Player.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'Player',
@@ -4551,6 +4527,26 @@ if (typeof kotlin === 'undefined') {
   };
   RunnerInfo.prototype.getBrowserName = function () {
     return this.platform.name.toString() + ' ' + this.platform.version.toString();
+  };
+  RunnerInfo.prototype.getIOSVersion = function () {
+    var tmp$;
+    var iOSVersion = typeof (tmp$ = function () {
+      try {
+        if (/iP(hone|od|ad)/.test(navigator.platform)) {
+          var v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+          return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)][0];
+        }} catch (e) {
+        return null;
+      }
+      return null;
+    }) === 'function' ? tmp$ : throwCCE();
+    return iOSVersion();
+  };
+  RunnerInfo.prototype.isBelowIOS10 = function () {
+    var tmp$;
+    if (equals(this.getOsFamily(), 'iOS') && ((tmp$ = this.getIOSVersion()) != null ? tmp$ : 10) < 10) {
+      return true;
+    }return false;
   };
   RunnerInfo.$metadata$ = {
     kind: Kind_OBJECT,
@@ -4923,8 +4919,9 @@ if (typeof kotlin === 'undefined') {
     FullScreenButton_getInstance();
     this.panel_0.onmousemove = UserControlPanel_init$lambda(this);
     this.panel_0.onscroll = UserControlPanel_init$lambda_0(this);
-    CanAutoplay_getInstance().canInlinePlay_y8twos$(UserControlPanel_init$lambda_1(this));
-  }
+    if (RunnerInfo_getInstance().isBelowIOS10()) {
+      window.setInterval(UserControlPanel_init$lambda_1(this), 1000);
+    }}
   UserControlPanel.prototype.show_s8ev37$ = function (showTime) {
     TabbableUI.prototype.show_s8ev37$.call(this, showTime);
     this.onShowUserControlPanel();
@@ -4948,18 +4945,11 @@ if (typeof kotlin === 'undefined') {
       this$UserControlPanel.show_s8ev37$(30000);
     };
   }
-  function UserControlPanel_init$lambda$lambda(this$UserControlPanel) {
+  function UserControlPanel_init$lambda_1(this$UserControlPanel) {
     return function () {
       if (!this$UserControlPanel.isShow) {
         this$UserControlPanel.show_s8ev37$(null);
       }};
-  }
-  function UserControlPanel_init$lambda_1(this$UserControlPanel) {
-    return function (isCanInlinePlay) {
-      if (!isCanInlinePlay) {
-        window.setInterval(UserControlPanel_init$lambda$lambda(this$UserControlPanel), 1000);
-      }return Unit;
-    };
   }
   UserControlPanel.$metadata$ = {
     kind: Kind_OBJECT,
@@ -4984,8 +4974,9 @@ if (typeof kotlin === 'undefined') {
     this.shower_0.onmousemove = UserControlPanelShower_init$lambda_0(this);
     this.shower_0.ondblclick = UserControlPanelShower_init$lambda_1;
     this.set_ontouchstart_0(this.shower_0, UserControlPanelShower_init$lambda_2);
-    CanAutoplay_getInstance().canInlinePlay_y8twos$(UserControlPanelShower_init$lambda_3(this));
-  }
+    if (RunnerInfo_getInstance().isBelowIOS10()) {
+      this.canTouchIframePlayerMode();
+    }}
   UserControlPanelShower.prototype.get_ontouchstart_0 = function ($receiver) {
     return this.get_ontouchstart_0($receiver);
   };
@@ -5046,13 +5037,6 @@ if (typeof kotlin === 'undefined') {
   function UserControlPanelShower_init$lambda_2(event) {
     event.preventDefault();
     UserControlPanel_getInstance().showHideAlternately_s8ev37$(15000);
-  }
-  function UserControlPanelShower_init$lambda_3(this$UserControlPanelShower) {
-    return function (isCanInlinePlay) {
-      if (!isCanInlinePlay) {
-        this$UserControlPanelShower.canTouchIframePlayerMode();
-      }return Unit;
-    };
   }
   UserControlPanelShower.$metadata$ = {
     kind: Kind_OBJECT,

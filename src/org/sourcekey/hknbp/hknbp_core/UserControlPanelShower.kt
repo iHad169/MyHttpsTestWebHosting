@@ -120,12 +120,9 @@ object UserControlPanelShower: TabbableUI(
         //所以要畀iOS10以下用戶直接點擊iframePlayer
         //好似有解決方法, 有待研究
         //https://stackoverflow.com/questions/5054560/can-i-avoid-the-native-fullscreen-video-player-with-html5-on-iphone-or-android
-        CanAutoplay.canInlinePlay { isCanInlinePlay: Boolean ->
-            if(!isCanInlinePlay){
-                canTouchIframePlayerMode()
-            }
+        if(RunnerInfo.isBelowIOS10()){
+            canTouchIframePlayerMode()
         }
-
 
         //setIframeOnClick("iframePlayer", fun(){ showHideAlternately() })
 

@@ -165,7 +165,7 @@ val coreVersion: String = {
     value
     */
 
-    "v2020.03_8_test"
+    "v2020.03_8"
 }()
 
 /**
@@ -218,6 +218,5 @@ fun main(args: Array<String>) {
         //RealRemote
         LongClickEvent
         ChannelDescription
-        CanAutoplay.canInlinePlay { isCanInlinePlay:Boolean -> appVersion = isCanInlinePlay.toString() }
     } catch (e: dynamic) { println("介面初始化哀左: $e") }
 }
