@@ -351,15 +351,15 @@ function onIframePlayerInit(sourceSrc){
         controls: false,
         poster: "../img/nullIcon.png",
         liveui: true,
-        techOrder: ["html5"/*, "flash", "vlc"*/],
+        techOrder: ["html5"/*, "flash", "vlc"*/]/*,
         html5: {
             hls: {
                 overrideNative: true
-            }/*,
+            },
             nativeVideoTracks: false,
             nativeAudioTracks: false,
-            nativeTextTracks: false*/
-        }
+            nativeTextTracks: false
+        }*/
     });
     player.ready(function(){
         var settings = this.textTrackSettings;

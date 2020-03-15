@@ -9,8 +9,8 @@
       "purpose": "maskable any"
     }
   ],
-  "start_url": "https://hknbp.org",
-  "background_color": "#FFF",
+  "start_url": "./",
+  "background_color": "#000",
   "display": "fullscreen",
   "scope": "/",
   "theme_color": "#000",
@@ -21,7 +21,7 @@
     {
       "platform": "play",
       "url": "https://play.google.com/store/apps/details?id=com.example.app1",
-      "id": "org.sourcekey.hknbp"
+      "id": "org.sourcekey.hknbp.hknbp_android"
     },
     {
       "platform": "itunes",
