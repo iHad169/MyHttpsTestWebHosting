@@ -278,7 +278,7 @@ function onSetIframePlayerMuted(muted) {
  * @param {(muted: Boolean)=>{})} onReturn 執行此CallBackFunction去return個靜音值 靜左音(true) 或 未靜音(false)
  * */
 function onGetIframePlayerMuted(onReturn) {
-    //onReturn(player.muted());
+    onReturn(player.muted());
 }
 
 /**
@@ -328,7 +328,7 @@ function onIframePlayerInit(sourceSrc){
         "<video " +
         "   id=\"player\" " +
         "   class=\"video-js vjs-default-skin\" " +
-        "   preload=\"auto\" " +
+        "   controls preload=\"auto\" " +
         "   onplaying=\"onIframePlayerPlaying()\" " +
         "   onpause=\"onIframePlayerNotPlaying()\" " +
         "   onstop=\"onIframePlayerNotPlaying()\" " +
@@ -348,18 +348,18 @@ function onIframePlayerInit(sourceSrc){
         "</div>";
     player = videojs('player', {
         autoplay: true,
-        controls: false,
+        //controls: false,
         poster: "../img/nullIcon.png",
         liveui: true,
-        techOrder: ["html5"/*, "flash", "vlc"*/],
+        techOrder: ["html5"/*, "flash", "vlc"*/]/*,
         html5: {
             hls: {
                 overrideNative: true
-            }/*,
+            },
             nativeVideoTracks: false,
             nativeAudioTracks: false,
-            nativeTextTracks: false*/
-        }
+            nativeTextTracks: false
+        }*/
     });
     player.ready(function(){
         var settings = this.textTrackSettings;

@@ -464,11 +464,9 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
      * 因此此值可被修改成學合其他平台嘅程序
      * */
     var volumeMute = fun(){
-        /**
         getMuted(fun(muted){
             setMuted(!muted)
-        })*/
-        setMuted(false)
+        })
     }
         set(value) {
             field = fun(){
