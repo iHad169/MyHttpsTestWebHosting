@@ -3186,7 +3186,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_8-test5';
+    return 'v2020.03_8-test6';
   }
   var coreVersion;
   var appVersion;
@@ -4187,14 +4187,9 @@ if (typeof kotlin === 'undefined') {
       return Unit;
     };
   }
-  function Player$volumeMute$lambda$lambda(this$Player) {
-    return function (muted) {
-      this$Player.setMuted_6taknv$(!muted);
-    };
-  }
   function Player$volumeMute$lambda(this$Player) {
     return function () {
-      this$Player.getMuted_y8twos$(Player$volumeMute$lambda$lambda(this$Player));
+      this$Player.setMuted_6taknv$(false);
     };
   }
   function Player$iframePlayerMutedInit$lambda$ObjectLiteral() {

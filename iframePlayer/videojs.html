@@ -269,7 +269,7 @@ function onGetIframePlayerVolume(onReturn) {
  * @param {muted: Boolean} muted 欲設靜音
  * */
 function onSetIframePlayerMuted(muted) {
-    //player.muted(muted);
+    player.muted(muted);
 }
 
 /**
@@ -278,7 +278,7 @@ function onSetIframePlayerMuted(muted) {
  * @param {(muted: Boolean)=>{})} onReturn 執行此CallBackFunction去return個靜音值 靜左音(true) 或 未靜音(false)
  * */
 function onGetIframePlayerMuted(onReturn) {
-    onReturn(player.muted());
+    //onReturn(player.muted());
 }
 
 /**
