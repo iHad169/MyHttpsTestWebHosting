@@ -557,6 +557,11 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
     }
 
     /**
+     *
+     * */
+    fun reload(){}
+
+    /**
      * 當iframePlayer開始播放頻道時
      * 會執行此function
      * 即iframePlayer正確地播放緊

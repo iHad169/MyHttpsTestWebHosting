@@ -3382,7 +3382,7 @@ var HKNBP_Core = function (_, Kotlin) {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_14';
+    return 'v2020.03_14-test';
   }
   var coreVersion;
   var appVersion;
