@@ -20,15 +20,23 @@ import kotlin.browser.window
 
 object PromptBox: UserInterface(document.getElementById("promptBox") as HTMLElement) {
     private val promptBox: dynamic = document.getElementById("promptBox")
+    private val defaultShowTime: Int = 3500
 
+    /**
+     * 輸出 提示訊息 提示觀眾
+     * @param message 提示訊息
+     * @param time 顯示訊息時間
+     */
+    fun promptMessage(message: String, time: Int){
+        promptBox.innerHTML = message
+        show(time)
+    }
 
     /**
      * 輸出 提示訊息 提示觀眾
      * @param promptMessage 提示訊息
      */
-    @JsName("promptMessage") fun promptMessage(promptMessage: String): Int{
-        promptBox.innerHTML = promptMessage
-        show(3500)
-        return 0/////////
+    @JsName("promptMessage") fun promptMessage(message: String){
+        promptMessage(message, defaultShowTime)
     }
 }

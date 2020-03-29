@@ -306,16 +306,18 @@ function onClickProgrammableButton(color){
  *
  * */
 function getSourceType(sourceSrc){
-    switch(sourceSrc.match(/\.(m3u8|mpd)$/g)[0]) {
-        case ".m3u8":
-            return "application/x-mpegURL";
-            break;
-        case ".mpd":
-            return "application/dash+xml";
-            break;
-        default:
-            return "application/x-mpegURL";
-    }
+    try{
+        switch(sourceSrc.match(/\.(m3u8|mpd)$/g)[0]) {
+            case ".m3u8":
+                return "application/x-mpegURL";
+                break;
+            case ".mpd":
+                return "application/dash+xml";
+                break;
+            default:
+                return "application/x-mpegURL";
+        }
+    }catch(e){return "application/x-mpegURL";}
 }
 
 /**
@@ -328,7 +330,7 @@ function onIframePlayerInit(sourceSrc){
         "<video " +
         "   id=\"player\" " +
         "   class=\"video-js vjs-default-skin\" " +
-        "   controls preload=\"auto\" " +
+        "   preload=\"auto\" " +
         "   onplaying=\"onIframePlayerPlaying()\" " +
         "   onpause=\"onIframePlayerNotPlaying()\" " +
         "   onstop=\"onIframePlayerNotPlaying()\" " +
@@ -341,6 +343,7 @@ function onIframePlayerInit(sourceSrc){
         "   poster=\"../img/nullIcon.png\"" +
         "   crossorigin=\"anonymous\"" +
         "   allow=\"autoplay; fullscreen;\" muted playsinline>" +
+        "   此裝置不支援本頻道訊號<br>This device does not support this channel signal" +
         "</video>" +
         "<div " +
         "   id=\"caption\" " +
@@ -348,7 +351,7 @@ function onIframePlayerInit(sourceSrc){
         "</div>";
     player = videojs('player', {
         autoplay: true,
-        //controls: false,
+        controls: false,
         poster: "../img/nullIcon.png",
         liveui: true,
         techOrder: ["html5"/*, "flash", "vlc"*/]/*,

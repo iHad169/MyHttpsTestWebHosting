@@ -658,8 +658,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
         //導致使用者再要點擊打開iOS10以下專屬播放介面播放頻道
         if(!RunnerInfo.isBelowIOS10()){
             addOnPlayerEventListener(object : OnPlayerEventListener {
-                private var currentChannelNumber: Int? = 0
-                private var currentChannelNotPlayingCount = 0
                 private var isPlaying: Boolean = false
                 override fun on(onPlayerEvent: OnPlayerEvent) {
                     when (onPlayerEvent) {
@@ -668,25 +666,16 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                         }
                         OnPlayerEvent.notPlaying -> {
                             isPlaying = false
-                            //檢查呢15秒內Player有冇再繼續正常播放,若冇就ReLoad
-                            window.setTimeout(fun() {
-                                if (!isPlaying) {
-                                    //ReLoad
-                                    playChannel(playingChannel?:Channel(0))
-                                    //顯示訊號差嘅提示
-                                    PromptBox.promptMessage("訊號接收不良")
-
-                                    //停止太多次就直接Reload個網頁
-                                    if(3 < currentChannelNotPlayingCount){ window.location.reload() }
-                                    //計算已停止次數
-                                    if(playingChannel?.number == currentChannelNumber){
-                                        currentChannelNotPlayingCount++
-                                    }else{
-                                        currentChannelNotPlayingCount = 0
-                                        currentChannelNumber = playingChannel?.number
-                                    }
-                                }
-                            }, 15000)
+                            //如果10秒內未能播放就顯示訊號差提示
+                            window.setTimeout(fun() { if (!isPlaying) {
+                                //顯示訊號差嘅提示
+                                PromptBox.promptMessage("訊號接收不良", 5000)
+                            } }, 10000)
+                            //檢查呢2分鐘內Player有冇再繼續正常播放,若冇就ReLoad
+                            window.setTimeout(fun() { if (!isPlaying) {
+                                //ReLoad
+                                window.location.reload()
+                            } }, 120000)
                         }
                     }
                 }
