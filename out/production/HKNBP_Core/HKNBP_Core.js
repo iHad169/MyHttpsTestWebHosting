@@ -3205,7 +3205,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_14';
+    return 'v2020.03_15-test1';
   }
   var coreVersion;
   var appVersion;
@@ -4588,14 +4588,15 @@ if (typeof kotlin === 'undefined') {
     var tmp$_0;
     this.screenOrientationButton_0 = Kotlin.isType(tmp$_0 = document.getElementById('screenOrientationButton'), HTMLButtonElement) ? tmp$_0 : throwCCE();
     this.orientation_0 = screen.orientation || screen.mozOrientation;
+    if (this.isNeedOrientation()) {
+      this.show_s8ev37$(null);
+    } else {
+      this.hide();
+    }
     this.screenOrientationButton_0.onclick = ScreenOrientationButton_init$lambda(this);
   }
-  ScreenOrientationButton.prototype.isSupportOrientation = function () {
-    if (orientation) {
-      return true;
-    } else {
-      return false;
-    }
+  ScreenOrientationButton.prototype.isNeedOrientation = function () {
+    return window.innerHeight > window.innerWidth;
   };
   ScreenOrientationButton.prototype.currentType = function () {
     return this.orientation_0.type;

@@ -17,6 +17,7 @@ package org.sourcekey.hknbp.hknbp_core
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLElement
 import kotlin.browser.document
+import kotlin.browser.window
 
 object ScreenOrientationButton : UserInterface(
         mainFrameElement = document.getElementById("screenOrientationButton") as HTMLElement
@@ -25,8 +26,8 @@ object ScreenOrientationButton : UserInterface(
 
     private val orientation: dynamic = js("screen.orientation || screen.mozOrientation")
 
-    fun isSupportOrientation(): Boolean{
-        return js("if(orientation){return true}else{return false}")////////////未work
+    fun isNeedOrientation(): Boolean{
+        return window.innerHeight > window.innerWidth
     }
 
     fun currentType(): String?{
@@ -43,8 +44,8 @@ object ScreenOrientationButton : UserInterface(
     }
 
     init {
-        //如果運行裝置支援螢幕旋轉就顯示按鍵
-        //if(isSupportOrientation()){ show(null) }else{ hide() }
+        //如果運行裝置螢幕有縱向模式時提供旋轉就顯示按鍵
+        if(isNeedOrientation()){ show(null) }else{ hide() }
         //設置螢幕旋轉按鍵
         screenOrientationButton.onclick = fun(event){
             FullScreenButton.enterFullscreen()

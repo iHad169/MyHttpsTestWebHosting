@@ -53,7 +53,30 @@
 </head>
 
 <body>
-<div id="player-display" style="position:absolute; top:0; bottom:0; left:0; right:0; overflow:hidden;"></div>
+<div id="player-display" style="position:absolute; top:0; bottom:0; left:0; right:0; overflow:hidden;">
+    <video
+       id="player"
+       class="video-js vjs-default-skin"
+       preload="auto"
+       onplaying="onIframePlayerPlaying()"
+       onpause="onIframePlayerNotPlaying()"
+       onstop="onIframePlayerNotPlaying()"
+       onended="onIframePlayerNotPlaying()"
+       onerror="onIframePlayerNotPlaying()"
+       onwaiting="onIframePlayerNotPlaying()"
+       oncanplaythrough="this.play()"
+       style="position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; overflow:hidden;"
+       frameBorder="0"
+       poster="../img/nullIcon.png"
+       crossorigin="anonymous"
+       allow="autoplay; fullscreen;" muted playsinline>
+       此裝置不支援本頻道訊號<br>This device does not support this channel signal
+    </video>
+    <div
+       id="caption"
+       style="background:rgba(0, 0, 0, 0);">
+    </div>
+</div>
 <script type="text/javascript" src="https://vjs.zencdn.net/7.7.4/video.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.mediaplayer.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/2.9.3/videojs-dash.min.js"></script>
@@ -326,17 +349,6 @@ function getSourceType(sourceSrc){
  * @param {source: String} source 頻道源
  * */
 function onIframePlayerInit(sourceSrc){
-    document.getElementById("player-display").innerHTML = "" +
-        "<video " +
-        "   id=\"player\" " +
-        "   class=\"video-js vjs-default-skin\" " +
-        "   >" +
-        "   此裝置不支援本頻道訊號<br>This device does not support this channel signal" +
-        "</video>" +
-        "<div " +
-        "   id=\"caption\" " +
-        "   style=\"background:rgba(0, 0, 0, 0);\">" +
-        "</div>";
     player = videojs('player', {
         autoplay: true,
         controls: false,
