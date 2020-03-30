@@ -43,9 +43,9 @@ object ScreenOrientationButton : UserInterface(
     }
 
     init {
-        //如果運行裝置支援螢幕旋轉就顯示
+        //如果運行裝置支援螢幕旋轉就顯示按鍵
         //if(isSupportOrientation()){ show(null) }else{ hide() }
-        //
+        //設置螢幕旋轉按鍵
         screenOrientationButton.onclick = fun(event){
             FullScreenButton.enterFullscreen()
             orientation()

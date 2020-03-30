@@ -343,6 +343,7 @@ function onIframePlayerInit(sourceSrc){
         "   poster=\"../img/nullIcon.png\"" +
         "   crossorigin=\"anonymous\"" +
         "   allow=\"autoplay; fullscreen;\" muted playsinline>" +
+        "   <source src=\"https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8\">"+
         "   此裝置不支援本頻道訊號<br>This device does not support this channel signal" +
         "</video>" +
         "<div " +
@@ -373,22 +374,7 @@ function onIframePlayerInit(sourceSrc){
         });
         settings.updateDisplay();
     });
-    player.src({
-        src: sourceSrc,
-        type: getSourceType(sourceSrc)/*,
-        keySystems: {
-            'com.apple.fps.1_0': {
-                certificateUri: '<CERTIFICATE_URL>',
-                certificateHeaders: {
-                    'Some-Header': 'value'
-                },
-                licenseUri: '<LICENSE_URL>',
-                licenseHeaders: {
-                    'Some-Header': 'value'
-                }
-            }
-        }*/
-    });
+
     //Dash流訊號播放器監聽
     videojs.Html5DashJS.hook('beforeinitialize', function(player, _mediaPlayer) {
         if (videojs && videojs.log) {
