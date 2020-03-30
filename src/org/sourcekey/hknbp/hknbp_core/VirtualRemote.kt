@@ -152,8 +152,8 @@ object VirtualRemote{
         epgButton.onclick                   = fun(event){EPG.showHideAlternately(null)}
         nextChannelButton.onclick           = fun(event){channels.next()}
         previousChannelButton.onclick       = fun(event){channels.previous()}
-        designateChannelSelect.onchange     = fun(event){channels.designatedOfChannelNumber(designateChannelSelect.value.toInt())}
-        designateChannelButton.onclick      = fun(event){channels.designatedOfChannelNumber(designateChannelInputText.value.toInt())}
+        designateChannelSelect.onchange     = fun(event){channels.designatedByChannelNumber(designateChannelSelect.value.toInt())}
+        designateChannelButton.onclick      = fun(event){channels.designatedByChannelNumber(designateChannelInputText.value.toInt())}
         lastTimeChannelButton.onclick       = fun(event){channels.lastTime()}
         nextVideoButton.onclick             = fun(event){Player.nextVideoTrack();VideoDescription.show(3000)}
         previousVideoButton.onclick         = fun(event){Player.previousVideoTrack();VideoDescription.show(3000)}
@@ -184,7 +184,7 @@ object VirtualRemote{
         number8Button.onclick               = fun(event){EnteringNumberBox.enter("8")}
         number9Button.onclick               = fun(event){EnteringNumberBox.enter("9")}
         minusButton.onclick                 = fun(event){EnteringNumberBox.enter("-")}
-        refreshButton.onclick               = fun(event){Player.playChannel(channels.node?:Channel(0))}
+        refreshButton.onclick               = fun(event){Player.reload()}
         channelDescriptionButton.onclick    = fun(event){if(ChannelDescription.isShow){ChannelDescription.hide()}else{ChannelDescription.show(60000)}}
         aboutWindowButton.onclick           = fun(event){AboutWindow.showHideAlternately(null)}
         feedbackWebWindowButton.onclick     = fun(event){FeedbackWebWindow.showHideAlternately(null)}

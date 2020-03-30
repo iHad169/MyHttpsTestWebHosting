@@ -70,6 +70,7 @@ object UserControlPanel: TabbableUI(
         VirtualRemote
         NativeAppInstallButton
         PictureInPictureButton
+        ScreenOrientationButton
         FullScreenButton
 
         //設定使用者控制界面顯示方法

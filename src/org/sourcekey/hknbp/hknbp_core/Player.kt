@@ -557,11 +557,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
     }
 
     /**
-     *
-     * */
-    fun reload(){}
-
-    /**
      * 當iframePlayer開始播放頻道時
      * 會執行此function
      * 即iframePlayer正確地播放緊
@@ -654,6 +649,13 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                 "${playingChannel?.sources?.node?.iFramePlayerSrc?:"iframePlayer/videojs.html"}?" +
                         "sourceSrc=${encodeURIComponent(playingChannel?.sources?.node?.getLinkOfHttpsGetAble()?:"")}"
         watchingCounter = WatchingCounter(channel)
+    }
+
+    /**
+     *
+     * */
+    fun reload(){
+        playChannel(playingChannel?:return)
     }
 
     init {

@@ -179,7 +179,7 @@ data class Channel(
  * 去特定頻道
  * @param channelNumber 要轉去頻道冧把
  */
-fun ArrayLinkList<Channel>.designatedOfChannelNumber(channelNumber: Int): Boolean {
+fun ArrayLinkList<Channel>.designatedByChannelNumber(channelNumber: Int): Boolean {
     val channelNumberNodeID = this.indexOfOrNull(this.find{ channel -> channel.number == channelNumber })
     if (channelNumberNodeID != null) {
         this.designated(channelNumberNodeID)

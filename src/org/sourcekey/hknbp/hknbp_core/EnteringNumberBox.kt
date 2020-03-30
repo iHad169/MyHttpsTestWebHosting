@@ -49,7 +49,7 @@ object EnteringNumberBox: UserInterface(document.getElementById("enteringNumberB
     private fun enteringNumberToDesignatedChannelRun() {
         hide()
         val channelNumber = (enteringMinus + enteringNumber).toIntOrNull()
-        if(channelNumber != null){ channels.designatedOfChannelNumber(channelNumber) }
+        if(channelNumber != null){ channels.designatedByChannelNumber(channelNumber) }
 
         //初始化
         enteringNumber = ""
