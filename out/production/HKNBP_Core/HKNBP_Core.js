@@ -36,7 +36,6 @@ if (typeof kotlin === 'undefined') {
   var Enum = Kotlin.kotlin.Enum;
   var throwISE = Kotlin.throwISE;
   var toDoubleOrNull = Kotlin.kotlin.text.toDoubleOrNull_pdl1vz$;
-  var print = Kotlin.kotlin.io.print_s8jyv4$;
   var getOrNull_0 = Kotlin.kotlin.text.getOrNull_94bcnn$;
   var lastOrNull = Kotlin.kotlin.collections.lastOrNull_2p1efm$;
   var last = Kotlin.kotlin.collections.last_2p1efm$;
@@ -3206,7 +3205,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_14-test';
+    return 'v2020.03_14-test1';
   }
   var coreVersion;
   var appVersion;
@@ -4588,12 +4587,17 @@ if (typeof kotlin === 'undefined') {
     UserInterface.call(this, Kotlin.isType(tmp$ = document.getElementById('screenOrientationButton'), HTMLElement) ? tmp$ : throwCCE());
     var tmp$_0;
     this.screenOrientationButton_0 = Kotlin.isType(tmp$_0 = document.getElementById('screenOrientationButton'), HTMLButtonElement) ? tmp$_0 : throwCCE();
-    this.screen_0 = screen;
     this.orientation_0 = screen.orientation || screen.mozOrientation;
     this.screenOrientationButton_0.onclick = ScreenOrientationButton_init$lambda(this);
   }
+  ScreenOrientationButton.prototype.isSupportOrientation = function () {
+    if (orientation) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   ScreenOrientationButton.prototype.currentType = function () {
-    print(this.orientation_0.type);
     return this.orientation_0.type;
   };
   ScreenOrientationButton.prototype.orientation = function () {
@@ -4602,6 +4606,7 @@ if (typeof kotlin === 'undefined') {
     } else {
       this.orientation_0.lock('landscape-secondary');
     }
+    this.orientation_0.unlock();
   };
   function ScreenOrientationButton_init$lambda(this$ScreenOrientationButton) {
     return function (event) {

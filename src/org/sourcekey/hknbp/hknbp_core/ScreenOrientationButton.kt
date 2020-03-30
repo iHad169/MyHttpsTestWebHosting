@@ -25,8 +25,11 @@ object ScreenOrientationButton : UserInterface(
 
     private val orientation: dynamic = js("screen.orientation || screen.mozOrientation")
 
+    fun isSupportOrientation(): Boolean{
+        return js("if(orientation){return true}else{return false}")////////////未work
+    }
+
     fun currentType(): String?{
-        print(orientation.type)
         return orientation.type
     }
 
@@ -36,9 +39,13 @@ object ScreenOrientationButton : UserInterface(
         }else{
             orientation.lock("landscape-secondary")
         }
+        orientation.unlock()
     }
 
     init {
+        //如果運行裝置支援螢幕旋轉就顯示
+        //if(isSupportOrientation()){ show(null) }else{ hide() }
+        //
         screenOrientationButton.onclick = fun(event){
             FullScreenButton.enterFullscreen()
             orientation()
