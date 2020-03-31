@@ -673,11 +673,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                         }
                         OnPlayerEvent.notPlaying -> {
                             isPlaying = false
-                            //如果10秒內未能播放就顯示訊號差提示
-                            window.setTimeout(fun() { if (!isPlaying) {
-                                //顯示訊號差嘅提示
-                                PromptBox.promptMessage("訊號接收不良", 5000)
-                            } }, 10000)
                             //檢查呢2分鐘內Player有冇再繼續正常播放,若冇就ReLoad
                             window.setTimeout(fun() { if (!isPlaying) {
                                 //ReLoad

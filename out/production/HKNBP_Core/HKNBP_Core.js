@@ -1126,6 +1126,7 @@ if (typeof kotlin === 'undefined') {
       if (!this$.isPlaying_0) {
         ChannelDescription_getInstance().update();
         ChannelDescription_getInstance().show_s8ev37$(null);
+        PromptBox_getInstance().promptMessage_bm4lxs$('\u8A0A\u865F\u63A5\u6536\u4E0D\u826F', 5000);
       }};
   }
   ChannelDescription_init$ObjectLiteral_0.prototype.on_mdxcb7$ = function (onPlayerEvent) {
@@ -3205,7 +3206,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_15-test1';
+    return 'v2020.03_15';
   }
   var coreVersion;
   var appVersion;
@@ -4267,12 +4268,6 @@ if (typeof kotlin === 'undefined') {
   function Player_init$ObjectLiteral$on$lambda(this$) {
     return function () {
       if (!this$.isPlaying_0) {
-        PromptBox_getInstance().promptMessage_bm4lxs$('\u8A0A\u865F\u63A5\u6536\u4E0D\u826F', 5000);
-      }};
-  }
-  function Player_init$ObjectLiteral$on$lambda_0(this$) {
-    return function () {
-      if (!this$.isPlaying_0) {
         window.location.reload();
       }};
   }
@@ -4283,8 +4278,7 @@ if (typeof kotlin === 'undefined') {
         break;
       case 'notPlaying':
         this.isPlaying_0 = false;
-        window.setTimeout(Player_init$ObjectLiteral$on$lambda(this), 10000);
-        window.setTimeout(Player_init$ObjectLiteral$on$lambda_0(this), 120000);
+        window.setTimeout(Player_init$ObjectLiteral$on$lambda(this), 120000);
         break;
       default:Kotlin.noWhenBranchMatched();
         break;
@@ -4602,12 +4596,11 @@ if (typeof kotlin === 'undefined') {
     return this.orientation_0.type;
   };
   ScreenOrientationButton.prototype.orientation = function () {
-    if (!equals(this.currentType(), 'landscape-primary')) {
-      this.orientation_0.lock('landscape-primary');
+    if (!equals(this.currentType(), 'landscape')) {
+      this.orientation_0.lock('landscape');
     } else {
-      this.orientation_0.lock('landscape-secondary');
+      this.orientation_0.lock('natural');
     }
-    this.orientation_0.unlock();
   };
   function ScreenOrientationButton_init$lambda(this$ScreenOrientationButton) {
     return function (event) {

@@ -150,8 +150,11 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
                         isPlaying = false
                         window.setTimeout(fun(){
                             if(!isPlaying){
+                                //當頻道中斷時顯示頻道資訊令觀眾現在狀況
                                 update()
                                 show(null)
+                                //顯示訊號差嘅提示
+                                PromptBox.promptMessage("訊號接收不良", 5000)
                             }
                         }, 5000)
                     }

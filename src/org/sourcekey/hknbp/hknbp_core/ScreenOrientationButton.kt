@@ -19,6 +19,11 @@ import org.w3c.dom.HTMLElement
 import kotlin.browser.document
 import kotlin.browser.window
 
+/**
+ * 螢幕旋轉按鍵
+ *
+ * 為鎖死成 縱向模式 嘅手機方便轉成 橫向模式
+ * */
 object ScreenOrientationButton : UserInterface(
         mainFrameElement = document.getElementById("screenOrientationButton") as HTMLElement
 ) {
@@ -26,21 +31,38 @@ object ScreenOrientationButton : UserInterface(
 
     private val orientation: dynamic = js("screen.orientation || screen.mozOrientation")
 
+    /**
+     * 運行裝置螢幕有冇需要旋轉
+     *
+     * 本程式主要傾向橫向使用
+     * 所以如果檢查到 高度 > 寬度
+     * 就為需要旋轉嘅運行裝置
+     *
+     * @return 係米有需要旋轉
+     * */
     fun isNeedOrientation(): Boolean{
         return window.innerHeight > window.innerWidth
     }
 
+    /**
+     * 依家螢幕嘅旋轉類型
+     *
+     * @return 螢幕旋轉類型
+     * */
     fun currentType(): String?{
         return orientation.type
     }
 
+    /**
+     * 進行螢幕旋轉
+     * */
     fun orientation(){
-        if(currentType() != "landscape-primary"){
-            orientation.lock("landscape-primary")
+        //強制旋轉至 橫向模式
+        if(currentType() != "landscape"){
+            orientation.lock("landscape")
         }else{
-            orientation.lock("landscape-secondary")
+            orientation.lock("natural")
         }
-        orientation.unlock()
     }
 
     init {
