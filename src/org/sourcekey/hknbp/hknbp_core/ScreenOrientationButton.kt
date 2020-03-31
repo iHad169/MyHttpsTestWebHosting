@@ -41,7 +41,7 @@ object ScreenOrientationButton : UserInterface(
      * @return 係米有需要旋轉
      * */
     fun isNeedOrientation(): Boolean{
-        return window.innerHeight > window.innerWidth
+        return window.innerHeight >= window.innerWidth
     }
 
     /**
@@ -57,7 +57,7 @@ object ScreenOrientationButton : UserInterface(
      * 進行螢幕旋轉
      * */
     fun orientation(){
-        if(currentType() != "landscape" || currentType() != "landscape-primary" || currentType() != "landscape-secondary"){
+        if(currentType() == "portrait" || currentType() == "portrait-primary" || currentType() == "portrait-secondary"){
             //強制旋轉至 橫向模式
             orientation.lock("landscape")
         }else{
