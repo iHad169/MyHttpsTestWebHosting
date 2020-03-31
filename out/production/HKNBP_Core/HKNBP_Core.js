@@ -3206,7 +3206,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_16';
+    return 'v2020.03_17';
   }
   var coreVersion;
   var appVersion;
@@ -4599,7 +4599,7 @@ if (typeof kotlin === 'undefined') {
     if (!equals(this.currentType(), 'landscape')) {
       this.orientation_0.lock('landscape');
     } else {
-      this.orientation_0.lock('natural');
+      this.orientation_0.lock('portrait');
     }
   };
   function ScreenOrientationButton_init$lambda(this$ScreenOrientationButton) {
