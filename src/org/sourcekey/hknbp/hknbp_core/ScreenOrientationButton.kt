@@ -57,7 +57,7 @@ object ScreenOrientationButton : UserInterface(
      * 進行螢幕旋轉
      * */
     fun orientation(){
-        if(currentType() != "landscape"){
+        if(currentType() != "landscape" || currentType() != "landscape-primary" || currentType() != "landscape-secondary"){
             //強制旋轉至 橫向模式
             orientation.lock("landscape")
         }else{
