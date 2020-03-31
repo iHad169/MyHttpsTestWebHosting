@@ -61,7 +61,7 @@
        onplaying="onIframePlayerPlaying()"
        onpause="onIframePlayerNotPlaying()"
        onstop="onIframePlayerNotPlaying()"
-       onended="onIframePlayerNotPlaying()"
+       onended="onIframePlayerError()"
        onerror="onIframePlayerNotPlaying()"
        onwaiting="onIframePlayerNotPlaying()"
        oncanplaythrough="this.play()"
@@ -70,7 +70,6 @@
        poster="../img/nullIcon.png"
        crossorigin="anonymous"
        allow="autoplay; fullscreen;" muted playsinline>
-       此裝置不支援本頻道訊號<br>This device does not support this channel signal
     </video>
     <div
        id="caption"

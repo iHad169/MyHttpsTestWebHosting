@@ -73,11 +73,11 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
                 var episodeInnerHTML = ""
                 val season = xmltv.programmes?.getProgrammeByTime()?.episodeNum?.getSeason()
                 if(season != null){
-                    episodeInnerHTML += dialogues.node?.programmeSeason?.replace("\${season}", season.toString())?: ""
+                    episodeInnerHTML += dialogues.node?.season?.replace("\${season}", season.toString())?: ""
                 }
                 val episode = xmltv.programmes?.getProgrammeByTime()?.episodeNum?.getEpisode()
                 if(episode != null){
-                    episodeInnerHTML += dialogues.node?.programmeEpisode?.replace("\${episode}", episode.toString())?: ""
+                    episodeInnerHTML += dialogues.node?.episode?.replace("\${episode}", episode.toString())?: ""
                 }
 
                 currentProgrammeEpisode.innerHTML = episodeInnerHTML
@@ -139,12 +139,18 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
         })
         Player.addOnPlayerEventListener(object : Player.OnPlayerEventListener {
             private var isPlaying: Boolean = false
+            private var continuousPromptMessageTimer = 0
+                set(value) {
+                    window.clearInterval(field)
+                    field = value
+                }
             override fun on(onPlayerEvent: Player.OnPlayerEvent) {
                 when (onPlayerEvent) {
                     Player.OnPlayerEvent.playing -> {
                         isPlaying = true
                         update()
                         show(5000)
+                        window.clearInterval(continuousPromptMessageTimer)
                     }
                     Player.OnPlayerEvent.notPlaying -> {
                         isPlaying = false
@@ -154,8 +160,20 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
                                 update()
                                 show(null)
                                 //顯示訊號差嘅提示
-                                PromptBox.promptMessage("訊號接收不良", 5000)
+                                continuousPromptMessageTimer = window.setInterval(fun(){
+                                    PromptBox.promptMessage("訊號接收不良", 5000)
+                                }, 5000)
                             }
+                        }, 5000)
+                    }
+                    Player.OnPlayerEvent.error -> {
+                        continuousPromptMessageTimer = window.setInterval(fun(){
+                            Dialogue.getDialogues(fun (dialogues){
+                                PromptBox.promptMessage(
+                                        dialogues.node?.thisDeviceDoesNotSupportThisChannelSignal?: "",
+                                        5000
+                                )
+                            })
                         }, 5000)
                     }
                 }

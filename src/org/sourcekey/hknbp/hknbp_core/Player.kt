@@ -33,7 +33,8 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
 
     enum class OnPlayerEvent{
         playing,
-        notPlaying
+        notPlaying,
+        error
     }
 
     interface OnPlayerEventListener{
@@ -571,6 +572,13 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
     private val onNotPlaying = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.notPlaying) } }
 
     /**
+     * 當iframePlayer播放頻道出錯時
+     * 會執行此function
+     * */
+    private val onError = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.error) } }
+
+
+    /**
     /**
      * 設定為最高畫質片源
     */
@@ -622,6 +630,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                 }else if(callMessage.name == "IframePlayer"){
                     val onPlaying = onPlaying // 畀IframePlayer方便Call
                     val onNotPlaying = onNotPlaying // 畀IframePlayer方便Call
+                    val onError = onError // 畀IframePlayer方便Call
 
                     /**
                     var onReturn = fun(returnValue: dynamic){
@@ -632,7 +641,9 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                     //檢查functionName係米指定特定名
                     //因安全為由 避免被不安全IframePlayer執行不安全程序
                     val functionName: String = callMessage.functionName
-                    if(functionName == "onPlaying" || functionName == "onNotPlaying"){ eval(functionName + "()") }
+                    if(functionName == "onPlaying" || functionName == "onNotPlaying" || functionName == "onError"){
+                        eval(functionName + "()")
+                    }
                 }
             }catch(e: dynamic){
                 println("callIframePlayerFunction衰左: ${e}" + "\n" +

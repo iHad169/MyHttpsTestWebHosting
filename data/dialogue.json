@@ -2,27 +2,43 @@
     {
         "language": "漢文-粵語雅言",
 
-        "programmeSeason": "第${season}季",
-        "programmeTotalSeason": "共${totalSeason}季",
-        "programmeEpisode": "第${episode}集",
-        "programmeTotalEpisode": "共${totalEpisode}集",
-        "programmePart": "第${part}節",
-        "programmeTotalPart": "共${totalPart}節",
+        "agree": "同意",
         "canNotFind": "並無此頻道",
         "canNotReadData": "數據無法讀取",
-        "agree": "同意"
+        "episode": "第${episode}集",
+        "part": "第${part}節",
+        "thisDeviceDoesNotSupportThisChannelSignal": "此裝置不支援本頻道訊號",
+        "totalEpisode": "共${totalEpisode}集",
+        "totalPart": "共${totalPart}節",
+        "totalSeason": "共${totalSeason}季",
+        "season": "第${season}季"
     },
     {
         "language": "漢文-粵語口語",
 
-        "programmeSeason": "第${season}季",
-        "programmeTotalSeason": "共${totalSeason}季",
-        "programmeEpisode": "第${episode}集",
-        "programmeTotalEpisode": "共${totalEpisode}集",
-        "programmePart": "第${part}節",
-        "programmeTotalPart": "共${totalPart}節",
+        "agree": "同意",
         "canNotFind": "搵唔到",
         "canNotReadData": "讀取唔到數據",
-        "agree": "同意"
+        "episode": "第${episode}集",
+        "part": "第${part}節",
+        "thisDeviceDoesNotSupportThisChannelSignal": "個裝置唔支援呢條頻道訊號",
+        "totalEpisode": "共${totalEpisode}集",
+        "totalPart": "共${totalPart}節",
+        "totalSeason": "共${totalSeason}季",
+        "season": "第${season}季"
+    },
+    {
+        "language": "English",
+
+        "agree": "agree",
+        "canNotFind": "Can not Find",
+        "canNotReadData": "Can not read Data",
+        "episode": "Episode: ${episode}",
+        "part": "Part: ${part}",
+        "thisDeviceDoesNotSupportThisChannelSignal": "This device does not support this channel signal",
+        "totalEpisode": "Total Episode: ${totalEpisode}",
+        "totalPart": "Total Part: ${totalPart}",
+        "totalSeason": "Total Season: ${totalSeason}",
+        "season": "Season: ${season}"
     }
 ]

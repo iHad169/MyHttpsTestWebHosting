@@ -17,18 +17,25 @@ package org.sourcekey.hknbp.hknbp_core
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.localStorage
 
+
+/**
+ * 程式內對白
+ *
+ * ////////之後要換過好啲(多語言)架構
+ * */
 class Dialogue(
         val language: String = "",
 
         val agree: String = "",
-        val programmeSeason: String = "",
-        val programmeTotalSeason: String = "",
-        val programmeEpisode: String = "",
-        val programmeTotalEpisode: String = "",
-        val programmePart: String = "",
-        val programmeTotalPart: String = "",
         val canNotFind: String = "",
-        val canNotReadData: String = ""
+        val canNotReadData: String = "",
+        val episode: String = "",
+        val part: String = "",
+        val thisDeviceDoesNotSupportThisChannelSignal: String = "",
+        val totalEpisode: String = "",
+        val totalSeason: String = "",
+        val totalPart: String = "",
+        val season: String = ""
 
 ) {
     companion object {

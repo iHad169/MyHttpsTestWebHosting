@@ -230,27 +230,27 @@ object EPG: TabbableUI(document.getElementById("epg") as HTMLElement) {
             var episodeInnerHTML = ""
             val season = programme.episodeNum?.getSeason()
             if(season != null){
-                episodeInnerHTML += dialogues.node?.programmeSeason?.replace("\${season}", season.toString())?: ""
+                episodeInnerHTML += dialogues.node?.season?.replace("\${season}", season.toString())?: ""
             }
             val episode = programme.episodeNum?.getEpisode()
             if(episode != null){
-                episodeInnerHTML += dialogues.node?.programmeEpisode?.replace("\${episode}", episode.toString())?: ""
+                episodeInnerHTML += dialogues.node?.episode?.replace("\${episode}", episode.toString())?: ""
             }
             val part = programme.episodeNum?.getPart()
             if(part != null){
-                episodeInnerHTML += dialogues.node?.programmePart?.replace("\${part}", part.toString())?: ""
+                episodeInnerHTML += dialogues.node?.part?.replace("\${part}", part.toString())?: ""
             }
             val totalSeason = programme.episodeNum?.getTotalSeason()
             if(totalSeason != null){
-                episodeInnerHTML += dialogues.node?.programmeTotalSeason?.replace("\${totalSeason}", totalSeason.toString())?: ""
+                episodeInnerHTML += dialogues.node?.totalSeason?.replace("\${totalSeason}", totalSeason.toString())?: ""
             }
             val totalEpisode = programme.episodeNum?.getTotalEpisode()
             if(totalEpisode != null){
-                episodeInnerHTML += dialogues.node?.programmeTotalEpisode?.replace("\${totalEpisode}", totalEpisode.toString())?: ""
+                episodeInnerHTML += dialogues.node?.totalEpisode?.replace("\${totalEpisode}", totalEpisode.toString())?: ""
             }
             val totalPart = programme.episodeNum?.getTotalPart()
             if(totalPart != null){
-                episodeInnerHTML  += dialogues.node?.programmeTotalPart?.replace("\${totalPart}", totalPart.toString())?: ""
+                episodeInnerHTML  += dialogues.node?.totalPart?.replace("\${totalPart}", totalPart.toString())?: ""
             }
 
             programmeInformationEpisodeNum.innerHTML = episodeInnerHTML

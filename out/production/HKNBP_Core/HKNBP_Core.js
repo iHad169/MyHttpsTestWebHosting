@@ -1039,10 +1039,10 @@ if (typeof kotlin === 'undefined') {
       var episodeInnerHTML = '';
       var season = (tmp$_1 = (tmp$_0 = (tmp$ = closure$xmltv.programmes) != null ? tmp$.getProgrammeByTime() : null) != null ? tmp$_0.episodeNum : null) != null ? tmp$_1.getSeason() : null;
       if (season != null) {
-        episodeInnerHTML += (tmp$_4 = (tmp$_3 = (tmp$_2 = dialogues.node) != null ? tmp$_2.programmeSeason : null) != null ? replace(tmp$_3, '${season}', season.toString()) : null) != null ? tmp$_4 : '';
+        episodeInnerHTML += (tmp$_4 = (tmp$_3 = (tmp$_2 = dialogues.node) != null ? tmp$_2.season : null) != null ? replace(tmp$_3, '${season}', season.toString()) : null) != null ? tmp$_4 : '';
       }var episode = (tmp$_7 = (tmp$_6 = (tmp$_5 = closure$xmltv.programmes) != null ? tmp$_5.getProgrammeByTime() : null) != null ? tmp$_6.episodeNum : null) != null ? tmp$_7.getEpisode() : null;
       if (episode != null) {
-        episodeInnerHTML += (tmp$_10 = (tmp$_9 = (tmp$_8 = dialogues.node) != null ? tmp$_8.programmeEpisode : null) != null ? replace(tmp$_9, '${episode}', episode.toString()) : null) != null ? tmp$_10 : '';
+        episodeInnerHTML += (tmp$_10 = (tmp$_9 = (tmp$_8 = dialogues.node) != null ? tmp$_8.episode : null) != null ? replace(tmp$_9, '${episode}', episode.toString()) : null) != null ? tmp$_10 : '';
       }this$ChannelDescription.currentProgrammeEpisode_0.innerHTML = episodeInnerHTML;
     };
   }
@@ -1118,16 +1118,36 @@ if (typeof kotlin === 'undefined') {
   };
   function ChannelDescription_init$ObjectLiteral_0() {
     this.isPlaying_0 = false;
+    this.continuousPromptMessageTimer_uoyez9$_0 = 0;
     ChannelDescription_getInstance().update();
     ChannelDescription_getInstance().show_s8ev37$(null);
+  }
+  Object.defineProperty(ChannelDescription_init$ObjectLiteral_0.prototype, 'continuousPromptMessageTimer_0', {
+    get: function () {
+      return this.continuousPromptMessageTimer_uoyez9$_0;
+    },
+    set: function (value) {
+      window.clearInterval(this.continuousPromptMessageTimer_uoyez9$_0);
+      this.continuousPromptMessageTimer_uoyez9$_0 = value;
+    }
+  });
+  function ChannelDescription_init$ObjectLiteral$on$lambda$lambda() {
+    PromptBox_getInstance().promptMessage_bm4lxs$('\u8A0A\u865F\u63A5\u6536\u4E0D\u826F', 5000);
   }
   function ChannelDescription_init$ObjectLiteral$on$lambda(this$) {
     return function () {
       if (!this$.isPlaying_0) {
         ChannelDescription_getInstance().update();
         ChannelDescription_getInstance().show_s8ev37$(null);
-        PromptBox_getInstance().promptMessage_bm4lxs$('\u8A0A\u865F\u63A5\u6536\u4E0D\u826F', 5000);
+        this$.continuousPromptMessageTimer_0 = window.setInterval(ChannelDescription_init$ObjectLiteral$on$lambda$lambda, 5000);
       }};
+  }
+  function ChannelDescription_init$ObjectLiteral$on$lambda$lambda_0(dialogues) {
+    var tmp$, tmp$_0;
+    PromptBox_getInstance().promptMessage_bm4lxs$((tmp$_0 = (tmp$ = dialogues.node) != null ? tmp$.thisDeviceDoesNotSupportThisChannelSignal : null) != null ? tmp$_0 : '', 5000);
+  }
+  function ChannelDescription_init$ObjectLiteral$on$lambda_0() {
+    Dialogue$Companion_getInstance().getDialogues_fs1aqo$(ChannelDescription_init$ObjectLiteral$on$lambda$lambda_0);
   }
   ChannelDescription_init$ObjectLiteral_0.prototype.on_mdxcb7$ = function (onPlayerEvent) {
     switch (onPlayerEvent.name) {
@@ -1135,10 +1155,14 @@ if (typeof kotlin === 'undefined') {
         this.isPlaying_0 = true;
         ChannelDescription_getInstance().update();
         ChannelDescription_getInstance().show_s8ev37$(5000);
+        window.clearInterval(this.continuousPromptMessageTimer_0);
         break;
       case 'notPlaying':
         this.isPlaying_0 = false;
         window.setTimeout(ChannelDescription_init$ObjectLiteral$on$lambda(this), 5000);
+        break;
+      case 'error':
+        this.continuousPromptMessageTimer_0 = window.setInterval(ChannelDescription_init$ObjectLiteral$on$lambda_0, 5000);
         break;
       default:Kotlin.noWhenBranchMatched();
         break;
@@ -1696,38 +1720,41 @@ if (typeof kotlin === 'undefined') {
       new CustomChannelsSettingWindow();
     }return CustomChannelsSettingWindow_instance;
   }
-  function Dialogue(language, agree, programmeSeason, programmeTotalSeason, programmeEpisode, programmeTotalEpisode, programmePart, programmeTotalPart, canNotFind, canNotReadData) {
+  function Dialogue(language, agree, canNotFind, canNotReadData, episode, part, thisDeviceDoesNotSupportThisChannelSignal, totalEpisode, totalSeason, totalPart, season) {
     Dialogue$Companion_getInstance();
     if (language === void 0)
       language = '';
     if (agree === void 0)
       agree = '';
-    if (programmeSeason === void 0)
-      programmeSeason = '';
-    if (programmeTotalSeason === void 0)
-      programmeTotalSeason = '';
-    if (programmeEpisode === void 0)
-      programmeEpisode = '';
-    if (programmeTotalEpisode === void 0)
-      programmeTotalEpisode = '';
-    if (programmePart === void 0)
-      programmePart = '';
-    if (programmeTotalPart === void 0)
-      programmeTotalPart = '';
     if (canNotFind === void 0)
       canNotFind = '';
     if (canNotReadData === void 0)
       canNotReadData = '';
+    if (episode === void 0)
+      episode = '';
+    if (part === void 0)
+      part = '';
+    if (thisDeviceDoesNotSupportThisChannelSignal === void 0)
+      thisDeviceDoesNotSupportThisChannelSignal = '';
+    if (totalEpisode === void 0)
+      totalEpisode = '';
+    if (totalSeason === void 0)
+      totalSeason = '';
+    if (totalPart === void 0)
+      totalPart = '';
+    if (season === void 0)
+      season = '';
     this.language = language;
     this.agree = agree;
-    this.programmeSeason = programmeSeason;
-    this.programmeTotalSeason = programmeTotalSeason;
-    this.programmeEpisode = programmeEpisode;
-    this.programmeTotalEpisode = programmeTotalEpisode;
-    this.programmePart = programmePart;
-    this.programmeTotalPart = programmeTotalPart;
     this.canNotFind = canNotFind;
     this.canNotReadData = canNotReadData;
+    this.episode = episode;
+    this.part = part;
+    this.thisDeviceDoesNotSupportThisChannelSignal = thisDeviceDoesNotSupportThisChannelSignal;
+    this.totalEpisode = totalEpisode;
+    this.totalSeason = totalSeason;
+    this.totalPart = totalPart;
+    this.season = season;
   }
   function Dialogue$Companion() {
     Dialogue$Companion_instance = this;
@@ -2245,22 +2272,22 @@ if (typeof kotlin === 'undefined') {
       var episodeInnerHTML = '';
       var season = (tmp$ = closure$programme.episodeNum) != null ? tmp$.getSeason() : null;
       if (season != null) {
-        episodeInnerHTML += (tmp$_2 = (tmp$_1 = (tmp$_0 = dialogues.node) != null ? tmp$_0.programmeSeason : null) != null ? replace(tmp$_1, '${season}', season.toString()) : null) != null ? tmp$_2 : '';
+        episodeInnerHTML += (tmp$_2 = (tmp$_1 = (tmp$_0 = dialogues.node) != null ? tmp$_0.season : null) != null ? replace(tmp$_1, '${season}', season.toString()) : null) != null ? tmp$_2 : '';
       }var episode = (tmp$_3 = closure$programme.episodeNum) != null ? tmp$_3.getEpisode() : null;
       if (episode != null) {
-        episodeInnerHTML += (tmp$_6 = (tmp$_5 = (tmp$_4 = dialogues.node) != null ? tmp$_4.programmeEpisode : null) != null ? replace(tmp$_5, '${episode}', episode.toString()) : null) != null ? tmp$_6 : '';
+        episodeInnerHTML += (tmp$_6 = (tmp$_5 = (tmp$_4 = dialogues.node) != null ? tmp$_4.episode : null) != null ? replace(tmp$_5, '${episode}', episode.toString()) : null) != null ? tmp$_6 : '';
       }var part = (tmp$_7 = closure$programme.episodeNum) != null ? tmp$_7.getPart() : null;
       if (part != null) {
-        episodeInnerHTML += (tmp$_10 = (tmp$_9 = (tmp$_8 = dialogues.node) != null ? tmp$_8.programmePart : null) != null ? replace(tmp$_9, '${part}', part.toString()) : null) != null ? tmp$_10 : '';
+        episodeInnerHTML += (tmp$_10 = (tmp$_9 = (tmp$_8 = dialogues.node) != null ? tmp$_8.part : null) != null ? replace(tmp$_9, '${part}', part.toString()) : null) != null ? tmp$_10 : '';
       }var totalSeason = (tmp$_11 = closure$programme.episodeNum) != null ? tmp$_11.getTotalSeason() : null;
       if (totalSeason != null) {
-        episodeInnerHTML += (tmp$_14 = (tmp$_13 = (tmp$_12 = dialogues.node) != null ? tmp$_12.programmeTotalSeason : null) != null ? replace(tmp$_13, '${totalSeason}', totalSeason.toString()) : null) != null ? tmp$_14 : '';
+        episodeInnerHTML += (tmp$_14 = (tmp$_13 = (tmp$_12 = dialogues.node) != null ? tmp$_12.totalSeason : null) != null ? replace(tmp$_13, '${totalSeason}', totalSeason.toString()) : null) != null ? tmp$_14 : '';
       }var totalEpisode = (tmp$_15 = closure$programme.episodeNum) != null ? tmp$_15.getTotalEpisode() : null;
       if (totalEpisode != null) {
-        episodeInnerHTML += (tmp$_18 = (tmp$_17 = (tmp$_16 = dialogues.node) != null ? tmp$_16.programmeTotalEpisode : null) != null ? replace(tmp$_17, '${totalEpisode}', totalEpisode.toString()) : null) != null ? tmp$_18 : '';
+        episodeInnerHTML += (tmp$_18 = (tmp$_17 = (tmp$_16 = dialogues.node) != null ? tmp$_16.totalEpisode : null) != null ? replace(tmp$_17, '${totalEpisode}', totalEpisode.toString()) : null) != null ? tmp$_18 : '';
       }var totalPart = (tmp$_19 = closure$programme.episodeNum) != null ? tmp$_19.getTotalPart() : null;
       if (totalPart != null) {
-        episodeInnerHTML += (tmp$_22 = (tmp$_21 = (tmp$_20 = dialogues.node) != null ? tmp$_20.programmeTotalPart : null) != null ? replace(tmp$_21, '${totalPart}', totalPart.toString()) : null) != null ? tmp$_22 : '';
+        episodeInnerHTML += (tmp$_22 = (tmp$_21 = (tmp$_20 = dialogues.node) != null ? tmp$_20.totalPart : null) != null ? replace(tmp$_21, '${totalPart}', totalPart.toString()) : null) != null ? tmp$_22 : '';
       }this$EPG.programmeInformationEpisodeNum_0.innerHTML = episodeInnerHTML;
     };
   }
@@ -3206,7 +3233,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_18-test';
+    return 'v2020.03_18-test2';
   }
   var coreVersion;
   var appVersion;
@@ -3640,6 +3667,7 @@ if (typeof kotlin === 'undefined') {
     this.iframePlayerMutedInit_0 = Player$iframePlayerMutedInit$lambda(this)();
     this.onPlaying_0 = Player$onPlaying$lambda(this);
     this.onNotPlaying_0 = Player$onNotPlaying$lambda(this);
+    this.onError_0 = Player$onError$lambda(this);
     this.listenIframePlayerScript_0 = Player$listenIframePlayerScript$lambda;
     if (!RunnerInfo_getInstance().isBelowIOS10()) {
       this.addOnPlayerEventListener_j8fzjz$(new Player_init$ObjectLiteral());
@@ -3656,6 +3684,7 @@ if (typeof kotlin === 'undefined') {
     };
     Player$OnPlayerEvent$playing_instance = new Player$OnPlayerEvent('playing', 0);
     Player$OnPlayerEvent$notPlaying_instance = new Player$OnPlayerEvent('notPlaying', 1);
+    Player$OnPlayerEvent$error_instance = new Player$OnPlayerEvent('error', 2);
   }
   var Player$OnPlayerEvent$playing_instance;
   function Player$OnPlayerEvent$playing_getInstance() {
@@ -3667,13 +3696,18 @@ if (typeof kotlin === 'undefined') {
     Player$OnPlayerEvent_initFields();
     return Player$OnPlayerEvent$notPlaying_instance;
   }
+  var Player$OnPlayerEvent$error_instance;
+  function Player$OnPlayerEvent$error_getInstance() {
+    Player$OnPlayerEvent_initFields();
+    return Player$OnPlayerEvent$error_instance;
+  }
   Player$OnPlayerEvent.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'OnPlayerEvent',
     interfaces: [Enum]
   };
   function Player$OnPlayerEvent$values() {
-    return [Player$OnPlayerEvent$playing_getInstance(), Player$OnPlayerEvent$notPlaying_getInstance()];
+    return [Player$OnPlayerEvent$playing_getInstance(), Player$OnPlayerEvent$notPlaying_getInstance(), Player$OnPlayerEvent$error_getInstance()];
   }
   Player$OnPlayerEvent.values = Player$OnPlayerEvent$values;
   function Player$OnPlayerEvent$valueOf(name) {
@@ -3682,6 +3716,8 @@ if (typeof kotlin === 'undefined') {
         return Player$OnPlayerEvent$playing_getInstance();
       case 'notPlaying':
         return Player$OnPlayerEvent$notPlaying_getInstance();
+      case 'error':
+        return Player$OnPlayerEvent$error_getInstance();
       default:throwISE('No enum constant org.sourcekey.hknbp.hknbp_core.Player.OnPlayerEvent.' + name);
     }
   }
@@ -4019,8 +4055,9 @@ if (typeof kotlin === 'undefined') {
         } else if (callMessage.name == 'IframePlayer') {
           var onPlaying = this$Player.onPlaying_0;
           var onNotPlaying = this$Player.onNotPlaying_0;
+          var onError = this$Player.onError_0;
           var functionName = callMessage.functionName;
-          if (equals(functionName, 'onPlaying') || equals(functionName, 'onNotPlaying')) {
+          if (equals(functionName, 'onPlaying') || equals(functionName, 'onNotPlaying') || equals(functionName, 'onError')) {
             eval(functionName + '()');
           }}} catch (e) {
         println('callIframePlayerFunction\u8870\u5DE6: ' + e.toString() + '\n' + ('JSON\u5B57\u4E32(message)\u5167\u5BB9: ' + event.data.toString()) + '\n' + ('Event\u5167\u5BB9: ' + JSON.stringify(event)));
@@ -4260,6 +4297,16 @@ if (typeof kotlin === 'undefined') {
       }
     };
   }
+  function Player$onError$lambda(this$Player) {
+    return function () {
+      var tmp$;
+      tmp$ = this$Player.onPlayerEvents_0.iterator();
+      while (tmp$.hasNext()) {
+        var event = tmp$.next();
+        event.on_mdxcb7$(Player$OnPlayerEvent$error_getInstance());
+      }
+    };
+  }
   function Player$listenIframePlayerScript$lambda(event) {
   }
   function Player_init$ObjectLiteral() {
@@ -4279,8 +4326,6 @@ if (typeof kotlin === 'undefined') {
       case 'notPlaying':
         this.isPlaying_0 = false;
         window.setTimeout(Player_init$ObjectLiteral$on$lambda(this), 120000);
-        break;
-      default:Kotlin.noWhenBranchMatched();
         break;
     }
   };
@@ -7388,6 +7433,9 @@ if (typeof kotlin === 'undefined') {
   });
   Object.defineProperty(Player$OnPlayerEvent, 'notPlaying', {
     get: Player$OnPlayerEvent$notPlaying_getInstance
+  });
+  Object.defineProperty(Player$OnPlayerEvent, 'error', {
+    get: Player$OnPlayerEvent$error_getInstance
   });
   Player.prototype.OnPlayerEvent = Player$OnPlayerEvent;
   Player.prototype.OnPlayerEventListener = Player$OnPlayerEventListener;

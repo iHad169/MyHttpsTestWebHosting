@@ -24,11 +24,20 @@ var onIframePlayerPlaying = function(){
  * 需要設定call呢個function()
  * 向HKNBP_Core發送呢個IframePlayer嘅播放器依家冇播放緊頻道
  * 如call左一次onIframePlayerNotPlaying()
- * 響15之內冇再call onIframePlayerPlaying()嘅話
+ * 響一段時間之內冇再call onIframePlayerPlaying()嘅話
  * 將會刷新此IframePlayer
  * */
 var onIframePlayerNotPlaying = function(){
    callHKNBPCoreFunction("onNotPlaying", "", function(){});
+};
+
+/**
+ * 當播放器播放頻道出錯時
+ * 需要設定call呢個function()
+ * 向HKNBP_Core發送呢個IframePlayer嘅播放器依家出現錯誤
+ * */
+var onIframePlayerError = function(){
+   callHKNBPCoreFunction("onError", "", function(){});
 };
 
 /**
