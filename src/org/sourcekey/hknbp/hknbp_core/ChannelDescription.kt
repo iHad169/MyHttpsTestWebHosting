@@ -126,6 +126,12 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
         setCurrentProgrammeCategory()
     }
 
+    private var channelStatusPrompt: PromptBox? = null
+        set(value) {
+            field?.hide()
+            field = value
+        }
+
     init {
         setCurrentDate()
         channels.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<Channel> {
@@ -139,18 +145,14 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
         })
         Player.addOnPlayerEventListener(object : Player.OnPlayerEventListener {
             private var isPlaying: Boolean = false
-            private var continuousPromptMessageTimer = 0
-                set(value) {
-                    window.clearInterval(field)
-                    field = value
-                }
             override fun on(onPlayerEvent: Player.OnPlayerEvent) {
+                channelStatusPrompt = null
                 when (onPlayerEvent) {
                     Player.OnPlayerEvent.playing -> {
                         isPlaying = true
                         update()
                         show(5000)
-                        window.clearInterval(continuousPromptMessageTimer)
+                        channelStatusPrompt = null
                     }
                     Player.OnPlayerEvent.notPlaying -> {
                         isPlaying = false
@@ -160,21 +162,23 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
                                 update()
                                 show(null)
                                 //顯示訊號差嘅提示
-                                continuousPromptMessageTimer = window.setInterval(fun(){
-                                    PromptBox.promptMessage("訊號接收不良", 5000)
-                                }, 5000)
+                                Dialogue.getDialogues(fun (dialogues){
+                                    channelStatusPrompt = PromptBox(
+                                            dialogues.node?.poorSignalReception?: "",
+                                            null
+                                    )
+                                })
                             }
                         }, 5000)
                     }
                     Player.OnPlayerEvent.error -> {
-                        continuousPromptMessageTimer = window.setInterval(fun(){
-                            Dialogue.getDialogues(fun (dialogues){
-                                PromptBox.promptMessage(
-                                        dialogues.node?.thisDeviceDoesNotSupportThisChannelSignal?: "",
-                                        5000
-                                )
-                            })
-                        }, 5000)
+                        println("eee")
+                        Dialogue.getDialogues(fun (dialogues){
+                            channelStatusPrompt = PromptBox(
+                                    dialogues.node?.thisDeviceDoesNotSupportThisChannelSignal?: "",
+                                    null
+                            )
+                        })
                     }
                 }
             }

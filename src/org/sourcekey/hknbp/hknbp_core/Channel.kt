@@ -186,7 +186,7 @@ fun ArrayLinkList<Channel>.designatedByChannelNumber(channelNumber: Int): Boolea
         return true
     } else {
         Dialogue.getDialogues(fun(dialogues) {
-            PromptBox.promptMessage(dialogues.node?.canNotFind ?: "")
+            PromptBox(dialogues.node?.canNotFind ?: "")
         })
         return false
     }

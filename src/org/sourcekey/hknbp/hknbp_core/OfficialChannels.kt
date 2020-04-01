@@ -19,15 +19,6 @@ import kotlin.browser.localStorage
 
 object OfficialChannels {
 
-    /**
-     * 讀取電視頻道表資料
-     */
-    private fun loadOfficialChannelsXML(onLoadedChannelsListener: (channels: ArrayLinkList<Channel>)->Unit){
-        parseChannels(fun(channels){ onLoadedChannelsListener(channels) }, fun(){},
-                "https://official-channels.hknbp.org/official_channels.xml", "data/official_channels.xml"
-        )
-    }
-
     private fun set(needSetOfficialChannels: ArrayList<Channel>) {
         //刪除舊有OfficialChannels
         val needRemoveOfficialChannels = ArrayList<Channel>()
@@ -43,7 +34,7 @@ object OfficialChannels {
      * 更新OfficialChannels
      * */
     fun updateChannels(){
-        loadOfficialChannelsXML(fun(officialChannels){
+        parseChannels(fun(officialChannels){
             //設置OfficialChannels
             set(officialChannels)
             //因第一次運行程式未有channel響表入面,當load到OfficialChannels資料時
@@ -51,7 +42,7 @@ object OfficialChannels {
                 localStorage.setItem("isFirstLoadedOfficialChannelsInfoToSet", false.toString())
                 channels.changeToRecentlyWatchedChannel()
             }
-        })
+        }, fun(){}, "https://official-channels.hknbp.org/official_channels.xml")
     }
 
     init {

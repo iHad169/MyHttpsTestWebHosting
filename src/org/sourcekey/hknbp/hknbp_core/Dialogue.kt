@@ -31,6 +31,7 @@ class Dialogue(
         val canNotReadData: String = "",
         val episode: String = "",
         val part: String = "",
+        val poorSignalReception: String = "",
         val thisDeviceDoesNotSupportThisChannelSignal: String = "",
         val totalEpisode: String = "",
         val totalSeason: String = "",
