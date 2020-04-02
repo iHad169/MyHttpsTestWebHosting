@@ -21,7 +21,6 @@ import kotlin.browser.document
 import kotlin.browser.window
 
 object VolumeDescription: UserInterface(document.getElementById("volumeDescription") as HTMLElement) {
-    private val volumeDescription: HTMLDivElement = document.getElementById("volumeDescription") as HTMLDivElement
     private val volumeUpButton: HTMLButtonElement = document.getElementById("volumeDescriptionVolumeUpButton") as HTMLButtonElement
     private val volumeDownButton: HTMLButtonElement = document.getElementById("volumeDescriptionVolumeDownButton") as HTMLButtonElement
     private val volumeValue: HTMLDivElement = document.getElementById("volumeDescriptionVolumeValue") as HTMLDivElement

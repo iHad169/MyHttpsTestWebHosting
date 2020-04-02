@@ -21,7 +21,6 @@ import kotlin.browser.document
 import kotlin.browser.window
 
 object MutedDescription: UserInterface(document.getElementById("mutedDescription") as HTMLElement) {
-    private val mutedDescription: HTMLDivElement = document.getElementById("mutedDescription") as HTMLDivElement
     private val mutedDescriptionButton: HTMLButtonElement = document.getElementById("mutedDescriptionButton") as HTMLButtonElement
 
     fun update(muted: Boolean){
@@ -48,10 +47,10 @@ object MutedDescription: UserInterface(document.getElementById("mutedDescription
     }
 
     init {
+        var isM = true
         mutedDescriptionButton.onclick = fun(event){
-            Player.getMuted(fun(muted){
-                Player.setMuted(!muted)
-            })
+            isM = !isM
+            Player.setMuted(isM)
         }
     }
 }

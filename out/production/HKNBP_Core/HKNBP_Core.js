@@ -3239,7 +3239,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_0-test1';
+    return 'v2020.04_0-test2';
   }
   var coreVersion;
   var appVersion;
@@ -3476,10 +3476,10 @@ if (typeof kotlin === 'undefined') {
     MutedDescription_instance = this;
     var tmp$;
     UserInterface.call(this, Kotlin.isType(tmp$ = document.getElementById('mutedDescription'), HTMLElement) ? tmp$ : throwCCE());
-    var tmp$_0, tmp$_1;
-    this.mutedDescription_0 = Kotlin.isType(tmp$_0 = document.getElementById('mutedDescription'), HTMLDivElement) ? tmp$_0 : throwCCE();
-    this.mutedDescriptionButton_0 = Kotlin.isType(tmp$_1 = document.getElementById('mutedDescriptionButton'), HTMLButtonElement) ? tmp$_1 : throwCCE();
-    this.mutedDescriptionButton_0.onclick = MutedDescription_init$lambda;
+    var tmp$_0;
+    this.mutedDescriptionButton_0 = Kotlin.isType(tmp$_0 = document.getElementById('mutedDescriptionButton'), HTMLButtonElement) ? tmp$_0 : throwCCE();
+    var isM = {v: true};
+    this.mutedDescriptionButton_0.onclick = MutedDescription_init$lambda(isM);
   }
   MutedDescription.prototype.update_6taknv$ = function (muted) {
     if (muted) {
@@ -3520,11 +3520,11 @@ if (typeof kotlin === 'undefined') {
     window.setTimeout(MutedDescription$update$lambda_1(script), 10000);
     window.setTimeout(MutedDescription$update$lambda_2(script), 60000);
   };
-  function MutedDescription_init$lambda$lambda(muted) {
-    Player_getInstance().setMuted_6taknv$(!muted);
-  }
-  function MutedDescription_init$lambda(event) {
-    Player_getInstance().getMuted_y8twos$(MutedDescription_init$lambda$lambda);
+  function MutedDescription_init$lambda(closure$isM) {
+    return function (event) {
+      closure$isM.v = !closure$isM.v;
+      Player_getInstance().setMuted_6taknv$(closure$isM.v);
+    };
   }
   MutedDescription.$metadata$ = {
     kind: Kind_OBJECT,
@@ -3732,26 +3732,13 @@ if (typeof kotlin === 'undefined') {
   };
   function Player$callIframePlayerFunction$lambda(returnValue) {
   }
-  function Player$callIframePlayerFunction$lambda_0(this$Player, closure$caller) {
-    return function () {
-      this$Player.callIframePlayerFunctionList_0.remove_11rb$(closure$caller);
-    };
-  }
   Player.prototype.callIframePlayerFunction_0 = function (evalScript, onReturn) {
     if (onReturn === void 0)
       onReturn = Player$callIframePlayerFunction$lambda;
     var caller = {};
-    caller.evalScript = evalScript;
     caller.name = 'HKNBPCore';
-    caller.id = (new Date()).getTime().toString() + toString(Random.Default.nextInt_vux9f0$(0, 99999999));
-    caller.onReturn = onReturn;
-    this.callIframePlayerFunctionList_0.add_11rb$(caller);
-    window.setTimeout(Player$callIframePlayerFunction$lambda_0(this, caller), 60000);
-    try {
-      this.iframePlayer_0.contentWindow.postMessage(JSON.stringify(caller), '*');
-    } catch (e) {
-      println('iframePlayer\u6709\u5572Function\u6435\u5514\u5230\u6216\u767C\u751F\u554F\u984C: ' + e.toString());
-    }
+    caller.evalScript = evalScript;
+    this.iframePlayer_0.contentWindow.postMessage(JSON.stringify(caller), '*');
   };
   Player.prototype.kotlinValueToEvalScriptUseableValue_0 = function (kotlinValue) {
     var obj = {};
@@ -5850,12 +5837,11 @@ if (typeof kotlin === 'undefined') {
     VolumeDescription_instance = this;
     var tmp$;
     UserInterface.call(this, Kotlin.isType(tmp$ = document.getElementById('volumeDescription'), HTMLElement) ? tmp$ : throwCCE());
-    var tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4;
-    this.volumeDescription_0 = Kotlin.isType(tmp$_0 = document.getElementById('volumeDescription'), HTMLDivElement) ? tmp$_0 : throwCCE();
-    this.volumeUpButton_0 = Kotlin.isType(tmp$_1 = document.getElementById('volumeDescriptionVolumeUpButton'), HTMLButtonElement) ? tmp$_1 : throwCCE();
-    this.volumeDownButton_0 = Kotlin.isType(tmp$_2 = document.getElementById('volumeDescriptionVolumeDownButton'), HTMLButtonElement) ? tmp$_2 : throwCCE();
-    this.volumeValue_0 = Kotlin.isType(tmp$_3 = document.getElementById('volumeDescriptionVolumeValue'), HTMLDivElement) ? tmp$_3 : throwCCE();
-    this.volumeIconList_0 = Kotlin.isType(tmp$_4 = document.getElementById('volumeDescriptionVolumeIconList'), HTMLDivElement) ? tmp$_4 : throwCCE();
+    var tmp$_0, tmp$_1, tmp$_2, tmp$_3;
+    this.volumeUpButton_0 = Kotlin.isType(tmp$_0 = document.getElementById('volumeDescriptionVolumeUpButton'), HTMLButtonElement) ? tmp$_0 : throwCCE();
+    this.volumeDownButton_0 = Kotlin.isType(tmp$_1 = document.getElementById('volumeDescriptionVolumeDownButton'), HTMLButtonElement) ? tmp$_1 : throwCCE();
+    this.volumeValue_0 = Kotlin.isType(tmp$_2 = document.getElementById('volumeDescriptionVolumeValue'), HTMLDivElement) ? tmp$_2 : throwCCE();
+    this.volumeIconList_0 = Kotlin.isType(tmp$_3 = document.getElementById('volumeDescriptionVolumeIconList'), HTMLDivElement) ? tmp$_3 : throwCCE();
     this.volumeIcon_0 = '<i class="icon-font">&#xe82a;<\/i>';
     this.volumeUpButton_0.onclick = VolumeDescription_init$lambda;
     this.volumeDownButton_0.onclick = VolumeDescription_init$lambda_0;

@@ -54,17 +54,9 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             evalScript: String, onReturn: (returnValue: dynamic)->Unit = fun(returnValue){}
     ){
         val caller = js("{}")
-        caller.evalScript = evalScript
         caller.name = "HKNBPCore"
-        caller.id = Date().getTime().toString() + Random.nextInt(0, 99999999)
-        caller.onReturn = onReturn
-        callIframePlayerFunctionList.add(caller)
-        window.setTimeout(fun(){
-            callIframePlayerFunctionList.remove(caller) //如果太耐冇return就響List自動清除免堆垃圾
-        }, 60000)
-        try {
-            iframePlayer.contentWindow.postMessage(JSON.stringify(caller), "*")
-        } catch (e: dynamic){ println("iframePlayer有啲Function搵唔到或發生問題: $e") }
+        caller.evalScript = evalScript
+        iframePlayer.contentWindow.postMessage(JSON.stringify(caller), "*")
     }
 
     private fun kotlinValueToEvalScriptUseableValue(kotlinValue: dynamic): String{
