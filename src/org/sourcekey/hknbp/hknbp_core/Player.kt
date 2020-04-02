@@ -54,9 +54,17 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             evalScript: String, onReturn: (returnValue: dynamic)->Unit = fun(returnValue){}
     ){
         val caller = js("{}")
-        caller.name = "HKNBPCore"
         caller.evalScript = evalScript
-        iframePlayer.contentWindow.postMessage(JSON.stringify(caller), "*")
+        caller.name = "HKNBPCore"
+        caller.id = Date().getTime().toString() + Random.nextInt(0, 99999999)
+        caller.onReturn = onReturn
+        callIframePlayerFunctionList.add(caller)
+        window.setTimeout(fun(){
+            callIframePlayerFunctionList.remove(caller) //如果太耐冇return就響List自動清除免堆垃圾
+        }, 60000)
+        try {
+            iframePlayer.contentWindow.postMessage(JSON.stringify(caller), "*")
+        } catch (e: dynamic){ println("iframePlayer有啲Function搵唔到或發生問題: $e") }
     }
 
     private fun kotlinValueToEvalScriptUseableValue(kotlinValue: dynamic): String{
@@ -597,53 +605,14 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
      */
 
 
-    private var listenIframePlayerScript = fun(event: dynamic){}
 
-    private fun setListenIframePlayerMessage(){
-        window.addEventListener("message", fun(event: dynamic){
-            listenIframePlayerScript(event)
-        }, false)
-    }
 
-    private fun setListenIframePlayerScript(){
-        listenIframePlayerScript = fun(event: dynamic){
-            try{
-                val callMessage = JSON.parse<dynamic>(event.data.toString())
-                if (callMessage.name == null){
-                    return
-                }else if(callMessage.name == "HKNBPCore"){
-                    // 之前callIframePlayerFunction嘅Return
-                    for(obj in callIframePlayerFunctionList){
-                        if(obj.id == callMessage.id){
-                            obj.onReturn(callMessage.returnValue)
-                            callIframePlayerFunctionList.remove(obj)
-                        }
-                    }
-                }else if(callMessage.name == "IframePlayer"){
-                    val onPlaying = onPlaying // 畀IframePlayer方便Call
-                    val onNotPlaying = onNotPlaying // 畀IframePlayer方便Call
-                    val onError = onError // 畀IframePlayer方便Call
 
-                    /**
-                    var onReturn = fun(returnValue: dynamic){
-                    val obj = callMessage
-                    obj.returnValue = returnValue
-                    window.parent.postMessage(JSON.stringify(obj), "*")
-                    }*/
-                    //檢查functionName係米指定特定名
-                    //因安全為由 避免被不安全IframePlayer執行不安全程序
-                    val functionName: String = callMessage.functionName
-                    if(functionName == "onPlaying" || functionName == "onNotPlaying" || functionName == "onError"){
-                        eval(functionName + "()")
-                    }
-                }
-            }catch(e: dynamic){
-                println("callIframePlayerFunction衰左: ${e}" + "\n" +
-                        "JSON字串(message)內容: ${event.data.toString()}" + "\n" +
-                        "Event內容: ${JSON.stringify(event)}"
-                )
-            }
-        }
+    /**
+     *
+     * */
+    fun reload(){
+        playChannel(playingChannel?:return)
     }
 
     fun playChannel(channel: Channel){
@@ -658,13 +627,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
         iframePlayer?.src =
                         "${getLink()}?sourceSrc=${encodeURIComponent(playingChannel?.sources?.node?.getLinkOfHttpsGetAble()?:"")}"
         watchingCounter = WatchingCounter(channel)
-    }
-
-    /**
-     *
-     * */
-    fun reload(){
-        playChannel(playingChannel?:return)
     }
 
     init {
@@ -702,8 +664,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                 }
             })
         }
-        setListenIframePlayerScript()
-        setListenIframePlayerMessage()
     }
 }
 

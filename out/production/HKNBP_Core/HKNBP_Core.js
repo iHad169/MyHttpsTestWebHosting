@@ -3239,7 +3239,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_0-test2';
+    return 'v2020.04_0-test3';
   }
   var coreVersion;
   var appVersion;
@@ -3666,12 +3666,9 @@ if (typeof kotlin === 'undefined') {
     this.onPlaying_0 = Player$onPlaying$lambda(this);
     this.onNotPlaying_0 = Player$onNotPlaying$lambda(this);
     this.onError_0 = Player$onError$lambda(this);
-    this.listenIframePlayerScript_0 = Player$listenIframePlayerScript$lambda;
     if (!RunnerInfo_getInstance().isBelowIOS10()) {
       this.addOnPlayerEventListener_j8fzjz$(new Player_init$ObjectLiteral());
-    }this.setListenIframePlayerScript_0();
-    this.setListenIframePlayerMessage_0();
-  }
+    }}
   function Player$OnPlayerEvent(name, ordinal) {
     Enum.call(this);
     this.name$ = name;
@@ -3732,13 +3729,26 @@ if (typeof kotlin === 'undefined') {
   };
   function Player$callIframePlayerFunction$lambda(returnValue) {
   }
+  function Player$callIframePlayerFunction$lambda_0(this$Player, closure$caller) {
+    return function () {
+      this$Player.callIframePlayerFunctionList_0.remove_11rb$(closure$caller);
+    };
+  }
   Player.prototype.callIframePlayerFunction_0 = function (evalScript, onReturn) {
     if (onReturn === void 0)
       onReturn = Player$callIframePlayerFunction$lambda;
     var caller = {};
-    caller.name = 'HKNBPCore';
     caller.evalScript = evalScript;
-    this.iframePlayer_0.contentWindow.postMessage(JSON.stringify(caller), '*');
+    caller.name = 'HKNBPCore';
+    caller.id = (new Date()).getTime().toString() + toString(Random.Default.nextInt_vux9f0$(0, 99999999));
+    caller.onReturn = onReturn;
+    this.callIframePlayerFunctionList_0.add_11rb$(caller);
+    window.setTimeout(Player$callIframePlayerFunction$lambda_0(this, caller), 60000);
+    try {
+      this.iframePlayer_0.contentWindow.postMessage(JSON.stringify(caller), '*');
+    } catch (e) {
+      println('iframePlayer\u6709\u5572Function\u6435\u5514\u5230\u6216\u767C\u751F\u554F\u984C: ' + e.toString());
+    }
   };
   Player.prototype.kotlinValueToEvalScriptUseableValue_0 = function (kotlinValue) {
     var obj = {};
@@ -4014,43 +4024,12 @@ if (typeof kotlin === 'undefined') {
   Player.prototype.play = function () {
     this.callIframePlayerFunction_0('onSetIframePlayerPlay()');
   };
-  function Player$setListenIframePlayerMessage$lambda(this$Player) {
-    return function (event) {
-      this$Player.listenIframePlayerScript_0(event);
-    };
-  }
-  Player.prototype.setListenIframePlayerMessage_0 = function () {
-    window.addEventListener('message', Player$setListenIframePlayerMessage$lambda(this), false);
-  };
-  function Player$setListenIframePlayerScript$lambda(this$Player) {
-    return function (event) {
-      var tmp$;
-      try {
-        var callMessage = JSON.parse(event.data.toString());
-        if (callMessage.name == null) {
-          return;
-        } else if (callMessage.name == 'HKNBPCore') {
-          tmp$ = this$Player.callIframePlayerFunctionList_0.iterator();
-          while (tmp$.hasNext()) {
-            var obj = tmp$.next();
-            if (obj.id == callMessage.id) {
-              obj.onReturn(callMessage.returnValue);
-              this$Player.callIframePlayerFunctionList_0.remove_11rb$(obj);
-            }}
-        } else if (callMessage.name == 'IframePlayer') {
-          var onPlaying = this$Player.onPlaying_0;
-          var onNotPlaying = this$Player.onNotPlaying_0;
-          var onError = this$Player.onError_0;
-          var functionName = callMessage.functionName;
-          if (equals(functionName, 'onPlaying') || equals(functionName, 'onNotPlaying') || equals(functionName, 'onError')) {
-            eval(functionName + '()');
-          }}} catch (e) {
-        println('callIframePlayerFunction\u8870\u5DE6: ' + e.toString() + '\n' + ('JSON\u5B57\u4E32(message)\u5167\u5BB9: ' + event.data.toString()) + '\n' + ('Event\u5167\u5BB9: ' + JSON.stringify(event)));
-      }
-    };
-  }
-  Player.prototype.setListenIframePlayerScript_0 = function () {
-    this.listenIframePlayerScript_0 = Player$setListenIframePlayerScript$lambda(this);
+  Player.prototype.reload = function () {
+    var tmp$;
+    tmp$ = this.playingChannel_0;
+    if (tmp$ == null) {
+      return;
+    }this.playChannel_e3jjlp$(tmp$);
   };
   function Player$playChannel$getLink(this$Player) {
     return function () {
@@ -4069,13 +4048,6 @@ if (typeof kotlin === 'undefined') {
     tmp$_3 = (tmp$_2 = (tmp$_1 = (tmp$_0 = (tmp$ = this.playingChannel_0) != null ? tmp$.sources : null) != null ? tmp$_0.node : null) != null ? tmp$_1.getLinkOfHttpsGetAble() : null) != null ? tmp$_2 : '';
     tmp$_4 != null ? (tmp$_4.src = getLink() + '?sourceSrc=' + encodeURIComponent(tmp$_3)) : null;
     this.watchingCounter_0 = new WatchingCounter(channel);
-  };
-  Player.prototype.reload = function () {
-    var tmp$;
-    tmp$ = this.playingChannel_0;
-    if (tmp$ == null) {
-      return;
-    }this.playChannel_e3jjlp$(tmp$);
   };
   function Player$videoTracks$lambda$ObjectLiteral() {
   }
@@ -4300,8 +4272,6 @@ if (typeof kotlin === 'undefined') {
         event.on_mdxcb7$(Player$OnPlayerEvent$error_getInstance());
       }
     };
-  }
-  function Player$listenIframePlayerScript$lambda(event) {
   }
   function Player_init$ObjectLiteral() {
     this.isPlaying_0 = false;
