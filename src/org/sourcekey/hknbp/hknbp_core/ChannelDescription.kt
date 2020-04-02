@@ -172,7 +172,6 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
                         }, 5000)
                     }
                     Player.OnPlayerEvent.error -> {
-                        println("eee")
                         Dialogue.getDialogues(fun (dialogues){
                             channelStatusPrompt = PromptBox(
                                     dialogues.node?.thisDeviceDoesNotSupportThisChannelSignal?: "",

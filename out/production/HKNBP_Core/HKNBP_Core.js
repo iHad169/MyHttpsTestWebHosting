@@ -1164,7 +1164,6 @@ if (typeof kotlin === 'undefined') {
         window.setTimeout(ChannelDescription_init$ObjectLiteral$on$lambda(this), 5000);
         break;
       case 'error':
-        println('eee');
         Dialogue$Companion_getInstance().getDialogues_fs1aqo$(ChannelDescription_init$ObjectLiteral$on$lambda_0);
         break;
       default:Kotlin.noWhenBranchMatched();
@@ -3240,7 +3239,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.03_18-test2';
+    return 'v2020.03_18';
   }
   var coreVersion;
   var appVersion;
@@ -4672,14 +4671,14 @@ if (typeof kotlin === 'undefined') {
   };
   ScreenOrientationButton.prototype.orientation = function () {
     if (equals(this.currentType(), 'portrait') || equals(this.currentType(), 'portrait-primary') || equals(this.currentType(), 'portrait-secondary')) {
+      FullScreenButton_getInstance().enterFullscreen();
       this.orientation_0.lock('landscape');
     } else {
-      this.orientation_0.lock('portrait');
+      FullScreenButton_getInstance().exitFullscreen();
     }
   };
   function ScreenOrientationButton_init$lambda(this$ScreenOrientationButton) {
     return function (event) {
-      FullScreenButton_getInstance().enterFullscreen();
       this$ScreenOrientationButton.orientation();
     };
   }

@@ -59,10 +59,11 @@ object ScreenOrientationButton : UserInterface(
     fun orientation(){
         if(currentType() == "portrait" || currentType() == "portrait-primary" || currentType() == "portrait-secondary"){
             //強制旋轉至 橫向模式
+            FullScreenButton.enterFullscreen()
             orientation.lock("landscape")
         }else{
-            //強制旋轉至 縱向模式
-            orientation.lock("portrait")
+            //還原螢幕旋轉
+            FullScreenButton.exitFullscreen()
         }
     }
 
@@ -70,9 +71,6 @@ object ScreenOrientationButton : UserInterface(
         //如果運行裝置螢幕有縱向模式時提供旋轉就顯示按鍵
         if(isNeedOrientation()){ show(null) }else{ hide() }
         //設置螢幕旋轉按鍵
-        screenOrientationButton.onclick = fun(event){
-            FullScreenButton.enterFullscreen()
-            orientation()
-        }
+        screenOrientationButton.onclick = fun(event){ orientation() }
     }
 }

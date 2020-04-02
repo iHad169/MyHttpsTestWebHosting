@@ -87,7 +87,7 @@ function onPlaybackQualityChange(event) {
 function onPlayerError(event) {
     setTimeout(function () {
         if (player.getPlayerState() !== 1){
-            onIframePlayerNotPlaying();
+            onIframePlayerError();
         }
     }, 15000);
 }
