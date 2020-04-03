@@ -476,18 +476,14 @@ if (typeof kotlin === 'undefined') {
   }
   CanAutoplay.prototype.checkCanAutoplay_0 = function (onCanAutoplay, onCanNotAutoplay, autoplayType) {
     try {
-      if (!RunnerInfo_getInstance().isIOS()) {
-        var _canAutoplay = canAutoplay;
-        _canAutoplay[autoplayType.method](autoplayType.params).then(CanAutoplay$checkCanAutoplay$lambda(onCanAutoplay, onCanNotAutoplay));
-      } else {
-        onCanAutoplay();
-      }
+      var _canAutoplay = canAutoplay;
+      _canAutoplay[autoplayType.method](autoplayType.params).then(CanAutoplay$checkCanAutoplay$lambda(onCanAutoplay, onCanNotAutoplay));
     } catch (e) {
       onCanAutoplay();
     }
   };
   CanAutoplay.prototype.checkVideoAutoPlayNeedToMute_9dmrm4$ = function (onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay) {
-    this.checkCanAutoplay_0(onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay, this.video_0);
+    this.checkCanAutoplay_0(onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay, this.videoInline_0);
   };
   function CanAutoplay_init$lambda() {
   }
@@ -3243,7 +3239,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_0-test4';
+    return 'v2020.04_0-test5';
   }
   var coreVersion;
   var appVersion;
