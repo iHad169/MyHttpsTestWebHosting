@@ -476,8 +476,12 @@ if (typeof kotlin === 'undefined') {
   }
   CanAutoplay.prototype.checkCanAutoplay_0 = function (onCanAutoplay, onCanNotAutoplay, autoplayType) {
     try {
-      var _canAutoplay = canAutoplay;
-      _canAutoplay[autoplayType.method](autoplayType.params).then(CanAutoplay$checkCanAutoplay$lambda(onCanAutoplay, onCanNotAutoplay));
+      if (!RunnerInfo_getInstance().isIOS()) {
+        var _canAutoplay = canAutoplay;
+        _canAutoplay[autoplayType.method](autoplayType.params).then(CanAutoplay$checkCanAutoplay$lambda(onCanAutoplay, onCanNotAutoplay));
+      } else {
+        onCanAutoplay();
+      }
     } catch (e) {
       onCanAutoplay();
     }
@@ -3239,7 +3243,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_0-test3';
+    return 'v2020.04_0-test4';
   }
   var coreVersion;
   var appVersion;
@@ -3478,8 +3482,7 @@ if (typeof kotlin === 'undefined') {
     UserInterface.call(this, Kotlin.isType(tmp$ = document.getElementById('mutedDescription'), HTMLElement) ? tmp$ : throwCCE());
     var tmp$_0;
     this.mutedDescriptionButton_0 = Kotlin.isType(tmp$_0 = document.getElementById('mutedDescriptionButton'), HTMLButtonElement) ? tmp$_0 : throwCCE();
-    var isM = {v: true};
-    this.mutedDescriptionButton_0.onclick = MutedDescription_init$lambda(isM);
+    this.mutedDescriptionButton_0.onclick = MutedDescription_init$lambda;
   }
   MutedDescription.prototype.update_6taknv$ = function (muted) {
     if (muted) {
@@ -3520,11 +3523,11 @@ if (typeof kotlin === 'undefined') {
     window.setTimeout(MutedDescription$update$lambda_1(script), 10000);
     window.setTimeout(MutedDescription$update$lambda_2(script), 60000);
   };
-  function MutedDescription_init$lambda(closure$isM) {
-    return function (event) {
-      closure$isM.v = !closure$isM.v;
-      Player_getInstance().setMuted_6taknv$(closure$isM.v);
-    };
+  function MutedDescription_init$lambda$lambda(muted) {
+    Player_getInstance().setMuted_6taknv$(!muted);
+  }
+  function MutedDescription_init$lambda(event) {
+    Player_getInstance().getMuted_y8twos$(MutedDescription_init$lambda$lambda);
   }
   MutedDescription.$metadata$ = {
     kind: Kind_OBJECT,
@@ -3650,7 +3653,6 @@ if (typeof kotlin === 'undefined') {
     this.watchingCounter_0 = null;
     this.onPlayerEvents_0 = ArrayList_init();
     this.callIframePlayerFunctionList_0 = ArrayList_init();
-    this.isCheckVideoAutoPlayNeedToMute_0 = true;
     this.checkNeedCanTouchIframePlayerModeTimer_14c6cd$_0 = 0;
     this.videoTracks_15iau4$_0 = Player$videoTracks$lambda(this)();
     this.audioTracks_oydct3$_0 = Player$audioTracks$lambda(this)();
@@ -3666,6 +3668,7 @@ if (typeof kotlin === 'undefined') {
     this.onPlaying_0 = Player$onPlaying$lambda(this);
     this.onNotPlaying_0 = Player$onNotPlaying$lambda(this);
     this.onError_0 = Player$onError$lambda(this);
+    this.initListenIframePlayerMessage_0 = Player$initListenIframePlayerMessage$lambda(this)();
     if (!RunnerInfo_getInstance().isBelowIOS10()) {
       this.addOnPlayerEventListener_j8fzjz$(new Player_init$ObjectLiteral());
     }}
@@ -3904,12 +3907,7 @@ if (typeof kotlin === 'undefined') {
   }
   Player.prototype.setMuted_6taknv$ = function (muted) {
     var setScript = Player$setMuted$lambda(this);
-    if (this.isCheckVideoAutoPlayNeedToMute_0) {
-      CanAutoplay_getInstance().checkVideoAutoPlayNeedToMute_9dmrm4$(Player$setMuted$lambda_0(muted, this, setScript), Player$setMuted$lambda_1(setScript));
-    } else {
-      this.muted_0 = muted;
-      setScript(muted);
-    }
+    CanAutoplay_getInstance().checkVideoAutoPlayNeedToMute_9dmrm4$(Player$setMuted$lambda_0(muted, this, setScript), Player$setMuted$lambda_1(setScript));
   };
   function Player$getMuted$lambda(this$Player, closure$onReturn) {
     return function (returnValue) {
@@ -4273,6 +4271,39 @@ if (typeof kotlin === 'undefined') {
       }
     };
   }
+  function Player$initListenIframePlayerMessage$lambda$lambda(this$Player) {
+    return function (event) {
+      var tmp$;
+      try {
+        var callMessage = JSON.parse(event.data.toString());
+        if (callMessage.name == null) {
+          return;
+        } else if (callMessage.name == 'HKNBPCore') {
+          tmp$ = this$Player.callIframePlayerFunctionList_0.iterator();
+          while (tmp$.hasNext()) {
+            var obj = tmp$.next();
+            if (obj.id == callMessage.id) {
+              obj.onReturn(callMessage.returnValue);
+              this$Player.callIframePlayerFunctionList_0.remove_11rb$(obj);
+            }}
+        } else if (callMessage.name == 'IframePlayer') {
+          var onPlaying = this$Player.onPlaying_0;
+          var onNotPlaying = this$Player.onNotPlaying_0;
+          var onError = this$Player.onError_0;
+          var functionName = callMessage.functionName;
+          if (equals(functionName, 'onPlaying') || equals(functionName, 'onNotPlaying') || equals(functionName, 'onError')) {
+            eval(functionName + '()');
+          }}} catch (e) {
+        println('callIframePlayerFunction\u8870\u5DE6: ' + e.toString() + '\n' + ('JSON\u5B57\u4E32(message)\u5167\u5BB9: ' + event.data.toString()) + '\n' + ('Event\u5167\u5BB9: ' + JSON.stringify(event)));
+      }
+    };
+  }
+  function Player$initListenIframePlayerMessage$lambda(this$Player) {
+    return function () {
+      window.addEventListener('message', Player$initListenIframePlayerMessage$lambda$lambda(this$Player), false);
+      return Unit;
+    };
+  }
   function Player_init$ObjectLiteral() {
     this.isPlaying_0 = false;
   }
@@ -4589,11 +4620,12 @@ if (typeof kotlin === 'undefined') {
     }) === 'function' ? tmp$ : throwCCE();
     return iOSVersion();
   };
+  RunnerInfo.prototype.isIOS = function () {
+    return equals(this.getOsFamily(), 'iOS');
+  };
   RunnerInfo.prototype.isBelowIOS10 = function () {
     var tmp$;
-    if (equals(this.getOsFamily(), 'iOS') && ((tmp$ = this.getIOSVersion()) != null ? tmp$ : 10) < 10) {
-      return true;
-    }return false;
+    return this.isIOS() && ((tmp$ = this.getIOSVersion()) != null ? tmp$ : 10) < 10;
   };
   RunnerInfo.$metadata$ = {
     kind: Kind_OBJECT,

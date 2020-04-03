@@ -73,12 +73,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
         return "JSON.parse(\'${JSON.stringify(obj)}\').value"
     }
 
-
-    /**
-     * 係米檢查自動播放需要靜音
-     * */
-    private var isCheckVideoAutoPlayNeedToMute = true
-
     /**
      * 檢查需唔需要可直接點擊IframePlayer模式嘅Timer
      *
@@ -428,23 +422,16 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
     fun setMuted(muted: Boolean) {
         //因依家大部分 <瀏覽器> 唔畀自動播放, 如果要自動播放一定要將Player設為 <靜音>
         val setScript = fun(muted: Boolean){
-            callIframePlayerFunction(
-                    "onSetIframePlayerMuted(${kotlinValueToEvalScriptUseableValue(muted)})"
-            )
+            callIframePlayerFunction("onSetIframePlayerMuted(${kotlinValueToEvalScriptUseableValue(muted)})")
             MutedDescription.update(muted)
         }
-
-        if(isCheckVideoAutoPlayNeedToMute){
-            CanAutoplay.checkVideoAutoPlayNeedToMute(fun(){
-                this.muted = muted
-                setScript(muted)
-            }, fun(){
-                setScript(true)
-            })
-        }else{
+        //檢查自動播放係米需要靜音
+        CanAutoplay.checkVideoAutoPlayNeedToMute(fun(){
             this.muted = muted
             setScript(muted)
-        }
+        }, fun(){
+            setScript(true)
+        })
     }
 
     /**
@@ -605,7 +592,46 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
      */
 
 
+    private val initListenIframePlayerMessage = {
+        window.addEventListener("message", fun(event: dynamic){
+            try{
+                val callMessage = JSON.parse<dynamic>(event.data.toString())
+                if (callMessage.name == null){
+                    return
+                }else if(callMessage.name == "HKNBPCore"){
+                    // 之前callIframePlayerFunction嘅Return
+                    for(obj in callIframePlayerFunctionList){
+                        if(obj.id == callMessage.id){
+                            obj.onReturn(callMessage.returnValue)
+                            callIframePlayerFunctionList.remove(obj)
+                        }
+                    }
+                }else if(callMessage.name == "IframePlayer"){
+                    val onPlaying = onPlaying // 畀IframePlayer方便Call
+                    val onNotPlaying = onNotPlaying // 畀IframePlayer方便Call
+                    val onError = onError // 畀IframePlayer方便Call
 
+                    /**
+                    var onReturn = fun(returnValue: dynamic){
+                    val obj = callMessage
+                    obj.returnValue = returnValue
+                    window.parent.postMessage(JSON.stringify(obj), "*")
+                    }*/
+                    //檢查functionName係米指定特定名
+                    //因安全為由 避免被不安全IframePlayer執行不安全程序
+                    val functionName: String = callMessage.functionName
+                    if(functionName == "onPlaying" || functionName == "onNotPlaying" || functionName == "onError"){
+                        eval(functionName + "()")
+                    }
+                }
+            }catch(e: dynamic){
+                println("callIframePlayerFunction衰左: ${e}" + "\n" +
+                        "JSON字串(message)內容: ${event.data.toString()}" + "\n" +
+                        "Event內容: ${JSON.stringify(event)}"
+                )
+            }
+        }, false)
+    }()
 
 
     /**

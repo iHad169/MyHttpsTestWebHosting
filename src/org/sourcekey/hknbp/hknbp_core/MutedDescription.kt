@@ -47,10 +47,10 @@ object MutedDescription: UserInterface(document.getElementById("mutedDescription
     }
 
     init {
-        var isM = true
         mutedDescriptionButton.onclick = fun(event){
-            isM = !isM
-            Player.setMuted(isM)
+            Player.getMuted(fun(muted){
+                Player.setMuted(!muted)
+            })
         }
     }
 }
