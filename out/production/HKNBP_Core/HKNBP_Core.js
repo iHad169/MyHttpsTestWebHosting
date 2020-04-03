@@ -3239,7 +3239,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_0-test5';
+    return 'v2020.04_0';
   }
   var coreVersion;
   var appVersion;
@@ -3659,6 +3659,7 @@ if (typeof kotlin === 'undefined') {
     this.volumeDown = Player$volumeDown$lambda(this);
     this.iframePlayerVolumeInit_0 = Player$iframePlayerVolumeInit$lambda(this)();
     this.muted_u89vz8$_0 = (tmp$_3 = (tmp$_2 = localStorage.getItem('RecentlyMuted')) != null ? toBoolean(tmp$_2) : null) != null ? tmp$_3 : false;
+    this.tryUnmuteCount_0 = 0;
     this.volumeMute_mj46gq$_0 = Player$volumeMute$lambda(this);
     this.iframePlayerMutedInit_0 = Player$iframePlayerMutedInit$lambda(this)();
     this.onPlaying_0 = Player$onPlaying$lambda(this);
@@ -3896,14 +3897,19 @@ if (typeof kotlin === 'undefined') {
       closure$setScript(closure$muted);
     };
   }
-  function Player$setMuted$lambda_1(closure$setScript) {
+  function Player$setMuted$lambda_1(closure$setScript, this$Player) {
     return function () {
+      var tmp$;
       closure$setScript(true);
+      if (1 < this$Player.tryUnmuteCount_0) {
+        new PromptBox('\u5982\u672A\u80FD\u89E3\u9664\u975C\u97F3\u8ACB\u4EFB\u610F\u9EDE\u64CA\u87A2\u5E55');
+      }tmp$ = this$Player.tryUnmuteCount_0;
+      this$Player.tryUnmuteCount_0 = tmp$ + 1 | 0;
     };
   }
   Player.prototype.setMuted_6taknv$ = function (muted) {
     var setScript = Player$setMuted$lambda(this);
-    CanAutoplay_getInstance().checkVideoAutoPlayNeedToMute_9dmrm4$(Player$setMuted$lambda_0(muted, this, setScript), Player$setMuted$lambda_1(setScript));
+    CanAutoplay_getInstance().checkVideoAutoPlayNeedToMute_9dmrm4$(Player$setMuted$lambda_0(muted, this, setScript), Player$setMuted$lambda_1(setScript, this));
   };
   function Player$getMuted$lambda(this$Player, closure$onReturn) {
     return function (returnValue) {
@@ -4616,12 +4622,9 @@ if (typeof kotlin === 'undefined') {
     }) === 'function' ? tmp$ : throwCCE();
     return iOSVersion();
   };
-  RunnerInfo.prototype.isIOS = function () {
-    return equals(this.getOsFamily(), 'iOS');
-  };
   RunnerInfo.prototype.isBelowIOS10 = function () {
     var tmp$;
-    return this.isIOS() && ((tmp$ = this.getIOSVersion()) != null ? tmp$ : 10) < 10;
+    return equals(this.getOsFamily(), 'iOS') && ((tmp$ = this.getIOSVersion()) != null ? tmp$ : 10) < 10;
   };
   RunnerInfo.$metadata$ = {
     kind: Kind_OBJECT,

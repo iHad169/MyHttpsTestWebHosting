@@ -416,6 +416,8 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             field = value
         }
 
+    private var tryUnmuteCount = 0
+
     /**
      * 設定iframePlayer嘅靜音資訊
      * */
@@ -431,6 +433,8 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             setScript(muted)
         }, fun(){
             setScript(true)
+            if(1 < tryUnmuteCount){PromptBox("如未能解除靜音請任意點擊螢幕")}
+            tryUnmuteCount++
         })
     }
 
