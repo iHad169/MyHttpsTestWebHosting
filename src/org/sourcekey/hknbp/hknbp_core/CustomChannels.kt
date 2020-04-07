@@ -28,11 +28,15 @@ object CustomChannels {
     }
 
     fun set(index: Int, customChannel: Channel){
-        channels.set(index, customChannel)
+        if(channels.find{ channel: Channel -> channel == customChannel } == null) {
+            channels.set(index, customChannel)
+        }
     }
 
     fun add(customChannel: Channel){
-        channels.add(customChannel)
+        if(channels.find{ channel: Channel -> channel == customChannel } == null){
+            channels.add(customChannel)
+        }
     }
 
     fun remove(customChannel: Channel){

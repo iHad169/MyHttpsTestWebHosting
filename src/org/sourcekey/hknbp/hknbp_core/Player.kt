@@ -32,6 +32,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
 
 
     enum class OnPlayerEvent{
+        turnChannel,
         playing,
         notPlaying,
         error
@@ -164,6 +165,32 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             return false
         }
     }
+
+    /**
+    /**
+     * 設定為最高畫質片源
+    */
+    private fun setHighestVideoQuality() {
+    //designatedVideoTrack(getVideoTracks().size - 1)
+    //updateVideoTrack()
+    }
+
+    /**
+     * 設定為最低畫質片源
+    */
+    private fun setLowestVideoQuality() {
+    //designatedVideoTrack(1)//因第0片源為冇畫面影片,所以第1片源先至係最低畫質
+    //updateVideoTrack()
+    }
+
+    /**
+     * 設定為自動選擇畫質片源
+    */
+    private fun setAutoSelectVideoQuality() {
+    //designatedVideoTrack(-1)//-1為自動選擇畫質片源
+    //updateVideoTrack()
+    }
+     */
 
 
     /**
@@ -549,8 +576,13 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
     }
 
     /**
+     * 當轉頻道
+     * */
+    private val onTurnChannel = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.turnChannel) } }
+
+    /**
      * 當iframePlayer開始播放頻道時
-     * 會執行此function
+     * iframePlayer會執行此function
      * 即iframePlayer正確地播放緊
      * 有關資料可讀取
      * */
@@ -558,44 +590,19 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
 
     /**
      * 當iframePlayer冇進行播放頻道時
-     * 會執行此function
+     * iframePlayer會執行此function
      * */
     private val onNotPlaying = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.notPlaying) } }
 
     /**
      * 當iframePlayer播放頻道出錯時
-     * 會執行此function
+     * iframePlayer會執行此function
      * */
     private val onError = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.error) } }
 
-
     /**
-    /**
-     * 設定為最高畫質片源
-    */
-    private fun setHighestVideoQuality() {
-    //designatedVideoTrack(getVideoTracks().size - 1)
-    //updateVideoTrack()
-    }
-
-    /**
-     * 設定為最低畫質片源
-    */
-    private fun setLowestVideoQuality() {
-    //designatedVideoTrack(1)//因第0片源為冇畫面影片,所以第1片源先至係最低畫質
-    //updateVideoTrack()
-    }
-
-    /**
-     * 設定為自動選擇畫質片源
-    */
-    private fun setAutoSelectVideoQuality() {
-    //designatedVideoTrack(-1)//-1為自動選擇畫質片源
-    //updateVideoTrack()
-    }
-     */
-
-
+     * 對接收IframePlayer來嘅訊息監聽器進行 初始化
+     * */
     private val initListenIframePlayerMessage = {
         window.addEventListener("message", fun(event: dynamic){
             try{
@@ -657,28 +664,48 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
         iframePlayer?.src =
                         "${getLink()}?sourceSrc=${encodeURIComponent(playingChannel?.sources?.node?.getLinkOfHttpsGetAble()?:"")}"
         watchingCounter = WatchingCounter(channel)
+        onTurnChannel()
     }
 
     init {
-        //iOS10以下就不需自動Reload
-        //因播放頻道必需全由使用者操作
-        //如自動Reload會跳出iOS10以下專屬播放介面
-        //導致使用者再要點擊打開iOS10以下專屬播放介面播放頻道
+        /**
+         * //iOS10以下就不需自動Reload
+         * 因播放頻道必需全由使用者操作
+         * 如自動Reload會跳出iOS10以下專屬播放介面
+         * 導致使用者再要點擊打開iOS10以下專屬播放介面播放頻道
+         * */
         if(!RunnerInfo.isBelowIOS10()){
             addOnPlayerEventListener(object : OnPlayerEventListener {
                 private var isPlaying: Boolean = false
+                private val timerList: ArrayList<Int> = ArrayList()
+                private var currentChannelNumber: Int? = 0
+                private var currentChannelNotPlayingCount = 0
                 override fun on(onPlayerEvent: OnPlayerEvent) {
                     when (onPlayerEvent) {
                         OnPlayerEvent.playing -> {
                             isPlaying = true
+                            //清除所有timer
+                            for(timer in timerList){window.clearTimeout(timer)}
+                            timerList.clear()
                         }
                         OnPlayerEvent.notPlaying -> {
                             isPlaying = false
-                            //檢查呢2分鐘內Player有冇再繼續正常播放,若冇就ReLoad
-                            window.setTimeout(fun() { if (!isPlaying) {
-                                //ReLoad
-                                window.location.reload()
-                            } }, 120000)
+                            //嘗試發出播放指令使iframePlayer繼續播放
+                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ play() } }, 2000))
+                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ play() } }, 5000))
+                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ play() } }, 10000))
+                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ play() } }, 25000))
+                            //檢查呢30秒內Player有冇再繼續正常播放,若冇就ReLoad
+                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ reload() } }, 30000))
+                            //停止太多次就直接Reload個網頁
+                            if(10 < currentChannelNotPlayingCount){ window.location.reload() }
+                            //計算已停止次數
+                            if(playingChannel?.number == currentChannelNumber){
+                                currentChannelNotPlayingCount++
+                            }else{
+                                currentChannelNotPlayingCount = 0
+                                currentChannelNumber = playingChannel?.number
+                            }
                         }
                     }
                 }

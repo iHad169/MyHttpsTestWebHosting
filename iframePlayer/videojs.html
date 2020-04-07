@@ -58,12 +58,12 @@
        id="player"
        class="video-js vjs-default-skin"
        preload="auto"
-       onplaying="onIframePlayerPlaying()"
-       onpause="onIframePlayerNotPlaying()"
-       onstop="onIframePlayerNotPlaying()"
-       onended="onIframePlayerNotPlaying()"
-       onerror="onIframePlayerError()"
-       onwaiting="onIframePlayerNotPlaying()"
+       onplaying="sss('onplaying','onIframePlayerPlaying()')"
+       onpause="sss('onpause','onIframePlayerNotPlaying()')"
+       onstop="sss('onstop','onIframePlayerNotPlaying()')"
+       onended="sss('onended','onIframePlayerNotPlaying()')"
+       onerror="sss('onerror','onIframePlayerError()')"
+       onwaiting="sss('onwaiting','onIframePlayerNotPlaying()')"
        oncanplaythrough="this.play()"
        style="position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; overflow:hidden;"
        frameBorder="0"
@@ -80,6 +80,11 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.mediaplayer.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/2.9.3/videojs-dash.min.js"></script>
 <script type="text/javascript">
+function sss(s,f){
+    console.log(s);
+    eval(f);
+}
+
 /**
  * 播放器
  * */
@@ -388,6 +393,7 @@ function onIframePlayerInit(sourceSrc){
             }
         }*/
     });
+    player.on("error", function(){onIframePlayerError();});
     //Dash流訊號播放器監聽
     videojs.Html5DashJS.hook('beforeinitialize', function(player, _mediaPlayer) {
         if (videojs && videojs.log) {

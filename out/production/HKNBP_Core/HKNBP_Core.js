@@ -772,45 +772,42 @@ if (typeof kotlin === 'undefined') {
     return function () {
       var tmp$;
       var channelParam = (tmp$ = (new URL(window.location.href)).searchParams) != null ? tmp$.get('channel') : null;
-      var goTOChannelNumber = {v: channelParam != null ? toIntOrNull(channelParam) : null};
-      var customChannel = getOrNull(parseChannels_0(decodeURIComponent(channelParam != null ? channelParam : '')), 0);
-      var tmp$_0 = customChannel != null;
-      if (tmp$_0) {
-        var $receiver = this$changeToRecentlyWatchedChannel;
-        var firstOrNull$result;
-        firstOrNull$break: do {
-          var tmp$_1;
-          tmp$_1 = $receiver.iterator();
-          while (tmp$_1.hasNext()) {
-            var element = tmp$_1.next();
-            if (equals(element, customChannel)) {
-              firstOrNull$result = element;
-              break firstOrNull$break;
-            }}
-          firstOrNull$result = null;
-        }
-         while (false);
-        tmp$_0 = firstOrNull$result == null;
-      }if (tmp$_0) {
-        CustomChannels_getInstance().add_e3jjlp$(customChannel);
-        this$changeToRecentlyWatchedChannel.add_11rb$(customChannel);
-        goTOChannelNumber.v = customChannel.number;
-      }var tmp$_2 = this$changeToRecentlyWatchedChannel;
-      var $receiver_0 = this$changeToRecentlyWatchedChannel;
-      var firstOrNull$result_0;
+      var tmp$_0 = this$changeToRecentlyWatchedChannel;
+      var $receiver = this$changeToRecentlyWatchedChannel;
+      var firstOrNull$result;
       firstOrNull$break: do {
-        var tmp$_3;
-        tmp$_3 = $receiver_0.iterator();
-        while (tmp$_3.hasNext()) {
-          var element_0 = tmp$_3.next();
-          if (element_0.number === goTOChannelNumber.v) {
-            firstOrNull$result_0 = element_0;
+        var tmp$_1;
+        tmp$_1 = $receiver.iterator();
+        while (tmp$_1.hasNext()) {
+          var element = tmp$_1.next();
+          if (element.number === (channelParam != null ? toIntOrNull(channelParam) : null)) {
+            firstOrNull$result = element;
             break firstOrNull$break;
           }}
-        firstOrNull$result_0 = null;
+        firstOrNull$result = null;
       }
        while (false);
-      return tmp$_2.indexOfOrNull_11rb$(firstOrNull$result_0);
+      var toIndexOfChannelNumber = tmp$_0.indexOfOrNull_11rb$(firstOrNull$result);
+      var customChannel = getOrNull(parseChannels_0(decodeURIComponent(channelParam != null ? channelParam : '')), 0);
+      if (customChannel != null) {
+        var $receiver_0 = this$changeToRecentlyWatchedChannel;
+        var firstOrNull$result_0;
+        firstOrNull$break: do {
+          var tmp$_2;
+          tmp$_2 = $receiver_0.iterator();
+          while (tmp$_2.hasNext()) {
+            var element_0 = tmp$_2.next();
+            if (equals(element_0, customChannel)) {
+              firstOrNull$result_0 = element_0;
+              break firstOrNull$break;
+            }}
+          firstOrNull$result_0 = null;
+        }
+         while (false);
+        if (firstOrNull$result_0 == null) {
+          this$changeToRecentlyWatchedChannel.add_11rb$(customChannel);
+        }toIndexOfChannelNumber = this$changeToRecentlyWatchedChannel.lastIndexOf_11rb$(customChannel);
+      }return toIndexOfChannelNumber;
     };
   }
   function changeToRecentlyWatchedChannel$lambda_0(this$changeToRecentlyWatchedChannel) {
@@ -873,7 +870,7 @@ if (typeof kotlin === 'undefined') {
     var $receiver = this.closure$channels;
     if ($receiver.size > 1) {
       sortWith($receiver, new Comparator$ObjectLiteral(compareBy$lambda(channels$lambda$ObjectLiteral$onElementsChanged$lambda)));
-    }localStorage.setItem('allChannels', '<channels>' + toXMLString(this.closure$channels) + '<\/channels>');
+    }localStorage.setItem('channels', '<channels>' + toXMLString(this.closure$channels) + '<\/channels>');
   };
   channels$lambda$ObjectLiteral_0.$metadata$ = {
     kind: Kind_CLASS,
@@ -881,7 +878,7 @@ if (typeof kotlin === 'undefined') {
   };
   function channels$lambda() {
     var tmp$, tmp$_0;
-    var channels = (tmp$_0 = (tmp$ = localStorage.getItem('allChannels')) != null ? parseChannels_0(tmp$) : null) != null ? tmp$_0 : ArrayLinkList_init([]);
+    var channels = (tmp$_0 = (tmp$ = localStorage.getItem('channels')) != null ? parseChannels_0(tmp$) : null) != null ? tmp$_0 : ArrayLinkList_init([]);
     channels.addOnNodeEventListener_ljxrtv$(new channels$lambda$ObjectLiteral(channels));
     channels.addOnElementsChangedListener_9f6p79$(new channels$lambda$ObjectLiteral_0(channels));
     changeToRecentlyWatchedChannel(channels);
@@ -1128,16 +1125,22 @@ if (typeof kotlin === 'undefined') {
     interfaces: [ArrayLinkList$OnNodeEventListener]
   };
   function ChannelDescription_init$ObjectLiteral_0() {
+    this.isFirstPlaying_0 = true;
     this.isPlaying_0 = false;
     ChannelDescription_getInstance().update();
     ChannelDescription_getInstance().show_s8ev37$(null);
+  }
+  function ChannelDescription_init$ObjectLiteral$on$lambda(this$) {
+    return function () {
+      this$.isFirstPlaying_0 = false;
+    };
   }
   function ChannelDescription_init$ObjectLiteral$on$lambda$lambda(dialogues) {
     var tmp$, tmp$_0, tmp$_1;
     tmp$_1 = (tmp$_0 = (tmp$ = dialogues.node) != null ? tmp$.poorSignalReception : null) != null ? tmp$_0 : '';
     ChannelDescription_getInstance().channelStatusPrompt_0 = new PromptBox(tmp$_1, null);
   }
-  function ChannelDescription_init$ObjectLiteral$on$lambda(this$) {
+  function ChannelDescription_init$ObjectLiteral$on$lambda_0(this$) {
     return function () {
       if (!this$.isPlaying_0) {
         ChannelDescription_getInstance().update();
@@ -1145,26 +1148,35 @@ if (typeof kotlin === 'undefined') {
         Dialogue$Companion_getInstance().getDialogues_fs1aqo$(ChannelDescription_init$ObjectLiteral$on$lambda$lambda);
       }};
   }
-  function ChannelDescription_init$ObjectLiteral$on$lambda_0(dialogues) {
+  function ChannelDescription_init$ObjectLiteral$on$lambda_1(dialogues) {
     var tmp$, tmp$_0, tmp$_1;
     tmp$_1 = (tmp$_0 = (tmp$ = dialogues.node) != null ? tmp$.thisDeviceDoesNotSupportThisChannelSignal : null) != null ? tmp$_0 : '';
     ChannelDescription_getInstance().channelStatusPrompt_0 = new PromptBox(tmp$_1, null);
   }
   ChannelDescription_init$ObjectLiteral_0.prototype.on_mdxcb7$ = function (onPlayerEvent) {
-    ChannelDescription_getInstance().channelStatusPrompt_0 = null;
     switch (onPlayerEvent.name) {
+      case 'turnChannel':
+        this.isFirstPlaying_0 = true;
+        ChannelDescription_getInstance().channelStatusPrompt_0 = null;
+        break;
       case 'playing':
         this.isPlaying_0 = true;
-        ChannelDescription_getInstance().update();
-        ChannelDescription_getInstance().show_s8ev37$(5000);
+        if (!this.isFirstPlaying_0) {
+          ChannelDescription_getInstance().hide();
+        } else {
+          ChannelDescription_getInstance().update();
+          ChannelDescription_getInstance().show_s8ev37$(5000);
+        }
+
+        window.setTimeout(ChannelDescription_init$ObjectLiteral$on$lambda(this), 5000);
         ChannelDescription_getInstance().channelStatusPrompt_0 = null;
         break;
       case 'notPlaying':
         this.isPlaying_0 = false;
-        window.setTimeout(ChannelDescription_init$ObjectLiteral$on$lambda(this), 5000);
+        window.setTimeout(ChannelDescription_init$ObjectLiteral$on$lambda_0(this), 5000);
         break;
       case 'error':
-        Dialogue$Companion_getInstance().getDialogues_fs1aqo$(ChannelDescription_init$ObjectLiteral$on$lambda_0);
+        Dialogue$Companion_getInstance().getDialogues_fs1aqo$(ChannelDescription_init$ObjectLiteral$on$lambda_1);
         break;
       default:Kotlin.noWhenBranchMatched();
         break;
@@ -1241,11 +1253,41 @@ if (typeof kotlin === 'undefined') {
     return customChannels;
   };
   CustomChannels.prototype.set_506v0t$ = function (index, customChannel) {
-    channels.set_wxm5ur$(index, customChannel);
-  };
+    var $receiver = channels;
+    var firstOrNull$result;
+    firstOrNull$break: do {
+      var tmp$;
+      tmp$ = $receiver.iterator();
+      while (tmp$.hasNext()) {
+        var element = tmp$.next();
+        if (element != null ? element.equals(customChannel) : null) {
+          firstOrNull$result = element;
+          break firstOrNull$break;
+        }}
+      firstOrNull$result = null;
+    }
+     while (false);
+    if (firstOrNull$result == null) {
+      channels.set_wxm5ur$(index, customChannel);
+    }};
   CustomChannels.prototype.add_e3jjlp$ = function (customChannel) {
-    channels.add_11rb$(customChannel);
-  };
+    var $receiver = channels;
+    var firstOrNull$result;
+    firstOrNull$break: do {
+      var tmp$;
+      tmp$ = $receiver.iterator();
+      while (tmp$.hasNext()) {
+        var element = tmp$.next();
+        if (element != null ? element.equals(customChannel) : null) {
+          firstOrNull$result = element;
+          break firstOrNull$break;
+        }}
+      firstOrNull$result = null;
+    }
+     while (false);
+    if (firstOrNull$result == null) {
+      channels.add_11rb$(customChannel);
+    }};
   CustomChannels.prototype.remove_e3jjlp$ = function (customChannel) {
     channels.remove_11rb$(customChannel);
   };
@@ -3239,7 +3281,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_0';
+    return 'v2020.04_1';
   }
   var coreVersion;
   var appVersion;
@@ -3662,6 +3704,7 @@ if (typeof kotlin === 'undefined') {
     this.tryUnmuteCount_0 = 0;
     this.volumeMute_mj46gq$_0 = Player$volumeMute$lambda(this);
     this.iframePlayerMutedInit_0 = Player$iframePlayerMutedInit$lambda(this)();
+    this.onTurnChannel_0 = Player$onTurnChannel$lambda(this);
     this.onPlaying_0 = Player$onPlaying$lambda(this);
     this.onNotPlaying_0 = Player$onNotPlaying$lambda(this);
     this.onError_0 = Player$onError$lambda(this);
@@ -3677,9 +3720,15 @@ if (typeof kotlin === 'undefined') {
   function Player$OnPlayerEvent_initFields() {
     Player$OnPlayerEvent_initFields = function () {
     };
-    Player$OnPlayerEvent$playing_instance = new Player$OnPlayerEvent('playing', 0);
-    Player$OnPlayerEvent$notPlaying_instance = new Player$OnPlayerEvent('notPlaying', 1);
-    Player$OnPlayerEvent$error_instance = new Player$OnPlayerEvent('error', 2);
+    Player$OnPlayerEvent$turnChannel_instance = new Player$OnPlayerEvent('turnChannel', 0);
+    Player$OnPlayerEvent$playing_instance = new Player$OnPlayerEvent('playing', 1);
+    Player$OnPlayerEvent$notPlaying_instance = new Player$OnPlayerEvent('notPlaying', 2);
+    Player$OnPlayerEvent$error_instance = new Player$OnPlayerEvent('error', 3);
+  }
+  var Player$OnPlayerEvent$turnChannel_instance;
+  function Player$OnPlayerEvent$turnChannel_getInstance() {
+    Player$OnPlayerEvent_initFields();
+    return Player$OnPlayerEvent$turnChannel_instance;
   }
   var Player$OnPlayerEvent$playing_instance;
   function Player$OnPlayerEvent$playing_getInstance() {
@@ -3702,11 +3751,13 @@ if (typeof kotlin === 'undefined') {
     interfaces: [Enum]
   };
   function Player$OnPlayerEvent$values() {
-    return [Player$OnPlayerEvent$playing_getInstance(), Player$OnPlayerEvent$notPlaying_getInstance(), Player$OnPlayerEvent$error_getInstance()];
+    return [Player$OnPlayerEvent$turnChannel_getInstance(), Player$OnPlayerEvent$playing_getInstance(), Player$OnPlayerEvent$notPlaying_getInstance(), Player$OnPlayerEvent$error_getInstance()];
   }
   Player$OnPlayerEvent.values = Player$OnPlayerEvent$values;
   function Player$OnPlayerEvent$valueOf(name) {
     switch (name) {
+      case 'turnChannel':
+        return Player$OnPlayerEvent$turnChannel_getInstance();
       case 'playing':
         return Player$OnPlayerEvent$playing_getInstance();
       case 'notPlaying':
@@ -4048,6 +4099,7 @@ if (typeof kotlin === 'undefined') {
     tmp$_3 = (tmp$_2 = (tmp$_1 = (tmp$_0 = (tmp$ = this.playingChannel_0) != null ? tmp$.sources : null) != null ? tmp$_0.node : null) != null ? tmp$_1.getLinkOfHttpsGetAble() : null) != null ? tmp$_2 : '';
     tmp$_4 != null ? (tmp$_4.src = getLink() + '?sourceSrc=' + encodeURIComponent(tmp$_3)) : null;
     this.watchingCounter_0 = new WatchingCounter(channel);
+    this.onTurnChannel_0();
   };
   function Player$videoTracks$lambda$ObjectLiteral() {
   }
@@ -4243,6 +4295,16 @@ if (typeof kotlin === 'undefined') {
       return Unit;
     };
   }
+  function Player$onTurnChannel$lambda(this$Player) {
+    return function () {
+      var tmp$;
+      tmp$ = this$Player.onPlayerEvents_0.iterator();
+      while (tmp$.hasNext()) {
+        var event = tmp$.next();
+        event.on_mdxcb7$(Player$OnPlayerEvent$turnChannel_getInstance());
+      }
+    };
+  }
   function Player$onPlaying$lambda(this$Player) {
     return function () {
       var tmp$;
@@ -4308,21 +4370,70 @@ if (typeof kotlin === 'undefined') {
   }
   function Player_init$ObjectLiteral() {
     this.isPlaying_0 = false;
+    this.timerList_0 = ArrayList_init();
+    this.currentChannelNumber_0 = 0;
+    this.currentChannelNotPlayingCount_0 = 0;
   }
   function Player_init$ObjectLiteral$on$lambda(this$) {
     return function () {
       if (!this$.isPlaying_0) {
-        window.location.reload();
+        Player_getInstance().play();
+      }};
+  }
+  function Player_init$ObjectLiteral$on$lambda_0(this$) {
+    return function () {
+      if (!this$.isPlaying_0) {
+        Player_getInstance().play();
+      }};
+  }
+  function Player_init$ObjectLiteral$on$lambda_1(this$) {
+    return function () {
+      if (!this$.isPlaying_0) {
+        Player_getInstance().play();
+      }};
+  }
+  function Player_init$ObjectLiteral$on$lambda_2(this$) {
+    return function () {
+      if (!this$.isPlaying_0) {
+        Player_getInstance().play();
+      }};
+  }
+  function Player_init$ObjectLiteral$on$lambda_3(this$) {
+    return function () {
+      if (!this$.isPlaying_0) {
+        Player_getInstance().reload();
       }};
   }
   Player_init$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
+    var tmp$, tmp$_0, tmp$_1;
     switch (onPlayerEvent.name) {
       case 'playing':
         this.isPlaying_0 = true;
+        tmp$ = this.timerList_0.iterator();
+        while (tmp$.hasNext()) {
+          var timer = tmp$.next();
+          window.clearTimeout(timer);
+        }
+
+        this.timerList_0.clear();
         break;
       case 'notPlaying':
         this.isPlaying_0 = false;
-        window.setTimeout(Player_init$ObjectLiteral$on$lambda(this), 120000);
+        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda(this), 2000));
+        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_0(this), 5000));
+        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_1(this), 10000));
+        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_2(this), 25000));
+        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_3(this), 30000));
+        if (10 < this.currentChannelNotPlayingCount_0) {
+          window.location.reload();
+        }
+        if (((tmp$_0 = Player_getInstance().playingChannel_0) != null ? tmp$_0.number : null) == this.currentChannelNumber_0) {
+          this.currentChannelNotPlayingCount_0 = this.currentChannelNotPlayingCount_0 + 1 | 0;
+        } else {
+          this.currentChannelNotPlayingCount_0 = 0;
+          this.currentChannelNumber_0 = (tmp$_1 = Player_getInstance().playingChannel_0) != null ? tmp$_1.number : null;
+        }
+
         break;
     }
   };
@@ -7443,6 +7554,9 @@ if (typeof kotlin === 'undefined') {
   });
   Object.defineProperty(package$hknbp_core, 'PictureInPictureButton', {
     get: PictureInPictureButton_getInstance
+  });
+  Object.defineProperty(Player$OnPlayerEvent, 'turnChannel', {
+    get: Player$OnPlayerEvent$turnChannel_getInstance
   });
   Object.defineProperty(Player$OnPlayerEvent, 'playing', {
     get: Player$OnPlayerEvent$playing_getInstance

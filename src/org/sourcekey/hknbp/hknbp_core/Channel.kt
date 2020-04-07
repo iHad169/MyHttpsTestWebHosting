@@ -200,21 +200,22 @@ fun ArrayLinkList<Channel>.changeToRecentlyWatchedChannel(){
             try {
                 //URL參數指定嘅道
                 {
+                    //提取URL嘅channel參數
                     val channelParam = URL(window.location.href).searchParams?.get("channel")//個<?.get>嘅問號要留,因試到https://cs.coredump.biz/questions/51961922/urlsearchparams-not-working-in-a-webview
-                    //查個參數係米純ChannelNumber
-                    var goTOChannelNumber = channelParam?.toIntOrNull()
-                    //查個參數係米CustomChannel嘅XmlString
+                    //搵參數個ChannelNumber響頻道表內index幾
+                    var toIndexOfChannelNumber = this.indexOfOrNull(this.find{channel ->
+                        channel.number == channelParam?.toIntOrNull()
+                    })
+                    //如果參數唔係純ChannelNumber就以CustomChannel嘅XmlString處理
                     val customChannel = decodeURIComponent(channelParam?:"").parseChannels().getOrNull(0)
-                    if(customChannel != null && this.find{ channel: Channel -> channel == customChannel } == null) {
-                        //將新嘅自訂頻道儲底
-                        CustomChannels.add(customChannel)
-                        //將新嘅自訂頻道加到現運行頻道表
-                        this.add(customChannel)
-                        //轉到新自訂頻道
-                        goTOChannelNumber = customChannel.number
+                    if(customChannel != null) {
+                        //如果個CustomChannel唔響個頻道表內就新增入頻道表中
+                        if(this.find{ channel: Channel -> channel == customChannel } == null){ this.add(customChannel) }
+                        //搵返岩岩加嘅Channel響頻道表內index幾
+                        toIndexOfChannelNumber = this.lastIndexOf(customChannel)
                     }
-                    //轉換成ArrayList Index
-                    this.indexOfOrNull(this.find{channel -> channel.number == goTOChannelNumber})
+                    //return要轉嘅頻道響頻道表內嘅index
+                    toIndexOfChannelNumber
                 }()?:
                 //上次收睇緊嘅頻道
                 {
@@ -233,7 +234,7 @@ fun ArrayLinkList<Channel>.changeToRecentlyWatchedChannel(){
  * 頻道表
  * */
 val channels: ArrayLinkList<Channel> = {
-    val channels = localStorage.getItem("allChannels")?.parseChannels()?:ArrayLinkList<Channel>()
+    val channels = localStorage.getItem("channels")?.parseChannels()?:ArrayLinkList<Channel>()
     channels.addOnNodeEventListener(object : ArrayLinkList.OnNodeEventListener<Channel> {
         override fun onNodeChanged(
                 preChangeNodeID: Int?, postChangeNodeID: Int?,
@@ -260,7 +261,7 @@ val channels: ArrayLinkList<Channel> = {
             //以頻道號碼排序
             channels.sortBy { channel: Channel -> channel.number }
             //儲存所有頻道
-            localStorage.setItem("allChannels", "<channels>${channels.toXMLString()}</channels>")
+            localStorage.setItem("channels", "<channels>${channels.toXMLString()}</channels>")
         }
     })
     channels.changeToRecentlyWatchedChannel()

@@ -144,18 +144,33 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
             }
         })
         Player.addOnPlayerEventListener(object : Player.OnPlayerEventListener {
+            private var isFirstPlaying: Boolean = true
             private var isPlaying: Boolean = false
             override fun on(onPlayerEvent: Player.OnPlayerEvent) {
-                channelStatusPrompt = null
                 when (onPlayerEvent) {
+                    Player.OnPlayerEvent.turnChannel -> {
+                        isFirstPlaying = true
+                        channelStatusPrompt = null
+                    }
                     Player.OnPlayerEvent.playing -> {
                         isPlaying = true
-                        update()
-                        show(5000)
+
+                        if(!isFirstPlaying){
+                            //非首次播放(即:播放過程斷過次)立即隱藏頻道資訊 免影響節目畫面
+                            hide()
+                        }else{
+                            //首次播放顯示頻道資訊耐啲 供觀眾知道頻道正播放中內容
+                            update()
+                            show(5000)
+                        }
+                        //記低已非首次播放 因可能短時間內有多次被執行OnPlaying使立即被當成非首次播放立即隱藏頻道資訊 所以加個Timer
+                        window.setTimeout(fun(){isFirstPlaying = false}, 5000)
+
                         channelStatusPrompt = null
                     }
                     Player.OnPlayerEvent.notPlaying -> {
                         isPlaying = false
+
                         window.setTimeout(fun(){
                             if(!isPlaying){
                                 //當頻道中斷時顯示頻道資訊令觀眾現在狀況
