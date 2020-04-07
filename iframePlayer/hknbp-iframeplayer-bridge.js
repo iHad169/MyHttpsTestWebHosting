@@ -32,12 +32,21 @@ var onIframePlayerNotPlaying = function(){
 };
 
 /**
- * 當播放器播放頻道出錯時
+ * 當播放器播放頻道發現運行裝置不支援個頻道嘅訊號格式時
  * 需要設定call呢個function()
- * 向HKNBP_Core發送呢個IframePlayer嘅播放器依家出現錯誤
+ * 向HKNBP_Core發送呢個IframePlayer嘅播放器依家發現運行裝置不支援個頻道嘅訊號格式
  * */
-var onIframePlayerError = function(){
-   callHKNBPCoreFunction("onError", "", function(){});
+var onIframePlayerDeviceNotSupportFormat = function(){
+   callHKNBPCoreFunction("onDeviceNotSupportFormat", "", function(){});
+};
+
+/**
+ * 當播放器播放頻道源無效時
+ * 需要設定call呢個function()
+ * 向HKNBP_Core發送呢個IframePlayer嘅播放器依家頻道源無效
+ * */
+var onIframePlayerInvalidSource = function(){
+   callHKNBPCoreFunction("onInvalidSource", "", function(){});
 };
 
 /**

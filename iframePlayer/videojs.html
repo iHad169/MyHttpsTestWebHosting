@@ -62,7 +62,7 @@
        onpause="sss('onpause','onIframePlayerNotPlaying()')"
        onstop="sss('onstop','onIframePlayerNotPlaying()')"
        onended="sss('onended','onIframePlayerNotPlaying()')"
-       onerror="sss('onerror','onIframePlayerError()')"
+       onerror="sss('onerror','onIframePlayerNotPlaying()')"
        onwaiting="sss('onwaiting','onIframePlayerNotPlaying()')"
        onabort="sss('onabort', '')"
        onload="sss('onload', '')"
@@ -116,6 +116,7 @@ var mediaPlayer;
  * 基於此 為有增加一個按扭備不時之需讓觀眾點擊播放
  * */
 function onSetIframePlayerPlay(){
+    console.log("play()");
     player.play();
 }
 
@@ -405,7 +406,7 @@ function onIframePlayerInit(sourceSrc){
             }
         }*/
     });
-    player.on("error", function(){onIframePlayerError();});
+    player.on("error", function(){onIframePlayerNotPlaying();});
     //Dash流訊號播放器監聽
     videojs.Html5DashJS.hook('beforeinitialize', function(player, _mediaPlayer) {
         if (videojs && videojs.log) {

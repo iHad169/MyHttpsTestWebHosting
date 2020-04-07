@@ -186,10 +186,28 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
                             }
                         }, 5000)
                     }
-                    Player.OnPlayerEvent.error -> {
+                    Player.OnPlayerEvent.deviceNotSupportFormat -> {
+                        isPlaying = false
+                        //顯示頻道資訊令觀眾現在狀況
+                        update()
+                        show(null)
+                        //顯示此裝置不支援本頻道訊號提示
                         Dialogue.getDialogues(fun (dialogues){
                             channelStatusPrompt = PromptBox(
                                     dialogues.node?.thisDeviceDoesNotSupportThisChannelSignal?: "",
+                                    null
+                            )
+                        })
+                    }
+                    Player.OnPlayerEvent.invalidSource -> {
+                        isPlaying = false
+                        //顯示頻道資訊令觀眾現在狀況
+                        update()
+                        show(null)
+                        //顯示訊號差嘅提示
+                        Dialogue.getDialogues(fun (dialogues){
+                            channelStatusPrompt = PromptBox(
+                                    dialogues.node?.invalidSource?: "",
                                     null
                             )
                         })

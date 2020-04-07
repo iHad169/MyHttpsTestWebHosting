@@ -35,7 +35,9 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
         turnChannel,
         playing,
         notPlaying,
-        error
+        deviceNotSupportFormat,
+        invalidSource,
+        noNetwork
     }
 
     interface OnPlayerEventListener{
@@ -567,16 +569,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
 
 
     /**
-     *  播放
-     *
-     *  此Function防止Player冇自動播放時手動播放
-     */
-    fun play(){
-        callIframePlayerFunction("onSetIframePlayerPlay()")
-    }
-
-    /**
-     * 當轉頻道
+     * 當轉頻道時
      * */
     private val onTurnChannel = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.turnChannel) } }
 
@@ -595,10 +588,21 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
     private val onNotPlaying = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.notPlaying) } }
 
     /**
-     * 當iframePlayer播放頻道出錯時
+     * 當iframePlayer播放頻道源發現運行裝置不支援個頻道嘅訊號格式時
      * iframePlayer會執行此function
      * */
-    private val onError = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.error) } }
+    private val onDeviceNotSupportFormat = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.deviceNotSupportFormat) } }
+
+    /**
+     * 當iframePlayer播放頻道源無效時
+     * iframePlayer會執行此function
+     * */
+    private val onInvalidSource = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.invalidSource) } }
+
+    /**
+     * 當冇網路時
+     * */
+    private val onNoNetwork = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.noNetwork) } }
 
     /**
      * 對接收IframePlayer來嘅訊息監聽器進行 初始化
@@ -618,10 +622,10 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                         }
                     }
                 }else if(callMessage.name == "IframePlayer"){
-                    val onPlaying = onPlaying // 畀IframePlayer方便Call
-                    val onNotPlaying = onNotPlaying // 畀IframePlayer方便Call
-                    val onError = onError // 畀IframePlayer方便Call
-
+                    val onPlaying                   = onPlaying                 // 畀IframePlayer方便Call
+                    val onNotPlaying                = onNotPlaying              // 畀IframePlayer方便Call
+                    val onDeviceNotSupportFormat    = onDeviceNotSupportFormat  // 畀IframePlayer方便Call
+                    val onInvalidSource             = onInvalidSource           // 畀IframePlayer方便Call
                     /**
                     var onReturn = fun(returnValue: dynamic){
                     val obj = callMessage
@@ -646,12 +650,30 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
 
 
     /**
+     * 播放
      *
+     * 向IframePlayer發出運行 播放 請求
+     * 此Function防止Player冇自動播放時手動播放
+     */
+    fun play(){
+        callIframePlayerFunction("onSetIframePlayerPlay()")
+    }
+
+    /**
+     * 重新載入IframePlayer
      * */
     fun reload(){
         playChannel(playingChannel?:return)
     }
 
+    /**
+     * 播放頻道
+     *
+     * 重新初始化Player進行頻道播放
+     * 係整個頻道播放嘅開始
+     *
+     * @param channel 要播放嘅頻道
+     * */
     fun playChannel(channel: Channel){
         playingChannel = channel
         fun getLink(): String{
@@ -661,8 +683,9 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             }
             return link
         }
-        iframePlayer?.src =
-                        "${getLink()}?sourceSrc=${encodeURIComponent(playingChannel?.sources?.node?.getLinkOfHttpsGetAble()?:"")}"
+        iframePlayer?.src = "${getLink()}?sourceSrc=${encodeURIComponent(
+                playingChannel?.sources?.node?.getLinkOfHttpsGetAble()?:""
+        )}"
         watchingCounter = WatchingCounter(channel)
         onTurnChannel()
     }
@@ -697,6 +720,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                             timerList.add(window.setTimeout(fun(){ if(!isPlaying){ play() } }, 25000))
                             //檢查呢30秒內Player有冇再繼續正常播放,若冇就ReLoad
                             timerList.add(window.setTimeout(fun(){ if(!isPlaying){ reload() } }, 30000))
+                            /*
                             //停止太多次就直接Reload個網頁
                             if(10 < currentChannelNotPlayingCount){ window.location.reload() }
                             //計算已停止次數
@@ -705,7 +729,10 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                             }else{
                                 currentChannelNotPlayingCount = 0
                                 currentChannelNumber = playingChannel?.number
-                            }
+                            }*/
+                        }
+                        OnPlayerEvent.noNetwork -> {
+                            timerList.add(window.setInterval(fun(){ if(!isPlaying){ reload() } }, 30000))
                         }
                     }
                 }
