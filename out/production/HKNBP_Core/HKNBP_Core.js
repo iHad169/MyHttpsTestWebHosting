@@ -3296,7 +3296,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_2';
+    return 'v2020.04_2-test1';
   }
   var coreVersion;
   var appVersion;
@@ -3728,7 +3728,8 @@ if (typeof kotlin === 'undefined') {
     this.initListenIframePlayerMessage_0 = Player$initListenIframePlayerMessage$lambda(this)();
     if (!RunnerInfo_getInstance().isBelowIOS10()) {
       this.addOnPlayerEventListener_j8fzjz$(new Player_init$ObjectLiteral());
-    }}
+    }window.setInterval(Player_init$lambda(this), 10000);
+  }
   function Player$OnPlayerEvent(name, ordinal) {
     Enum.call(this);
     this.name$ = name;
@@ -4106,10 +4107,12 @@ if (typeof kotlin === 'undefined') {
     this.callIframePlayerFunction_0('\n            async function pictureInPictureModeSwitch(){\n                try {\n                //console.log(document.pictureInPictureEnabled);\n                    var video = document.getElementsByTagName("video")[0]\n                    if (video !== document.pictureInPictureElement){\n                        await video.requestPictureInPicture();\n                    }else{\n                        await document.exitPictureInPicture();\n                    }\n                }catch(error){console.log(error);}\n            }\n            pictureInPictureModeSwitch();\n        ');
   };
   Player.prototype.play = function () {
+    println('play()');
     this.callIframePlayerFunction_0('onSetIframePlayerPlay()');
   };
   Player.prototype.reload = function () {
     var tmp$;
+    println('reload()');
     tmp$ = this.playingChannel_0;
     if (tmp$ == null) {
       return;
@@ -4494,6 +4497,11 @@ if (typeof kotlin === 'undefined') {
     kind: Kind_CLASS,
     interfaces: [Player$OnPlayerEventListener]
   };
+  function Player_init$lambda(this$Player) {
+    return function () {
+      this$Player.play();
+    };
+  }
   Player.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'Player',

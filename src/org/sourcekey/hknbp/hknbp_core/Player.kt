@@ -656,6 +656,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
      * 此Function防止Player冇自動播放時手動播放
      */
     fun play(){
+        println("play()")
         callIframePlayerFunction("onSetIframePlayerPlay()")
     }
 
@@ -663,6 +664,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
      * 重新載入IframePlayer
      * */
     fun reload(){
+        println("reload()")
         playChannel(playingChannel?:return)
     }
 
@@ -748,6 +750,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                 }
             })
         }
+        window.setInterval(fun(){ play() }, 10000)
     }
 }
 
