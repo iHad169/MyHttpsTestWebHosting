@@ -36,7 +36,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
         playing,
         notPlaying,
         deviceNotSupportFormat,
-        invalidSource,
+        cannotReceiveChannelSignal,
         noNetwork
     }
 
@@ -462,8 +462,9 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
             setScript(muted)
         }, fun(){
             setScript(true)
+            /*
             if(1 < tryUnmuteCount){PromptBox("如未能解除靜音請任意點擊螢幕")}
-            tryUnmuteCount++
+            tryUnmuteCount++*/
         })
     }
 
@@ -594,10 +595,10 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
     private val onDeviceNotSupportFormat = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.deviceNotSupportFormat) } }
 
     /**
-     * 當iframePlayer播放頻道源無效時
+     * 當iframePlayer無法接收頻道訊號時(可能: 頻道源無效,頻道源伺服器瓜左)
      * iframePlayer會執行此function
      * */
-    private val onInvalidSource = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.invalidSource) } }
+    private val onCannotReceiveChannelSignal = fun(){ for(event in onPlayerEvents){ event.on(OnPlayerEvent.cannotReceiveChannelSignal) } }
 
     /**
      * 當冇網路時
@@ -622,10 +623,10 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                         }
                     }
                 }else if(callMessage.name == "IframePlayer"){
-                    val onPlaying                   = onPlaying                 // 畀IframePlayer方便Call
-                    val onNotPlaying                = onNotPlaying              // 畀IframePlayer方便Call
-                    val onDeviceNotSupportFormat    = onDeviceNotSupportFormat  // 畀IframePlayer方便Call
-                    val onInvalidSource             = onInvalidSource           // 畀IframePlayer方便Call
+                    val onPlaying                       = onPlaying                     // 畀IframePlayer方便Call
+                    val onNotPlaying                    = onNotPlaying                  // 畀IframePlayer方便Call
+                    val onDeviceNotSupportFormat        = onDeviceNotSupportFormat      // 畀IframePlayer方便Call
+                    val onCannotReceiveChannelSignal    = onCannotReceiveChannelSignal  // 畀IframePlayer方便Call
                     /**
                     var onReturn = fun(returnValue: dynamic){
                     val obj = callMessage
@@ -656,7 +657,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
      * 此Function防止Player冇自動播放時手動播放
      */
     fun play(){
-        println("play()")
         callIframePlayerFunction("onSetIframePlayerPlay()")
     }
 
@@ -664,7 +664,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
      * 重新載入IframePlayer
      * */
     fun reload(){
-        println("reload()")
         playChannel(playingChannel?:return)
     }
 
@@ -750,7 +749,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                 }
             })
         }
-        window.setInterval(fun(){ play() }, 10000)
+        //window.setInterval(fun(){ play() }, 10000)
     }
 }
 

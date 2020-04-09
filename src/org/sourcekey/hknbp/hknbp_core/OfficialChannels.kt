@@ -35,12 +35,16 @@ object OfficialChannels {
      * */
     fun updateChannels(){
         parseChannels(fun(officialChannels){
-            //設置OfficialChannels
-            set(officialChannels)
-            //因第一次運行程式未有channel響表入面,當load到OfficialChannels資料時
-            if(localStorage.getItem("isFirstLoadedOfficialChannelsInfoToSet")?.toBoolean()?:true||channels.size<1){
-                localStorage.setItem("isFirstLoadedOfficialChannelsInfoToSet", false.toString())
+            if(channels.size<1){
+                //設置OfficialChannels
+                set(officialChannels)
+                //因第一次運行程式未有channel資料響表入面
+                //使程式冇頻道進行播放
+                //所以load到OfficialChannels資料後就是但搵個頻道播放
                 channels.changeToRecentlyWatchedChannel()
+            }else{
+                //設置OfficialChannels
+                set(officialChannels)
             }
         }, fun(){}, "https://official-channels.hknbp.org/official_channels.xml")
     }

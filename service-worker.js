@@ -18,7 +18,7 @@
  * 控制更新cache版本
  * 修改版本名今用戶進行更新新版
  */
-var coreVersion = "v2020.04_2-test3";
+var coreVersion = "v2020.04_3";
 
 /**
  * 檢查依家運行係米ServiceWorker
@@ -67,8 +67,8 @@ if(self.registration){
         "https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.5/platform.min.js",
         "https://cdn.jsdelivr.net/npm/kotlin@1.3.71/kotlin.js",
 
-        "https://vjs.zencdn.net/7.7.4/video-js.min.css",
-        "https://vjs.zencdn.net/7.7.4/video.min.js",
+        "https://vjs.zencdn.net/7.8.0/video-js.min.css",
+        "https://vjs.zencdn.net/7.8.0/video.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.mediaplayer.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/2.9.3/videojs-dash.min.js"
     ];

@@ -199,7 +199,7 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
                             )
                         })
                     }
-                    Player.OnPlayerEvent.invalidSource -> {
+                    Player.OnPlayerEvent.cannotReceiveChannelSignal -> {
                         isPlaying = false
                         //顯示頻道資訊令觀眾現在狀況
                         update()
@@ -207,7 +207,7 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
                         //顯示訊號差嘅提示
                         Dialogue.getDialogues(fun (dialogues){
                             channelStatusPrompt = PromptBox(
-                                    dialogues.node?.invalidSource?: "",
+                                    dialogues.node?.cannotReceiveChannelSignal?: "",
                                     null
                             )
                         })
