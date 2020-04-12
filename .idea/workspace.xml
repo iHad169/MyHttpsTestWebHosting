@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="439dc076-fa64-48ca-946e-6d20fa2781e4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iframePlayer/videojs.html" beforeDir="false" afterPath="$PROJECT_DIR$/iframePlayer/videojs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HKNBP_Core/HKNBP_Core.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HKNBP_Core/HKNBP_Core.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/service-worker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/sourcekey/hknbp/hknbp_core/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/sourcekey/hknbp/hknbp_core/Main.kt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Class" />
+        <option value="Kotlin File" />
+        <option value="JavaFXApplication" />
+        <option value="Kotlin Script" />
+        <option value="Gradle Kotlin DSL Build Script" />
+        <option value="HTML File" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin Object" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PATH_TO_GIT" value="$PROJECT_DIR$/.git" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="downloadDocsAutomatically" value="true" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1OYYx2MUkjc0Nwi49pb6oaPgGSV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="hknbp_core" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539618764335" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RecentsManager">
+    <key name="OPEN_URL_DIALOG">
+      <recent name="https://github.com/eugenp/tutorials/tree/master/kotlin-js" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="org.sourcekey.hknbp.hknbp_core" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/org/sourcekey/hknbp/hknbp_core" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="HKNBP_Core" />
+      <option name="filePath" value="" />
+      <option name="vmParameters" value="" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" value="" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" value="" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" value="" />
+      <option name="vmParameters" value="" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" value="" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" value="" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="439dc076-fa64-48ca-946e-6d20fa2781e4" name="Default" comment="" />
+      <created>1520302518547</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1520302518547</updated>
+      <workItem from="1520302519844" duration="33791000" />
+      <workItem from="1523811506884" duration="520000" />
+      <workItem from="1523812111165" duration="168000" />
+      <workItem from="1523812520833" duration="85000" />
+      <workItem from="1523812636683" duration="117000" />
+      <workItem from="1523882587543" duration="28000" />
+      <workItem from="1525422477951" duration="180000" />
+      <workItem from="1526204513435" duration="484000" />
+      <workItem from="1527391662074" duration="81000" />
+      <workItem from="1527391854320" duration="140000" />
+      <workItem from="1527392022150" duration="5968000" />
+      <workItem from="1527472595963" duration="6503000" />
+      <workItem from="1527483671555" duration="13196000" />
+      <workItem from="1527496971190" duration="9767000" />
+      <workItem from="1527506776997" duration="5045000" />
+      <workItem from="1527512609534" duration="8927000" />
+      <workItem from="1527524485568" duration="285000" />
+      <workItem from="1527557770840" duration="2088000" />
+      <workItem from="1527564872604" duration="16001000" />
+      <workItem from="1527594178881" duration="2715000" />
+      <workItem from="1527605660528" duration="2436000" />
+      <workItem from="1527654705607" duration="3226000" />
+      <workItem from="1527663529152" duration="5548000" />
+      <workItem from="1527791394495" duration="793000" />
+      <workItem from="1527953368705" duration="1693000" />
+      <workItem from="1528001336442" duration="3459000" />
+      <workItem from="1528802387811" duration="8311000" />
+      <workItem from="1528899497229" duration="4265000" />
+      <workItem from="1528977678532" duration="2015000" />
+      <workItem from="1528982281758" duration="3588000" />
+      <workItem from="1529036204755" duration="13697000" />
+      <workItem from="1529065626614" duration="4477000" />
+      <workItem from="1530591311641" duration="76000" />
+      <workItem from="1530591407870" duration="155000" />
+      <workItem from="1530595568830" duration="1248000" />
+      <workItem from="1530679927491" duration="2401000" />
+      <workItem from="1530797167660" duration="2784000" />
+      <workItem from="1530802518409" duration="1292000" />
+      <workItem from="1530807045495" duration="1646000" />
+      <workItem from="1530846306520" duration="1280000" />
+      <workItem from="1530851425502" duration="12437000" />
+      <workItem from="1530925482658" duration="5867000" />
+      <workItem from="1531108552941" duration="5084000" />
+      <workItem from="1531273231651" duration="245000" />
+      <workItem from="1531273856265" duration="192000" />
+      <workItem from="1531280514533" duration="4245000" />
+      <workItem from="1531546559328" duration="140000" />
+      <workItem from="1531546724159" duration="103000" />
+      <workItem from="1531546865969" duration="2785000" />
+      <workItem from="1531553171217" duration="20008000" />
+      <workItem from="1531635821586" duration="5721000" />
+      <workItem from="1531649275871" duration="69000" />
+      <workItem from="1531649364874" duration="604000" />
+      <workItem from="1531650131262" duration="15000" />
+      <workItem from="1532054636953" duration="1219000" />
+      <workItem from="1532152350639" duration="7399000" />
+      <workItem from="1532241111148" duration="10390000" />
+      <workItem from="1532316275636" duration="7530000" />
+      <workItem from="1532425648993" duration="540000" />
+      <workItem from="1532426551977" duration="841000" />
+      <workItem from="1532458563513" duration="2672000" />
+      <workItem from="1532496631923" duration="2578000" />
+      <workItem from="1533387037101" duration="96000" />
+      <workItem from="1533431644220" duration="3825000" />
+      <workItem from="1533439310872" duration="1206000" />
+      <workItem from="1533442671216" duration="1443000" />
+      <workItem from="1533482128495" duration="281000" />
+      <workItem from="1535376370619" duration="265000" />
+      <workItem from="1535376661943" duration="4376000" />
+      <workItem from="1535382996561" duration="1937000" />
+      <workItem from="1535420447417" duration="4549000" />
+      <workItem from="1535452080298" duration="1539000" />
+      <workItem from="1535876724053" duration="729000" />
+      <workItem from="1536051485013" duration="72000" />
+      <workItem from="1536057621848" duration="68000" />
+      <workItem from="1536057729139" duration="4953000" />
+      <workItem from="1536072101298" duration="1312000" />
+      <workItem from="1536121316752" duration="1325000" />
+      <workItem from="1536122740173" duration="15180000" />
+      <workItem from="1536291628500" duration="607000" />
+      <workItem from="1536292399176" duration="12958000" />
+      <workItem from="1536310444826" duration="15964000" />
+      <workItem from="1536453531594" duration="599000" />
+      <workItem from="1536467603356" duration="1170000" />
+      <workItem from="1536471626927" duration="9315000" />
+      <workItem from="1536539107224" duration="2259000" />
+      <workItem from="1536555527875" duration="5382000" />
+      <workItem from="1536586989306" duration="8761000" />
+      <workItem from="1536631597140" duration="7392000" />
+      <workItem from="1536645436701" duration="2160000" />
+      <workItem from="1536650370754" duration="8508000" />
+      <workItem from="1536680157732" duration="622000" />
+      <workItem from="1536846298534" duration="5389000" />
+      <workItem from="1536886097228" duration="1762000" />
+      <workItem from="1536899247082" duration="2964000" />
+      <workItem from="1536918214321" duration="599000" />
+      <workItem from="1536937626953" duration="811000" />
+      <workItem from="1536938467098" duration="4797000" />
+      <workItem from="1536965897155" duration="19889000" />
+      <workItem from="1537081413470" duration="842000" />
+      <workItem from="1537147797488" duration="609000" />
+      <workItem from="1537163590151" duration="4504000" />
+      <workItem from="1537237583246" duration="6889000" />
+      <workItem from="1537266714263" duration="2967000" />
+      <workItem from="1537286554369" duration="644000" />
+      <workItem from="1537317096868" duration="1115000" />
+      <workItem from="1537337302605" duration="11102000" />
+      <workItem from="1537351543891" duration="1477000" />
+      <workItem from="1537353282188" duration="7575000" />
+      <workItem from="1537448541136" duration="2754000" />
+      <workItem from="1537454594111" duration="1917000" />
+      <workItem from="1537912032421" duration="16000" />
+      <workItem from="1537912069396" duration="1925000" />
+      <workItem from="1538001969021" duration="7714000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="468277000" />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1204" y="189" width="800" height="676" key="#Web_Browsers" timestamp="1579237917444">
+      <screen x="0" y="0" width="2560" height="1080" />
+    </state>
+    <state x="1204" y="189" width="800" height="676" key="#Web_Browsers/0.0.2560.1080@0.0.2560.1080" timestamp="1579237917444" />
+    <state x="153" y="235" width="1084" height="804" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584036161482">
+      <screen x="0" y="25" width="2560" height="1055" />
+    </state>
+    <state x="1298" y="171" width="1084" height="804" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1080@0.0.2560.1080" timestamp="1579241754803" />
+    <state x="153" y="235" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.2560.1055@0.25.2560.1055" timestamp="1584036161482" />
+    <state x="1663" y="386" width="504" height="266" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1585385566166">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state x="1663" y="355" width="504" height="328" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1582197639525" />
+    <state x="1663" y="386" width="504" height="266" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.27.2560.1053@0.27.2560.1053" timestamp="1585385566166" />
+    <state x="1319" y="429" width="469" height="340" key="#com.intellij.tools.ToolEditorDialog" timestamp="1579187741096">
+      <screen x="0" y="0" width="2560" height="1080" />
+    </state>
+    <state x="1319" y="429" width="469" height="340" key="#com.intellij.tools.ToolEditorDialog/0.0.2560.1080@0.0.2560.1080" timestamp="1579187741096" />
+    <state x="1577" y="333" width="515" height="478" key="EnvironmentVariablesDialog" timestamp="1579238350762">
+      <screen x="0" y="0" width="2560" height="1080" />
+    </state>
+    <state x="1577" y="333" width="515" height="478" key="EnvironmentVariablesDialog/0.0.2560.1080@0.0.2560.1080" timestamp="1579238350762" />
+    <state x="1082" y="337" width="451" height="522" key="FileChooserDialogImpl" timestamp="1585760407901">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state x="1254" y="243" width="451" height="514" key="FileChooserDialogImpl/0.0.2560.1040@0.0.2560.1040" timestamp="1582197751138" />
+    <state x="1707" y="355" width="424" height="483" key="FileChooserDialogImpl/0.0.2560.1080@0.0.2560.1080" timestamp="1579238495357" />
+    <state x="1082" y="337" width="451" height="522" key="FileChooserDialogImpl/0.27.2560.1053@0.27.2560.1053" timestamp="1585760407901" />
+    <state x="1066" y="157" width="1007" height="737" key="SettingsEditor" timestamp="1585760556878">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state x="1066" y="133" width="1024" height="844" key="SettingsEditor/0.0.2560.1080@0.0.2560.1080" timestamp="1579359750235" />
+    <state x="1066" y="157" width="1007" height="737" key="SettingsEditor/0.27.2560.1053@0.27.2560.1053" timestamp="1585760556878" />
+    <state x="1649" y="285" width="540" height="524" key="StructurePopup" timestamp="1583236223070">
+      <screen x="0" y="25" width="2560" height="1055" />
+    </state>
+    <state x="1649" y="285" width="540" height="524" key="StructurePopup/0.25.2560.1055@0.25.2560.1055" timestamp="1583236223070" />
+    <state x="1597" y="351" key="com.intellij.ide.util.TipDialog" timestamp="1586233418257">
+      <screen x="0" y="0" width="2560" height="1036" />
+    </state>
+    <state x="1597" y="351" key="com.intellij.ide.util.TipDialog/0.0.2560.1036@0.0.2560.1036" timestamp="1586233418257" />
+    <state x="1597" y="353" key="com.intellij.ide.util.TipDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1584951045626" />
+    <state x="1597" y="367" key="com.intellij.ide.util.TipDialog/0.0.2560.1080@0.0.2560.1080" timestamp="1580093374995" />
+    <state x="1597" y="380" key="com.intellij.ide.util.TipDialog/0.21.2560.1059@0.21.2560.1059" timestamp="1582601990951" />
+    <state x="1597" y="383" key="com.intellij.ide.util.TipDialog/0.25.2560.1055@0.25.2560.1055" timestamp="1584330046053" />
+    <state x="1597" y="384" key="com.intellij.ide.util.TipDialog/0.27.2560.1053@0.27.2560.1053" timestamp="1585816457117" />
+    <state x="1152" y="180" width="784" height="704" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1582274805335">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1152" y="180" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1040@0.0.2560.1040" timestamp="1582274805335" />
+    <state x="1152" y="187" width="784" height="704" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1080@0.0.2560.1080" timestamp="1578880895437" />
+    <state x="1452" y="338" key="com.intellij.tools.ToolSelectDialog.dimensionServiceKey" timestamp="1579187747534">
+      <screen x="0" y="0" width="2560" height="1080" />
+    </state>
+    <state x="1452" y="338" key="com.intellij.tools.ToolSelectDialog.dimensionServiceKey/0.0.2560.1080@0.0.2560.1080" timestamp="1579187747534" />
+    <state x="1579" y="238" key="run.anything.popup" timestamp="1581069513899">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1579" y="238" key="run.anything.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1581069513899" />
+    <state x="1579" y="247" key="run.anything.popup/0.0.2560.1080@0.0.2560.1080" timestamp="1579510273041" />
+    <state x="1583" y="259" width="672" height="662" key="search.everywhere.popup" timestamp="1585562205506">
+      <screen x="0" y="27" width="2560" height="1053" />
+    </state>
+    <state x="1583" y="238" width="672" height="678" key="search.everywhere.popup/0.0.2560.1080@0.0.2560.1080" timestamp="1579068070219" />
+    <state x="1583" y="259" width="672" height="662" key="search.everywhere.popup/0.27.2560.1053@0.27.2560.1053" timestamp="1585562205506" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="mavenExecuteGoalHistory">
+    <option value="" />
+  </component>
+</project>
