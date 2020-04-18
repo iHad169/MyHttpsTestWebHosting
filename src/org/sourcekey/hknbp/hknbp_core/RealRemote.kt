@@ -80,7 +80,7 @@ object RealRemote {
     init {
         jqWindow().on("keydown", fun(event: dynamic){
             when(event.which.toString().toIntOrNull()){
-                enter                   -> {VirtualRemote.centerButton.click();event.preventDefault()}
+                enter                   -> {VirtualRemote.centerButton.click()}
                 alt                     -> {VirtualRemote.menuButton.click()}
                 pageUp                  -> {VirtualRemote.nextChannelButton.click()}
                 pageDown                -> {VirtualRemote.previousChannelButton.click()}

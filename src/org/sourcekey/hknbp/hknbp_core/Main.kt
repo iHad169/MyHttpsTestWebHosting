@@ -165,7 +165,7 @@ val coreVersion: String = {
     value
     */
 
-    "v2020.04_3"
+    "v2020.04_4"
 }()
 
 /**
@@ -215,7 +215,7 @@ fun main(args: Array<String>) {
         UserControlPanel
         ConsentPanel
         VirtualRemote
-        //RealRemote
+        RealRemote
         LongClickEvent
         ChannelDescription
     } catch (e: dynamic) { println("介面初始化哀左: $e") }
