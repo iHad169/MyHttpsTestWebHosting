@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <link href="https://vjs.zencdn.net/7.8.0/video-js.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.7.5/video-js.min.css" rel="stylesheet">
     <style type="text/css">
         /* 字幕style */
         .video-js .vjs-text-track-display > div > div > div{
@@ -76,7 +76,7 @@
        style="background:rgba(0, 0, 0, 0);">
     </div>
 </div>
-<script type="text/javascript" src="https://vjs.zencdn.net/7.8.0/video.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.7.5/video.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/2.9.3/dash.mediaplayer.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/2.9.3/videojs-dash.min.js"></script>
 <script type="text/javascript">
@@ -325,24 +325,6 @@ function onClickProgrammableButton(color){
 }
 
 /**
- *
- * */
-function getSourceType(sourceSrc){
-    try{
-        switch(sourceSrc.match(/\.(m3u8|mpd)$/g)[0]) {
-            case ".m3u8":
-                return "application/x-mpegURL";
-                break;
-            case ".mpd":
-                return "application/dash+xml";
-                break;
-            default:
-                return "application/x-mpegURL";
-        }
-    }catch(e){return "application/x-mpegURL";}
-}
-
-/**
  * 由HKNBP_Core發出初始化IframePlayer
  *
  * @param {source: String} source 頻道源
@@ -371,22 +353,6 @@ function onIframePlayerInit(sourceSrc){
             //"edgeStyle": "none"
         });
         settings.updateDisplay();
-    });
-    player.src({
-        src: sourceSrc,
-        type: getSourceType(sourceSrc)/*,
-        keySystems: {
-            'com.apple.fps.1_0': {
-                certificateUri: '<CERTIFICATE_URL>',
-                certificateHeaders: {
-                    'Some-Header': 'value'
-                },
-                licenseUri: '<LICENSE_URL>',
-                licenseHeaders: {
-                    'Some-Header': 'value'
-                }
-            }
-        }*/
     });
     player.on("error", function(error){
         /*
@@ -422,6 +388,7 @@ function onIframePlayerInit(sourceSrc){
             });
         }
     });
+    player.src(sourceSrc);
 }
 </script>
 <script type="text/javascript" src="hknbp-iframeplayer-bridge.js"></script>

@@ -17,6 +17,7 @@ package org.sourcekey.hknbp.hknbp_core
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import kotlin.browser.document
+import kotlin.browser.window
 
 object PictureInPictureButton: UserInterface(
         mainFrameElement = document.getElementById("pictureInPictureButton") as HTMLElement
@@ -24,7 +25,21 @@ object PictureInPictureButton: UserInterface(
     private val pictureInPictureButton = document.getElementById("pictureInPictureButton") as HTMLButtonElement
 
     init {
-        pictureInPictureButton.style.display = "none"//youtube嘅iframeplayer唔WORK,所以推出呢個功能住
+        hide()
+        Player.addOnPlayerEventListener(object : Player.OnPlayerEventListener {
+            override fun on(onPlayerEvent: Player.OnPlayerEvent) {
+                when (onPlayerEvent) {
+                    Player.OnPlayerEvent.turnChannel -> {
+                        hide()
+                    }
+                    Player.OnPlayerEvent.playing -> {
+                        Player.isPictureInPictureEnabled { isEnabled: Boolean ->
+                            if(isEnabled){show(null)}else{hide()}
+                        }
+                    }
+                }
+            }
+        })
         pictureInPictureButton.onclick = fun(event){
             Player.pictureInPictureModeSwitch()
         }

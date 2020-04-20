@@ -3296,7 +3296,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_4';
+    return 'v2020.04_5';
   }
   var coreVersion;
   var appVersion;
@@ -3330,7 +3330,6 @@ if (typeof kotlin === 'undefined') {
       UserControlPanel_getInstance();
       ConsentPanel_getInstance();
       VirtualRemote_getInstance();
-      RealRemote_getInstance();
       LongClickEvent_getInstance();
       ChannelDescription_getInstance();
     } catch (e) {
@@ -3682,9 +3681,34 @@ if (typeof kotlin === 'undefined') {
     UserInterface.call(this, Kotlin.isType(tmp$ = document.getElementById('pictureInPictureButton'), HTMLElement) ? tmp$ : throwCCE());
     var tmp$_0;
     this.pictureInPictureButton_0 = Kotlin.isType(tmp$_0 = document.getElementById('pictureInPictureButton'), HTMLButtonElement) ? tmp$_0 : throwCCE();
-    this.pictureInPictureButton_0.style.display = 'none';
+    this.hide();
+    Player_getInstance().addOnPlayerEventListener_j8fzjz$(new PictureInPictureButton_init$ObjectLiteral());
     this.pictureInPictureButton_0.onclick = PictureInPictureButton_init$lambda;
   }
+  function PictureInPictureButton_init$ObjectLiteral() {
+  }
+  function PictureInPictureButton_init$ObjectLiteral$on$lambda(isEnabled) {
+    if (isEnabled) {
+      PictureInPictureButton_getInstance().show_s8ev37$(null);
+    } else {
+      PictureInPictureButton_getInstance().hide();
+    }
+    return Unit;
+  }
+  PictureInPictureButton_init$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
+    switch (onPlayerEvent.name) {
+      case 'turnChannel':
+        PictureInPictureButton_getInstance().hide();
+        break;
+      case 'playing':
+        Player_getInstance().isPictureInPictureEnabled_y8twos$(PictureInPictureButton_init$ObjectLiteral$on$lambda);
+        break;
+    }
+  };
+  PictureInPictureButton_init$ObjectLiteral.$metadata$ = {
+    kind: Kind_CLASS,
+    interfaces: [Player$OnPlayerEventListener]
+  };
   function PictureInPictureButton_init$lambda(event) {
     Player_getInstance().pictureInPictureModeSwitch();
   }
@@ -4099,8 +4123,17 @@ if (typeof kotlin === 'undefined') {
     }
     this.callIframePlayerFunction_0('onClickProgrammableButton(' + this.kotlinValueToEvalScriptUseableValue_0(colorString) + ')');
   };
+  function Player$isPictureInPictureEnabled$lambda(closure$onReturn) {
+    return function (returnValue) {
+      var tmp$, tmp$_0;
+      closure$onReturn((tmp$_0 = (tmp$ = returnValue != null ? returnValue.toString() : null) != null ? toBoolean(tmp$) : null) != null ? tmp$_0 : false);
+    };
+  }
+  Player.prototype.isPictureInPictureEnabled_y8twos$ = function (onReturn) {
+    this.callIframePlayerFunction_0('\n            function onGetIframePlayerIsPictureInPictureEnabled(onReturn){\n                try {\n                    onReturn(\n                        document.pictureInPictureEnabled &&\n                        document.getElementsByTagName("video").length > 0\n                    );\n                }catch(error){\n                    console.log(error);\n                    onReturn(false);\n                }\n            }\n            onGetIframePlayerIsPictureInPictureEnabled(onReturn);\n        ', Player$isPictureInPictureEnabled$lambda(onReturn));
+  };
   Player.prototype.pictureInPictureModeSwitch = function () {
-    this.callIframePlayerFunction_0('\n            async function pictureInPictureModeSwitch(){\n                try {\n                //console.log(document.pictureInPictureEnabled);\n                    var video = document.getElementsByTagName("video")[0]\n                    if (video !== document.pictureInPictureElement){\n                        await video.requestPictureInPicture();\n                    }else{\n                        await document.exitPictureInPicture();\n                    }\n                }catch(error){console.log(error);}\n            }\n            pictureInPictureModeSwitch();\n        ');
+    this.callIframePlayerFunction_0('\n            async function pictureInPictureModeSwitch(){\n                try {\n                    //console.log(document.pictureInPictureEnabled);\n                    for(var i=0; document.getElementsByTagName("video").length; i++){\n                        var video = document.getElementsByTagName("video")[i];\n                        if (video !== document.pictureInPictureElement){\n                            await video.requestPictureInPicture();\n                        }else{\n                            await document.exitPictureInPicture();\n                        }\n                    }\n                }catch(error){console.log(error);}\n            }\n            pictureInPictureModeSwitch();\n        ');
   };
   Player.prototype.play = function () {
     this.callIframePlayerFunction_0('onSetIframePlayerPlay()');

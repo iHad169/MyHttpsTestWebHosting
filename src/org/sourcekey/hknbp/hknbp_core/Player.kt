@@ -549,18 +549,42 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
 
 
     /**
-     * pictureInPicture模式切換
+     * 能否 畫中畫模式
+     * */
+    fun isPictureInPictureEnabled(onReturn: (isEnabled: Boolean)->Unit){
+        callIframePlayerFunction("""
+            function onGetIframePlayerIsPictureInPictureEnabled(onReturn){
+                try {
+                    onReturn(
+                        document.pictureInPictureEnabled &&
+                        document.getElementsByTagName("video").length > 0
+                    );
+                }catch(error){
+                    console.log(error);
+                    onReturn(false);
+                }
+            }
+            onGetIframePlayerIsPictureInPictureEnabled(onReturn);
+        """, fun(returnValue){
+            onReturn(returnValue?.toString()?.toBoolean()?:false)
+        })
+    }
+
+    /**
+     * 畫中畫模式 切換
      * */
     fun pictureInPictureModeSwitch(){
         callIframePlayerFunction("""
             async function pictureInPictureModeSwitch(){
                 try {
-                //console.log(document.pictureInPictureEnabled);
-                    var video = document.getElementsByTagName("video")[0]
-                    if (video !== document.pictureInPictureElement){
-                        await video.requestPictureInPicture();
-                    }else{
-                        await document.exitPictureInPicture();
+                    //console.log(document.pictureInPictureEnabled);
+                    for(var i=0; document.getElementsByTagName("video").length; i++){
+                        var video = document.getElementsByTagName("video")[i];
+                        if (video !== document.pictureInPictureElement){
+                            await video.requestPictureInPicture();
+                        }else{
+                            await document.exitPictureInPicture();
+                        }
                     }
                 }catch(error){console.log(error);}
             }
