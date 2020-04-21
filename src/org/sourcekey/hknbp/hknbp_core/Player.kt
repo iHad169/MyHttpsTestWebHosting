@@ -739,12 +739,9 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                         OnPlayerEvent.notPlaying -> {
                             isPlaying = false
                             //嘗試發出播放指令使iframePlayer繼續播放
-                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ play() } }, 2000))
-                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ play() } }, 5000))
-                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ play() } }, 10000))
-                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ play() } }, 25000))
+                            timerList.add(window.setInterval(fun(){ if(!isPlaying){ play() } }, 2000))
                             //檢查呢30秒內Player有冇再繼續正常播放,若冇就ReLoad
-                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ reload() } }, 30000))
+                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ reload() } }, 1200000))
                             /*
                             //停止太多次就直接Reload個網頁
                             if(10 < currentChannelNotPlayingCount){ window.location.reload() }

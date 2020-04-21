@@ -3296,7 +3296,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_5';
+    return 'v2020.04_6';
   }
   var coreVersion;
   var appVersion;
@@ -4467,28 +4467,10 @@ if (typeof kotlin === 'undefined') {
   function Player_init$ObjectLiteral$on$lambda_0(this$) {
     return function () {
       if (!this$.isPlaying_0) {
-        Player_getInstance().play();
-      }};
-  }
-  function Player_init$ObjectLiteral$on$lambda_1(this$) {
-    return function () {
-      if (!this$.isPlaying_0) {
-        Player_getInstance().play();
-      }};
-  }
-  function Player_init$ObjectLiteral$on$lambda_2(this$) {
-    return function () {
-      if (!this$.isPlaying_0) {
-        Player_getInstance().play();
-      }};
-  }
-  function Player_init$ObjectLiteral$on$lambda_3(this$) {
-    return function () {
-      if (!this$.isPlaying_0) {
         Player_getInstance().reload();
       }};
   }
-  function Player_init$ObjectLiteral$on$lambda_4(this$) {
+  function Player_init$ObjectLiteral$on$lambda_1(this$) {
     return function () {
       if (!this$.isPlaying_0) {
         Player_getInstance().reload();
@@ -4509,14 +4491,11 @@ if (typeof kotlin === 'undefined') {
         break;
       case 'notPlaying':
         this.isPlaying_0 = false;
-        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda(this), 2000));
-        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_0(this), 5000));
-        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_1(this), 10000));
-        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_2(this), 25000));
-        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_3(this), 30000));
+        this.timerList_0.add_11rb$(window.setInterval(Player_init$ObjectLiteral$on$lambda(this), 2000));
+        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_0(this), 1200000));
         break;
       case 'noNetwork':
-        this.timerList_0.add_11rb$(window.setInterval(Player_init$ObjectLiteral$on$lambda_4(this), 30000));
+        this.timerList_0.add_11rb$(window.setInterval(Player_init$ObjectLiteral$on$lambda_1(this), 30000));
         break;
     }
   };
