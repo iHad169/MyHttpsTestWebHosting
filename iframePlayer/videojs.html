@@ -103,6 +103,23 @@ function onSetIframePlayerPlay(){
 }
 
 /**
+ * 將Player重新載入頻道播放
+ * */
+function reload(){
+    player.src({
+        src: player.src(),
+        type: getSourceType(player.src())
+    });
+}
+
+/**
+ * 由HKNBP_Core開啟呢個IframePlayer去將Player重新載入頻道播放
+ * */
+function onSetIframePlayerReload(){
+    reload();
+}
+
+/**
  * 由HKNBP_Core開啟呢個IframePlayer去設定videoTrack
  *
  * @param {videoTrack: TrackDescription} videoTrack 當執行設定videoTrack時嘅videoTrack參數
@@ -374,8 +391,8 @@ function onIframePlayerInit(sourceSrc){
         settings.updateDisplay();
     });
     //設置當播放頻道有問題時嘗試重新播放
-    var timer;
     player.on("error", function(error){
+        //識別錯誤
         switch(player.error().code) {
             /*case MediaError.MEDIA_ERR_ABORTED:
                 console.log("The user canceled the audio.");
@@ -394,19 +411,8 @@ function onIframePlayerInit(sourceSrc){
             break;
         }
         console.log('error!', error.code, error.type , error.message);
+        //發出 頻道 未能播放資訊
         onIframePlayerNotPlaying();
-        //嘗試重新播放
-        player.clearInterval(timer);timer=null;
-        var time = player.currentTime();
-        timer=player.setInterval(function(){
-            player.src({
-                src: sourceSrc,
-                type: getSourceType(sourceSrc)
-            });
-        },5000);
-    });
-    player.on("playing", function(error){
-        player.clearInterval(timer);timer=null;
     });
     //設置Dash流訊號播放器監聽
     videojs.Html5DashJS.hook('beforeinitialize', function(player, _mediaPlayer) {

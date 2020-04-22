@@ -685,9 +685,18 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
     }
 
     /**
-     * 重新載入IframePlayer
+     * 重新載入
+     *
+     * 向IframePlayer發出運行 重新載入 請求
      * */
     fun reload(){
+        callIframePlayerFunction("onSetIframePlayerReload()")
+    }
+
+    /**
+     * 重新載入IframePlayer
+     * */
+    fun reloadIframePlayer(){
         playChannel(playingChannel?:return)
     }
 
@@ -724,24 +733,36 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
          * */
         if(!RunnerInfo.isBelowIOS10()){
             addOnPlayerEventListener(object : OnPlayerEventListener {
+                private var isPlayed: Boolean = false
                 private var isPlaying: Boolean = false
                 private val timerList: ArrayList<Int> = ArrayList()
+                private var notPlayingToPlayingFrequency = 0
                 private var currentChannelNumber: Int? = 0
-                private var currentChannelNotPlayingCount = 0
+                private var currentChannelNotPlayingFrequency = 0
                 override fun on(onPlayerEvent: OnPlayerEvent) {
                     when (onPlayerEvent) {
+                        OnPlayerEvent.turnChannel -> {
+                            isPlayed = false
+                        }
                         OnPlayerEvent.playing -> {
+                            isPlayed = true
                             isPlaying = true
                             //清除所有timer
                             for(timer in timerList){window.clearTimeout(timer)}
                             timerList.clear()
+                            //重置 冇播放 至 有播放 之間 次數
+                            notPlayingToPlayingFrequency = 0
                         }
                         OnPlayerEvent.notPlaying -> {
                             isPlaying = false
-                            //嘗試發出播放指令使iframePlayer繼續播放
-                            timerList.add(window.setInterval(fun(){ if(!isPlaying){ play() } }, 2000))
-                            //檢查呢30秒內Player有冇再繼續正常播放,若冇就ReLoad
-                            timerList.add(window.setTimeout(fun(){ if(!isPlaying){ reload() } }, 1200000))
+                            if(notPlayingToPlayingFrequency < 1){
+                                //嘗試發出 播放指令 使頻道繼續播放
+                                //if(isPlayed){timerList.add(window.setInterval(fun(){if(!isPlaying){play()}}, 1000))}
+                                //嘗試發出 重新載入指令 使重新連接頻道源繼續播放
+                                timerList.add(window.setInterval(fun(){if(!isPlaying){reload()}}, 20000))
+                                //檢查呢10分鐘內Player有冇再繼續正常播放,若冇就成個iframePlayer重新載入
+                                timerList.add(window.setTimeout(fun(){if(!isPlaying){reloadIframePlayer()}}, 1200000))
+                            }
                             /*
                             //停止太多次就直接Reload個網頁
                             if(10 < currentChannelNotPlayingCount){ window.location.reload() }
@@ -752,9 +773,10 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                                 currentChannelNotPlayingCount = 0
                                 currentChannelNumber = playingChannel?.number
                             }*/
+                            notPlayingToPlayingFrequency++
                         }
                         OnPlayerEvent.noNetwork -> {
-                            timerList.add(window.setInterval(fun(){ if(!isPlaying){ reload() } }, 30000))
+                            timerList.add(window.setInterval(fun(){ if(!isPlaying){ reload() } }, 5000))
                         }
                     }
                 }
@@ -770,7 +792,6 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                 }
             })
         }
-        //window.setInterval(fun(){ play() }, 10000)
     }
 }
 

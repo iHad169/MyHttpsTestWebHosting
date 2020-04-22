@@ -4139,6 +4139,9 @@ if (typeof kotlin === 'undefined') {
     this.callIframePlayerFunction_0('onSetIframePlayerPlay()');
   };
   Player.prototype.reload = function () {
+    this.callIframePlayerFunction_0('onSetIframePlayerReload()');
+  };
+  Player.prototype.reloadIframePlayer = function () {
     var tmp$;
     tmp$ = this.playingChannel_0;
     if (tmp$ == null) {
@@ -4453,21 +4456,23 @@ if (typeof kotlin === 'undefined') {
     };
   }
   function Player_init$ObjectLiteral() {
+    this.isPlayed_0 = false;
     this.isPlaying_0 = false;
     this.timerList_0 = ArrayList_init();
+    this.notPlayingToPlayingFrequency_0 = 0;
     this.currentChannelNumber_0 = 0;
-    this.currentChannelNotPlayingCount_0 = 0;
+    this.currentChannelNotPlayingFrequency_0 = 0;
   }
   function Player_init$ObjectLiteral$on$lambda(this$) {
     return function () {
       if (!this$.isPlaying_0) {
-        Player_getInstance().play();
+        Player_getInstance().reload();
       }};
   }
   function Player_init$ObjectLiteral$on$lambda_0(this$) {
     return function () {
       if (!this$.isPlaying_0) {
-        Player_getInstance().reload();
+        Player_getInstance().reloadIframePlayer();
       }};
   }
   function Player_init$ObjectLiteral$on$lambda_1(this$) {
@@ -4479,7 +4484,11 @@ if (typeof kotlin === 'undefined') {
   Player_init$ObjectLiteral.prototype.on_mdxcb7$ = function (onPlayerEvent) {
     var tmp$;
     switch (onPlayerEvent.name) {
+      case 'turnChannel':
+        this.isPlayed_0 = false;
+        break;
       case 'playing':
+        this.isPlayed_0 = true;
         this.isPlaying_0 = true;
         tmp$ = this.timerList_0.iterator();
         while (tmp$.hasNext()) {
@@ -4488,14 +4497,18 @@ if (typeof kotlin === 'undefined') {
         }
 
         this.timerList_0.clear();
+        this.notPlayingToPlayingFrequency_0 = 0;
         break;
       case 'notPlaying':
         this.isPlaying_0 = false;
-        this.timerList_0.add_11rb$(window.setInterval(Player_init$ObjectLiteral$on$lambda(this), 2000));
-        this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_0(this), 1200000));
+        if (this.notPlayingToPlayingFrequency_0 < 1) {
+          this.timerList_0.add_11rb$(window.setInterval(Player_init$ObjectLiteral$on$lambda(this), 20000));
+          this.timerList_0.add_11rb$(window.setTimeout(Player_init$ObjectLiteral$on$lambda_0(this), 1200000));
+        }
+        this.notPlayingToPlayingFrequency_0 = this.notPlayingToPlayingFrequency_0 + 1 | 0;
         break;
       case 'noNetwork':
-        this.timerList_0.add_11rb$(window.setInterval(Player_init$ObjectLiteral$on$lambda_1(this), 30000));
+        this.timerList_0.add_11rb$(window.setInterval(Player_init$ObjectLiteral$on$lambda_1(this), 5000));
         break;
     }
   };
