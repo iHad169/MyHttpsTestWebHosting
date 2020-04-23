@@ -776,7 +776,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
                             notPlayingToPlayingFrequency++
                         }
                         OnPlayerEvent.noNetwork -> {
-                            timerList.add(window.setInterval(fun(){ if(!isPlaying){ reload() } }, 5000))
+                            timerList.add(window.setInterval(fun(){ if(!isPlaying){ reload() } }, 30000))
                         }
                     }
                 }

@@ -49,7 +49,7 @@ object LoadFile {
         proxyUrlList
     }()
 
-    fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, filePaths: ArrayLinkList<String>){
+    fun load(onProgress: (max: Double, value: Double)->Unit, onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, filePaths: ArrayLinkList<String>){
         val xmlhttp = XMLHttpRequest()
         val useProxy = fun(){
             val path: String = filePaths.node?:return
@@ -80,7 +80,7 @@ object LoadFile {
                 useProxy()
                 if(filePaths.nodeID?:{onFailedLoadFile();null}()?:return < filePaths.size-1){
                     filePaths.next()
-                    load(onLoadedFile, onFailedLoadFile, filePaths)
+                    load(onProgress, onLoadedFile, onFailedLoadFile, filePaths)
                 }else{ onFailedLoadFile() }
             }
         }
@@ -95,29 +95,35 @@ object LoadFile {
                 onLoadedFile(xmlhttp)
             }else{ onFailedLoadFileProgram() }
         }
+        xmlhttp.onprogress = fun(event){
+            println("PPPPP${event.lengthComputable} ${event.total.toDouble()} ${event.loaded.toDouble()}")
+            if(event.lengthComputable) {
+                onProgress(event.total.toDouble(), event.loaded.toDouble())
+            }
+        }
         xmlhttp.open("GET", filePaths.node?:"", true)
         xmlhttp.setRequestHeader("cache-control", "max-age=${cacheShelfLife}")//以秒為單位///////////////////////////////整個可以強制響線上讀取唔用Cache
         xmlhttp.send()
     }
 
-    fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, filePath: Array<out String>){
-        load(onLoadedFile, onFailedLoadFile, cacheShelfLife, ArrayLinkList(filePath))
+    fun load(onProgress: (max: Double, value: Double)->Unit, onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, filePath: Array<out String>){
+        load(onProgress, onLoadedFile, onFailedLoadFile, cacheShelfLife, ArrayLinkList(filePath))
     }
 
-    fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, vararg filePath: String){
-        load(onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath)
+    fun load(onProgress: (max: Double, value: Double)->Unit, onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, cacheShelfLife: Int, vararg filePath: String){
+        load(onProgress, onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath)
     }
 
-    fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, filePaths: ArrayLinkList<String>){
-        load(onLoadedFile, onFailedLoadFile, cacheShelfLife, filePaths)
+    fun load(onProgress: (max: Double, value: Double)->Unit, onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, filePaths: ArrayLinkList<String>){
+        load(onProgress, onLoadedFile, onFailedLoadFile, cacheShelfLife, filePaths)
     }
 
-    fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, filePath: Array<out String>){
-        load(onLoadedFile, onFailedLoadFile, cacheShelfLife, ArrayLinkList(filePath))
+    fun load(onProgress: (max: Double, value: Double)->Unit, onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, filePath: Array<out String>){
+        load(onProgress, onLoadedFile, onFailedLoadFile, cacheShelfLife, ArrayLinkList(filePath))
     }
 
-    fun load(onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, vararg filePath: String){
-        load(onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath)
+    fun load(onProgress: (max: Double, value: Double)->Unit, onLoadedFile: (xmlhttp: XMLHttpRequest)->Unit, onFailedLoadFile: ()->Unit, vararg filePath: String){
+        load(onProgress, onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath)
     }
 }
 

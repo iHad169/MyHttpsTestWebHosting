@@ -56,7 +56,8 @@ class Dialogue(
 
         fun getDialogues(onLoadedDialogueListener: (dialogues: ArrayLinkList<Dialogue>)->Unit){
             if(dialogues == null){
-                LoadFile.load(fun(xmlHttp){
+                LoadFile.load(fun(max: Double, value: Double){
+                }, fun(xmlHttp){
                     if(xmlHttp.responseText!==""){
                         val dialogues = ArrayLinkList(JSON.parse<Array<Dialogue>>(xmlHttp.responseText))
                         dialogues.addOnNodeEventListener(object: ArrayLinkList.OnNodeEventListener<Dialogue>{

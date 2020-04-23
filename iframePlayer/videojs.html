@@ -370,16 +370,7 @@ function onIframePlayerInit(sourceSrc){
         autoplay: true,
         controls: false,
         poster: "../img/nullIcon.png",
-        liveui: true,
-        techOrder: ["html5"/*, "flash", "vlc"*/],
-        html5: {
-            hls: {
-                overrideNative: true
-            }/*,
-            nativeVideoTracks: false,
-            nativeAudioTracks: false,
-            nativeTextTracks: false*/
-        }
+        liveui: true
     });
     player.ready(function(){
         var settings = this.textTrackSettings;

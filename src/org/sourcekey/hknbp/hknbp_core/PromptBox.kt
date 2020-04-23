@@ -33,7 +33,7 @@ open class PromptBox(
         val time: Int? = 3500,
         val promptBoxId: String = "promptBox${Random.nextInt(0, 99999999)}",
         protected val promptBox: HTMLDivElement = {
-            //建立Window放置空間
+            //建立PromptBox
             val promptBox = document.createElement("div") as HTMLDivElement
             promptBox.id                        = promptBoxId
             promptBox.style.backgroundColor     = "#111111"

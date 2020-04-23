@@ -334,7 +334,8 @@ open class XMLTV(
                 onFailedParseXMLTVListener: ()->Unit,
                 epgID: String, vararg xmltvSrc: String
         ){
-            LoadFile.load(fun(xmlHttp){
+            LoadFile.load(fun(max: Double, value: Double){
+            }, fun(xmlHttp){
                 onParsedXMLTVListener(getXMLTV(xmlHttp.responseXML, epgID))
             }, fun(){
                 onFailedParseXMLTVListener()

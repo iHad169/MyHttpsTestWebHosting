@@ -30,6 +30,7 @@ if (typeof kotlin === 'undefined') {
   var Math_0 = Math;
   var defineInlineFunction = Kotlin.defineInlineFunction;
   var toShort = Kotlin.toShort;
+  var numberToDouble = Kotlin.numberToDouble;
   var split = Kotlin.kotlin.text.split_ip8yn$;
   var ensureNotNull = Kotlin.ensureNotNull;
   var split_0 = Kotlin.kotlin.text.split_o64adg$;
@@ -944,18 +945,20 @@ if (typeof kotlin === 'undefined') {
     }
     return channels;
   }
-  function parseChannels$lambda(closure$onParsedChannelsListener) {
+  function parseChannels$lambda(max, value) {
+  }
+  function parseChannels$lambda_0(closure$onParsedChannelsListener) {
     return function (xmlHttp) {
       closure$onParsedChannelsListener(getChannels(xmlHttp.responseXML));
     };
   }
-  function parseChannels$lambda_0(closure$onFailedParseChannelsListener) {
+  function parseChannels$lambda_1(closure$onFailedParseChannelsListener) {
     return function () {
       closure$onFailedParseChannelsListener();
     };
   }
-  function parseChannels(onParsedChannelsListener, onFailedParseChannelsListener, xmlSrc) {
-    LoadFile_getInstance().load_y8xsdy$(parseChannels$lambda(onParsedChannelsListener), parseChannels$lambda_0(onFailedParseChannelsListener), xmlSrc);
+  function parseChannels(onProgress, onParsedChannelsListener, onFailedParseChannelsListener, xmlSrc) {
+    LoadFile_getInstance().load_1gxz9p$(parseChannels$lambda, parseChannels$lambda_0(onParsedChannelsListener), parseChannels$lambda_1(onFailedParseChannelsListener), xmlSrc);
   }
   function parseChannels_0($receiver) {
     return getChannels((new DOMParser()).parseFromString($receiver, 'text/xml'));
@@ -1834,6 +1837,8 @@ if (typeof kotlin === 'undefined') {
       }}
     return 0;
   };
+  function Dialogue$Companion$getDialogues$lambda(max, value) {
+  }
   function Dialogue$Companion$getDialogues$lambda$ObjectLiteral() {
   }
   Dialogue$Companion$getDialogues$lambda$ObjectLiteral.prototype.onNodeChanged_t4rudg$ = function (preChangeNodeID, postChangeNodeID, preChangeNode, postChangeNode) {
@@ -1843,7 +1848,7 @@ if (typeof kotlin === 'undefined') {
     kind: Kind_CLASS,
     interfaces: [ArrayLinkList$OnNodeEventListener]
   };
-  function Dialogue$Companion$getDialogues$lambda(this$Dialogue$, closure$onLoadedDialogueListener) {
+  function Dialogue$Companion$getDialogues$lambda_0(this$Dialogue$, closure$onLoadedDialogueListener) {
     return function (xmlHttp) {
       var tmp$, tmp$_0, tmp$_1;
       if (xmlHttp.responseText !== '') {
@@ -1854,12 +1859,12 @@ if (typeof kotlin === 'undefined') {
         closure$onLoadedDialogueListener((tmp$_1 = this$Dialogue$.dialogues_0) != null ? tmp$_1 : ArrayLinkList_init([]));
       }};
   }
-  function Dialogue$Companion$getDialogues$lambda_0() {
+  function Dialogue$Companion$getDialogues$lambda_1() {
   }
   Dialogue$Companion.prototype.getDialogues_fs1aqo$ = function (onLoadedDialogueListener) {
     var tmp$;
     if (this.dialogues_0 == null) {
-      LoadFile_getInstance().load_h2maru$(Dialogue$Companion$getDialogues$lambda(this, onLoadedDialogueListener), Dialogue$Companion$getDialogues$lambda_0, ['data/dialogue.json']);
+      LoadFile_getInstance().load_or1oyb$(Dialogue$Companion$getDialogues$lambda, Dialogue$Companion$getDialogues$lambda_0(this, onLoadedDialogueListener), Dialogue$Companion$getDialogues$lambda_1, ['data/dialogue.json']);
     } else {
       onLoadedDialogueListener((tmp$ = this.dialogues_0) != null ? tmp$ : ArrayLinkList_init([]));
     }
@@ -3037,7 +3042,7 @@ if (typeof kotlin === 'undefined') {
       return null;
     };
   }
-  function LoadFile$load$lambda_0(closure$isFailedLoadFile, closure$filePaths, closure$useProxy, closure$onFailedLoadFile, closure$onLoadedFile, this$LoadFile) {
+  function LoadFile$load$lambda_0(closure$isFailedLoadFile, closure$filePaths, closure$useProxy, closure$onFailedLoadFile, closure$onProgress, closure$onLoadedFile, this$LoadFile) {
     return function () {
       var tmp$, tmp$_0;
       if (!closure$isFailedLoadFile.v) {
@@ -3049,7 +3054,7 @@ if (typeof kotlin === 'undefined') {
           return;
         }if (tmp$_0 < (closure$filePaths.size - 1 | 0)) {
           closure$filePaths.next();
-          this$LoadFile.load_uq4zwc$(closure$onLoadedFile, closure$onFailedLoadFile, closure$filePaths);
+          this$LoadFile.load_7tssx3$(closure$onProgress, closure$onLoadedFile, closure$onFailedLoadFile, closure$filePaths);
         } else {
           closure$onFailedLoadFile();
         }
@@ -3071,34 +3076,42 @@ if (typeof kotlin === 'undefined') {
       }
     };
   }
-  LoadFile.prototype.load_duo3m8$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePaths) {
+  function LoadFile$load$lambda_3(closure$onProgress) {
+    return function (event) {
+      println('PPPPP' + event.lengthComputable + ' ' + numberToDouble(event.total) + ' ' + numberToDouble(event.loaded));
+      if (event.lengthComputable) {
+        closure$onProgress(numberToDouble(event.total), numberToDouble(event.loaded));
+      }};
+  }
+  LoadFile.prototype.load_tx2pwz$ = function (onProgress, onLoadedFile, onFailedLoadFile, cacheShelfLife, filePaths) {
     var tmp$;
     var xmlhttp = new XMLHttpRequest();
     var useProxy = LoadFile$load$lambda(filePaths, this);
     var isFailedLoadFile = {v: false};
-    var onFailedLoadFileProgram = LoadFile$load$lambda_0(isFailedLoadFile, filePaths, useProxy, onFailedLoadFile, onLoadedFile, this);
+    var onFailedLoadFileProgram = LoadFile$load$lambda_0(isFailedLoadFile, filePaths, useProxy, onFailedLoadFile, onProgress, onLoadedFile, this);
     xmlhttp.ontimeout = onFailedLoadFileProgram;
     xmlhttp.onerror = onFailedLoadFileProgram;
     xmlhttp.onreadystatechange = LoadFile$load$lambda_1(xmlhttp, onFailedLoadFileProgram);
     xmlhttp.onload = LoadFile$load$lambda_2(xmlhttp, filePaths, onLoadedFile, onFailedLoadFileProgram);
+    xmlhttp.onprogress = LoadFile$load$lambda_3(onProgress);
     xmlhttp.open('GET', (tmp$ = filePaths.node) != null ? tmp$ : '', true);
     xmlhttp.setRequestHeader('cache-control', 'max-age=' + cacheShelfLife);
     xmlhttp.send();
   };
-  LoadFile.prototype.load_1ihi1i$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath) {
-    this.load_duo3m8$(onLoadedFile, onFailedLoadFile, cacheShelfLife, ArrayLinkList_init_1(filePath));
+  LoadFile.prototype.load_e0kky5$ = function (onProgress, onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath) {
+    this.load_tx2pwz$(onProgress, onLoadedFile, onFailedLoadFile, cacheShelfLife, ArrayLinkList_init_1(filePath));
   };
-  LoadFile.prototype.load_q2uuwa$ = function (onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath) {
-    this.load_1ihi1i$(onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath);
+  LoadFile.prototype.load_t59dxv$ = function (onProgress, onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath) {
+    this.load_e0kky5$(onProgress, onLoadedFile, onFailedLoadFile, cacheShelfLife, filePath);
   };
-  LoadFile.prototype.load_uq4zwc$ = function (onLoadedFile, onFailedLoadFile, filePaths) {
-    this.load_duo3m8$(onLoadedFile, onFailedLoadFile, this.cacheShelfLife_0, filePaths);
+  LoadFile.prototype.load_7tssx3$ = function (onProgress, onLoadedFile, onFailedLoadFile, filePaths) {
+    this.load_tx2pwz$(onProgress, onLoadedFile, onFailedLoadFile, this.cacheShelfLife_0, filePaths);
   };
-  LoadFile.prototype.load_y8xsdy$ = function (onLoadedFile, onFailedLoadFile, filePath) {
-    this.load_duo3m8$(onLoadedFile, onFailedLoadFile, this.cacheShelfLife_0, ArrayLinkList_init_1(filePath));
+  LoadFile.prototype.load_1gxz9p$ = function (onProgress, onLoadedFile, onFailedLoadFile, filePath) {
+    this.load_tx2pwz$(onProgress, onLoadedFile, onFailedLoadFile, this.cacheShelfLife_0, ArrayLinkList_init_1(filePath));
   };
-  LoadFile.prototype.load_h2maru$ = function (onLoadedFile, onFailedLoadFile, filePath) {
-    this.load_1ihi1i$(onLoadedFile, onFailedLoadFile, this.cacheShelfLife_0, filePath);
+  LoadFile.prototype.load_or1oyb$ = function (onProgress, onLoadedFile, onFailedLoadFile, filePath) {
+    this.load_e0kky5$(onProgress, onLoadedFile, onFailedLoadFile, this.cacheShelfLife_0, filePath);
   };
   function LoadFile$proxyUrlList$lambda() {
     var proxyUrlList = ArrayList_init();
@@ -3296,7 +3309,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_6';
+    return 'v2020.04_7';
   }
   var coreVersion;
   var appVersion;
@@ -3649,7 +3662,9 @@ if (typeof kotlin === 'undefined') {
     channels.removeAll_brywnq$(needRemoveOfficialChannels);
     channels.addAll_brywnq$(needSetOfficialChannels);
   };
-  function OfficialChannels$updateChannels$lambda(this$OfficialChannels) {
+  function OfficialChannels$updateChannels$lambda(max, value) {
+  }
+  function OfficialChannels$updateChannels$lambda_0(this$OfficialChannels) {
     return function (officialChannels) {
       if (channels.size < 1) {
         this$OfficialChannels.set_0(officialChannels);
@@ -3659,10 +3674,10 @@ if (typeof kotlin === 'undefined') {
       }
     };
   }
-  function OfficialChannels$updateChannels$lambda_0() {
+  function OfficialChannels$updateChannels$lambda_1() {
   }
   OfficialChannels.prototype.updateChannels = function () {
-    parseChannels(OfficialChannels$updateChannels$lambda(this), OfficialChannels$updateChannels$lambda_0, ['https://official-channels.hknbp.org/official_channels.xml']);
+    parseChannels(OfficialChannels$updateChannels$lambda, OfficialChannels$updateChannels$lambda_0(this), OfficialChannels$updateChannels$lambda_1, ['https://official-channels.hknbp.org/official_channels.xml']);
   };
   OfficialChannels.$metadata$ = {
     kind: Kind_OBJECT,
@@ -4508,7 +4523,7 @@ if (typeof kotlin === 'undefined') {
         this.notPlayingToPlayingFrequency_0 = this.notPlayingToPlayingFrequency_0 + 1 | 0;
         break;
       case 'noNetwork':
-        this.timerList_0.add_11rb$(window.setInterval(Player_init$ObjectLiteral$on$lambda_1(this), 5000));
+        this.timerList_0.add_11rb$(window.setInterval(Player_init$ObjectLiteral$on$lambda_1(this), 30000));
         break;
     }
   };
@@ -5797,7 +5812,7 @@ if (typeof kotlin === 'undefined') {
     EnteringNumberBox_getInstance().enter_61zpoe$('-');
   }
   function VirtualRemote_init$lambda_35(event) {
-    Player_getInstance().reload();
+    Player_getInstance().reloadIframePlayer();
   }
   function VirtualRemote_init$lambda_36(event) {
     if (ChannelDescription_getInstance().isShow) {
@@ -6793,18 +6808,20 @@ if (typeof kotlin === 'undefined') {
   function XMLTV$Companion() {
     XMLTV$Companion_instance = this;
   }
-  function XMLTV$Companion$parseXMLTV$lambda(closure$onParsedXMLTVListener, closure$epgID, this$XMLTV$) {
+  function XMLTV$Companion$parseXMLTV$lambda(max, value) {
+  }
+  function XMLTV$Companion$parseXMLTV$lambda_0(closure$onParsedXMLTVListener, closure$epgID, this$XMLTV$) {
     return function (xmlHttp) {
       closure$onParsedXMLTVListener(this$XMLTV$.getXMLTV_0(xmlHttp.responseXML, closure$epgID));
     };
   }
-  function XMLTV$Companion$parseXMLTV$lambda_0(closure$onFailedParseXMLTVListener) {
+  function XMLTV$Companion$parseXMLTV$lambda_1(closure$onFailedParseXMLTVListener) {
     return function () {
       closure$onFailedParseXMLTVListener();
     };
   }
   XMLTV$Companion.prototype.parseXMLTV_22edlo$ = function (onParsedXMLTVListener, onFailedParseXMLTVListener, epgID, xmltvSrc) {
-    LoadFile_getInstance().load_y8xsdy$(XMLTV$Companion$parseXMLTV$lambda(onParsedXMLTVListener, epgID, this), XMLTV$Companion$parseXMLTV$lambda_0(onFailedParseXMLTVListener), xmltvSrc);
+    LoadFile_getInstance().load_1gxz9p$(XMLTV$Companion$parseXMLTV$lambda, XMLTV$Companion$parseXMLTV$lambda_0(onParsedXMLTVListener, epgID, this), XMLTV$Companion$parseXMLTV$lambda_1(onFailedParseXMLTVListener), xmltvSrc);
   };
   XMLTV$Companion.prototype.compareTo_fsx041$ = function ($receiver, date) {
     return numberToInt($receiver.getTime() - date.getTime());
@@ -7490,7 +7507,7 @@ if (typeof kotlin === 'undefined') {
       return channels;
     }
   });
-  package$hknbp_core.parseChannels_d7jqb7$ = parseChannels;
+  package$hknbp_core.parseChannels_ld0ywg$ = parseChannels;
   package$hknbp_core.parseChannels_pdl1vz$ = parseChannels_0;
   package$hknbp_core.toXMLString_qjwm3l$ = toXMLString;
   Object.defineProperty(package$hknbp_core, 'ChannelDescription', {

@@ -184,7 +184,7 @@ object VirtualRemote{
         number8Button.onclick               = fun(event){EnteringNumberBox.enter("8")}
         number9Button.onclick               = fun(event){EnteringNumberBox.enter("9")}
         minusButton.onclick                 = fun(event){EnteringNumberBox.enter("-")}
-        refreshButton.onclick               = fun(event){Player.reload()}
+        refreshButton.onclick               = fun(event){Player.reloadIframePlayer()}
         channelDescriptionButton.onclick    = fun(event){if(ChannelDescription.isShow){ChannelDescription.hide()}else{ChannelDescription.show(60000)}}
         aboutWindowButton.onclick           = fun(event){AboutWindow.showHideAlternately(null)}
         feedbackWebWindowButton.onclick     = fun(event){FeedbackWebWindow.showHideAlternately(null)}

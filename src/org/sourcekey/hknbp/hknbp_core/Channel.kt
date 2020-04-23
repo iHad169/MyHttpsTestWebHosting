@@ -392,11 +392,13 @@ private fun getChannels(document: Document?): ArrayLinkList<Channel>{
  * 分析已讀取返來嘅電視頻道表資料
  * */
 fun parseChannels(
+        onProgress: (max: Double, value: Double)->Unit,
         onParsedChannelsListener: (channels: ArrayLinkList<Channel>) -> Unit,
         onFailedParseChannelsListener: ()->Unit,
         vararg xmlSrc: String
 ){
-    LoadFile.load(fun(xmlHttp){
+    LoadFile.load(fun(max: Double, value: Double){
+    }, fun(xmlHttp){
         onParsedChannelsListener(getChannels(xmlHttp.responseXML))
     }, fun(){
         onFailedParseChannelsListener()
