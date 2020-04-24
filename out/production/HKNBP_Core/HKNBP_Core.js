@@ -3309,7 +3309,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_7';
+    return 'v2020.04_8';
   }
   var coreVersion;
   var appVersion;
@@ -3854,26 +3854,9 @@ if (typeof kotlin === 'undefined') {
   };
   function Player$callIframePlayerFunction$lambda(returnValue) {
   }
-  function Player$callIframePlayerFunction$lambda_0(this$Player, closure$caller) {
-    return function () {
-      this$Player.callIframePlayerFunctionList_0.remove_11rb$(closure$caller);
-    };
-  }
   Player.prototype.callIframePlayerFunction_0 = function (evalScript, onReturn) {
     if (onReturn === void 0)
       onReturn = Player$callIframePlayerFunction$lambda;
-    var caller = {};
-    caller.evalScript = evalScript;
-    caller.name = 'HKNBPCore';
-    caller.id = (new Date()).getTime().toString() + toString(Random.Default.nextInt_vux9f0$(0, 99999999));
-    caller.onReturn = onReturn;
-    this.callIframePlayerFunctionList_0.add_11rb$(caller);
-    window.setTimeout(Player$callIframePlayerFunction$lambda_0(this, caller), 60000);
-    try {
-      this.iframePlayer_0.contentWindow.postMessage(JSON.stringify(caller), '*');
-    } catch (e) {
-      println('iframePlayer\u6709\u5572Function\u6435\u5514\u5230\u6216\u767C\u751F\u554F\u984C: ' + e.toString());
-    }
   };
   Player.prototype.kotlinValueToEvalScriptUseableValue_0 = function (kotlinValue) {
     var obj = {};

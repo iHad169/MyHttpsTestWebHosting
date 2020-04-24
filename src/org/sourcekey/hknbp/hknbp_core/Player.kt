@@ -56,6 +56,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
     private fun callIframePlayerFunction(
             evalScript: String, onReturn: (returnValue: dynamic)->Unit = fun(returnValue){}
     ){
+        /*
         val caller = js("{}")
         caller.evalScript = evalScript
         caller.name = "HKNBPCore"
@@ -67,7 +68,7 @@ object Player: UserInterface(document.getElementById("player") as HTMLElement) {
         }, 60000)
         try {
             iframePlayer.contentWindow.postMessage(JSON.stringify(caller), "*")
-        } catch (e: dynamic){ println("iframePlayer有啲Function搵唔到或發生問題: $e") }
+        } catch (e: dynamic){ println("iframePlayer有啲Function搵唔到或發生問題: $e") }*/
     }
 
     private fun kotlinValueToEvalScriptUseableValue(kotlinValue: dynamic): String{
