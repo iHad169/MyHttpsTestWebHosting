@@ -128,4 +128,6 @@ function getUrlParams(paramName) {
  * 在URL參數讀取 片源
  * 並初始化IframePlayer
  */
-onIframePlayerInit("ekthcIHDt3I");
+window.addEventListener('load', function() {
+    onIframePlayerInit("ekthcIHDt3I");
+});
