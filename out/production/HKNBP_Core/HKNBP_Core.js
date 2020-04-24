@@ -456,12 +456,44 @@ if (typeof kotlin === 'undefined') {
     this.videoMuted_0 = {type: 'videoMuted', method: 'video', params: {muted: true}};
     this.videoInline_0 = {type: 'videoInline', method: 'video', params: {inline: true}};
     this.videoInlineMuted_0 = {type: 'videoInlineMuted', method: 'video', params: {inline: true, muted: true}};
+    this.checkCanAutoplay_0(CanAutoplay_init$lambda, CanAutoplay_init$lambda_0(this), this.video_0);
+    this.checkCanAutoplay_0(CanAutoplay_init$lambda_1, CanAutoplay_init$lambda_2(this), this.videoMuted_0);
+    this.checkCanAutoplay_0(CanAutoplay_init$lambda_3, CanAutoplay_init$lambda_4(this), this.videoInline_0);
+    this.checkCanAutoplay_0(CanAutoplay_init$lambda_5, CanAutoplay_init$lambda_6(this), this.videoInlineMuted_0);
   }
   CanAutoplay.prototype.checkCanAutoplay_0 = function (onCanAutoplay, onCanNotAutoplay, autoplayType) {
   };
   CanAutoplay.prototype.checkVideoAutoPlayNeedToMute_9dmrm4$ = function (onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay) {
     this.checkCanAutoplay_0(onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay, this.videoInline_0);
   };
+  function CanAutoplay_init$lambda() {
+  }
+  function CanAutoplay_init$lambda_0(this$CanAutoplay) {
+    return function () {
+      println(this$CanAutoplay.video_0.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
+    };
+  }
+  function CanAutoplay_init$lambda_1() {
+  }
+  function CanAutoplay_init$lambda_2(this$CanAutoplay) {
+    return function () {
+      println(this$CanAutoplay.videoMuted_0.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
+    };
+  }
+  function CanAutoplay_init$lambda_3() {
+  }
+  function CanAutoplay_init$lambda_4(this$CanAutoplay) {
+    return function () {
+      println(this$CanAutoplay.videoInline_0.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
+    };
+  }
+  function CanAutoplay_init$lambda_5() {
+  }
+  function CanAutoplay_init$lambda_6(this$CanAutoplay) {
+    return function () {
+      println(this$CanAutoplay.videoInlineMuted_0.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
+    };
+  }
   CanAutoplay.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'CanAutoplay',
@@ -3257,7 +3289,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_8-test';
+    return 'v2020.04_8-test1';
   }
   var coreVersion;
   var appVersion;
@@ -4731,6 +4763,10 @@ if (typeof kotlin === 'undefined') {
   function RunnerInfo() {
     RunnerInfo_instance = this;
     this.platform = platform;
+    println(this.getOsFamily());
+    println(this.getOsName());
+    println(this.getBrowserName());
+    println(JSON.stringify(this.platform));
   }
   RunnerInfo.prototype.getOsFamily = function () {
     var tmp$;

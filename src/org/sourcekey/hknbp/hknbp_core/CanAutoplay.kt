@@ -58,11 +58,11 @@ object CanAutoplay {
         )
     }*/
 
-    init {/*
+    init {
         checkCanAutoplay(fun(){}, fun(){println(video.type+": 唔可以自動播放")}, video)
         checkCanAutoplay(fun(){}, fun(){println(videoMuted.type+": 唔可以自動播放")}, videoMuted)
         checkCanAutoplay(fun(){}, fun(){println(videoInline.type+": 唔可以自動播放")}, videoInline)
-        checkCanAutoplay(fun(){}, fun(){println(videoInlineMuted.type+": 唔可以自動播放")}, videoInlineMuted)*/
+        checkCanAutoplay(fun(){}, fun(){println(videoInlineMuted.type+": 唔可以自動播放")}, videoInlineMuted)
     }
 }
 /*
