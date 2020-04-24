@@ -28,21 +28,23 @@ object CanAutoplay {
     private val videoInlineMuted    = js("{type: 'videoInlineMuted', method: 'video', params: {inline: true, muted: true}}")
 
     private fun checkCanAutoplay(onCanAutoplay: ()->Unit, onCanNotAutoplay: ()->Unit, autoplayType: dynamic){
-        /*
         try{
-            val _canAutoplay: dynamic = js("canAutoplay")
-            _canAutoplay[autoplayType.method](autoplayType.params).then(fun(obj: dynamic){
-                var result: Boolean = false
-                try{result = obj.result}catch(e: dynamic){}
-                if (result == true) {
-                    //可以自動播放
-                    onCanAutoplay()
-                } else {
-                    //唔可以自動播放
-                    onCanNotAutoplay()
-                }
-            })
-        }catch(e:dynamic){ onCanAutoplay() }*/
+            //發現Tizen一運行CanAutoplay就會令頻道播放暫停,所以要篩走用Tizen系統嘅設備
+            if(RunnerInfo.getOsFamily() != "Tizen"){
+                val _canAutoplay: dynamic = js("canAutoplay")
+                _canAutoplay[autoplayType.method](autoplayType.params).then(fun(obj: dynamic){
+                    var result: Boolean = false
+                    try{result = obj.result}catch(e: dynamic){}
+                    if (result == true) {
+                        //可以自動播放
+                        onCanAutoplay()
+                    } else {
+                        //唔可以自動播放
+                        onCanNotAutoplay()
+                    }
+                })
+            }else{onCanAutoplay()}
+        }catch(e:dynamic){onCanAutoplay()}
     }
 
     fun checkVideoAutoPlayNeedToMute(onNotNeedToMuteCanAutoplay: ()->Unit, onNeedToMuteCanAutoplay: ()->Unit){

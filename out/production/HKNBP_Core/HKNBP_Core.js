@@ -461,7 +461,31 @@ if (typeof kotlin === 'undefined') {
     this.checkCanAutoplay_0(CanAutoplay_init$lambda_3, CanAutoplay_init$lambda_4(this), this.videoInline_0);
     this.checkCanAutoplay_0(CanAutoplay_init$lambda_5, CanAutoplay_init$lambda_6(this), this.videoInlineMuted_0);
   }
+  function CanAutoplay$checkCanAutoplay$lambda(closure$onCanAutoplay, closure$onCanNotAutoplay) {
+    return function (obj) {
+      var result = false;
+      try {
+        result = obj.result;
+      } catch (e) {
+      }
+      if (result === true) {
+        closure$onCanAutoplay();
+      } else {
+        closure$onCanNotAutoplay();
+      }
+    };
+  }
   CanAutoplay.prototype.checkCanAutoplay_0 = function (onCanAutoplay, onCanNotAutoplay, autoplayType) {
+    try {
+      if (!equals(RunnerInfo_getInstance().getOsFamily(), 'Tizen')) {
+        var _canAutoplay = canAutoplay;
+        _canAutoplay[autoplayType.method](autoplayType.params).then(CanAutoplay$checkCanAutoplay$lambda(onCanAutoplay, onCanNotAutoplay));
+      } else {
+        onCanAutoplay();
+      }
+    } catch (e) {
+      onCanAutoplay();
+    }
   };
   CanAutoplay.prototype.checkVideoAutoPlayNeedToMute_9dmrm4$ = function (onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay) {
     this.checkCanAutoplay_0(onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay, this.videoInline_0);
@@ -2735,8 +2759,8 @@ if (typeof kotlin === 'undefined') {
     var formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSehWsf1J8sSzPpXHRfFg7mqAsCC1q5dJpef2W6YvNFCrIW-8g/viewform?usp=pp_url';
     var coreVersionArg = 'entry.133709146=' + coreVersion;
     var appVersionArg = 'entry.759953459=' + appVersion;
-    var runningOsArg = 'entry.272098163=' + RunnerInfo_getInstance().getOsName();
-    var runningBrowserArg = 'entry.1391825326=' + RunnerInfo_getInstance().getBrowserName();
+    var runningOsArg = 'entry.272098163=' + toString(RunnerInfo_getInstance().getOsName());
+    var runningBrowserArg = 'entry.1391825326=' + toString(RunnerInfo_getInstance().getBrowserName());
     var logArg = 'entry.1270012498=' + encodeURIComponent(getConsoleLogs());
     var src = formUrl + '&' + coreVersionArg + '&' + appVersionArg + '&' + runningOsArg + '&' + runningBrowserArg + '&' + logArg;
     this.contentArea.innerHTML = '<iframe style=' + '"' + 'width:100%;height:100%;' + '"' + ' frameBorder=' + '"' + '0' + '"' + ' src=' + '"' + src + '"' + '><\/iframe>';
@@ -3058,7 +3082,6 @@ if (typeof kotlin === 'undefined') {
   }
   function LoadFile$load$lambda_3(closure$onProgress) {
     return function (event) {
-      println('PPPPP' + event.lengthComputable + ' ' + numberToDouble(event.total) + ' ' + numberToDouble(event.loaded));
       if (event.lengthComputable) {
         closure$onProgress(numberToDouble(event.total), numberToDouble(event.loaded));
       }};
@@ -3289,7 +3312,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_8-test1';
+    return 'v2020.04_8-test2';
   }
   var coreVersion;
   var appVersion;
@@ -4769,28 +4792,16 @@ if (typeof kotlin === 'undefined') {
     println(JSON.stringify(this.platform));
   }
   RunnerInfo.prototype.getOsFamily = function () {
-    var tmp$;
-    var _getOS = typeof (tmp$ = function () {
-      var userAgent = window.navigator.userAgent, platform = window.navigator.platform, macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'], windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'], iosPlatforms = ['iPhone', 'iPad', 'iPod'], os = '';
-      if (macosPlatforms.indexOf(platform) !== -1) {
-        os = 'Mac OS';
-      } else if (iosPlatforms.indexOf(platform) !== -1) {
-        os = 'iOS';
-      } else if (windowsPlatforms.indexOf(platform) !== -1) {
-        os = 'Windows';
-      } else if (/Android/.test(userAgent)) {
-        os = 'Android';
-      } else if (!os && /Linux/.test(platform)) {
-        os = 'Linux';
-      }return os;
-    }) === 'function' ? tmp$ : throwCCE();
-    return _getOS();
+    var tmp$, tmp$_0, tmp$_1;
+    return (tmp$_1 = (tmp$_0 = (tmp$ = this.platform) != null ? tmp$.os : null) != null ? tmp$_0.family : null) != null ? tmp$_1.toString() : null;
   };
   RunnerInfo.prototype.getOsName = function () {
-    return this.platform.os.toString();
+    var tmp$, tmp$_0;
+    return (tmp$_0 = (tmp$ = this.platform) != null ? tmp$.os : null) != null ? tmp$_0.toString() : null;
   };
   RunnerInfo.prototype.getBrowserName = function () {
-    return this.platform.name.toString() + ' ' + this.platform.version.toString();
+    var tmp$, tmp$_0, tmp$_1, tmp$_2;
+    return ((tmp$_0 = (tmp$ = this.platform) != null ? tmp$.name : null) != null ? tmp$_0.toString() : null) + ' ' + ((tmp$_2 = (tmp$_1 = this.platform) != null ? tmp$_1.version : null) != null ? tmp$_2.toString() : null);
   };
   RunnerInfo.prototype.getIOSVersion = function () {
     var tmp$;

@@ -96,7 +96,6 @@ object LoadFile {
             }else{ onFailedLoadFileProgram() }
         }
         xmlhttp.onprogress = fun(event){
-            println("PPPPP${event.lengthComputable} ${event.total.toDouble()} ${event.loaded.toDouble()}")
             if(event.lengthComputable) {
                 onProgress(event.total.toDouble(), event.loaded.toDouble())
             }
