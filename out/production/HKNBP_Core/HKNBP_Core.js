@@ -456,64 +456,12 @@ if (typeof kotlin === 'undefined') {
     this.videoMuted_0 = {type: 'videoMuted', method: 'video', params: {muted: true}};
     this.videoInline_0 = {type: 'videoInline', method: 'video', params: {inline: true}};
     this.videoInlineMuted_0 = {type: 'videoInlineMuted', method: 'video', params: {inline: true, muted: true}};
-    this.checkCanAutoplay_0(CanAutoplay_init$lambda, CanAutoplay_init$lambda_0(this), this.video_0);
-    this.checkCanAutoplay_0(CanAutoplay_init$lambda_1, CanAutoplay_init$lambda_2(this), this.videoMuted_0);
-    this.checkCanAutoplay_0(CanAutoplay_init$lambda_3, CanAutoplay_init$lambda_4(this), this.videoInline_0);
-    this.checkCanAutoplay_0(CanAutoplay_init$lambda_5, CanAutoplay_init$lambda_6(this), this.videoInlineMuted_0);
-  }
-  function CanAutoplay$checkCanAutoplay$lambda(closure$onCanAutoplay, closure$onCanNotAutoplay) {
-    return function (obj) {
-      var result = false;
-      try {
-        result = obj.result;
-      } catch (e) {
-      }
-      if (result === true) {
-        closure$onCanAutoplay();
-      } else {
-        closure$onCanNotAutoplay();
-      }
-    };
   }
   CanAutoplay.prototype.checkCanAutoplay_0 = function (onCanAutoplay, onCanNotAutoplay, autoplayType) {
-    try {
-      var _canAutoplay = canAutoplay;
-      _canAutoplay[autoplayType.method](autoplayType.params).then(CanAutoplay$checkCanAutoplay$lambda(onCanAutoplay, onCanNotAutoplay));
-    } catch (e) {
-      onCanAutoplay();
-    }
   };
   CanAutoplay.prototype.checkVideoAutoPlayNeedToMute_9dmrm4$ = function (onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay) {
     this.checkCanAutoplay_0(onNotNeedToMuteCanAutoplay, onNeedToMuteCanAutoplay, this.videoInline_0);
   };
-  function CanAutoplay_init$lambda() {
-  }
-  function CanAutoplay_init$lambda_0(this$CanAutoplay) {
-    return function () {
-      println(this$CanAutoplay.video_0.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
-    };
-  }
-  function CanAutoplay_init$lambda_1() {
-  }
-  function CanAutoplay_init$lambda_2(this$CanAutoplay) {
-    return function () {
-      println(this$CanAutoplay.videoMuted_0.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
-    };
-  }
-  function CanAutoplay_init$lambda_3() {
-  }
-  function CanAutoplay_init$lambda_4(this$CanAutoplay) {
-    return function () {
-      println(this$CanAutoplay.videoInline_0.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
-    };
-  }
-  function CanAutoplay_init$lambda_5() {
-  }
-  function CanAutoplay_init$lambda_6(this$CanAutoplay) {
-    return function () {
-      println(this$CanAutoplay.videoInlineMuted_0.type + ': \u5514\u53EF\u4EE5\u81EA\u52D5\u64AD\u653E');
-    };
-  }
   CanAutoplay.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'CanAutoplay',
@@ -3309,7 +3257,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_8';
+    return 'v2020.04_8-test';
   }
   var coreVersion;
   var appVersion;
@@ -3854,9 +3802,26 @@ if (typeof kotlin === 'undefined') {
   };
   function Player$callIframePlayerFunction$lambda(returnValue) {
   }
+  function Player$callIframePlayerFunction$lambda_0(this$Player, closure$caller) {
+    return function () {
+      this$Player.callIframePlayerFunctionList_0.remove_11rb$(closure$caller);
+    };
+  }
   Player.prototype.callIframePlayerFunction_0 = function (evalScript, onReturn) {
     if (onReturn === void 0)
       onReturn = Player$callIframePlayerFunction$lambda;
+    var caller = {};
+    caller.evalScript = evalScript;
+    caller.name = 'HKNBPCore';
+    caller.id = (new Date()).getTime().toString() + toString(Random.Default.nextInt_vux9f0$(0, 99999999));
+    caller.onReturn = onReturn;
+    this.callIframePlayerFunctionList_0.add_11rb$(caller);
+    window.setTimeout(Player$callIframePlayerFunction$lambda_0(this, caller), 60000);
+    try {
+      this.iframePlayer_0.contentWindow.postMessage(JSON.stringify(caller), '*');
+    } catch (e) {
+      println('iframePlayer\u6709\u5572Function\u6435\u5514\u5230\u6216\u767C\u751F\u554F\u984C: ' + e.toString());
+    }
   };
   Player.prototype.kotlinValueToEvalScriptUseableValue_0 = function (kotlinValue) {
     var obj = {};

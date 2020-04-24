@@ -28,6 +28,7 @@ object CanAutoplay {
     private val videoInlineMuted    = js("{type: 'videoInlineMuted', method: 'video', params: {inline: true, muted: true}}")
 
     private fun checkCanAutoplay(onCanAutoplay: ()->Unit, onCanNotAutoplay: ()->Unit, autoplayType: dynamic){
+        /*
         try{
             val _canAutoplay: dynamic = js("canAutoplay")
             _canAutoplay[autoplayType.method](autoplayType.params).then(fun(obj: dynamic){
@@ -41,7 +42,7 @@ object CanAutoplay {
                     onCanNotAutoplay()
                 }
             })
-        }catch(e:dynamic){ onCanAutoplay() }
+        }catch(e:dynamic){ onCanAutoplay() }*/
     }
 
     fun checkVideoAutoPlayNeedToMute(onNotNeedToMuteCanAutoplay: ()->Unit, onNeedToMuteCanAutoplay: ()->Unit){
@@ -57,11 +58,11 @@ object CanAutoplay {
         )
     }*/
 
-    init {
+    init {/*
         checkCanAutoplay(fun(){}, fun(){println(video.type+": 唔可以自動播放")}, video)
         checkCanAutoplay(fun(){}, fun(){println(videoMuted.type+": 唔可以自動播放")}, videoMuted)
         checkCanAutoplay(fun(){}, fun(){println(videoInline.type+": 唔可以自動播放")}, videoInline)
-        checkCanAutoplay(fun(){}, fun(){println(videoInlineMuted.type+": 唔可以自動播放")}, videoInlineMuted)
+        checkCanAutoplay(fun(){}, fun(){println(videoInlineMuted.type+": 唔可以自動播放")}, videoInlineMuted)*/
     }
 }
 /*
