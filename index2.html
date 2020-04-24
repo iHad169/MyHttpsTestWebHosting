@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<!--
+  ~ HKNBP_Core is free software:you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ HKNBP_Core is distributed in the hope that it will be useful,
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with HKNBP_Core.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="img/logo.png" />
+
+    <!--PWA-->
+    <link rel="manifest" href="manifest.json">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="theme-color" content="#000">
+    <!--iOS（safari）-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="香港網路廣播平臺">
+    <link rel="apple-touch-icon" href="img/logo.png">
+
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta http-equiv="Access-Control-Allow-Methods" content="GET, PUT, POST, DELETE, OPTIONS"/>
+    <meta http-equiv="Access-Control-Allow-Headers" content="DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range"/>
+
+    <!--允許讀URL為http協定嘅資料(唔係https)-->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <title>香港網路廣播平臺</title>
+    <meta name="description" content="TV app">
+
+    <style type="text/css">
+    ::cue{
+      background:rgba(0, 0, 0, 0);
+    }
+    #epg div{
+      text-align:left;
+    }
+    #shareWindowShareButtonList a{
+        padding:0;
+        margin:0;
+    }
+    #shareWindowShareButtonList a img{
+        width:10vh; height:10vh;
+    }
+    #virtualRemote div{
+      //display:inline;
+      //border:1vh solid red;
+      margin:auto;
+      padding:0.7vh;
+      text-align:center;
+      vertical-align:middle;
+    }
+    .nestle-bottom{
+      margin-bottom:0;
+      padding-bottom:0;
+    }
+    .nestle-top{
+      margin-top:0;
+      padding-top:0;
+    }
+    button.normal{
+      font-size:6vh;
+    }
+    button.small{
+      font-size:4vh;
+      margin:1vh;
+      padding:1vh;
+      width:auto;
+    }
+    button.fourRow{
+      font-size:3.5vh;
+      height:5vh;
+    }
+    a{
+        color:#FFF;
+    }
+
+    div{
+      text-align:center;
+      vertical-align:middle;
+      overflow:hidden;
+    }
+    .center{
+      min-width:0;
+      display:table-cell;
+      text-align:center;
+      vertical-align:middle;
+      white-space:nowrap;
+    }
+    .absoluteTopLeft{
+        position:absolute;
+        top:0; left:0;
+    }
+    .absoluteTop{
+        position:absolute;
+        top:0; left:50%;
+        transform:translate(-50%, 0);
+    }
+    .absoluteTopRight{
+        position:absolute;
+        top:0; right:0;
+    }
+    .absoluteLeft{
+        position:absolute;
+        top:50%; left:0;
+        transform:translate(0, -50%);
+    }
+    .contentCenter{
+        //position:absolute;
+        //top:50%; left:50%;
+        //transform:translate(-50%, -50%);
+        display:flex;display:-webkit-flex;
+        align-items:center;
+        justify-content:center;
+    }
+    .absoluteRight{
+        position:absolute;
+        top:50%; right:0;
+        transform:translate(0, -50%);
+    }
+    .absoluteBottomLeft{
+        position:absolute;
+        Bottom:0; left:0;
+    }
+    .absoluteBottom{
+        position:absolute;
+        Bottom:0; left:50%;
+        transform:translate(-50%, 0);
+    }
+    .absoluteBottomRight{
+        position:absolute;
+        Bottom:0; right:0;
+    }
+    .contentPenetrateY{
+      min-heigh:0;
+      overflow:hidden;
+      white-space:pre-line;
+    }
+    .contentPenetrateX{
+      min-width:0;
+      overflow:hidden;
+      white-space:nowrap;
+    }
+    .contentPenetrateX div{
+      width:max-content;
+    }
+    .displayFlexCenter{
+        height:100%;
+        display:flex;display:-webkit-flex;
+        align-items:center;
+        justify-content:center;
+    }
+    button{
+        background:#292929;
+        border:solid rgba(0,0,0,0);
+        color:#FFF;
+        width:100%;
+    }
+    select{
+        background-color:rgba(35,35,35,1);
+        border:solid rgba(0,0,0,0);
+        color:#FFF;
+        //padding:.5vh;
+    }
+    option{
+        background-color:rgba(20,20,20,1);
+        border:solid rgba(0,0,0,0);
+        color:#FFF;
+    }
+    input{
+        background:#444;
+        border:solid rgba(0,0,0,0);
+        color:#FFF;
+    }
+    button:hover, select:hover, option:hover, input:hover,
+    button:focus, select:focus, option:focus, input:focus{
+        border:solid #5599ff;
+    }
+    ::-moz-focus-inner {
+        border:0;
+    }
+
+    button.notice{
+        font-size:4vh;
+        background:rgba(0, 0, 0, 0);
+        border:0;
+        outline:none;
+        text-shadow:black 0em 0em 0.2em;
+        overflow:hidden;
+        position:absolute;
+        width:7vh; height:7vh;
+        z-index:50;
+    }
+    button.notice:hover{
+        filter:drop-shadow(0vh 0vh .3vh #2196F3) drop-shadow(0vh 0vh .3vh #2196F3) drop-shadow(0vh 0vh .3vh #2196F3);
+    }
+    .display_none{
+        display:none;
+    }
+    .display_block{
+        display:block;
+    }
+
+    @font-face {
+        font-family:'fontello';
+        src:url('./font/fontello.eot?23602108');
+        src:url('./font/fontello.eot?23602108#iefix') format('embedded-opentype'),
+        url('./font/fontello.woff?23602108') format('woff'),
+        url('./font/fontello.ttf?23602108') format('truetype'),
+        url('./font/fontello.svg?23602108#fontello') format('svg');
+        font-weight:normal;
+        font-style:normal;
+    }
+    i.icon-font{
+        font-family:"fontello";
+        font-style:normal;
+        font-weight:normal;
+        speak:none;
+
+        display:inline-block;
+        text-decoration:inherit;
+        width:1em;
+        text-align:center;
+        /* opacity:.8; */
+
+        /* For safety - reset parent styles, that can break glyph codes*/
+        font-variant:normal;
+        text-transform:none;
+
+        /* fix buttons height, for twitter bootstrap */
+        //line-height:1em;
+
+        /* You can be more comfortable with increased icons size */
+        font-size:100%;
+
+        /* Font smoothing. That was taken from TWBS */
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+
+        /* Uncomment for 3D effect */
+        /* text-shadow:.1vh .1vh .1vh rgba(127, 127, 127, 0.3); */
+    }
+
+    /* Scroll Bar 效果*/
+    /* width & height */
+    ::-webkit-scrollbar {
+        width:.7vh; height:.7vh;
+    }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background:#303030;
+    }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background:#777777;
+    }
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background:#DDDDDD;
+    }
+    </style>
+</head>
+
+<body id="body"
+      style="
+        background-color:#000;
+        color:#FFF;
+        //font-weight:bold;
+        font-size:4vh;
+        font-family:FreeSans;
+        margin:0;
+        overflow:hidden;
+        position:absolute;
+        top:0; bottom:0; left:0; right:0;
+        //text-transform:full-size-kana;
+        /* disable text selection highlighting */
+        -webkit-touch-callout:none; /* iOS Safari */
+        -webkit-user-select  :none; /* Safari */
+        -khtml-user-select   :none; /* Konqueror HTML */
+        -moz-user-select     :none; /* Firefox */
+        -ms-user-select      :none; /* Internet Explorer/Edge */
+        user-select          :none; /* Non-prefixed version, currently supported by Chrome and Opera */
+       "
+>
+
+<div id="player" style="
+         overflow:hidden;
+         position:absolute;
+         top:0; bottom:0; left:0; right:0;
+         z-index:20;
+       ">
+    <iframe
+            id="iframePlayer"
+            src="iframePlayer/videojs.html?sourceSrc=https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
+            style="width:100%; height:100%; position:absolute; top:0; left:0; overflow:hidden;"
+            frameBorder="0"
+            allow="autoplay;">
+        你嘅瀏覽器唔支援iframe
+    </iframe>
+</div>
+
+</body>
+
+</html>

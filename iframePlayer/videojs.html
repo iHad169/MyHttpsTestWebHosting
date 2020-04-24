@@ -342,7 +342,9 @@ function onClickProgrammableButton(color){
 }
 
 /**
+ * 一般選件
  *
+ * 為大多數系統可行
  * */
 var commonPlayerOptions = {
     autoplay: true,
@@ -352,7 +354,10 @@ var commonPlayerOptions = {
 };
 
 /**
+ * 專門為Android而套用嘅選件
  *
+ * 暫時發現Android使用VideoJS默認選件值時
+ * Android會搵唔到頻道源付帶嘅 音頻 同 字幕
  * */
 var androidPlayerOptions = {
     autoplay: true,
@@ -371,7 +376,7 @@ var androidPlayerOptions = {
 };
 
 /**
- *
+ * 獲取運行緊嘅 系統家族
  * */
 function getOsFamily(){
     var userAgent = window.navigator.userAgent,
@@ -394,8 +399,12 @@ function getOsFamily(){
     return os;
 }
 
- /**
+/**
+ * 獲取播放器選件
  *
+ * 暫時發現Android使用VideoJS默認選件值時
+ * Android會搵唔到頻道源付帶嘅 音頻 同 字幕
+ * 所以按系統類型套用唔同選件
  * */
 function getPlayerOptions(){
     switch(getOsFamily()) {
@@ -408,7 +417,10 @@ function getPlayerOptions(){
 }
 
 /**
+ * 獲取頻道源類型
  *
+ * 用作畀播放器知會頻道源類型
+ * 因試過冇寫畀佢佢有啲頻道源播放唔到
  * */
 function getSourceType(sourceSrc){
     try{
