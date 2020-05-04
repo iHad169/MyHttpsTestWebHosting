@@ -14,8 +14,8 @@ if (typeof kotlin === 'undefined') {
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var Kind_CLASS = Kotlin.Kind.CLASS;
   var equals = Kotlin.equals;
-  var startsWith = Kotlin.kotlin.text.startsWith_7epoxm$;
   var toString = Kotlin.toString;
+  var startsWith = Kotlin.kotlin.text.startsWith_7epoxm$;
   var toIntOrNull = Kotlin.kotlin.text.toIntOrNull_pdl1vz$;
   var toInt = Kotlin.kotlin.text.toInt_pdl1vz$;
   var sortWith = Kotlin.kotlin.collections.sortWith_nqfjgj$;
@@ -462,18 +462,28 @@ if (typeof kotlin === 'undefined') {
     this.checkCanAutoplay_0(CanAutoplay_init$lambda_5, CanAutoplay_init$lambda_6(this), this.videoInlineMuted_0);
   }
   CanAutoplay.prototype.isNotUseCanAutoplayOnThisRunner_0 = function () {
-    var tmp$, tmp$_0, tmp$_1, tmp$_2;
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4;
     var isNotUse = false;
-    if (!equals(RunnerInfo_getInstance().getOsFamily(), 'Tizen')) {
+    if (equals(RunnerInfo_getInstance().getOsFamily(), 'Tizen')) {
       isNotUse = true;
+      println('RunnerInfo.getOsFamily() == ' + '"' + 'Tizen' + '"' + ' ' + equals(RunnerInfo_getInstance().getOsFamily(), 'Tizen'));
     }var $receiver = appVersion;
     var regex = '/webOS/g';
     if (0 < ((tmp$_0 = (tmp$ = $receiver.match(regex)) != null ? tmp$.length : null) != null ? tmp$_0 : 0)) {
       isNotUse = true;
-    }var tmp$_3 = 'appVersion.match(' + '"' + '/webOS/g' + '"' + ')?.size?:0 ';
-    var $receiver_0 = appVersion;
-    var regex_0 = '/webOS/g';
-    println(tmp$_3 + ((tmp$_2 = (tmp$_1 = $receiver_0.match(regex_0)) != null ? tmp$_1.length : null) != null ? tmp$_2 : 0));
+      var tmp$_5 = '0 < appVersion.match(' + '"' + '/webOS/g' + '"' + ')?.size?:0 ';
+      var $receiver_0 = appVersion;
+      var regex_0 = '/webOS/g';
+      println(tmp$_5 + (0 < ((tmp$_2 = (tmp$_1 = $receiver_0.match(regex_0)) != null ? tmp$_1.length : null) != null ? tmp$_2 : 0)));
+    }println('appVersion ' + appVersion);
+    var tmp$_6 = 'appVersion.match(' + '"' + '/webOS/g' + '"' + ') ';
+    var $receiver_1 = appVersion;
+    var regex_1 = '/webOS/g';
+    println(tmp$_6 + toString($receiver_1.match(regex_1)));
+    var tmp$_7 = 'appVersion.match(' + '"' + '/webOS/g' + '"' + ')?.size?:0 ';
+    var $receiver_2 = appVersion;
+    var regex_2 = '/webOS/g';
+    println(tmp$_7 + ((tmp$_4 = (tmp$_3 = $receiver_2.match(regex_2)) != null ? tmp$_3.length : null) != null ? tmp$_4 : 0));
     println('isNotUse ' + isNotUse);
     return isNotUse;
   };
@@ -3328,7 +3338,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.05_1-test';
+    return 'v2020.05_1-test2';
   }
   var coreVersion;
   var appVersion;
