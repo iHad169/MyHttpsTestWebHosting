@@ -468,7 +468,7 @@ if (typeof kotlin === 'undefined') {
       isNotUse = true;
     }var $receiver = appVersion;
     var regex = '/webOS/g';
-    if (((tmp$_0 = (tmp$ = $receiver.match(regex)) != null ? tmp$.length : null) != null ? tmp$_0 : 0) < 1) {
+    if (0 < ((tmp$_0 = (tmp$ = $receiver.match(regex)) != null ? tmp$.length : null) != null ? tmp$_0 : 0)) {
       isNotUse = true;
     }var tmp$_3 = 'appVersion.match(' + '"' + '/webOS/g' + '"' + ')?.size?:0 ';
     var $receiver_0 = appVersion;
@@ -3328,7 +3328,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.05_1';
+    return 'v2020.05_1-test';
   }
   var coreVersion;
   var appVersion;
