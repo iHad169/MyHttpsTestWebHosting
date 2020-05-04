@@ -461,6 +461,22 @@ if (typeof kotlin === 'undefined') {
     this.checkCanAutoplay_0(CanAutoplay_init$lambda_3, CanAutoplay_init$lambda_4(this), this.videoInline_0);
     this.checkCanAutoplay_0(CanAutoplay_init$lambda_5, CanAutoplay_init$lambda_6(this), this.videoInlineMuted_0);
   }
+  CanAutoplay.prototype.isNotUseCanAutoplayOnThisRunner_0 = function () {
+    var tmp$, tmp$_0, tmp$_1, tmp$_2;
+    var isNotUse = false;
+    if (!equals(RunnerInfo_getInstance().getOsFamily(), 'Tizen')) {
+      isNotUse = true;
+    }var $receiver = appVersion;
+    var regex = '/webOS/g';
+    if (((tmp$_0 = (tmp$ = $receiver.match(regex)) != null ? tmp$.length : null) != null ? tmp$_0 : 0) < 1) {
+      isNotUse = true;
+    }var tmp$_3 = 'appVersion.match(' + '"' + '/webOS/g' + '"' + ')?.size?:0 ';
+    var $receiver_0 = appVersion;
+    var regex_0 = '/webOS/g';
+    println(tmp$_3 + ((tmp$_2 = (tmp$_1 = $receiver_0.match(regex_0)) != null ? tmp$_1.length : null) != null ? tmp$_2 : 0));
+    println('isNotUse ' + isNotUse);
+    return isNotUse;
+  };
   function CanAutoplay$checkCanAutoplay$lambda(closure$onCanAutoplay, closure$onCanNotAutoplay) {
     return function (obj) {
       var result = false;
@@ -477,11 +493,11 @@ if (typeof kotlin === 'undefined') {
   }
   CanAutoplay.prototype.checkCanAutoplay_0 = function (onCanAutoplay, onCanNotAutoplay, autoplayType) {
     try {
-      if (!equals(RunnerInfo_getInstance().getOsFamily(), 'Tizen')) {
+      if (this.isNotUseCanAutoplayOnThisRunner_0()) {
+        onCanAutoplay();
+      } else {
         var _canAutoplay = canAutoplay;
         _canAutoplay[autoplayType.method](autoplayType.params).then(CanAutoplay$checkCanAutoplay$lambda(onCanAutoplay, onCanNotAutoplay));
-      } else {
-        onCanAutoplay();
       }
     } catch (e) {
       onCanAutoplay();
@@ -3312,7 +3328,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.04_8-test2';
+    return 'v2020.05_1';
   }
   var coreVersion;
   var appVersion;
@@ -4786,10 +4802,6 @@ if (typeof kotlin === 'undefined') {
   function RunnerInfo() {
     RunnerInfo_instance = this;
     this.platform = platform;
-    println(this.getOsFamily());
-    println(this.getOsName());
-    println(this.getBrowserName());
-    println(JSON.stringify(this.platform));
   }
   RunnerInfo.prototype.getOsFamily = function () {
     var tmp$, tmp$_0, tmp$_1;
