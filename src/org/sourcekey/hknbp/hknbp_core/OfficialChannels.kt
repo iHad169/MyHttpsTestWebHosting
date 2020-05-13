@@ -33,21 +33,22 @@ object OfficialChannels {
         //加入最新OfficialChannels
         channels.addAll(needSetOfficialChannels)
     }
-    /*
+
     private class ChannelsSearchDisplay(
             val channelsSearchDisplayId: String = "ChannelsSearchDisplay${Random.nextInt(0, 99999999)}",
             protected val message: HTMLDivElement = {
-                val message = document.createElement("progress") as HTMLDivElement
+                val message = document.createElement("div") as HTMLDivElement
                 message.style.position                  = "relative"
-                message.style.backgroundColor           = "#303030"
-                message.style.top                       = "30vh"
-                message.style.left                      = "10vh"
-                message.style.right                     = "10vh"
+                message.style.top                       = "0"
+                message.style.bottom                    = "0"
+                message.style.left                      = "0"
+                message.style.right                     = "0"
                 message.style.cursor                    = "auto"
+                message.innerHTML                       = "<i class=\"icon-font animate-spin\">&#xe835;</i> 搜索頻道中..."
                 message.onclick                         = fun(event){ event.stopPropagation() }//停止行父元素onclick
                 message
             }(),
-            protected val progressBar: HTMLProgressElement = {
+            /*protected val progressBar: HTMLProgressElement = {
                 val progressBar = document.createElement("progress") as HTMLProgressElement
                 progressBar.style.position              = "relative"
                 progressBar.style.backgroundColor       = "#303030"
@@ -57,7 +58,7 @@ object OfficialChannels {
                 progressBar.style.cursor                = "auto"
                 progressBar.onclick                     = fun(event){ event.stopPropagation() }//停止行父元素onclick
                 progressBar
-            }(),
+            }(),*/
             protected val focusOutArea: HTMLDivElement = {
                 val focusOutArea = document.createElement("div") as HTMLDivElement
                 focusOutArea.style.backgroundColor      = "rgba(0, 0, 0, 0.6)"
@@ -72,7 +73,7 @@ object OfficialChannels {
                 focusOutArea.style.justifyContent       = "center"
                 focusOutArea.tabIndex                   = -1
                 focusOutArea.appendChild(message)
-                focusOutArea.appendChild(progressBar)
+                //focusOutArea.appendChild(progressBar)
                 focusOutArea
             }(),
             protected val placeArea: HTMLDivElement = {
@@ -95,9 +96,8 @@ object OfficialChannels {
     ): UserInterface(placeArea){
 
         fun update(max: Double, value: Double) {
-            progressBar.max     = max
-            progressBar.value   = value
-            message.innerHTML   = "<i class=\"icon-font\">&#xe834;</i>搜索頻道中..."
+            //progressBar.max     = max
+            //progressBar.value   = value
         }
 
         override fun hide() {
@@ -108,15 +108,15 @@ object OfficialChannels {
         init {
             show(null)
         }
-    }*/
+    }
 
     /**
      * 更新OfficialChannels
      * */
     fun updateChannels(){
-        /*
         var channelsSearchDisplay: ChannelsSearchDisplay? = null
-        var isShowProgress = false*/
+        if(channels.size<1){ channelsSearchDisplay = ChannelsSearchDisplay() }
+        //var isShowProgress = false
         parseChannels(fun(max: Double, value: Double){
             /*
             if(channels.size<1){
@@ -141,6 +141,8 @@ object OfficialChannels {
                 //設置OfficialChannels
                 set(officialChannels)
             }
+            //隱藏 搜索頻道 資訊
+            channelsSearchDisplay?.hide()
         }, fun(){}, "https://official-channels.hknbp.org/official_channels.xml")
     }
 

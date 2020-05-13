@@ -85,6 +85,8 @@ if (typeof kotlin === 'undefined') {
   MutedDescription.prototype.constructor = MutedDescription;
   NativeAppInstallButton.prototype = Object.create(UserInterface.prototype);
   NativeAppInstallButton.prototype.constructor = NativeAppInstallButton;
+  OfficialChannels$ChannelsSearchDisplay.prototype = Object.create(UserInterface.prototype);
+  OfficialChannels$ChannelsSearchDisplay.prototype.constructor = OfficialChannels$ChannelsSearchDisplay;
   PictureInPictureButton.prototype = Object.create(UserInterface.prototype);
   PictureInPictureButton.prototype.constructor = PictureInPictureButton;
   Player$OnPlayerEvent.prototype = Object.create(Enum.prototype);
@@ -468,7 +470,6 @@ if (typeof kotlin === 'undefined') {
       isNotUse = true;
     }if (0 < ((tmp$_0 = (tmp$ = appVersion.match('webOS')) != null ? tmp$.length : null) != null ? tmp$_0 : 0)) {
       isNotUse = true;
-      println('ttttttt');
     }return isNotUse;
   };
   function CanAutoplay$checkCanAutoplay$lambda(closure$onCanAutoplay, closure$onCanNotAutoplay) {
@@ -3322,7 +3323,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.05_1';
+    return 'v2020.05_2';
   }
   var coreVersion;
   var appVersion;
@@ -3675,22 +3676,108 @@ if (typeof kotlin === 'undefined') {
     channels.removeAll_brywnq$(needRemoveOfficialChannels);
     channels.addAll_brywnq$(needSetOfficialChannels);
   };
+  function OfficialChannels$ChannelsSearchDisplay(channelsSearchDisplayId, message, focusOutArea, placeArea) {
+    if (channelsSearchDisplayId === void 0)
+      channelsSearchDisplayId = 'ChannelsSearchDisplay' + Random.Default.nextInt_vux9f0$(0, 99999999);
+    if (message === void 0)
+      message = OfficialChannels$OfficialChannels$ChannelsSearchDisplay_init$lambda();
+    if (focusOutArea === void 0)
+      focusOutArea = OfficialChannels$OfficialChannels$ChannelsSearchDisplay_init$lambda_0(message)();
+    if (placeArea === void 0)
+      placeArea = OfficialChannels$OfficialChannels$ChannelsSearchDisplay_init$lambda_1(channelsSearchDisplayId, focusOutArea)();
+    UserInterface.call(this, placeArea);
+    this.channelsSearchDisplayId = channelsSearchDisplayId;
+    this.message_0 = message;
+    this.focusOutArea_0 = focusOutArea;
+    this.placeArea_0 = placeArea;
+    this.show_s8ev37$(null);
+  }
+  OfficialChannels$ChannelsSearchDisplay.prototype.update_lu1900$ = function (max, value) {
+  };
+  OfficialChannels$ChannelsSearchDisplay.prototype.hide = function () {
+    var tmp$;
+    UserInterface.prototype.hide.call(this);
+    (Kotlin.isType(tmp$ = document.getElementById('dynamicUserInterfaceArea'), HTMLDivElement) ? tmp$ : throwCCE()).removeChild(this.placeArea_0);
+  };
+  function OfficialChannels$OfficialChannels$ChannelsSearchDisplay_init$lambda$lambda(event) {
+    event.stopPropagation();
+  }
+  function OfficialChannels$OfficialChannels$ChannelsSearchDisplay_init$lambda() {
+    var tmp$;
+    var message = Kotlin.isType(tmp$ = document.createElement('div'), HTMLDivElement) ? tmp$ : throwCCE();
+    message.style.position = 'relative';
+    message.style.top = '0';
+    message.style.bottom = '0';
+    message.style.left = '0';
+    message.style.right = '0';
+    message.style.cursor = 'auto';
+    message.innerHTML = '<i class="icon-font animate-spin">&#xe835;<\/i> \u641C\u7D22\u983B\u9053\u4E2D...';
+    message.onclick = OfficialChannels$OfficialChannels$ChannelsSearchDisplay_init$lambda$lambda;
+    return message;
+  }
+  function OfficialChannels$OfficialChannels$ChannelsSearchDisplay_init$lambda_0(closure$message) {
+    return function () {
+      var tmp$;
+      var focusOutArea = Kotlin.isType(tmp$ = document.createElement('div'), HTMLDivElement) ? tmp$ : throwCCE();
+      focusOutArea.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+      focusOutArea.style.display = 'flex';
+      focusOutArea.style.position = 'absolute';
+      focusOutArea.style.top = '0';
+      focusOutArea.style.bottom = '0';
+      focusOutArea.style.left = '0';
+      focusOutArea.style.right = '0';
+      focusOutArea.style.zIndex = '90';
+      focusOutArea.style.alignItems = 'center';
+      focusOutArea.style.justifyContent = 'center';
+      focusOutArea.tabIndex = -1;
+      focusOutArea.appendChild(closure$message);
+      return focusOutArea;
+    };
+  }
+  function OfficialChannels$OfficialChannels$ChannelsSearchDisplay_init$lambda_1(closure$channelsSearchDisplayId, closure$focusOutArea) {
+    return function () {
+      var tmp$, tmp$_0;
+      var placeArea = Kotlin.isType(tmp$ = document.createElement('div'), HTMLDivElement) ? tmp$ : throwCCE();
+      placeArea.id = closure$channelsSearchDisplayId;
+      placeArea.style.display = 'none';
+      placeArea.style.position = 'absolute';
+      placeArea.style.top = '0';
+      placeArea.style.bottom = '0';
+      placeArea.style.left = '0';
+      placeArea.style.right = '0';
+      placeArea.style.zIndex = '90';
+      placeArea.appendChild(closure$focusOutArea);
+      var dynamicUserInterfaceArea = Kotlin.isType(tmp$_0 = document.getElementById('dynamicUserInterfaceArea'), HTMLDivElement) ? tmp$_0 : throwCCE();
+      dynamicUserInterfaceArea.appendChild(placeArea);
+      return placeArea;
+    };
+  }
+  OfficialChannels$ChannelsSearchDisplay.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'ChannelsSearchDisplay',
+    interfaces: [UserInterface]
+  };
   function OfficialChannels$updateChannels$lambda(max, value) {
   }
-  function OfficialChannels$updateChannels$lambda_0(this$OfficialChannels) {
+  function OfficialChannels$updateChannels$lambda_0(this$OfficialChannels, closure$channelsSearchDisplay) {
     return function (officialChannels) {
+      var tmp$;
       if (channels.size < 1) {
         this$OfficialChannels.set_0(officialChannels);
         changeToRecentlyWatchedChannel(channels);
       } else {
         this$OfficialChannels.set_0(officialChannels);
       }
+      (tmp$ = closure$channelsSearchDisplay.v) != null ? (tmp$.hide(), Unit) : null;
     };
   }
   function OfficialChannels$updateChannels$lambda_1() {
   }
   OfficialChannels.prototype.updateChannels = function () {
-    parseChannels(OfficialChannels$updateChannels$lambda, OfficialChannels$updateChannels$lambda_0(this), OfficialChannels$updateChannels$lambda_1, ['https://official-channels.hknbp.org/official_channels.xml']);
+    var channelsSearchDisplay = {v: null};
+    if (channels.size < 1) {
+      channelsSearchDisplay.v = new OfficialChannels$ChannelsSearchDisplay();
+    }parseChannels(OfficialChannels$updateChannels$lambda, OfficialChannels$updateChannels$lambda_0(this, channelsSearchDisplay), OfficialChannels$updateChannels$lambda_1, ['https://official-channels.hknbp.org/official_channels.xml']);
   };
   OfficialChannels.$metadata$ = {
     kind: Kind_OBJECT,
