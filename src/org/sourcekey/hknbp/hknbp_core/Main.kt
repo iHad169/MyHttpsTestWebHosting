@@ -14,22 +14,9 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
-import jquery.JQuery
-import jquery.jq
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.stringify
-import org.w3c.dom.*
-import org.w3c.dom.events.Event
-import org.w3c.dom.url.URL
-import kotlin.browser.document
-import kotlin.browser.localStorage
+
 import kotlin.browser.window
-import kotlin.js.Console
-import kotlin.js.Date
-import kotlin.js.Json
-import kotlin.js.json
-import kotlin.random.Random
+
 
 
 /**
@@ -165,7 +152,7 @@ val coreVersion: String = {
     value
     */
 
-    "v2020.05_2"
+    "v2020.05_3"
 }()
 
 /**
