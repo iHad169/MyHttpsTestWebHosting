@@ -4883,6 +4883,8 @@ if (typeof kotlin === 'undefined') {
   function RunnerInfo() {
     RunnerInfo_instance = this;
     this.platform = platform;
+    println(this.getOsFamily());
+    println(this.getOsName());
   }
   RunnerInfo.prototype.getOsFamily = function () {
     var tmp$, tmp$_0, tmp$_1;
