@@ -14,6 +14,8 @@
 
 package org.sourcekey.hknbp.hknbp_core
 
+import kotlin.browser.window
+
 object RunnerInfo {
     val platform = js("platform")
 
@@ -70,5 +72,11 @@ object RunnerInfo {
     init {
         println("getOsFamily() ${getOsFamily()}")
         println("getOsName() ${getOsName()}")
+        println("platform ${JSON.stringify(platform)}")
+        console.log(window.navigator)
+        console.log("window.navigator.platform ${window.navigator.platform}")
+        console.log("window.navigator.userAgent ${window.navigator.userAgent}")
+        console.log("window.navigator.appVersion ${window.navigator.appVersion}")
+        console.log("window.navigator.oscpu ${window.navigator.oscpu}")
     }
 }
