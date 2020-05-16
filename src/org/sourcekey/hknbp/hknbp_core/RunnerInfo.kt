@@ -68,7 +68,7 @@ object RunnerInfo {
     }
 
     init {
-        println(getOsFamily())
-        println(getOsName())
+        println("getOsFamily() ${getOsFamily()}")
+        println("getOsName() ${getOsName()}")
     }
 }

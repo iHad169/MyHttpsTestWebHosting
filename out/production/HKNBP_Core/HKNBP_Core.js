@@ -3323,7 +3323,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.05_3';
+    return 'v2020.05_3-test';
   }
   var coreVersion;
   var appVersion;
@@ -4883,8 +4883,8 @@ if (typeof kotlin === 'undefined') {
   function RunnerInfo() {
     RunnerInfo_instance = this;
     this.platform = platform;
-    println(this.getOsFamily());
-    println(this.getOsName());
+    println('getOsFamily() ' + toString(this.getOsFamily()));
+    println('getOsName() ' + toString(this.getOsName()));
   }
   RunnerInfo.prototype.getOsFamily = function () {
     var tmp$, tmp$_0, tmp$_1;
