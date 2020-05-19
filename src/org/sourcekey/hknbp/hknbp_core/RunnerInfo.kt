@@ -68,15 +68,4 @@ object RunnerInfo {
     fun isBelowIOS10(): Boolean{
         return getOsFamily() == "iOS" && (getIOSVersion()?:10) < 10
     }
-
-    init {
-        println("getOsFamily() ${getOsFamily()}")
-        println("getOsName() ${getOsName()}")
-        println("platform ${JSON.stringify(platform)}")
-        console.log(window.navigator)
-        console.log("window.navigator.platform ${window.navigator.platform}")
-        console.log("window.navigator.userAgent ${window.navigator.userAgent}")
-        console.log("window.navigator.appVersion ${window.navigator.appVersion}")
-        console.log("window.navigator.oscpu ${window.navigator.oscpu}")
-    }
 }

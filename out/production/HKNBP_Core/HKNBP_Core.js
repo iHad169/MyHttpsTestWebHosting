@@ -3323,7 +3323,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.05_3-test1';
+    return 'v2020.05_3';
   }
   var coreVersion;
   var appVersion;
@@ -4883,14 +4883,6 @@ if (typeof kotlin === 'undefined') {
   function RunnerInfo() {
     RunnerInfo_instance = this;
     this.platform = platform;
-    println('getOsFamily() ' + toString(this.getOsFamily()));
-    println('getOsName() ' + toString(this.getOsName()));
-    println('platform ' + JSON.stringify(this.platform));
-    console.log(window.navigator);
-    console.log('window.navigator.platform ' + window.navigator.platform);
-    console.log('window.navigator.userAgent ' + window.navigator.userAgent);
-    console.log('window.navigator.appVersion ' + window.navigator.appVersion);
-    console.log('window.navigator.oscpu ' + window.navigator.oscpu);
   }
   RunnerInfo.prototype.getOsFamily = function () {
     var tmp$, tmp$_0, tmp$_1;
