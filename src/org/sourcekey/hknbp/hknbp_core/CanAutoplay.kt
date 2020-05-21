@@ -27,12 +27,13 @@ object CanAutoplay {
     private val videoInline         = js("{type: 'videoInline', method: 'video', params: {inline: true}}")
     private val videoInlineMuted    = js("{type: 'videoInlineMuted', method: 'video', params: {inline: true, muted: true}}")
 
+
     private fun isNotUseCanAutoplayOnThisRunner(): Boolean{
         var isNotUse = false
         //發現Tizen一運行CanAutoplay就會令頻道播放暫停,所以要篩走用Tizen系統嘅設備
-        if(RunnerInfo.getOsFamily() == "Tizen"){isNotUse = true}
+        if(RunnerInfo.isTizen()){isNotUse = true}
         //暫時未知webOS係米同Tizen發生同樣問題,孤奢試下唔行 (暫時未諗到點知行緊嘅裝置係webOS,試過getOsFamily()出"Linux x86")
-        if(0 < appVersion.match("webOS")?.size?:0){isNotUse = true}
+        if(RunnerInfo.isWebOS()){isNotUse = true}
         return isNotUse
     }
 

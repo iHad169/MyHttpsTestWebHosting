@@ -217,9 +217,20 @@ object VirtualRemote{
                     || focusingElement is HTMLInputElement
                     || focusingElement is HTMLSelectElement
                     || focusingElement is HTMLOptionElement
-            )){ jq("#userControlPanelShower").focus() }/**/
-            //click入Focus緊嘅Element
-            jq(":focus").click()
+            )){ jq("#userControlPanelShower").focus() }
+            ////////////////////////////////////////////////////
+            //暫時將Tizen同webOS唔行呢句
+            //因之前Tizen同webOS嘅應用程式嘅Enter鍵程序
+            //冇寫event.preventDefault();
+            //使如果行下面句野就會當click左兩下
+            //而因應用程式提交中未能更新此問題
+            //之後再算
+            //(過度性則)
+            ////////////////////////////////////////////////////
+            if(!(RunnerInfo.isTizen() || RunnerInfo.isWebOS())){
+                //click入Focus緊嘅Element
+                jq(":focus").click()
+            }
         }
         upButton.onclick                    = fun(event){
             val selectables = jq(":tabbable")

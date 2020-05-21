@@ -68,4 +68,12 @@ object RunnerInfo {
     fun isBelowIOS10(): Boolean{
         return getOsFamily() == "iOS" && (getIOSVersion()?:10) < 10
     }
+
+    fun isTizen(): Boolean{
+        return getOsFamily() == "Tizen"
+    }
+
+    fun isWebOS(): Boolean{
+        return 0 < appVersion.match("webOS")?.size?:0
+    }
 }
