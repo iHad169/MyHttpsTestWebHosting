@@ -3323,7 +3323,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.05_3';
+    return 'v2020.05_3-test';
   }
   var coreVersion;
   var appVersion;
@@ -5937,7 +5937,8 @@ if (typeof kotlin === 'undefined') {
     var focusingElement = $(':focus').get(0);
     if (!(Kotlin.isType(focusingElement, HTMLButtonElement) || Kotlin.isType(focusingElement, HTMLInputElement) || Kotlin.isType(focusingElement, HTMLSelectElement) || Kotlin.isType(focusingElement, HTMLOptionElement))) {
       $('#userControlPanelShower').focus();
-    }}
+    }$(':focus').click();
+  }
   function VirtualRemote_init$lambda$lambda(element) {
     var tmp$;
     return (tmp$ = toIntOrNull(Tab3dIndex$Companion_getInstance().toUnparsedTabIndex_lvro24$(element))) != null ? tmp$ : 0;

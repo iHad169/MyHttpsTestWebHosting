@@ -217,10 +217,9 @@ object VirtualRemote{
                     || focusingElement is HTMLInputElement
                     || focusingElement is HTMLSelectElement
                     || focusingElement is HTMLOptionElement
-            )){ jq("#userControlPanelShower").focus() }/*
+            )){ jq("#userControlPanelShower").focus() }/**/
             //click入Focus緊嘅Element
             jq(":focus").click()
-            */
         }
         upButton.onclick                    = fun(event){
             val selectables = jq(":tabbable")
