@@ -996,10 +996,10 @@ var hknbpCore       = HKNBP_Core.org.sourcekey.hknbp.hknbp_core;
 var hknbpPrompt     = hknbpCore.PromptBox;
 var hknbpRemote     = hknbpCore.VirtualRemote;
 var hknbpPlayer     = hknbpCore.Player;
-var hknbpVolumeUp   = hknbpPlayer.volumeUp;
-var hknbpVolumeDown = hknbpPlayer.volumeDown;
-var hknbpVolumeMute = hknbpPlayer.volumeMute;
-var hknbpAppVersion = hknbpCore.appVersion;
+var hknbpVolumeUp   = function(f){hknbpPlayer.volumeUp = f;};
+var hknbpVolumeDown = function(f){hknbpPlayer.volumeDown = f;};
+var hknbpVolumeMute = function(f){hknbpPlayer.volumeMute = f;};
+var hknbpAppVersion = function(version){hknbpCore.appVersion = version;};
 </script><!--畀其他地方方便Call-->
 </body>
 
