@@ -342,11 +342,9 @@ function onClickProgrammableButton(color){
 }
 
 /**
- * 一般選件
- *
- * 為大多數系統可行
+ * 默認選件
  * */
-var commonPlayerOptions = {
+var defaultPlayerOptions = {
     autoplay: true,
     controls: false,
     poster: "../img/nullIcon.png",
@@ -354,12 +352,19 @@ var commonPlayerOptions = {
 };
 
 /**
- * 專門為Android而套用嘅選件
+ * 一般選件
  *
+ * 為大多數系統可行
+ *
+ * Android *
  * 暫時發現Android使用VideoJS默認選件值時
  * Android會搵唔到頻道源付帶嘅 音頻 同 字幕
+ *
+ * webOS *
+ * 暫時發現webOS使用VideoJS默認選件值時
+ * webOS播放唔到HLS源
  * */
-var androidPlayerOptions = {
+var commonPlayerOptions = {
     autoplay: true,
     controls: false,
     poster: "../img/nullIcon.png",
@@ -376,6 +381,28 @@ var androidPlayerOptions = {
 };
 
 /**
+ * 專門為Android而套用嘅選件
+ *
+ * 暫時發現Android使用VideoJS默認選件值時
+ * Android會搵唔到頻道源付帶嘅 音頻 同 字幕
+ * */
+var tizenPlayerOptions = {
+    autoplay: true,
+    controls: false,
+    poster: "../img/nullIcon.png",
+    liveui: true,
+    techOrder: ["html5"/*, "flash", "vlc"*/],
+    html5: {
+        hls: {
+            overrideNative: true
+        }/*,
+        nativeVideoTracks: true,
+        nativeAudioTracks: false,
+        nativeTextTracks: false*/
+    }
+};
+
+/**
  * 獲取運行緊嘅 系統家族
  * */
 function getOsFamily(){
@@ -385,6 +412,10 @@ function getOsFamily(){
         windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
         iosPlatforms = ['iPhone', 'iPad', 'iPod'],
         os = '';
+        console.log("window.navigator");
+        console.log(window.navigator);
+        console.log("window.navigator.platform");
+        console.log(window.navigator.platform);
     if (macosPlatforms.indexOf(platform) !== -1) {
         os = 'MacOS';
     } else if (iosPlatforms.indexOf(platform) !== -1) {
@@ -407,10 +438,9 @@ function getOsFamily(){
  * 所以按系統類型套用唔同選件
  * */
 function getPlayerOptions(){
-    return androidPlayerOptions;
     switch(getOsFamily()) {
-        case "Android":
-            return androidPlayerOptions;
+        case "Tizen":
+            return tizenPlayerOptions;
             break;
         default:
             return commonPlayerOptions;

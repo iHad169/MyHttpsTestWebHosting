@@ -76,4 +76,9 @@ object RunnerInfo {
     fun isWebOS(): Boolean{
         return 0 < appVersion.match("webOS")?.size?:0
     }
+
+    init {
+        println(platform?.os)
+        println(getOsFamily())
+    }
 }
