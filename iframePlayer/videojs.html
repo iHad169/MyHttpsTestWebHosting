@@ -407,6 +407,7 @@ function getOsFamily(){
  * 所以按系統類型套用唔同選件
  * */
 function getPlayerOptions(){
+    return androidPlayerOptions;
     switch(getOsFamily()) {
         case "Android":
             return androidPlayerOptions;
