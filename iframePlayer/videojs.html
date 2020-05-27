@@ -414,14 +414,15 @@ function getOsFamily(){
         os = '';
         console.log("window.navigator");
         console.log(window.navigator);
-        console.log("window.navigator.platform");
-        console.log(window.navigator.platform);
+        console.log(window.navigator.userAgent.indexOf("Tizen") !== -1);
     if (macosPlatforms.indexOf(platform) !== -1) {
         os = 'MacOS';
     } else if (iosPlatforms.indexOf(platform) !== -1) {
         os = 'iOS';
     } else if (windowsPlatforms.indexOf(platform) !== -1) {
         os = 'Windows';
+    } else if (userAgent.indexOf("Tizen") !== -1) {
+        os = 'Tizen';
     } else if (/Android/.test(userAgent)) {
         os = 'Android';
     } else if (!os && /Linux/.test(platform)) {
