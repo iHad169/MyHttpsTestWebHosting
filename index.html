@@ -992,14 +992,15 @@ if ('serviceWorker' in navigator) {
 <!--<script type="text/javascript" src="out/production/HKNBP_Core/lib/kotlinx-serialization-kotlinx-serialization-runtime.js"></script>-->
 <script type="text/javascript" src="out/production/HKNBP_Core/HKNBP_Core.js"></script>
 <script type="text/javascript">
-var hknbpCore       = HKNBP_Core.org.sourcekey.hknbp.hknbp_core;
-var hknbpPrompt     = hknbpCore.PromptBox;
-var hknbpRemote     = hknbpCore.VirtualRemote;
-var hknbpPlayer     = hknbpCore.Player;
-var hknbpVolumeUp   = function(f){hknbpPlayer.volumeUp = f;};
-var hknbpVolumeDown = function(f){hknbpPlayer.volumeDown = f;};
-var hknbpVolumeMute = function(f){hknbpPlayer.volumeMute = f;};
-var hknbpAppVersion = function(version){hknbpCore.appVersion = version;};
+var hknbpCore               = HKNBP_Core.org.sourcekey.hknbp.hknbp_core;
+var hknbpPrompt             = hknbpCore.PromptBox;
+var hknbpRemote             = hknbpCore.VirtualRemote;
+var hknbpVolumeUp           = function(f){hknbpCore.Player.volumeUp = f;};
+var hknbpVolumeDown         = function(f){hknbpCore.Player.volumeDown = f;};
+var hknbpVolumeMute         = function(f){hknbpCore.Player.volumeMute = f;};
+var hknbpAppVersion         = function(version){hknbpCore.appVersion = version;};
+var hknbpShowControlPanel   = function(f){hknbpCore.UserControlPanel.onShowUserControlPanel = f;};
+var hknbpHideControlPanel   = function(f){hknbpCore.UserControlPanel.onHideUserControlPanel = f;};
 </script><!--畀其他地方方便Call-->
 </body>
 
