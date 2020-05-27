@@ -373,10 +373,7 @@ var commonPlayerOptions = {
     html5: {
         hls: {
             overrideNative: true
-        }/*,
-        nativeVideoTracks: false,
-        nativeAudioTracks: false,
-        nativeTextTracks: false*/
+        }
     }
 };
 
@@ -394,11 +391,11 @@ var tizenPlayerOptions = {
     techOrder: ["html5"/*, "flash", "vlc"*/],
     html5: {
         hls: {
-            overrideNative: false
-        }/*,
-        nativeVideoTracks: true,
+            overrideNative: true
+        },
+        nativeVideoTracks: false,
         nativeAudioTracks: false,
-        nativeTextTracks: false*/
+        nativeTextTracks: false
     }
 };
 
