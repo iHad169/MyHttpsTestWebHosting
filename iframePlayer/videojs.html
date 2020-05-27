@@ -394,7 +394,7 @@ var tizenPlayerOptions = {
     techOrder: ["html5"/*, "flash", "vlc"*/],
     html5: {
         hls: {
-            overrideNative: true
+            overrideNative: false
         }/*,
         nativeVideoTracks: true,
         nativeAudioTracks: false,
@@ -434,12 +434,14 @@ function getOsFamily(){
 /**
  * 獲取播放器選件
  *
- * 暫時發現Android使用VideoJS默認選件值時
- * Android會搵唔到頻道源付帶嘅 音頻 同 字幕
+ * 因某啲系統使用默認選件會播放唔到或讀唔到音頻同字幕
  * 所以按系統類型套用唔同選件
  * */
 function getPlayerOptions(){
     switch(getOsFamily()) {
+        case "iOS":
+            return defaultPlayerOptions;
+            break;
         case "Tizen":
             return tizenPlayerOptions;
             break;
