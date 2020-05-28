@@ -373,7 +373,10 @@ var commonPlayerOptions = {
     html5: {
         hls: {
             overrideNative: true
-        }
+        },
+        nativeVideoTracks: false,
+        nativeAudioTracks: false,
+        nativeTextTracks: false
     }
 };
 
@@ -438,9 +441,6 @@ function getPlayerOptions(){
     switch(getOsFamily()) {
         case "iOS":
             return defaultPlayerOptions;
-            break;
-        case "Tizen":
-            return tizenPlayerOptions;
             break;
         default:
             return commonPlayerOptions;
