@@ -184,7 +184,7 @@ object ChannelDescription: UserInterface(document.getElementById("channelDescrip
                                     )
                                 })
                             }
-                        }, 5000)
+                        }, 15000)
                     }
                     Player.OnPlayerEvent.deviceNotSupportFormat -> {
                         isPlaying = false

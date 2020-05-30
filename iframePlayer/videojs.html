@@ -363,6 +363,10 @@ var defaultPlayerOptions = {
  * webOS *
  * 暫時發現webOS使用VideoJS默認選件值時
  * webOS播放唔到HLS源
+ *
+ * Tizen *
+ * 暫時發現Tizen使用VideoJS默認選件值時
+ * 播放到但冇畫面
  * */
 var commonPlayerOptions = {
     autoplay: true,
@@ -373,18 +377,15 @@ var commonPlayerOptions = {
     html5: {
         hls: {
             overrideNative: true
-        },
-        nativeVideoTracks: false,
-        nativeAudioTracks: false,
-        nativeTextTracks: false
+        }
     }
 };
 
 /**
- * 專門為Android而套用嘅選件
+ * 專門為Tizen而套用嘅選件
  *
- * 暫時發現Android使用VideoJS默認選件值時
- * Android會搵唔到頻道源付帶嘅 音頻 同 字幕
+ * 暫時發現Tizen使用VideoJS默認選件值時
+ * 播放到但冇畫面
  * */
 var tizenPlayerOptions = {
     autoplay: true,

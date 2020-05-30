@@ -1195,7 +1195,7 @@ if (typeof kotlin === 'undefined') {
         break;
       case 'notPlaying':
         this.isPlaying_0 = false;
-        window.setTimeout(ChannelDescription_init$ObjectLiteral$on$lambda_0(this), 5000);
+        window.setTimeout(ChannelDescription_init$ObjectLiteral$on$lambda_0(this), 15000);
         break;
       case 'deviceNotSupportFormat':
         this.isPlaying_0 = false;
@@ -3322,7 +3322,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.05_3-test12';
+    return 'v2020.05_3';
   }
   var coreVersion;
   var appVersion;
