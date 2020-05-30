@@ -356,9 +356,6 @@ var defaultPlayerOptions = {
  *
  * 為大多數系統可行
  *
- * Android *
- * 暫時發現Android使用VideoJS默認選件值時
- * Android會搵唔到頻道源付帶嘅 音頻 同 字幕
  *
  * webOS *
  * 暫時發現webOS使用VideoJS默認選件值時
@@ -377,17 +374,20 @@ var commonPlayerOptions = {
     html5: {
         hls: {
             overrideNative: true
-        }
+        },
+        nativeVideoTracks: false,
+        nativeAudioTracks: false,
+        nativeTextTracks: false
     }
 };
 
 /**
- * 專門為Tizen而套用嘅選件
+ * 專門為Android而套用嘅選件
  *
- * 暫時發現Tizen使用VideoJS默認選件值時
- * 播放到但冇畫面
+ * 暫時發現Android使用VideoJS默認選件值時
+ * Android會搵唔到頻道源付帶嘅 音頻 同 字幕
  * */
-var tizenPlayerOptions = {
+var androidPlayerOptions = {
     autoplay: true,
     controls: false,
     poster: "../img/nullIcon.png",
@@ -396,10 +396,7 @@ var tizenPlayerOptions = {
     html5: {
         hls: {
             overrideNative: true
-        },
-        nativeVideoTracks: false,
-        nativeAudioTracks: false,
-        nativeTextTracks: false
+        }
     }
 };
 
@@ -442,6 +439,9 @@ function getPlayerOptions(){
     switch(getOsFamily()) {
         case "iOS":
             return defaultPlayerOptions;
+            break;
+        case "Android":
+            return androidPlayerOptions;
             break;
         default:
             return commonPlayerOptions;
