@@ -3322,7 +3322,7 @@ if (typeof kotlin === 'undefined') {
   }
   var rootURL;
   function coreVersion$lambda() {
-    return 'v2020.06_0';
+    return 'v2020.06_0-test';
   }
   var coreVersion;
   var appVersion;
