@@ -24,6 +24,7 @@ import kotlin.browser.window
 object VirtualRemote{
     val virtualRemote               = document.getElementById("virtualRemote")              as HTMLDivElement
     val hideVirtualRemoteButton     = document.getElementById("hideVirtualRemoteButton")    as HTMLButtonElement
+    val onOffButton                 = document.getElementById("onOffButton")                as HTMLButtonElement
     val epgButton                   = document.getElementById("epgButton")                  as HTMLButtonElement
     val nextChannelButton           = document.getElementById("nextChannelButton")          as HTMLButtonElement
     val previousChannelButton       = document.getElementById("previousChannelButton")      as HTMLButtonElement
@@ -149,6 +150,7 @@ object VirtualRemote{
 */
     init {
         hideVirtualRemoteButton.onclick     = fun(event){event.stopPropagation();UserControlPanel.hide()}
+        onOffButton.onclick                 = fun(event){window.location.href = "./off.html"}
         epgButton.onclick                   = fun(event){EPG.showHideAlternately(null)}
         nextChannelButton.onclick           = fun(event){channels.next()}
         previousChannelButton.onclick       = fun(event){channels.previous()}
@@ -219,15 +221,15 @@ object VirtualRemote{
                     || focusingElement is HTMLOptionElement
             )){ jq("#userControlPanelShower").focus() }
             ////////////////////////////////////////////////////
-            //暫時將Tizen同webOS唔行呢句
-            //因之前Tizen同webOS嘅應用程式嘅Enter鍵程序
+            //暫時將Tizen唔行呢句
+            //因之前Tizen嘅應用程式嘅Enter鍵程序
             //冇寫event.preventDefault();
             //使如果行下面句野就會當click左兩下
             //而因應用程式提交中未能更新此問題
             //之後再算
             //(過度性則)
             ////////////////////////////////////////////////////
-            if(!(RunnerInfo.isTizen() || RunnerInfo.isWebOS())){
+            if(!RunnerInfo.isTizen()){
                 //click入Focus緊嘅Element
                 jq(":focus").click()
             }

@@ -374,7 +374,10 @@ var commonPlayerOptions = {
     html5: {
         hls: {
             overrideNative: true
-        }
+        },
+        nativeVideoTracks: false,
+        nativeAudioTracks: false,
+        nativeTextTracks: false
     }
 };
 
@@ -407,9 +410,6 @@ function getOsFamily(){
         windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
         iosPlatforms = ['iPhone', 'iPad', 'iPod'],
         os = '';
-        console.log("window.navigator");
-        console.log(window.navigator);
-        console.log(window.navigator.userAgent.indexOf("Tizen") !== -1);
     if (macosPlatforms.indexOf(platform) !== -1) {
         os = 'MacOS';
     } else if (iosPlatforms.indexOf(platform) !== -1) {

@@ -4753,6 +4753,7 @@ if (typeof kotlin === 'undefined') {
     switch (toIntOrNull(event.which.toString())) {
       case 13:
         VirtualRemote_getInstance().centerButton.click();
+        event.preventDefault();
         break;
       case 18:
         VirtualRemote_getInstance().menuButton.click();
@@ -5603,123 +5604,125 @@ if (typeof kotlin === 'undefined') {
   });
   function VirtualRemote() {
     VirtualRemote_instance = this;
-    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7, tmp$_8, tmp$_9, tmp$_10, tmp$_11, tmp$_12, tmp$_13, tmp$_14, tmp$_15, tmp$_16, tmp$_17, tmp$_18, tmp$_19, tmp$_20, tmp$_21, tmp$_22, tmp$_23, tmp$_24, tmp$_25, tmp$_26, tmp$_27, tmp$_28, tmp$_29, tmp$_30, tmp$_31, tmp$_32, tmp$_33, tmp$_34, tmp$_35, tmp$_36, tmp$_37, tmp$_38, tmp$_39, tmp$_40, tmp$_41, tmp$_42, tmp$_43, tmp$_44, tmp$_45, tmp$_46, tmp$_47, tmp$_48, tmp$_49, tmp$_50, tmp$_51, tmp$_52, tmp$_53, tmp$_54, tmp$_55, tmp$_56, tmp$_57;
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7, tmp$_8, tmp$_9, tmp$_10, tmp$_11, tmp$_12, tmp$_13, tmp$_14, tmp$_15, tmp$_16, tmp$_17, tmp$_18, tmp$_19, tmp$_20, tmp$_21, tmp$_22, tmp$_23, tmp$_24, tmp$_25, tmp$_26, tmp$_27, tmp$_28, tmp$_29, tmp$_30, tmp$_31, tmp$_32, tmp$_33, tmp$_34, tmp$_35, tmp$_36, tmp$_37, tmp$_38, tmp$_39, tmp$_40, tmp$_41, tmp$_42, tmp$_43, tmp$_44, tmp$_45, tmp$_46, tmp$_47, tmp$_48, tmp$_49, tmp$_50, tmp$_51, tmp$_52, tmp$_53, tmp$_54, tmp$_55, tmp$_56, tmp$_57, tmp$_58;
     this.virtualRemote = Kotlin.isType(tmp$ = document.getElementById('virtualRemote'), HTMLDivElement) ? tmp$ : throwCCE();
     this.hideVirtualRemoteButton = Kotlin.isType(tmp$_0 = document.getElementById('hideVirtualRemoteButton'), HTMLButtonElement) ? tmp$_0 : throwCCE();
-    this.epgButton = Kotlin.isType(tmp$_1 = document.getElementById('epgButton'), HTMLButtonElement) ? tmp$_1 : throwCCE();
-    this.nextChannelButton = Kotlin.isType(tmp$_2 = document.getElementById('nextChannelButton'), HTMLButtonElement) ? tmp$_2 : throwCCE();
-    this.previousChannelButton = Kotlin.isType(tmp$_3 = document.getElementById('previousChannelButton'), HTMLButtonElement) ? tmp$_3 : throwCCE();
-    this.designateChannelSelect = Kotlin.isType(tmp$_4 = document.getElementById('designateChannelSelect'), HTMLSelectElement) ? tmp$_4 : throwCCE();
-    this.designateChannelInputText = Kotlin.isType(tmp$_5 = document.getElementById('designateChannelInputText'), HTMLInputElement) ? tmp$_5 : throwCCE();
-    this.designateChannelButton = Kotlin.isType(tmp$_6 = document.getElementById('designateChannelButton'), HTMLButtonElement) ? tmp$_6 : throwCCE();
-    this.lastTimeChannelButton = Kotlin.isType(tmp$_7 = document.getElementById('lastTimeChannelButton'), HTMLButtonElement) ? tmp$_7 : throwCCE();
-    this.nextVideoButton = Kotlin.isType(tmp$_8 = document.getElementById('nextVideoButton'), HTMLButtonElement) ? tmp$_8 : throwCCE();
-    this.previousVideoButton = Kotlin.isType(tmp$_9 = document.getElementById('previousVideoButton'), HTMLButtonElement) ? tmp$_9 : throwCCE();
-    this.designateVideoSelect = Kotlin.isType(tmp$_10 = document.getElementById('designateVideoSelect'), HTMLSelectElement) ? tmp$_10 : throwCCE();
-    this.nextAudioButton = Kotlin.isType(tmp$_11 = document.getElementById('nextAudioButton'), HTMLButtonElement) ? tmp$_11 : throwCCE();
-    this.previousAudioButton = Kotlin.isType(tmp$_12 = document.getElementById('previousAudioButton'), HTMLButtonElement) ? tmp$_12 : throwCCE();
-    this.designateAudioSelect = Kotlin.isType(tmp$_13 = document.getElementById('designateAudioSelect'), HTMLSelectElement) ? tmp$_13 : throwCCE();
-    this.onHeadNextAudioButton = Kotlin.isType(tmp$_14 = document.getElementById('onHeadNextAudioButton'), HTMLButtonElement) ? tmp$_14 : throwCCE();
-    this.nextSubtitleButton = Kotlin.isType(tmp$_15 = document.getElementById('nextSubtitleButton'), HTMLButtonElement) ? tmp$_15 : throwCCE();
-    this.previousSubtitleButton = Kotlin.isType(tmp$_16 = document.getElementById('previousSubtitleButton'), HTMLButtonElement) ? tmp$_16 : throwCCE();
-    this.designateSubtitleSelect = Kotlin.isType(tmp$_17 = document.getElementById('designateSubtitleSelect'), HTMLSelectElement) ? tmp$_17 : throwCCE();
-    this.onHeadNextSubtitleButton = Kotlin.isType(tmp$_18 = document.getElementById('onHeadNextSubtitleButton'), HTMLButtonElement) ? tmp$_18 : throwCCE();
-    this.volumeMuteButton = Kotlin.isType(tmp$_19 = document.getElementById('volumeMuteButton'), HTMLButtonElement) ? tmp$_19 : throwCCE();
-    this.volumeUpButton = Kotlin.isType(tmp$_20 = document.getElementById('volumeUpButton'), HTMLButtonElement) ? tmp$_20 : throwCCE();
-    this.volumeDownButton = Kotlin.isType(tmp$_21 = document.getElementById('volumeDownButton'), HTMLButtonElement) ? tmp$_21 : throwCCE();
-    this.programmableRedButton = Kotlin.isType(tmp$_22 = document.getElementById('programmableRedButton'), HTMLButtonElement) ? tmp$_22 : throwCCE();
-    this.programmableGreenButton = Kotlin.isType(tmp$_23 = document.getElementById('programmableGreenButton'), HTMLButtonElement) ? tmp$_23 : throwCCE();
-    this.programmableYellowButton = Kotlin.isType(tmp$_24 = document.getElementById('programmableYellowButton'), HTMLButtonElement) ? tmp$_24 : throwCCE();
-    this.programmableBlueButton = Kotlin.isType(tmp$_25 = document.getElementById('programmableBlueButton'), HTMLButtonElement) ? tmp$_25 : throwCCE();
-    this.number0Button = Kotlin.isType(tmp$_26 = document.getElementById('number0Button'), HTMLButtonElement) ? tmp$_26 : throwCCE();
-    this.number1Button = Kotlin.isType(tmp$_27 = document.getElementById('number1Button'), HTMLButtonElement) ? tmp$_27 : throwCCE();
-    this.number2Button = Kotlin.isType(tmp$_28 = document.getElementById('number2Button'), HTMLButtonElement) ? tmp$_28 : throwCCE();
-    this.number3Button = Kotlin.isType(tmp$_29 = document.getElementById('number3Button'), HTMLButtonElement) ? tmp$_29 : throwCCE();
-    this.number4Button = Kotlin.isType(tmp$_30 = document.getElementById('number4Button'), HTMLButtonElement) ? tmp$_30 : throwCCE();
-    this.number5Button = Kotlin.isType(tmp$_31 = document.getElementById('number5Button'), HTMLButtonElement) ? tmp$_31 : throwCCE();
-    this.number6Button = Kotlin.isType(tmp$_32 = document.getElementById('number6Button'), HTMLButtonElement) ? tmp$_32 : throwCCE();
-    this.number7Button = Kotlin.isType(tmp$_33 = document.getElementById('number7Button'), HTMLButtonElement) ? tmp$_33 : throwCCE();
-    this.number8Button = Kotlin.isType(tmp$_34 = document.getElementById('number8Button'), HTMLButtonElement) ? tmp$_34 : throwCCE();
-    this.number9Button = Kotlin.isType(tmp$_35 = document.getElementById('number9Button'), HTMLButtonElement) ? tmp$_35 : throwCCE();
-    this.minusButton = Kotlin.isType(tmp$_36 = document.getElementById('minusButton'), HTMLButtonElement) ? tmp$_36 : throwCCE();
-    this.refreshButton = Kotlin.isType(tmp$_37 = document.getElementById('refreshButton'), HTMLButtonElement) ? tmp$_37 : throwCCE();
-    this.channelDescriptionButton = Kotlin.isType(tmp$_38 = document.getElementById('channelDescriptionButton'), HTMLButtonElement) ? tmp$_38 : throwCCE();
-    this.aboutWindowButton = Kotlin.isType(tmp$_39 = document.getElementById('aboutWindowButton'), HTMLButtonElement) ? tmp$_39 : throwCCE();
-    this.feedbackWebWindowButton = Kotlin.isType(tmp$_40 = document.getElementById('feedbackWebButton'), HTMLButtonElement) ? tmp$_40 : throwCCE();
-    this.shareWindowButton = Kotlin.isType(tmp$_41 = document.getElementById('shareWindowButton'), HTMLButtonElement) ? tmp$_41 : throwCCE();
-    this.settingWindowButton = Kotlin.isType(tmp$_42 = document.getElementById('settingWindowButton'), HTMLButtonElement) ? tmp$_42 : throwCCE();
-    this.appDownloadWindowButton = Kotlin.isType(tmp$_43 = document.getElementById('appDownloadWindowButton'), HTMLButtonElement) ? tmp$_43 : throwCCE();
-    this.githubWebButton = Kotlin.isType(tmp$_44 = document.getElementById('githubWebButton'), HTMLButtonElement) ? tmp$_44 : throwCCE();
-    this.documentStoreButton = Kotlin.isType(tmp$_45 = document.getElementById('documentStoreButton'), HTMLButtonElement) ? tmp$_45 : throwCCE();
-    this.watchingCounterWebButton = Kotlin.isType(tmp$_46 = document.getElementById('watchingCounterWebButton'), HTMLButtonElement) ? tmp$_46 : throwCCE();
-    this.centerButton = Kotlin.isType(tmp$_47 = document.createElement('button'), HTMLButtonElement) ? tmp$_47 : throwCCE();
-    this.upButton = Kotlin.isType(tmp$_48 = document.createElement('button'), HTMLButtonElement) ? tmp$_48 : throwCCE();
-    this.downButton = Kotlin.isType(tmp$_49 = document.createElement('button'), HTMLButtonElement) ? tmp$_49 : throwCCE();
-    this.leftButton = Kotlin.isType(tmp$_50 = document.createElement('button'), HTMLButtonElement) ? tmp$_50 : throwCCE();
-    this.rightButton = Kotlin.isType(tmp$_51 = document.createElement('button'), HTMLButtonElement) ? tmp$_51 : throwCCE();
-    this.menuButton = Kotlin.isType(tmp$_52 = document.createElement('button'), HTMLButtonElement) ? tmp$_52 : throwCCE();
-    this.videoDescriptionButton = Kotlin.isType(tmp$_53 = document.createElement('button'), HTMLButtonElement) ? tmp$_53 : throwCCE();
-    this.audioDescriptionButton = Kotlin.isType(tmp$_54 = document.createElement('button'), HTMLButtonElement) ? tmp$_54 : throwCCE();
-    this.subtitleDescriptionButton = Kotlin.isType(tmp$_55 = document.createElement('button'), HTMLButtonElement) ? tmp$_55 : throwCCE();
-    this.volumeDescriptionButton = Kotlin.isType(tmp$_56 = document.createElement('button'), HTMLButtonElement) ? tmp$_56 : throwCCE();
-    this.returnButton = Kotlin.isType(tmp$_57 = document.createElement('button'), HTMLButtonElement) ? tmp$_57 : throwCCE();
+    this.onOffButton = Kotlin.isType(tmp$_1 = document.getElementById('onOffButton'), HTMLButtonElement) ? tmp$_1 : throwCCE();
+    this.epgButton = Kotlin.isType(tmp$_2 = document.getElementById('epgButton'), HTMLButtonElement) ? tmp$_2 : throwCCE();
+    this.nextChannelButton = Kotlin.isType(tmp$_3 = document.getElementById('nextChannelButton'), HTMLButtonElement) ? tmp$_3 : throwCCE();
+    this.previousChannelButton = Kotlin.isType(tmp$_4 = document.getElementById('previousChannelButton'), HTMLButtonElement) ? tmp$_4 : throwCCE();
+    this.designateChannelSelect = Kotlin.isType(tmp$_5 = document.getElementById('designateChannelSelect'), HTMLSelectElement) ? tmp$_5 : throwCCE();
+    this.designateChannelInputText = Kotlin.isType(tmp$_6 = document.getElementById('designateChannelInputText'), HTMLInputElement) ? tmp$_6 : throwCCE();
+    this.designateChannelButton = Kotlin.isType(tmp$_7 = document.getElementById('designateChannelButton'), HTMLButtonElement) ? tmp$_7 : throwCCE();
+    this.lastTimeChannelButton = Kotlin.isType(tmp$_8 = document.getElementById('lastTimeChannelButton'), HTMLButtonElement) ? tmp$_8 : throwCCE();
+    this.nextVideoButton = Kotlin.isType(tmp$_9 = document.getElementById('nextVideoButton'), HTMLButtonElement) ? tmp$_9 : throwCCE();
+    this.previousVideoButton = Kotlin.isType(tmp$_10 = document.getElementById('previousVideoButton'), HTMLButtonElement) ? tmp$_10 : throwCCE();
+    this.designateVideoSelect = Kotlin.isType(tmp$_11 = document.getElementById('designateVideoSelect'), HTMLSelectElement) ? tmp$_11 : throwCCE();
+    this.nextAudioButton = Kotlin.isType(tmp$_12 = document.getElementById('nextAudioButton'), HTMLButtonElement) ? tmp$_12 : throwCCE();
+    this.previousAudioButton = Kotlin.isType(tmp$_13 = document.getElementById('previousAudioButton'), HTMLButtonElement) ? tmp$_13 : throwCCE();
+    this.designateAudioSelect = Kotlin.isType(tmp$_14 = document.getElementById('designateAudioSelect'), HTMLSelectElement) ? tmp$_14 : throwCCE();
+    this.onHeadNextAudioButton = Kotlin.isType(tmp$_15 = document.getElementById('onHeadNextAudioButton'), HTMLButtonElement) ? tmp$_15 : throwCCE();
+    this.nextSubtitleButton = Kotlin.isType(tmp$_16 = document.getElementById('nextSubtitleButton'), HTMLButtonElement) ? tmp$_16 : throwCCE();
+    this.previousSubtitleButton = Kotlin.isType(tmp$_17 = document.getElementById('previousSubtitleButton'), HTMLButtonElement) ? tmp$_17 : throwCCE();
+    this.designateSubtitleSelect = Kotlin.isType(tmp$_18 = document.getElementById('designateSubtitleSelect'), HTMLSelectElement) ? tmp$_18 : throwCCE();
+    this.onHeadNextSubtitleButton = Kotlin.isType(tmp$_19 = document.getElementById('onHeadNextSubtitleButton'), HTMLButtonElement) ? tmp$_19 : throwCCE();
+    this.volumeMuteButton = Kotlin.isType(tmp$_20 = document.getElementById('volumeMuteButton'), HTMLButtonElement) ? tmp$_20 : throwCCE();
+    this.volumeUpButton = Kotlin.isType(tmp$_21 = document.getElementById('volumeUpButton'), HTMLButtonElement) ? tmp$_21 : throwCCE();
+    this.volumeDownButton = Kotlin.isType(tmp$_22 = document.getElementById('volumeDownButton'), HTMLButtonElement) ? tmp$_22 : throwCCE();
+    this.programmableRedButton = Kotlin.isType(tmp$_23 = document.getElementById('programmableRedButton'), HTMLButtonElement) ? tmp$_23 : throwCCE();
+    this.programmableGreenButton = Kotlin.isType(tmp$_24 = document.getElementById('programmableGreenButton'), HTMLButtonElement) ? tmp$_24 : throwCCE();
+    this.programmableYellowButton = Kotlin.isType(tmp$_25 = document.getElementById('programmableYellowButton'), HTMLButtonElement) ? tmp$_25 : throwCCE();
+    this.programmableBlueButton = Kotlin.isType(tmp$_26 = document.getElementById('programmableBlueButton'), HTMLButtonElement) ? tmp$_26 : throwCCE();
+    this.number0Button = Kotlin.isType(tmp$_27 = document.getElementById('number0Button'), HTMLButtonElement) ? tmp$_27 : throwCCE();
+    this.number1Button = Kotlin.isType(tmp$_28 = document.getElementById('number1Button'), HTMLButtonElement) ? tmp$_28 : throwCCE();
+    this.number2Button = Kotlin.isType(tmp$_29 = document.getElementById('number2Button'), HTMLButtonElement) ? tmp$_29 : throwCCE();
+    this.number3Button = Kotlin.isType(tmp$_30 = document.getElementById('number3Button'), HTMLButtonElement) ? tmp$_30 : throwCCE();
+    this.number4Button = Kotlin.isType(tmp$_31 = document.getElementById('number4Button'), HTMLButtonElement) ? tmp$_31 : throwCCE();
+    this.number5Button = Kotlin.isType(tmp$_32 = document.getElementById('number5Button'), HTMLButtonElement) ? tmp$_32 : throwCCE();
+    this.number6Button = Kotlin.isType(tmp$_33 = document.getElementById('number6Button'), HTMLButtonElement) ? tmp$_33 : throwCCE();
+    this.number7Button = Kotlin.isType(tmp$_34 = document.getElementById('number7Button'), HTMLButtonElement) ? tmp$_34 : throwCCE();
+    this.number8Button = Kotlin.isType(tmp$_35 = document.getElementById('number8Button'), HTMLButtonElement) ? tmp$_35 : throwCCE();
+    this.number9Button = Kotlin.isType(tmp$_36 = document.getElementById('number9Button'), HTMLButtonElement) ? tmp$_36 : throwCCE();
+    this.minusButton = Kotlin.isType(tmp$_37 = document.getElementById('minusButton'), HTMLButtonElement) ? tmp$_37 : throwCCE();
+    this.refreshButton = Kotlin.isType(tmp$_38 = document.getElementById('refreshButton'), HTMLButtonElement) ? tmp$_38 : throwCCE();
+    this.channelDescriptionButton = Kotlin.isType(tmp$_39 = document.getElementById('channelDescriptionButton'), HTMLButtonElement) ? tmp$_39 : throwCCE();
+    this.aboutWindowButton = Kotlin.isType(tmp$_40 = document.getElementById('aboutWindowButton'), HTMLButtonElement) ? tmp$_40 : throwCCE();
+    this.feedbackWebWindowButton = Kotlin.isType(tmp$_41 = document.getElementById('feedbackWebButton'), HTMLButtonElement) ? tmp$_41 : throwCCE();
+    this.shareWindowButton = Kotlin.isType(tmp$_42 = document.getElementById('shareWindowButton'), HTMLButtonElement) ? tmp$_42 : throwCCE();
+    this.settingWindowButton = Kotlin.isType(tmp$_43 = document.getElementById('settingWindowButton'), HTMLButtonElement) ? tmp$_43 : throwCCE();
+    this.appDownloadWindowButton = Kotlin.isType(tmp$_44 = document.getElementById('appDownloadWindowButton'), HTMLButtonElement) ? tmp$_44 : throwCCE();
+    this.githubWebButton = Kotlin.isType(tmp$_45 = document.getElementById('githubWebButton'), HTMLButtonElement) ? tmp$_45 : throwCCE();
+    this.documentStoreButton = Kotlin.isType(tmp$_46 = document.getElementById('documentStoreButton'), HTMLButtonElement) ? tmp$_46 : throwCCE();
+    this.watchingCounterWebButton = Kotlin.isType(tmp$_47 = document.getElementById('watchingCounterWebButton'), HTMLButtonElement) ? tmp$_47 : throwCCE();
+    this.centerButton = Kotlin.isType(tmp$_48 = document.createElement('button'), HTMLButtonElement) ? tmp$_48 : throwCCE();
+    this.upButton = Kotlin.isType(tmp$_49 = document.createElement('button'), HTMLButtonElement) ? tmp$_49 : throwCCE();
+    this.downButton = Kotlin.isType(tmp$_50 = document.createElement('button'), HTMLButtonElement) ? tmp$_50 : throwCCE();
+    this.leftButton = Kotlin.isType(tmp$_51 = document.createElement('button'), HTMLButtonElement) ? tmp$_51 : throwCCE();
+    this.rightButton = Kotlin.isType(tmp$_52 = document.createElement('button'), HTMLButtonElement) ? tmp$_52 : throwCCE();
+    this.menuButton = Kotlin.isType(tmp$_53 = document.createElement('button'), HTMLButtonElement) ? tmp$_53 : throwCCE();
+    this.videoDescriptionButton = Kotlin.isType(tmp$_54 = document.createElement('button'), HTMLButtonElement) ? tmp$_54 : throwCCE();
+    this.audioDescriptionButton = Kotlin.isType(tmp$_55 = document.createElement('button'), HTMLButtonElement) ? tmp$_55 : throwCCE();
+    this.subtitleDescriptionButton = Kotlin.isType(tmp$_56 = document.createElement('button'), HTMLButtonElement) ? tmp$_56 : throwCCE();
+    this.volumeDescriptionButton = Kotlin.isType(tmp$_57 = document.createElement('button'), HTMLButtonElement) ? tmp$_57 : throwCCE();
+    this.returnButton = Kotlin.isType(tmp$_58 = document.createElement('button'), HTMLButtonElement) ? tmp$_58 : throwCCE();
     this.hideVirtualRemoteButton.onclick = VirtualRemote_init$lambda;
-    this.epgButton.onclick = VirtualRemote_init$lambda_0;
-    this.nextChannelButton.onclick = VirtualRemote_init$lambda_1;
-    this.previousChannelButton.onclick = VirtualRemote_init$lambda_2;
-    this.designateChannelSelect.onchange = VirtualRemote_init$lambda_3(this);
-    this.designateChannelButton.onclick = VirtualRemote_init$lambda_4(this);
-    this.lastTimeChannelButton.onclick = VirtualRemote_init$lambda_5;
-    this.nextVideoButton.onclick = VirtualRemote_init$lambda_6;
-    this.previousVideoButton.onclick = VirtualRemote_init$lambda_7;
-    this.designateVideoSelect.onchange = VirtualRemote_init$lambda_8(this);
-    this.nextAudioButton.onclick = VirtualRemote_init$lambda_9;
-    this.previousAudioButton.onclick = VirtualRemote_init$lambda_10;
-    this.designateAudioSelect.onchange = VirtualRemote_init$lambda_11(this);
-    this.onHeadNextAudioButton.onclick = VirtualRemote_init$lambda_12;
-    this.nextSubtitleButton.onclick = VirtualRemote_init$lambda_13;
-    this.previousSubtitleButton.onclick = VirtualRemote_init$lambda_14;
-    this.designateSubtitleSelect.onchange = VirtualRemote_init$lambda_15(this);
-    this.onHeadNextSubtitleButton.onclick = VirtualRemote_init$lambda_16;
-    this.volumeMuteButton.onclick = VirtualRemote_init$lambda_17;
-    this.volumeUpButton.onclick = VirtualRemote_init$lambda_18;
-    this.volumeDownButton.onclick = VirtualRemote_init$lambda_19;
-    this.programmableRedButton.onclick = VirtualRemote_init$lambda_20;
-    this.programmableGreenButton.onclick = VirtualRemote_init$lambda_21;
-    this.programmableYellowButton.onclick = VirtualRemote_init$lambda_22;
-    this.programmableBlueButton.onclick = VirtualRemote_init$lambda_23;
-    this.number0Button.onclick = VirtualRemote_init$lambda_24;
-    this.number1Button.onclick = VirtualRemote_init$lambda_25;
-    this.number2Button.onclick = VirtualRemote_init$lambda_26;
-    this.number3Button.onclick = VirtualRemote_init$lambda_27;
-    this.number4Button.onclick = VirtualRemote_init$lambda_28;
-    this.number5Button.onclick = VirtualRemote_init$lambda_29;
-    this.number6Button.onclick = VirtualRemote_init$lambda_30;
-    this.number7Button.onclick = VirtualRemote_init$lambda_31;
-    this.number8Button.onclick = VirtualRemote_init$lambda_32;
-    this.number9Button.onclick = VirtualRemote_init$lambda_33;
-    this.minusButton.onclick = VirtualRemote_init$lambda_34;
-    this.refreshButton.onclick = VirtualRemote_init$lambda_35;
-    this.channelDescriptionButton.onclick = VirtualRemote_init$lambda_36;
-    this.aboutWindowButton.onclick = VirtualRemote_init$lambda_37;
-    this.feedbackWebWindowButton.onclick = VirtualRemote_init$lambda_38;
-    this.shareWindowButton.onclick = VirtualRemote_init$lambda_39;
-    this.settingWindowButton.onclick = VirtualRemote_init$lambda_40;
-    this.appDownloadWindowButton.onclick = VirtualRemote_init$lambda_41;
-    this.githubWebButton.onclick = VirtualRemote_init$lambda_42;
-    this.documentStoreButton.onclick = VirtualRemote_init$lambda_43;
-    this.watchingCounterWebButton.onclick = VirtualRemote_init$lambda_44;
-    this.centerButton.onclick = VirtualRemote_init$lambda_45;
-    this.upButton.onclick = VirtualRemote_init$lambda_46;
-    this.downButton.onclick = VirtualRemote_init$lambda_47;
-    this.leftButton.onclick = VirtualRemote_init$lambda_48;
-    this.rightButton.onclick = VirtualRemote_init$lambda_49;
-    this.menuButton.onclick = VirtualRemote_init$lambda_50;
-    this.videoDescriptionButton.onclick = VirtualRemote_init$lambda_51;
-    this.audioDescriptionButton.onclick = VirtualRemote_init$lambda_52;
-    this.subtitleDescriptionButton.onclick = VirtualRemote_init$lambda_53;
-    this.volumeDescriptionButton.onclick = VirtualRemote_init$lambda_54;
-    this.returnButton.onclick = VirtualRemote_init$lambda_55;
+    this.onOffButton.onclick = VirtualRemote_init$lambda_0;
+    this.epgButton.onclick = VirtualRemote_init$lambda_1;
+    this.nextChannelButton.onclick = VirtualRemote_init$lambda_2;
+    this.previousChannelButton.onclick = VirtualRemote_init$lambda_3;
+    this.designateChannelSelect.onchange = VirtualRemote_init$lambda_4(this);
+    this.designateChannelButton.onclick = VirtualRemote_init$lambda_5(this);
+    this.lastTimeChannelButton.onclick = VirtualRemote_init$lambda_6;
+    this.nextVideoButton.onclick = VirtualRemote_init$lambda_7;
+    this.previousVideoButton.onclick = VirtualRemote_init$lambda_8;
+    this.designateVideoSelect.onchange = VirtualRemote_init$lambda_9(this);
+    this.nextAudioButton.onclick = VirtualRemote_init$lambda_10;
+    this.previousAudioButton.onclick = VirtualRemote_init$lambda_11;
+    this.designateAudioSelect.onchange = VirtualRemote_init$lambda_12(this);
+    this.onHeadNextAudioButton.onclick = VirtualRemote_init$lambda_13;
+    this.nextSubtitleButton.onclick = VirtualRemote_init$lambda_14;
+    this.previousSubtitleButton.onclick = VirtualRemote_init$lambda_15;
+    this.designateSubtitleSelect.onchange = VirtualRemote_init$lambda_16(this);
+    this.onHeadNextSubtitleButton.onclick = VirtualRemote_init$lambda_17;
+    this.volumeMuteButton.onclick = VirtualRemote_init$lambda_18;
+    this.volumeUpButton.onclick = VirtualRemote_init$lambda_19;
+    this.volumeDownButton.onclick = VirtualRemote_init$lambda_20;
+    this.programmableRedButton.onclick = VirtualRemote_init$lambda_21;
+    this.programmableGreenButton.onclick = VirtualRemote_init$lambda_22;
+    this.programmableYellowButton.onclick = VirtualRemote_init$lambda_23;
+    this.programmableBlueButton.onclick = VirtualRemote_init$lambda_24;
+    this.number0Button.onclick = VirtualRemote_init$lambda_25;
+    this.number1Button.onclick = VirtualRemote_init$lambda_26;
+    this.number2Button.onclick = VirtualRemote_init$lambda_27;
+    this.number3Button.onclick = VirtualRemote_init$lambda_28;
+    this.number4Button.onclick = VirtualRemote_init$lambda_29;
+    this.number5Button.onclick = VirtualRemote_init$lambda_30;
+    this.number6Button.onclick = VirtualRemote_init$lambda_31;
+    this.number7Button.onclick = VirtualRemote_init$lambda_32;
+    this.number8Button.onclick = VirtualRemote_init$lambda_33;
+    this.number9Button.onclick = VirtualRemote_init$lambda_34;
+    this.minusButton.onclick = VirtualRemote_init$lambda_35;
+    this.refreshButton.onclick = VirtualRemote_init$lambda_36;
+    this.channelDescriptionButton.onclick = VirtualRemote_init$lambda_37;
+    this.aboutWindowButton.onclick = VirtualRemote_init$lambda_38;
+    this.feedbackWebWindowButton.onclick = VirtualRemote_init$lambda_39;
+    this.shareWindowButton.onclick = VirtualRemote_init$lambda_40;
+    this.settingWindowButton.onclick = VirtualRemote_init$lambda_41;
+    this.appDownloadWindowButton.onclick = VirtualRemote_init$lambda_42;
+    this.githubWebButton.onclick = VirtualRemote_init$lambda_43;
+    this.documentStoreButton.onclick = VirtualRemote_init$lambda_44;
+    this.watchingCounterWebButton.onclick = VirtualRemote_init$lambda_45;
+    this.centerButton.onclick = VirtualRemote_init$lambda_46;
+    this.upButton.onclick = VirtualRemote_init$lambda_47;
+    this.downButton.onclick = VirtualRemote_init$lambda_48;
+    this.leftButton.onclick = VirtualRemote_init$lambda_49;
+    this.rightButton.onclick = VirtualRemote_init$lambda_50;
+    this.menuButton.onclick = VirtualRemote_init$lambda_51;
+    this.videoDescriptionButton.onclick = VirtualRemote_init$lambda_52;
+    this.audioDescriptionButton.onclick = VirtualRemote_init$lambda_53;
+    this.subtitleDescriptionButton.onclick = VirtualRemote_init$lambda_54;
+    this.volumeDescriptionButton.onclick = VirtualRemote_init$lambda_55;
+    this.returnButton.onclick = VirtualRemote_init$lambda_56;
     this.update();
     channels.addOnNodeEventListener_ljxrtv$(new VirtualRemote_init$ObjectLiteral());
     channels.addOnElementsChangedListener_9f6p79$(new VirtualRemote_init$ObjectLiteral_0());
@@ -5780,170 +5783,173 @@ if (typeof kotlin === 'undefined') {
     UserControlPanel_getInstance().hide();
   }
   function VirtualRemote_init$lambda_0(event) {
-    EPG_getInstance().showHideAlternately_s8ev37$(null);
+    window.location.href = './off.html';
   }
   function VirtualRemote_init$lambda_1(event) {
-    channels.next();
+    EPG_getInstance().showHideAlternately_s8ev37$(null);
   }
   function VirtualRemote_init$lambda_2(event) {
+    channels.next();
+  }
+  function VirtualRemote_init$lambda_3(event) {
     channels.previous();
   }
-  function VirtualRemote_init$lambda_3(this$VirtualRemote) {
+  function VirtualRemote_init$lambda_4(this$VirtualRemote) {
     return function (event) {
       designatedByChannelNumber(channels, toInt(this$VirtualRemote.designateChannelSelect.value));
     };
   }
-  function VirtualRemote_init$lambda_4(this$VirtualRemote) {
+  function VirtualRemote_init$lambda_5(this$VirtualRemote) {
     return function (event) {
       designatedByChannelNumber(channels, toInt(this$VirtualRemote.designateChannelInputText.value));
     };
   }
-  function VirtualRemote_init$lambda_5(event) {
+  function VirtualRemote_init$lambda_6(event) {
     channels.lastTime();
   }
-  function VirtualRemote_init$lambda_6(event) {
+  function VirtualRemote_init$lambda_7(event) {
     Player_getInstance().nextVideoTrack();
     VideoDescription_getInstance().show_s8ev37$(3000);
   }
-  function VirtualRemote_init$lambda_7(event) {
+  function VirtualRemote_init$lambda_8(event) {
     Player_getInstance().previousVideoTrack();
     VideoDescription_getInstance().show_s8ev37$(3000);
   }
-  function VirtualRemote_init$lambda_8(this$VirtualRemote) {
+  function VirtualRemote_init$lambda_9(this$VirtualRemote) {
     return function (event) {
       Player_getInstance().designatedVideoTrack(toInt(this$VirtualRemote.designateVideoSelect.value));
       VideoDescription_getInstance().show_s8ev37$(3000);
     };
   }
-  function VirtualRemote_init$lambda_9(event) {
+  function VirtualRemote_init$lambda_10(event) {
     Player_getInstance().nextAudioTrack();
     AudioDescription_getInstance().show_s8ev37$(3000);
   }
-  function VirtualRemote_init$lambda_10(event) {
+  function VirtualRemote_init$lambda_11(event) {
     Player_getInstance().previousAudioTrack();
     AudioDescription_getInstance().show_s8ev37$(3000);
   }
-  function VirtualRemote_init$lambda_11(this$VirtualRemote) {
+  function VirtualRemote_init$lambda_12(this$VirtualRemote) {
     return function (event) {
       Player_getInstance().designatedAudioTrack(toInt(this$VirtualRemote.designateAudioSelect.value));
       AudioDescription_getInstance().show_s8ev37$(3000);
     };
   }
-  function VirtualRemote_init$lambda_12(event) {
+  function VirtualRemote_init$lambda_13(event) {
     Player_getInstance().nextAudioTrack();
     AudioDescription_getInstance().show_s8ev37$(3000);
   }
-  function VirtualRemote_init$lambda_13(event) {
+  function VirtualRemote_init$lambda_14(event) {
     Player_getInstance().nextSubtitleTrack();
     SubtitleDescription_getInstance().show_s8ev37$(3000);
   }
-  function VirtualRemote_init$lambda_14(event) {
+  function VirtualRemote_init$lambda_15(event) {
     Player_getInstance().previousSubtitleTrack();
     SubtitleDescription_getInstance().show_s8ev37$(3000);
   }
-  function VirtualRemote_init$lambda_15(this$VirtualRemote) {
+  function VirtualRemote_init$lambda_16(this$VirtualRemote) {
     return function (event) {
       Player_getInstance().designatedSubtitleTrack(toInt(this$VirtualRemote.designateSubtitleSelect.value));
       SubtitleDescription_getInstance().show_s8ev37$(3000);
     };
   }
-  function VirtualRemote_init$lambda_16(event) {
+  function VirtualRemote_init$lambda_17(event) {
     Player_getInstance().nextSubtitleTrack();
     SubtitleDescription_getInstance().show_s8ev37$(3000);
   }
-  function VirtualRemote_init$lambda_17(event) {
+  function VirtualRemote_init$lambda_18(event) {
     Player_getInstance().volumeMute();
   }
-  function VirtualRemote_init$lambda_18(event) {
+  function VirtualRemote_init$lambda_19(event) {
     Player_getInstance().volumeUp();
   }
-  function VirtualRemote_init$lambda_19(event) {
+  function VirtualRemote_init$lambda_20(event) {
     Player_getInstance().volumeDown();
   }
-  function VirtualRemote_init$lambda_20(event) {
+  function VirtualRemote_init$lambda_21(event) {
     Player_getInstance().programmable(Player$ProgrammableColor$red_getInstance());
   }
-  function VirtualRemote_init$lambda_21(event) {
+  function VirtualRemote_init$lambda_22(event) {
     Player_getInstance().programmable(Player$ProgrammableColor$green_getInstance());
   }
-  function VirtualRemote_init$lambda_22(event) {
+  function VirtualRemote_init$lambda_23(event) {
     Player_getInstance().programmable(Player$ProgrammableColor$yellow_getInstance());
   }
-  function VirtualRemote_init$lambda_23(event) {
+  function VirtualRemote_init$lambda_24(event) {
     Player_getInstance().programmable(Player$ProgrammableColor$blue_getInstance());
   }
-  function VirtualRemote_init$lambda_24(event) {
+  function VirtualRemote_init$lambda_25(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('0');
   }
-  function VirtualRemote_init$lambda_25(event) {
+  function VirtualRemote_init$lambda_26(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('1');
   }
-  function VirtualRemote_init$lambda_26(event) {
+  function VirtualRemote_init$lambda_27(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('2');
   }
-  function VirtualRemote_init$lambda_27(event) {
+  function VirtualRemote_init$lambda_28(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('3');
   }
-  function VirtualRemote_init$lambda_28(event) {
+  function VirtualRemote_init$lambda_29(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('4');
   }
-  function VirtualRemote_init$lambda_29(event) {
+  function VirtualRemote_init$lambda_30(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('5');
   }
-  function VirtualRemote_init$lambda_30(event) {
+  function VirtualRemote_init$lambda_31(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('6');
   }
-  function VirtualRemote_init$lambda_31(event) {
+  function VirtualRemote_init$lambda_32(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('7');
   }
-  function VirtualRemote_init$lambda_32(event) {
+  function VirtualRemote_init$lambda_33(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('8');
   }
-  function VirtualRemote_init$lambda_33(event) {
+  function VirtualRemote_init$lambda_34(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('9');
   }
-  function VirtualRemote_init$lambda_34(event) {
+  function VirtualRemote_init$lambda_35(event) {
     EnteringNumberBox_getInstance().enter_61zpoe$('-');
   }
-  function VirtualRemote_init$lambda_35(event) {
+  function VirtualRemote_init$lambda_36(event) {
     Player_getInstance().reloadIframePlayer();
   }
-  function VirtualRemote_init$lambda_36(event) {
+  function VirtualRemote_init$lambda_37(event) {
     if (ChannelDescription_getInstance().isShow) {
       ChannelDescription_getInstance().hide();
     } else {
       ChannelDescription_getInstance().show_s8ev37$(60000);
     }
   }
-  function VirtualRemote_init$lambda_37(event) {
+  function VirtualRemote_init$lambda_38(event) {
     AboutWindow_getInstance().showHideAlternately_s8ev37$(null);
   }
-  function VirtualRemote_init$lambda_38(event) {
+  function VirtualRemote_init$lambda_39(event) {
     FeedbackWebWindow_getInstance().showHideAlternately_s8ev37$(null);
   }
-  function VirtualRemote_init$lambda_39(event) {
+  function VirtualRemote_init$lambda_40(event) {
     ShareWindow_getInstance().showHideAlternately_s8ev37$(null);
   }
-  function VirtualRemote_init$lambda_40(event) {
+  function VirtualRemote_init$lambda_41(event) {
     SettingWindow_getInstance().showHideAlternately_s8ev37$(null);
   }
-  function VirtualRemote_init$lambda_41(event) {
+  function VirtualRemote_init$lambda_42(event) {
     AppDownloadWindow_getInstance().showHideAlternately_s8ev37$(null);
   }
-  function VirtualRemote_init$lambda_42(event) {
+  function VirtualRemote_init$lambda_43(event) {
     window.open('https://github.com/HKNBP', '_blank');
   }
-  function VirtualRemote_init$lambda_43(event) {
+  function VirtualRemote_init$lambda_44(event) {
     window.open('https://drive.google.com/drive/folders/1c8rb7Yrfe8IV_32pSDGF9oP5n-7Qs3PO', '_blank');
   }
-  function VirtualRemote_init$lambda_44(event) {
+  function VirtualRemote_init$lambda_45(event) {
     window.open('https://datastudio.google.com/reporting/1GKlAWHEsDdryWh2PRdQFmWzQ_ksRQ8BK/page/1M', '_blank');
   }
-  function VirtualRemote_init$lambda_45(event) {
+  function VirtualRemote_init$lambda_46(event) {
     var focusingElement = $(':focus').get(0);
     if (!(Kotlin.isType(focusingElement, HTMLButtonElement) || Kotlin.isType(focusingElement, HTMLInputElement) || Kotlin.isType(focusingElement, HTMLSelectElement) || Kotlin.isType(focusingElement, HTMLOptionElement))) {
       $('#userControlPanelShower').focus();
-    }if (!(RunnerInfo_getInstance().isTizen() || RunnerInfo_getInstance().isWebOS())) {
+    }if (!RunnerInfo_getInstance().isTizen()) {
       $(':focus').click();
     }}
   function VirtualRemote_init$lambda$lambda(element) {
@@ -5956,7 +5962,7 @@ if (typeof kotlin === 'undefined') {
       return Unit;
     };
   }
-  function VirtualRemote_init$lambda_46(event) {
+  function VirtualRemote_init$lambda_47(event) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7, tmp$_8;
     var selectables = $(':tabbable');
     var current = $(':focus');
@@ -6012,7 +6018,7 @@ if (typeof kotlin === 'undefined') {
     var tmp$;
     return (tmp$ = toIntOrNull(Tab3dIndex$Companion_getInstance().toUnparsedTabIndex_lvro24$(element))) != null ? tmp$ : 0;
   }
-  function VirtualRemote_init$lambda_47(event) {
+  function VirtualRemote_init$lambda_48(event) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7;
     var selectables = $(':tabbable');
     var current = $(':focus');
@@ -6066,28 +6072,28 @@ if (typeof kotlin === 'undefined') {
       }}
     selectables.eq(closestIndex).focus();
   }
-  function VirtualRemote_init$lambda_48(event) {
+  function VirtualRemote_init$lambda_49(event) {
     $.tabPrev();
   }
-  function VirtualRemote_init$lambda_49(event) {
+  function VirtualRemote_init$lambda_50(event) {
     $.tabNext();
   }
-  function VirtualRemote_init$lambda_50(event) {
+  function VirtualRemote_init$lambda_51(event) {
     UserControlPanel_getInstance().showHideAlternately_s8ev37$(60000);
   }
-  function VirtualRemote_init$lambda_51(event) {
+  function VirtualRemote_init$lambda_52(event) {
     VideoDescription_getInstance().show_s8ev37$(5000);
   }
-  function VirtualRemote_init$lambda_52(event) {
+  function VirtualRemote_init$lambda_53(event) {
     AudioDescription_getInstance().show_s8ev37$(5000);
   }
-  function VirtualRemote_init$lambda_53(event) {
+  function VirtualRemote_init$lambda_54(event) {
     SubtitleDescription_getInstance().show_s8ev37$(5000);
   }
-  function VirtualRemote_init$lambda_54(event) {
+  function VirtualRemote_init$lambda_55(event) {
     VolumeDescription_getInstance().show_s8ev37$(5000);
   }
-  function VirtualRemote_init$lambda_55(event) {
+  function VirtualRemote_init$lambda_56(event) {
     UserInterface$Companion_getInstance().hideAllUserInterface();
   }
   function VirtualRemote_init$ObjectLiteral() {

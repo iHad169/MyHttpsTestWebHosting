@@ -11,45 +11,6 @@ function TrackDescription(id, name){
 }
 
 /**
- * 當播放器播放緊頻道時
- * 需要設定call呢個function()
- * 向HKNBP_Core發送呢個IframePlayer正播放緊頻道
- * */
-var onIframePlayerPlaying = function(){
-   callHKNBPCoreFunction("onPlaying", "", function(){});
-};
-
-/**
- * 當播放器冇播放頻道時
- * 需要設定call呢個function()
- * 向HKNBP_Core發送呢個IframePlayer嘅播放器依家冇播放緊頻道
- * 如call左一次onIframePlayerNotPlaying()
- * 響一段時間之內冇再call onIframePlayerPlaying()嘅話
- * 將會刷新此IframePlayer
- * */
-var onIframePlayerNotPlaying = function(){
-   callHKNBPCoreFunction("onNotPlaying", "", function(){});
-};
-
-/**
- * 當播放器播放頻道發現運行裝置不支援個頻道嘅訊號格式時
- * 需要設定call呢個function()
- * 向HKNBP_Core發送呢個IframePlayer播放依家發現運行裝置不支援個頻道嘅訊號格式
- * */
-var onIframePlayerDeviceNotSupportFormat = function(){
-   callHKNBPCoreFunction("onDeviceNotSupportFormat", "", function(){});
-};
-
-/**
- * 當播放器無法接收頻道訊號時(可能: 頻道源無效,頻道源伺服器瓜左)
- * 需要設定call呢個function()
- * 向HKNBP_Core發送呢個IframePlayer播放依家嘅頻道源無效
- * */
-var onIframePlayerCannotReceiveChannelSignal = function(){
-   callHKNBPCoreFunction("onCannotReceiveChannelSignal", "", function(){});
-};
-
-/**
  * 存底callHKNBPCoreFunction要求
  * 為之後return返來嘅值執行onReturn
  * 實淺CallBackFunction原理
@@ -105,6 +66,45 @@ function callHKNBPCoreFunction(functionName, value, onReturn){
    }, 60000);
    window.parent.postMessage(JSON.stringify(caller), "*");
 }
+
+/**
+ * 當播放器播放緊頻道時
+ * 需要設定call呢個function()
+ * 向HKNBP_Core發送呢個IframePlayer正播放緊頻道
+ * */
+var onIframePlayerPlaying = function(){
+   callHKNBPCoreFunction("onPlaying", "", function(){});
+};
+
+/**
+ * 當播放器冇播放頻道時
+ * 需要設定call呢個function()
+ * 向HKNBP_Core發送呢個IframePlayer嘅播放器依家冇播放緊頻道
+ * 如call左一次onIframePlayerNotPlaying()
+ * 響一段時間之內冇再call onIframePlayerPlaying()嘅話
+ * 將會刷新此IframePlayer
+ * */
+var onIframePlayerNotPlaying = function(){
+   callHKNBPCoreFunction("onNotPlaying", "", function(){});
+};
+
+/**
+ * 當播放器播放頻道發現運行裝置不支援個頻道嘅訊號格式時
+ * 需要設定call呢個function()
+ * 向HKNBP_Core發送呢個IframePlayer播放依家發現運行裝置不支援個頻道嘅訊號格式
+ * */
+var onIframePlayerDeviceNotSupportFormat = function(){
+   callHKNBPCoreFunction("onDeviceNotSupportFormat", "", function(){});
+};
+
+/**
+ * 當播放器無法接收頻道訊號時(可能: 頻道源無效,頻道源伺服器瓜左)
+ * 需要設定call呢個function()
+ * 向HKNBP_Core發送呢個IframePlayer播放依家嘅頻道源無效
+ * */
+var onIframePlayerCannotReceiveChannelSignal = function(){
+   callHKNBPCoreFunction("onCannotReceiveChannelSignal", "", function(){});
+};
 
 /**
  * 獲取URL參數值
